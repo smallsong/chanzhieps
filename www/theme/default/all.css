@@ -170,11 +170,11 @@ li.sfHover > a > .sf-sub-indicator {
 .filetree li.expandable span.folder { background: url(images/treeview/folder-closed.gif) 0 0 no-repeat; }
 .filetree span.file { background: url(images/treeview/file.gif) 0 0 no-repeat; }
 /**
-* The css file of XiRangBPS.
+* The css file of XiRangEPS.
 *
 * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
 * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
-* @package     XiRangBPS
+* @package     XiRangEPS
 * @version     $Id$
 * @link        http://www.xirang.biz
 */

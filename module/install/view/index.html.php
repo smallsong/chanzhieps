@@ -1,11 +1,11 @@
 <?php
 /**
- * The html template file of index method of install module of XiRangBPS.
+ * The html template file of index method of install module of XiRangEPS.
  *
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     XiRangBPS
+ * @package     XiRangEPS
  * @version     $Id: index.html.php 867 2010-06-17 09:32:58Z wwccss $
  */
 ?>

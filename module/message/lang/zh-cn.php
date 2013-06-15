@@ -1,6 +1,6 @@
 <?php
 /**
- * The message module zh-cn file of XiRangBPS.
+ * The message module zh-cn file of XiRangEPS.
  *
  * @copyright   Copyright 2009-2011 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Yidong Wang <yidong@cnezsoft.com>

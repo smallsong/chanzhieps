@@ -1,6 +1,6 @@
 <?php
 /**
- * The site module zh-cn file of XiRangBPS.
+ * The site module zh-cn file of XiRangEPS.
  *
  * @copyright   Copyright 2010 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>

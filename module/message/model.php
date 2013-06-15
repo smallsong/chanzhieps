@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of message module of XiRangBPS.
+ * The model file of message module of XiRangEPS.
  *
  * @copyright   Copyright 2009-2011 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Yidong Wang <yidong@cnezsoft.com>

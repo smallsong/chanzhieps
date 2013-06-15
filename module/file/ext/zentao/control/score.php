@@ -1,6 +1,6 @@
 <?php
 /**
- * The score method of file module of XiRangBPS.
+ * The score method of file module of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>

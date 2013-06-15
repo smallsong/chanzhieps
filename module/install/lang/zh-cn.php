@@ -1,6 +1,6 @@
 <?php
 /**
- * The zh-cn language file of install module of XiRangBPS.
+ * The zh-cn language file of install module of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -21,10 +21,10 @@ $lang->install->welcome          = '欢迎使用息壤企业建站系统！';
 $lang->install->desc             = <<<EOT
 息壤企业建站系统是一款面向企业用户的建站系统。
 
-息壤企业建站系统使用PHP + MySQL开发，基于自主的PHP开发框架──XiRangBPS而成。第三方开发者或者企业可以非常方便的开发插件或者进行定制。
+息壤企业建站系统使用PHP + MySQL开发。
 
-息壤企业建站系统由<strong class='red'><a href='http://www.xirang.biz' target='_blank'>青岛息壤网络信息有限公司开发</a></strong>。
-息壤企业建站系统的官方支持网站：<a href='http://bps.xirangit.com' target='_blank'>http://bps.xirangit.com</a>
+息壤企业建站系统由<strong class='red'><a href='http://www.xirangit.biz' target='_blank'>青岛息壤网络信息有限公司开发</a></strong>。
+息壤企业建站系统的官方支持网站：<a href='http://www.xirangit.com' target='_blank'>http://www.xirang.biz</a>
 您现在正在安装的版本是 <strong class='red'>%s</strong>。
 EOT;
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * The html template file of download method of file module of XiRangBPS.
+ * The html template file of download method of file module of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     XiRangBPS
+ * @package     XiRangEPS
  * @version     $Id$
  */
 include '../../../../common/view/header.lite.html.php';

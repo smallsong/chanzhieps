@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of install module of XiRangBPS.
+ * The model file of install module of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -280,7 +280,7 @@ class installModel extends model
      */
     public function createTable($version)
     {
-        $dbFile = $this->app->getAppRoot() . 'db' . $this->app->getPathFix() . 'xirangbps.sql';
+        $dbFile = $this->app->getAppRoot() . 'db' . $this->app->getPathFix() . 'XiRangEPS.sql';
         $tables = explode(';', file_get_contents($dbFile));
         foreach($tables as $table)
         {

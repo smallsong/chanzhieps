@@ -1614,7 +1614,7 @@ class config
 /**
  * The lang class.
  * 
- * @package XiRangBPS
+ * @package XiRangEPS
  */
 class language 
 {
@@ -1654,7 +1654,7 @@ class language
 /**
  * The super object class.
  * 
- * @package XiRangBPS
+ * @package XiRangEPS
  */
 class super
 {

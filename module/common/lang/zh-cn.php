@@ -1,10 +1,10 @@
 <?php
 /**
- * The common simplified chinese file of XiRangBPS.
+ * The common simplified chinese file of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirangit.com)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     XiRangBPS
+ * @package     XiRangEPS
  * @version     $Id$
  * @link        http://www.zentao.net
  */
@@ -13,7 +13,7 @@ $lang->colon        = '::';
 $lang->at           = ' 于 ';
 $lang->downArrow    = '↓';
 
-$lang->zentaoCMS    = 'XiRangBPS';
+$lang->zentaoCMS    = 'XiRangEPS';
 $lang->eayssoft     = '青岛易软天创网络科技有限公司';
 $lang->homePage     = '首页';
 $lang->aboutus      = '关于我们';

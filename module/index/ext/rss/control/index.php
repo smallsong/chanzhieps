@@ -1,6 +1,6 @@
 <?php
 /**
- * The index file of index/opt/rss module of XiRangBPS.
+ * The index file of index/opt/rss module of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Congzhi Chen <congzhi@cnezsoft.com>

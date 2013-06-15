@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of site module of XiRangBPS.
+ * The control file of site module of XiRangEPS.
  *
  * @copyright   Copyright 2012-2013 QingDao Nature Easy Soft Network Technology Co,LTD ?www.cnezsoft.com)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>

@@ -725,7 +725,7 @@ SCRIPT;
 /**
  * css class.
  *
- * @package XiRangBPS
+ * @package XiRangEPS
  */
 class css
 {
