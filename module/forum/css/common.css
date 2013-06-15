@@ -1,0 +1,9 @@
+.caption-bold {background:#0055ee; border:1px solid #0085cc; border-bottom:none; color:white; padding-top:4px;}
+#forum table{border:1px solid #cececc; border-top:none;}
+#forum th, #forum td {border:none}
+.common-board {background:url(/theme/default/images/forum/forum-icons.png) 0px   -2px; display:block; width:22px; height:25px}
+.new-board    {background:url(/theme/default/images/forum/forum-icons.png) -24px -2px; display:block; width:22px; height:25px}
+.sticky-thread{background:url(/theme/default/images/forum/forum-icons.png) -48px -2px; display:block; width:22px; height:25px}
+.post-thread input{background:url(/theme/default/images/forum/forum-icons.png) -71px -0px; width:71px; height:26px; border:none; cursor:pointer}
+.en-post-thread input{background:url(/theme/default/images/forum/forum-icons.png) -160px -0px; width:71px; height:26px; border:none; cursor:pointer}
+.caption-bold .post-thread {position:relative; bottom:5px}

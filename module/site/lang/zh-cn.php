@@ -1,0 +1,41 @@
+<?php
+/**
+ * The site module zh-cn file of XiRangBPS.
+ *
+ * @copyright   Copyright 2010 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @package     site
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+$lang->site->create   = "新增网站";
+$lang->site->edit     = "编辑网站";
+$lang->site->set      = "配置网站";
+$lang->site->delete   = "删除网站";
+
+$lang->site->id           = '编号';
+$lang->site->name         = '网站名称';
+$lang->site->code         = '网站英文代号';
+$lang->site->domain       = '网站域名';
+$lang->site->logo         = 'Logo';
+$lang->site->keywords     = '关键词';
+$lang->site->slogan       = '站点口号';
+$lang->site->mission      = '站点使命';
+$lang->site->admins       = '管理员';
+$lang->site->type         = '站点类型';
+$lang->site->theme        = '模板类型';
+$lang->site->linkSites    = '相关站点';
+$lang->site->indexModules = '首页显示分类列表';
+$lang->site->menus        = '菜单';
+
+$lang->site->confirmDelete = "您确定删除该网站吗？";
+$lang->site->successSaved  = "成功保存";
+$lang->site->addModule     = '添加';
+$lang->site->deleteModule  = '删除';
+$lang->site->upModule      = '提高';
+$lang->site->downModule    = '降低';
+
+$lang->site->types['portal'] = '门户';
+$lang->site->types['blog']   = '博客';
+
+$lang->site->themes['default'] = '默认风格';

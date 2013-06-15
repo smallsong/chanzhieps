@@ -1,0 +1,13 @@
+/**
+* The admin css file of XiRangBPS.
+*
+* @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+* @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+* @package     XiRangBPS
+* @version     $Id: style.css 1454 2009-10-23 01:45:26Z wwccss $
+* @link        http://www.xirang.biz
+ */
+body {padding-top: 50px; padding-bottom: 40px;}
+.navbar .brand{padding:5px 20px;}
+.brand img{height:30px;}
+.navbar-container{width:1170px;margin:0 auto;}

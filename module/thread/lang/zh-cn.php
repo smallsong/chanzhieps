@@ -1,0 +1,44 @@
+<?php
+/**
+ * The thread module zh-cn file of XiRangBPS.
+ *
+ * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @package     thread
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+$lang->thread->common    = '主题';
+
+$lang->thread->title      = '标题';
+$lang->thread->author     = '作者';
+$lang->thread->content    = '内容 ';
+$lang->thread->file       = '附件 ';
+$lang->thread->postedDate = '发表于';
+$lang->thread->replies    = '回帖';
+$lang->thread->views      = '阅读';
+$lang->thread->lastReply  = '最后回帖';
+$lang->thread->stick      = '置顶';
+
+$lang->thread->sticks[0] = '不置顶';
+$lang->thread->sticks[1] = '版块置顶';
+$lang->thread->sticks[2] = '全局置顶';
+
+$lang->thread->editReply  = '编辑回复';
+$lang->thread->editThread = '编辑主题';
+
+$lang->thread->confirmDeleteThread = "您确定删除该主题吗？";
+$lang->thread->confirmHideReply    = "您确定隐藏回帖吗？";
+$lang->thread->confirmHideThread   = "您确定隐藏该主题吗？";
+$lang->thread->confirmDeleteReply  = "您确定删除该回帖吗？";
+$lang->thread->confirmDeleteFile   = "您确定删除该附件吗？";
+
+$lang->thread->lblUser   = '<strong>%s</strong><br />访问次数：%s<br />注册日期：%s<br />上次访问：%s<br />当前积分：%s';
+$lang->thread->lblEdited = '<i>%s 最后编辑, %s</i> ';
+$lang->thread->message   = '%s在论坛#%s回复了主题：%s，内容为：%s';
+
+$lang->reply->common    = '回复 ';
+$lang->reply->content   = '内容 ';
+$lang->reply->author    = '作者';
+$lang->reply->addedDate = '回复时间 ';
+$lang->reply->toAsk     = '该帖子已经转为问题，<a href="/ask-view-%s">查看问题</a>';

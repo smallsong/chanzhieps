@@ -1,0 +1,12 @@
+#search-results li a{font-size:14px; color:#1122cc; text-decoration:underline;}
+#search-results p{font-size:13px}
+#search-results ol{margin-left:0px;}
+#search-results li{list-style:none; margin-bottom:20px}
+#search-results #pager{height:30px;}
+.u-24-19 {width:75%;}
+.u-24-5  {width:20%; margin:0px 12px 12px;}
+.u-24-5  a{text-decoration:underline;line-height:20px;}
+#keywords {font-size:14px; margin-bottom:5px;}
+#keywords span{color:#dd4b39}
+#hotWords {font-size:14px; margin-top:20px}
+#url {color:#009933; padding-bottom:2px}
