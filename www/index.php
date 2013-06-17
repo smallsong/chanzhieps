@@ -8,9 +8,14 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
+/* Turn off error reporting first. */
 error_reporting(E_ALL);
+
 /* Start output buffer. */
 ob_start();
+
+/* Define the run mode as front. */
+define('RUN_MODE', 'front');
 
 /* Load the framework. using the absolute path, thus it can work anywhere even symlink to other directory. */
 $frameworkRoot = dirname(dirname(__FILE__)) . '/framework/';
@@ -19,12 +24,17 @@ include $frameworkRoot . 'control.class.php';
 include $frameworkRoot . 'model.class.php';
 include $frameworkRoot . 'helper.class.php';
 
-/* Log the time and define the run mode. */
+/* Log the time. */
 $startTime = getTime();
-define('RUN_MODE', 'front');
 
 /* Instance the app and run it. */
-$app    = router::createApp('pms', dirname(dirname(__FILE__)));
+$app = router::createApp('pms', dirname(dirname(__FILE__)));
+
+/* Check the reqeust is getconfig or not. Check installed or not. */
+if(isset($_GET['mode']) and $_GET['mode'] == 'getconfig') die($app->exportConfig());
+if(!isset($config->installed) or !$config->installed) die(header('location: install.php'));
+
+/* Connect to db, load module. */
 $dbh    = $app->connectDB();
 $common = $app->loadCommon();
 $app->parseRequest();
@@ -32,4 +42,4 @@ $common->checkPriv();
 $app->loadModule();
 
 /* Flush the buffer. */
-ob_end_flush();
+echo removeUTF8Bom(ob_get_clean());
