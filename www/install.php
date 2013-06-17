@@ -8,7 +8,10 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-//error_reporting(0);
+/* Turn off error reporting first. */
+error_reporting(0);
+
+/* Define the run mode as install. */
 define('RUN_MODE', 'install');
 
 /* Load the framework. */
