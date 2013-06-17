@@ -12,6 +12,7 @@
 $config->version     = '1.0';             // The version number, don't change.
 $config->encoding    = 'UTF-8';           // The encoding.
 $config->cookiePath  = '/';               // The path of cookies.
+$config->webRoot     = '';                // The web root.
 $config->cookieLife  = time() + 2592000;  // The lifetime of cookies.
 $config->timezone    = 'Asia/Shanghai';   // Time zone setting, more plese visit http://www.php.net/manual/en/timezones.php
 
@@ -21,6 +22,7 @@ $config->requestFix  = '-';               // RequestType=PATH_INFO: the divider 
 $config->moduleVar   = 'm';               // RequestType=GET: the name of the module var.
 $config->methodVar   = 'f';               // RequestType=GET: the name of the method var.
 $config->viewVar     = 't';               // RequestType=GET: the name of the view var.
+$config->sessionVar  = RUN_MODE . 'sid';  // The session var name.
 
 /* Views and themes. */
 $config->views       = ',html,json,xml,'; // Supported view types.
