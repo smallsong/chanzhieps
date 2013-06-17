@@ -367,8 +367,7 @@ class router
      */
     public function startSession()
     {
-        $sessionName = RUN_MODE == 'front' ? 'fid' : 'aid';
-        session_name($sessionName);
+        session_name($this->config->sessionVar);
         session_start();
 	}
 
