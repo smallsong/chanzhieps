@@ -640,7 +640,6 @@ EOT;
         $jsConfig->webRoot        = $config->webRoot;
         $jsConfig->cookieLife     = ceil(($config->cookieLife - time()) / 86400);
         $jsConfig->requestType    = $config->requestType;
-        $jsConfig->pathType       = $config->pathType;
         $jsConfig->requestFix     = $config->requestFix;
         $jsConfig->moduleVar      = $config->moduleVar;
         $jsConfig->methodVar      = $config->methodVar;
