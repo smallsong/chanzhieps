@@ -1,7 +1,8 @@
 <footer>
   <div class="container">
-  <p class="muted credit"><?php printf($lang->poweredBy, $config->version);?></p>
+  <p class="muted credit a-right"><?php printf($lang->poweredBy, $config->version);?></p>
   </div>
 </footer>
+<?php if(isset($pageJS)) js::excute($pageJS);?>
 </body>
 </html>

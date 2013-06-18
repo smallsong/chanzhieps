@@ -13,7 +13,7 @@ $lang->colon        = '::';
 $lang->at           = ' 于 ';
 $lang->downArrow    = '↓';
 
-$lang->xirangEPS    = 'XiRangEPS';
+$lang->xirangEPS    = 'xirangEPS';
 $lang->homePage     = '首页';
 $lang->aboutus      = '关于我们';
 $lang->hr           = '招聘';

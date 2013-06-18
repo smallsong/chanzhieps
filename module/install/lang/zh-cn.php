@@ -17,15 +17,17 @@ $lang->install->error   = '错误 ';
 $lang->install->start            = '开始安装';
 $lang->install->keepInstalling   = '继续安装当前版本';
 $lang->install->seeLatestRelease = '看看最新的版本';
-$lang->install->welcome          = '欢迎使用息壤企业建站系统！';
+$lang->install->welcome          = '您睿智地选择了息壤企业门户系统!';
 $lang->install->desc             = <<<EOT
-息壤企业建站系统是一款面向企业用户的建站系统。
-
-息壤企业建站系统使用PHP + MySQL开发。
-
-息壤企业建站系统由<strong class='red'><a href='http://www.xirangit.biz' target='_blank'>青岛息壤网络信息有限公司开发</a></strong>。
-息壤企业建站系统的官方支持网站：<a href='http://www.xirangit.com' target='_blank'>http://www.xirang.biz</a>
-您现在正在安装的版本是 <strong class='red'>%s</strong>。
+<p>使用息壤，您可以：</p>
+<blockquote>
+  <ul>
+    <li><strong>品牌宣传</strong>：建立品牌网站，展示企业形象。</li>
+    <li><strong>营销推广</strong>：SEO, 邮件、短信、微博、微信...</li>
+    <li><strong>电子商务</strong>：展示产品，在线销售。</li>
+    <li><strong>客户关怀</strong>：售后支持，维系客户。</li>
+  </ul>
+</blockquote>
 EOT;
 
 $lang->install->choice     = '您可以选择：';

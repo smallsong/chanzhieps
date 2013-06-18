@@ -10,7 +10,7 @@ $defaultTheme    = $webRoot . 'theme/default/';
 <head>
   <meta charset='utf-8' />
   <?php
-  echo html::title($header->title);
+  echo html::title($title);
   js::exportConfigVars();
   js::import($jsRoot . 'jquery/lib.js');
   js::import($jsRoot . 'bootstrap/bootstrap.min.js');

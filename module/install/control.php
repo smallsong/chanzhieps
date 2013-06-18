@@ -31,8 +31,8 @@ class install extends control
     public function index()
     {
         if(!isset($this->config->installed) or !$this->config->installed) $this->session->set('installing', true);
-        $this->view->header = new stdclass();
-        $this->view->header->title = $this->lang->install->welcome;
+
+        $this->view->title = $this->lang->install->welcome;
         $this->display();
     }
 
@@ -44,8 +44,7 @@ class install extends control
      */
     public function step1()
     {
-        $this->view->header = new stdclass();
-        $this->view->header->title  = $this->lang->install->checking;
+        $this->view->title  = $this->lang->install->checking;
         $this->view->phpVersion     = $this->install->getPhpVersion();
         $this->view->phpResult      = $this->install->checkPHP();
         $this->view->pdoResult      = $this->install->checkPDO();
