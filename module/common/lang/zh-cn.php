@@ -13,7 +13,7 @@ $lang->colon        = '::';
 $lang->at           = ' 于 ';
 $lang->downArrow    = '↓';
 
-$lang->zentaoCMS    = 'XiRangEPS';
+$lang->xirangEPS    = 'XiRangEPS';
 $lang->eayssoft     = '青岛易软天创网络科技有限公司';
 $lang->homePage     = '首页';
 $lang->aboutus      = '关于我们';

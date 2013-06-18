@@ -13,7 +13,7 @@ $lang->colon        = '::';
 $lang->at           = ' at ';
 $lang->downArrow    = '↓';
 
-$lang->zentaoCMS    = 'XiRangEPS';
+$lang->xirangEPS    = 'XiRangEPS';
 $lang->eayssoft     = 'QingDao Nature Easy Soft Network Technology Co,LTD';
 $lang->homePage     = 'Home';
 $lang->aboutus      = 'About us';

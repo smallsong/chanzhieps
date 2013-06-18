@@ -11,7 +11,7 @@ $siteTheme    = $themeRoot . $this->app->site->theme . '/';
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
   <?php
   $header = isset($header) ? (object)$header : new stdclass();
-  if(!isset($header->title))    $header->title    = $lang->zentaoCMS;
+  if(!isset($header->title))    $header->title    = $lang->xirangEPS;
   if(!isset($header->keywords)) $header->keywords = $app->site->keywords;
   if(!isset($header->desc))     $header->desc     = $app->site->mission;
   echo html::title($header->title . '-' . $app->site->name);
