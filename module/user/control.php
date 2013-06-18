@@ -41,7 +41,6 @@ class user extends control
             }
             die(js::locate($this->createLink('index', 'index'), 'parent'));
         }
-
         /* Set the referer. */
         if(!isset($_SERVER['HTTP_REFERER']) or 
             strpos($_SERVER['HTTP_REFERER'], $this->app->site->domain) == false or 
@@ -76,7 +75,8 @@ class user extends control
         /* If the user logon already, goto the pre page. */
         if($this->user->isLogon())
         {
-            if(strpos($this->referer, $loginLink) === false and 
+            if($this->refere !='' and
+               strpos($this->referer, $loginLink) === false and 
                strpos($this->referer, $denyLink)  === false and 
                strpos($this->referer, $regLink)   === false
             )

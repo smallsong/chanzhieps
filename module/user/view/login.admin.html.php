@@ -53,5 +53,9 @@ $defaultTheme    = $webRoot . 'theme/default/';
         <?php echo html::submitButton($lang->user->login->common, 'class="btn-large"');?>
     </form>
   </div>
+<script laguage='Javascript'>
+<?php if(isset($pageJS)) echo $pageJS;?>
+</script>
+
 </body>
 </html>

@@ -8,13 +8,13 @@ $(function()
 
 successFun = function(data)
 {
-     if(data.status = 1)
+     if(data.status == 0)
      {
-          alert(data.message);
+         alert(data.message);
      }
      else
      {
-          location.href = data.locateTo;
+         location.href = data.locateTo;
      }
 }
 
