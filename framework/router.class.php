@@ -296,8 +296,6 @@ class router
      */
     protected function __construct($appName = 'demo', $appRoot = '')
     {
-        $this->startSession();
-
         $this->setPathFix();
         $this->setBasePath();
         $this->setFrameRoot();
@@ -358,18 +356,6 @@ class router
     }
 
     //-------------------- path related methods --------------------//
-
-    /**
-     * Start the session.
-     * 
-     * @access public
-     * @return void
-     */
-    public function startSession()
-    {
-        session_name($this->config->sessionVar);
-        session_start();
-	}
 
 	/**
      * Set the encoding of mb_string extension.
