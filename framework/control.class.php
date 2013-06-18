@@ -445,7 +445,7 @@ class control
         /* Get css and js. */
         $css = $this->getCSS($moduleName, $methodName);
         $js  = $this->getJS($moduleName, $methodName);
-        if($css) $this->view->pageCss = $css;
+        if($css) $this->view->pageCSS = $css;
         if($js)  $this->view->pageJS  = $js;
 
         /* Change the dir to the view file to keep the relative pathes work. */

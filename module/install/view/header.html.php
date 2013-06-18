@@ -17,6 +17,8 @@ $defaultTheme    = $webRoot . 'theme/default/';
 
   css::import($defaultTheme . 'bootstrap.min.css');
   css::import($defaultTheme . 'style.css');
+
+  if(isset($pageCSS)) css::internal($pageCSS);
   ?>
 </head>
 <body style="margin-top:50px;">

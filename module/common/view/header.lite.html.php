@@ -34,7 +34,7 @@ $siteTheme    = $themeRoot . $this->app->site->theme . '/';
       js::import($jsRoot . 'all.js', $config->version);
   }
 
-  if(isset($pageCss)) css::internal($pageCss);
+  if(isset($pageCSS)) css::internal($pageCSS);
   if(RUN_MODE == 'front')
   {
       if(strpos($siteTheme, 'default') === false) css::import($siteTheme . 'style.css', $config->version);
