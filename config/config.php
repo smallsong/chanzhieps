@@ -57,7 +57,7 @@ $config->db->prefix     = 'xr_';               // The prefix of the table name.
 /* Include my.php, domain.php and front or admin.php. */
 $configRoot   = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 $myConfig     = $configRoot . 'my.php';
-$domainConfig = $configRoot 'domain.php'
+$domainConfig = $configRoot . 'domain.php';
 $modeConfig   = $configRoot . RUN_MODE . '.php';
 
 if(file_exists($myConfig))     include $myConfig;
