@@ -1021,12 +1021,13 @@ class router
     public function loadCommon()
     {
         $this->setModuleName('common');
-        if($this->setControlFile($exitIfNone = false))
+        $commonModelFile = helper::setModelFile('common');
+        if(file_exists($commonModelFile))
         {
-            include $this->controlFile;
-            if(class_exists('common'))
+            helper::import($commonModelFile);
+            if(class_exists('commonModel'))
             {
-                return new common();
+                return new commonModel();
             }    
             else
             {

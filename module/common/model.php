@@ -11,6 +11,155 @@
 class commonModel extends model
 {
     /**
+     * Do some init functions.
+     * 
+     * @access public
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setUser();
+        $this->loadModel('site')->setSite();
+    }
+
+    /**
+     * Check the priviledge.
+     * 
+     * @access public
+     * @return void
+     */
+    public function checkPriv()
+    {
+        if(RUN_MODE == 'front') $this->common->checkFront();
+        if(RUN_MODE == 'admin') $this->common->checkAdmin();
+    }
+
+   /**
+     * Print the run info.
+     * 
+     * @param mixed $startTime  the start time.
+     * @access public
+     * @return void
+     */
+    public function printRunInfo($startTime)
+    {
+        vprintf($this->lang->runInfo, $this->common->getRunInfo($startTime));
+    }
+
+    /**
+     * Print the top bar.
+     * 
+     * @access public
+     * @return void
+     */
+    public static function printTopBar()
+    {
+        global $app, $dao;
+        $divider = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+        if($app->config->features->user)
+        {
+            if($app->session->user->account != 'guest')
+            {
+                printf($app->lang->welcome, $app->session->user->account);
+                $messages = $dao->select('COUNT(*) as count')->from(TABLE_MESSAGE)->where('`to`')->eq($app->session->user->account)->andWhere('readed')->eq(0)->fetch('count', false);
+                if($messages) echo html::a(helper::createLink('user', 'message'), sprintf($app->lang->messages, $messages));
+                echo html::a(helper::createLink('user', 'control'), $app->lang->dashboard);
+                echo $divider;
+                echo html::a(helper::createLink('user', 'logout'),  $app->lang->logout);
+                echo $divider;
+            }    
+            else
+            {
+                echo html::a(helper::createLink('user', 'login'),    $app->lang->login);
+                echo $divider;
+                echo html::a(helper::createLink('user', 'register'), $app->lang->register);
+            }    
+        }
+    }
+
+    /**
+     * Print the nav bar.
+     * 
+     * @static
+     * @access public
+     * @return void
+     */
+    public static function printNavBar()
+    {
+        global $app;
+        echo "<ul class='u-1 nav'>";
+        echo '<li>' . html::a($app->config->webRoot, $app->lang->homePage) . '</li>';
+        foreach($app->site->menuLinks as $menu) echo "<li>$menu</li>";
+        echo '</ul>';
+    }
+
+    /**
+     * Print position bar 
+     *
+     * @param   object $module 
+     * @param   object $object 
+     * @param   mixed  $misc    other params. 
+     * @access  public
+     * @return  void
+     */
+    public function printPositionBar($module = '', $object = '', $misc = '')
+    {
+        echo '<div class="row"><div class="u-1">';
+        echo $this->lang->currentPos;
+        echo html::a($this->config->webRoot, $this->app->site->name);
+        $funcName = 'print' . $this->app->getModuleName();
+        echo $this->common->$funcName($module, $object, $misc);
+        echo '</div></div>';
+    }
+
+    /**
+     * Print the link contains orderBy field.
+     *
+     * This method will auto set the orderby param according the params. Fox example, if the order by is desc,
+     * will be changed to asc.
+     *
+     * @param  string $fieldName    the field name to sort by
+     * @param  string $orderBy      the order by string
+     * @param  string $vars         the vars to be passed
+     * @param  string $label        the label of the link
+     * @param  string $module       the module name
+     * @param  string $method       the method name
+     * @static
+     * @access public
+     * @return void
+     */
+    public static function printOrderLink($fieldName, $orderBy, $vars, $label, $module = '', $method = '')
+    {
+        global $lang, $app;
+        if(empty($module)) $module= $app->getModuleName();
+        if(empty($method)) $method= $app->getMethodName();
+        $className = 'header';
+
+        if(strpos($orderBy, $fieldName) !== false)
+        {
+            if(stripos($orderBy, 'desc') !== false)
+            {
+                $orderBy   = str_ireplace('desc', 'asc', $orderBy);
+                $className = 'headerSortUp';
+            }
+            elseif(stripos($orderBy, 'asc')  !== false)
+            {
+                $orderBy = str_ireplace('asc', 'desc', $orderBy);
+                $className = 'headerSortDown';
+            }
+        }
+        else
+        {
+            $orderBy   = $fieldName . '_' . 'asc';
+            $className = 'header';
+        }
+
+        $link = helper::createLink($module, $method, sprintf($vars, $orderBy));
+        echo "<div class='$className'>" . html::a($link, $label) . '</div>';
+    }
+
+    /**
      * Set the user info.
      * 
      * @access public
