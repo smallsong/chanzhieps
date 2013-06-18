@@ -418,6 +418,7 @@ function jsonReturn($status, $message, $data = array(), $locateTo = "")
     $outPut['data'] = $data;
     $outPut['locateTo'] = $locateTo;
     ob_clean();
+    header("Content-Type:application/json;charset=utf-8");
     echo json_encode($outPut);
     exit;
 }
