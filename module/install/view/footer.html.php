@@ -1,6 +1,6 @@
 <footer>
   <div class="container">
-    <p class="muted credit">Powered By <a href="http://www.xirang.biz">XiRangBPS</a></p>
+  <p class="muted credit"><?php printf($lang->poweredBy, $config->version);?></p>
   </div>
 </footer>
 </body>

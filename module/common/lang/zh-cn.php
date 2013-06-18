@@ -14,12 +14,11 @@ $lang->at           = ' 于 ';
 $lang->downArrow    = '↓';
 
 $lang->xirangEPS    = 'XiRangEPS';
-$lang->eayssoft     = '青岛易软天创网络科技有限公司';
 $lang->homePage     = '首页';
 $lang->aboutus      = '关于我们';
 $lang->hr           = '招聘';
-$lang->forumPage    = '论坛';
 $lang->currentPos   = '当前位置：';
+$lang->poweredBy    = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
 $lang->articleTree     = '分类浏览';
 $lang->articleFull     = '阅读正文 ';
@@ -59,21 +58,14 @@ $lang->selectAll    = '全选';
 $lang->notFound     = '抱歉，您访问的对象并不存在！';
 $lang->messages     = '未读消息(%s)';
 
-$lang->runInfo      = "<div class='row'><div class='u-1 a-center' id='runinfo'>时间: %s 毫秒, 内存: %s KB, 查询: %s.  </div></div>";
-
 /* The labels show in the positon bar. */
 $lang->position['article'] = '文章';
 $lang->position['forum']   = '论坛';
 $lang->position['thread']  = '论坛';
 $lang->position['user']    = '用户';
-$lang->position['search']  = '搜索';
-
-/* The optional features. */
-$lang->features['user']  = '用户功能';
 
 /* The error messages. */
 $lang->error = new stdclass();
-$lang->error->companyNotFound = "您访问的域名 %s 没有对应的公司。";
 $lang->error->length          = array("『%s』长度错误，应当为『%s』", "『%s』长度应当不超过『%s』，且不小于『%s』。");
 $lang->error->reg             = "『%s』不符合格式，应当为:『%s』。";
 $lang->error->unique          = "『%s』已经有『%s』这条记录了。";
@@ -99,9 +91,6 @@ $lang->pager->locate    = "GO!";
 
 $lang->js->failed = '失败';
 $lang->js->noResponse = '请求无响应';
-
-$lang->icp = "浙ICP备12017616号";
-$lang->rmb = '元';
 
 $lang->kindeditor = new stdclass();
 $lang->kindeditor->code = '插入代码';
