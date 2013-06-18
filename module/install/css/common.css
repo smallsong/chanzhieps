@@ -1,1 +1,4 @@
 .credit{font-size:12px}
+
+.table-bordered{border-radius:0;}
+caption{border-radius:0; border-bottom:none}

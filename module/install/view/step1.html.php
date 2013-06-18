@@ -10,7 +10,7 @@
 ?>
 <?php include './header.html.php';?>
 <div class="container">
-  <table  class='table table-bordered' >
+  <table class='table table-bordered'>
     <caption><?php echo $lang->install->checking;?></caption>
     <tr>
       <th class='w-p20'><?php echo $lang->install->checkItem;?></th>
@@ -78,7 +78,7 @@
       }
       else
       {
-          echo html::a($this->createLink('install', 'step1'), $lang->install->reload);
+          echo html::a($this->createLink('install', 'step1'), $lang->install->reload, '', 'class="btn btn-primary"');
           if($pdoResult == 'fail' or $pdoMySQLResult == 'fail')
           {
               echo '<p class="f-12px a-left">' . '<strong>' . $lang->install->phpINI . '</strong><br />' . nl2br($this->install->getIniInfo()) . '</p>';
