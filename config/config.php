@@ -54,22 +54,15 @@ $config->db->encoding   = 'UTF8';              // The encoding of the database.
 $config->db->strictMode = false;               // Turn off the strict mode.
 $config->db->prefix     = 'xr_';               // The prefix of the table name.
 
-/* Domain postfix lists, used by setSiteCode() function in router.class.php. */
-$config->domainPostfix  = "|asia|biz|cc|cd|cm|cn|co|co.jp|co.kr|co.uk|";
-$config->domainPostfix .= "|com|com.cn|com.hk|com.tw|com.vc|edu.cn|es|";
-$config->domainPostfix .= "|eu|fm|gov.cn|gs|hk|im|in|info|jp|kr|la|me|";
-$config->domainPostfix .= "|mobi|my|name|net|net.cn|org|org.cn|pk|pro|";
-$config->domainPostfix .= "|sg|so|tel|tk|to|travel|tv|tw|uk|us|ws|";
-$config->domainPostfix .= "|ac.cn|bj.cn|sh.cn|tj.cn|cq.cn|he.cn|sn.cn|";
-$config->domainPostfix .= "|sx.cn|nm.cn|ln.cn|jl.cn|hl.cn|js.cn|zj.cn|";
-$config->domainPostfix .= "|ah.cn|fj.cn|jx.cn|sd.cn|ha.cn|hb.cn|hn.cn|";
-$config->domainPostfix .= "|gd.cn|gx.cn|hi.cn|sc.cn|gz.cn|yn.cn|gs.cn|";
-$config->domainPostfix .= "|qh.cn|nx.cn|xj.cn|tw.cn|hk.cn|mo.cn|xz.cn|";
+/* Include my.php, domain.php and front or admin.php. */
+$configRoot   = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+$myConfig     = $configRoot . 'my.php';
+$domainConfig = $configRoot 'domain.php'
+$modeConfig   = $configRoot . RUN_MODE . '.php';
 
-/* Include the custom config file. */
-$configRoot = dirname(__FILE__) . DIRECTORY_SEPARATOR;
-$myConfig   = $configRoot . 'my.php';
-if(file_exists($myConfig)) include $myConfig;
+if(file_exists($myConfig))     include $myConfig;
+if(file_exists($domainConfig)) include $domainConfig;
+if(file_exists($modeConfig))   include $modeConfig;
 
 /* The tables. */
 define('TABLE_SITE',    $config->db->prefix . 'site');
