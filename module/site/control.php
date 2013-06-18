@@ -2,7 +2,7 @@
 /**
  * The control file of site module of XiRangEPS.
  *
- * @copyright   Copyright 2012-2013 QingDao Nature Easy Soft Network Technology Co,LTD ?www.cnezsoft.com)
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     site
  * @version     $Id$

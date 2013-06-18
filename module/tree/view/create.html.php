@@ -2,7 +2,7 @@
 /**
  * The create view of product module of XiRangEPS.
  *
- * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     product
  * @version     $Id: create.html.php 824 2010-05-02 15:32:06Z wwccss $

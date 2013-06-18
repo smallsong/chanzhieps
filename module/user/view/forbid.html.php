@@ -2,7 +2,7 @@
 /**
  * The manageanswers view file of article module of XiRangEPS.
  *
- * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Yangyang Shi <shiyangyangwork@yahoo.cn>
  * @package     User
  * @version     $Id$

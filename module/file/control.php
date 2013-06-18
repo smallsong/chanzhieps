@@ -2,7 +2,7 @@
 /**
  * The control file of file module of XiRangEPS.
  *
- * @copyright   Copyright 2012-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     file
  * @version     $Id: control.php 1042 2010-08-19 09:02:39Z yuren_@126.com $
