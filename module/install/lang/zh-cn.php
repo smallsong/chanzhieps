@@ -59,7 +59,6 @@ $lang->install->mkdir        = '<p>需要创建目录%s。<br /> linux下面命�
 $lang->install->chmod        = '需要修改目录 "%s" 的权限。<br />linux下面命令为：<br />chmod o=rwx -R %s';
 
 $lang->install->settingDB    = '设置数据库';
-$lang->install->webRoot      = 'CMS所在网站目录';
 $lang->install->requestType  = 'URL方式';
 $lang->install->requestTypes['GET']       = '普通方式';
 $lang->install->requestTypes['PATH_INFO'] = '静态友好方式';
@@ -68,7 +67,7 @@ $lang->install->dbHostNote = '如果localhost无法访问，尝试使用127.0.0.
 $lang->install->dbPort     = '服务器端口';
 $lang->install->dbUser     = '数据库用户名';
 $lang->install->dbPassword = '数据库密码';
-$lang->install->dbName     = 'CMS使用的库';
+$lang->install->dbName     = '数据库名';
 $lang->install->dbPrefix   = '建表使用的前缀';
 $lang->install->createDB   = '自动创建数据库';
 $lang->install->clearDB    = '清空现有数据';
