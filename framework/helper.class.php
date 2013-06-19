@@ -403,6 +403,25 @@ function isLocalIP()
     return !filter_var($serverIP, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE);
 }
 
+/**
+ * Get web root. 
+ * 
+ * @access public
+ * @return string 
+ */
+function getWebRoot()
+{
+    $path = $_SERVER['SCRIPT_NAME'];
+    if(defined('IN_SHELL'))
+    {
+        $url  = parse_url($_SERVER['argv'][1]);
+        $path = empty($url['path']) ? '/' : rtrim($url['path'], '/');
+        $path = empty($path) ? '/' : $path;
+    }
+    return substr($path, 0, (strrpos($path, '/') + 1));
+}
+
+
 
 /**
  * return formated json data 
