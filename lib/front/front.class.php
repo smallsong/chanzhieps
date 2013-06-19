@@ -314,28 +314,21 @@ class html
      * Create submit button.
      * 
      * @param  string $label    the label of the button
+     * @param  string $class    the class of the button
      * @param  string $misc     other params
      * @static
      * @access public
      * @return string the submit button tag.
      */
-    public static function submitButton($label = '', $misc = '')
+    public static function submitButton($label = '', $class = 'btn btn-primary', $misc = '')
     {
         if(empty($label))
         {
             global $lang;
             $label = $lang->save;
         }
-        if($misc != "")
-        {
-            $misc = str_replace('class="', 'class="'.'btn btn-primary ', $misc  );
-            $misc = str_replace('class=\'', 'class=\''.'btn btn-primary ', $misc  );
-        }
-        else
-        {
-            $misc = 'class="btn btn-primary"';
-        }
-        return " <input type='submit' id='submit' data-loading-text=\"Loading...\"  value='$label' $misc /> ";
+
+        return " <input type='submit' id='submit' class='$class' value='$label' $misc /> ";
     }
 
     /**
@@ -355,16 +348,15 @@ class html
      * Create common button.
      * 
      * @param  string $label the label of the button
+     * @param  string $class the class of the button
      * @param  string $misc  other params
      * @static
      * @access public
      * @return string the common button tag.
      */
-    public static function commonButton($label = '', $misc = '')
+    public static function commonButton($label = '', $class = 'btn', $misc = '')
     {
-        $misc = str_replace('class="', 'class="'.'btn ', $misc  );
-        $misc = str_replace('class=\'', 'class=\''.'btn ', $misc  );
-        return " <input type='button' value='$label' $misc /> ";
+        return " <input type='button' value='$label' class='$class' $misc /> ";
     }
 
     /**
@@ -380,8 +372,9 @@ class html
     public static function linkButton($label = '', $link = '', $misc = '', $target = 'self')
     {
         global $config;
-        $misc = str_replace('class="', 'class="'.'btn ', $misc  );
-        $misc = str_replace('class=\'', 'class=\''.'btn ', $misc  );
+        $miscNew = str_replace('class="', 'class="'.'btn ', $misc  );
+        $miscNew = str_replace('class=\'', 'class=\''.'btn ', $miscNew  );
+        $misc = $miscNew == $misc ? $misc." class='btn' " : $miscNew;
 
         /* if page has onlybody param then add this param in all link. the param hide header and footer. */
         if(strpos($link, 'onlybody=') === false and isset($_GET['onlybody']) and $_GET['onlybody'] == 'yes')
@@ -400,16 +393,14 @@ class html
      * @access public
      * @return string
      */
-    public static function backButton($label = '', $misc = '')
+    public static function backButton($label = '', $class = "btn", $misc = '')
     {
         if($label == '')
         {
             global $lang;
             $label = $lang->goback;
         }
-        $misc = str_replace('class="', 'class="'.'btn ', $misc  );
-        $misc = str_replace('class=\'', 'class=\''.'btn ', $misc  );
-        return " <input type='button' value='$label' $misc onclick='history.back(-1);' /> ";
+        return " <input type='button' value='$label' class='$class'  $misc onclick='history.back(-1);' /> ";
     }
 }
 
