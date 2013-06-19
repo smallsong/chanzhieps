@@ -10,20 +10,12 @@
 ?>
 <?php include './header.html.php';?>
 <div class="container"> 
-<form method='post' action='<?php echo $this->createLink('install', 'step3');?>' class="form-horizontal" id="form1">
+<form method='post' action='<?php echo $this->createLink('install', 'step3');?>' class="form-horizontal form-inline" id="form1">
   <table class='table table-bordered'>
     <caption><?php echo $lang->install->setConfig;?></caption>
     <tr>
       <th class='w-p20'><?php echo $lang->install->key;?></th>
       <th><?php echo $lang->install->value?></th>
-    </tr>
-    <tr>
-      <th><?php echo $lang->install->webRoot;?></th>
-      <td><?php echo html::input('webRoot', $webRoot);?></td>
-    </tr>
-    <tr>
-      <th><?php echo $lang->install->requestType;?></th>
-      <td><?php echo html::radio('requestType', $lang->install->requestTypes, 'GET');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->install->dbHost;?></th>
@@ -43,14 +35,14 @@
     </tr>
     <tr>
       <th><?php echo $lang->install->dbName;?></th>
-      <td><?php echo html::input('dbName', 'XiRangEPS');?></td>
+      <td><?php echo html::input('dbName', 'xirang');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->install->dbPrefix;?></th>
-      <td><?php echo html::input('dbPrefix', 'x_') . html::checkBox('clearDB', $lang->install->clearDB);?></td>
+      <td><?php echo html::input('dbPrefix', 'xr_') . html::checkBox('clearDB', $lang->install->clearDB);?></td>
     </tr>
     <tr>
-      <td colspan='2' class='a-center'><?php echo html::submitButton();?></td>
+      <td colspan='2' class="a-center"><?php echo html::submitButton();?></td>
     </tr>
   </table>
 </form>

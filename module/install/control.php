@@ -65,8 +65,7 @@ class install extends control
      */
     public function step2()
     {
-        $this->view->header = new stdclass();
-        $this->view->header->title = $this->lang->install->setConfig;
+        $this->view->title = $this->lang->install->setConfig;
         $this->display();
     }
 
@@ -87,14 +86,12 @@ class install extends control
                 $this->view->lang   = $this->lang;
                 $this->view->config = $this->config;
                 $this->view->domain = $this->server->HTTP_HOST;
-                $this->view->header = new stdclass();
-                $this->view->header->title = $this->lang->install->saveConfig;
+                $this->view->title = $this->lang->install->saveConfig;
                 $this->display();
             }
             else
             {
-                $this->view->header = new stdclass();
-                $this->view->header->title = $this->lang->install->saveConfig;
+                $this->view->title = $this->lang->install->saveConfig;
                 $this->view->error = $return->error;
                 $this->display();
             }
@@ -120,8 +117,7 @@ class install extends control
             if(dao::isError()) die(js::error(dao::getError()));
             die(js::locate(inlink('step5', "admin={$this->post->account}"), 'parent'));
         }
-        $this->view->header = new stdclass();
-        $this->view->header->title = $this->lang->install->getPriv;
+        $this->view->title = $this->lang->install->getPriv;
         if(!isset($this->config->installed) or !$this->config->installed)
         {   
             $this->view->error = $this->lang->install->errorNotSaveConfig;
@@ -144,8 +140,7 @@ class install extends control
     public function step5($admin)
     {
         session_destroy();
-        $this->view->header = new stdclass();
-        $this->view->header->title = $this->lang->install->success;
+        $this->view->title = $this->lang->install->success;
         if(!$this->install->saveAdminUser()) $this->view->adminConfig = $this->install->createAdminConfig($admin);
         $this->display();
     }

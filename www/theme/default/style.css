@@ -71,7 +71,7 @@ caption a     {text-decoration:none}
 .c-left   {clear:left;}
 .c-right  {clear:right;}
 .c-both   {clear:both;}
-.a-center {text-align: center;}
+.a-center, .table td.a-center, .table th.a-center  {text-align: center;}
 .a-right  {text-align: right;}
 .a-left   {text-align: left;}
 .a-top    {vertical-align: top;}
