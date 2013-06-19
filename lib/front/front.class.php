@@ -191,12 +191,16 @@ class html
         if(!is_array($options) or empty($options)) return false;
 
         $string  = '';
+
+        $i = 1;
         foreach($options as $key => $value)
         {
-            $string .= "<input type='radio' name='$name' value='$key' ";
+            $string .= "<input type='radio' id='{$name}{$i}' name='$name' value='$key' ";
             $string .= ($key == $checked) ? " checked ='checked'" : "";
             $string .= $attrib;
-            $string .= " /> $value\n";
+            $string .= " /> <label for='{$name}{$i}'>$value</label>\n";
+            
+            $i++;
         }
         return $string;
     }
@@ -217,13 +221,16 @@ class html
         $string  = '';
         $checked = ",$checked,";
 
+        $i = 1;
         foreach($options as $key => $value)
         {
             $key     = str_replace('item', '', $key);
-            $string .= "<span><input type='checkbox' name='{$name}[]' value='$key' ";
+            $string .= "<span><input type='checkbox' id='{$name}{$i}'  name='{$name}[]' value='$key' ";
             $string .= strpos($checked, ",$key,") !== false ? " checked ='checked'" : "";
             $string .= $attrib;
-            $string .= " /> <label>$value</label></span>\n";
+            $string .= " /> <label for='{$name}{$i}'>$value</label></span>\n";
+
+            $i++;
         }
         return $string;
     }
@@ -319,8 +326,15 @@ class html
             global $lang;
             $label = $lang->save;
         }
-        $misc = str_replace('class="', 'class="'.'btn btn-primary ', $misc  );
-        $misc = str_replace('class=\'', 'class=\''.'btn btn-primary ', $misc  );
+        if($misc != "")
+        {
+            $misc = str_replace('class="', 'class="'.'btn btn-primary ', $misc  );
+            $misc = str_replace('class=\'', 'class=\''.'btn btn-primary ', $misc  );
+        }
+        else
+        {
+            $misc = 'class="btn btn-primary"';
+        }
         return " <input type='submit' id='submit' data-loading-text=\"Loading...\"  value='$label' $misc /> ";
     }
 
