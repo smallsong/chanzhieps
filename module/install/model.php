@@ -213,17 +213,13 @@ class installModel extends model
      */
     public function connectDB()
     {
-        $dsn = "mysql:host={$this->config->db->host}; port={$this->config->db->port}; dbname={$this->config->db->name}";
-        $dsn = "mysql:host={$this->config->db->host}; port={$this->config->db->port}; ";
+        $dsn = "mysql:host={$this->config->db->host}; port={$this->config->db->port};";
         try 
         {
             $dbh = new PDO($dsn, $this->config->db->user, $this->config->db->password);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->exec("SET NAMES {$this->config->db->encoding}");
-            $hasDatabase = $dbh->query("SHOW DATABASES LIKE '{$this->config->db->name}'")->fetch();
-            if(!$hasDatabase) $dbh->exec("CREATE DATABASE {$this->config->db->name} DEFAULT CHARACTER SET {$this->config->db->encoding}");
-            $dbh->exec("USE {$this->config->db->name}");
             return $dbh;
         }
         catch (PDOException $exception)
@@ -280,7 +276,7 @@ class installModel extends model
      */
     public function createTable($version)
     {
-        $dbFile = $this->app->getAppRoot() . 'db' . $this->app->getPathFix() . 'XiRangEPS.sql';
+        $dbFile = $this->app->getAppRoot() . 'db' . $this->app->getPathFix() . 'xirang.sql';
         $tables = explode(';', file_get_contents($dbFile));
         foreach($tables as $table)
         {
@@ -295,8 +291,8 @@ class installModel extends model
             {
                 $table = str_replace('--', '', $table);
             }
-            $table = str_replace('`x_', $this->config->db->name . '.`x_', $table);
-            $table = str_replace('x_', $this->config->db->prefix, $table);
+            $table = str_replace('`xr_', $this->config->db->name . '.`xr_', $table);
+            $table = str_replace('xr_', $this->config->db->prefix, $table);
             if(!$this->dbh->query($table)) return false;
         }
         return true;
