@@ -199,4 +199,4 @@ CREATE TABLE `xr_user` (
   KEY `account` (`account`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-ALTER TABLE `x_article` ADD `module` SMALLINT( 6 ) NOT NULL AFTER `editedDate`; 
+ALTER TABLE `xr_article` ADD `module` SMALLINT( 6 ) NOT NULL AFTER `editedDate`; 
