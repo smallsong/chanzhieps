@@ -71,22 +71,25 @@
     <tfoot>
     <tr>
       <td colspan='4'>
-      <?php
-      if($phpResult == 'ok' and $pdoResult == 'ok' and $pdoMySQLResult == 'ok' and $tmpRootResult == 'ok' and $dataRootResult == 'ok')
-      {
-          echo html::a($this->createLink('install', 'step2'), $lang->install->next, '', 'class="btn btn-primary"');
-      }
-      else
-      {
-          echo html::a($this->createLink('install', 'step1'), $lang->install->reload, '', 'class="btn btn-primary"');
-          if($pdoResult == 'fail' or $pdoMySQLResult == 'fail')
+        <div class='a-center'>
+          <?php
+          if($phpResult == 'ok' and $pdoResult == 'ok' and $pdoMySQLResult == 'ok' and $tmpRootResult == 'ok' and $dataRootResult == 'ok')
           {
-              echo '<p class="f-12px a-left">' . '<strong>' . $lang->install->phpINI . '</strong><br />' . nl2br($this->install->getIniInfo()) . '</p>';
+              echo html::a($this->createLink('install', 'step2'), $lang->install->next, '', 'class="btn btn-primary"');
           }
-      }
-      ?>
+          else
+          {
+              echo html::a($this->createLink('install', 'step1'), $lang->install->reload, '', 'class="btn btn-primary"');
+          }
+          ?>
+        </div>
       </td>
     </tr>
+    <?php if($pdoResult == 'fail' or $pdoMySQLResult == 'fail'):?>
+    <tr>
+      <td colspan='4'><?php echo '<p class="f-12px a-left">' . '<strong>' . $lang->install->phpINI . '</strong><br />' . nl2br($this->install->getIniInfo()) . '</p>';?></td>
+    </tr>
+    <?php endif;?>
     </tfoot>
   </table>
 </div>

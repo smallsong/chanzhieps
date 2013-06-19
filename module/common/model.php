@@ -19,8 +19,22 @@ class commonModel extends model
     public function __construct()
     {
         parent::__construct();
+        $this->startSession();
         $this->setUser();
         $this->loadModel('site')->setSite();
+    }
+
+    /**
+     * Start the session.
+     * 
+     * @access public
+     * @return void
+     */
+    public function startSession()
+    {
+        $sessionName = RUN_MODE == 'front' ? 'frontsid' : 'adminsid';
+        session_name($sessionName);
+        session_start();
     }
 
     /**

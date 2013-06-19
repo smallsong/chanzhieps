@@ -16,16 +16,13 @@ if(!isset($error))
 <?php
 \$config->installed       = true;	
 \$config->debug           = false;	
+\$config->requestType     = '$requestType';	
 \$config->db->host        = '$dbHost';	
 \$config->db->port        = '$dbPort';	
 \$config->db->name        = '$dbName';	
 \$config->db->user        = '$dbUser';	
 \$config->db->password    = '$dbPassword';		
 \$config->db->prefix      = '$dbPrefix';	
-\$config->webRoot         = '{$this->post->webRoot}';		
-\$config->default->domain = '$domain';	
-\$config->admin           = new stdclass();
-\$config->admin->domain   = '$domain';
 EOT;
 }
 ?>
@@ -34,7 +31,7 @@ EOT;
   <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->error;?></caption>
     <tr><td class="text-error"><?php echo $error;?></td></tr>
-    <tr><td><?php echo html::commonButton($lang->install->pre, " onclick='javascript:history.back(-1)'");?></td></tr>
+    <tr><td><?php echo html::commonButton($lang->install->pre, 'btn btn-primary', " onclick='javascript:history.back(-1)'");?></td></tr>
   </table>
   <?php else:?>
   <table class='table table-bordered' align='center'>

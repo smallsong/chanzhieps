@@ -10,7 +10,7 @@
 ?>
 <?php include './header.html.php';?>
 <div class="container"> 
-<form method='post' action='<?php echo $this->createLink('install', 'step3');?>' class="form-horizontal form-inline" id="form1">
+<form method='post' action='<?php echo $this->createLink('install', 'step3');?>' class="form-inline" id="form1">
   <table class='table table-bordered'>
     <caption><?php echo $lang->install->setConfig;?></caption>
     <tr>
@@ -42,11 +42,12 @@
       <td><?php echo html::input('dbPrefix', 'xr_') . html::checkBox('clearDB', $lang->install->clearDB);?></td>
     </tr>
     <tr>
-      <td colspan='2' class="a-center"><?php echo html::submitButton();?></td>
+      <td colspan='2' class="a-center">
+        <?php echo html::hidden('requestType','GET');?>
+        <?php echo html::submitButton();?>
+      </td>
     </tr>
   </table>
 </form>
 </div>
-<script>
-</script>
 <?php include './footer.html.php';?>
