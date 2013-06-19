@@ -90,7 +90,7 @@ class installModel extends model
      */
     public function getDataRoot()
     {
-        $result['path']    = $this->app->getAppRoot() . 'www' . $this->app->getPathFix() . 'data';
+        $result['path']    = $this->app->getAppRoot() . 'www' . DS . 'data';
         $result['exists']  = is_dir($result['path']);
         $result['writable']= is_writable($result['path']);
         return $result;
@@ -104,7 +104,7 @@ class installModel extends model
      */
     public function checkDataRoot()
     {
-        $dataRoot = $this->app->getAppRoot() . 'www' . $this->app->getPathFix() . 'data';
+        $dataRoot = $this->app->getAppRoot() . 'www' . DS . 'data';
         return $result = (is_dir($dataRoot) and is_writable($dataRoot)) ? 'ok' : 'fail';
     }
 
@@ -276,7 +276,7 @@ class installModel extends model
      */
     public function createTable($version)
     {
-        $dbFile = $this->app->getAppRoot() . 'db' . $this->app->getPathFix() . 'xirang.sql';
+        $dbFile = $this->app->getAppRoot() . 'db' . DS . 'xirang.sql';
         $tables = explode(';', file_get_contents($dbFile));
         foreach($tables as $table)
         {
