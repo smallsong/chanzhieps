@@ -16,7 +16,6 @@ if(!isset($error))
 <?php
 \$config->installed       = true;	
 \$config->debug           = false;	
-\$config->requestType     = '$requestType';	
 \$config->db->host        = '$dbHost';	
 \$config->db->port        = '$dbPort';	
 \$config->db->name        = '$dbName';	
