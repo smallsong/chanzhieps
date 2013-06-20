@@ -33,6 +33,11 @@ hr   {border:none; border-top:1px solid #e4e4e4}
 .area-5{width: 480px}
 
 /*-----------------------TABLE SETTING----------------------------*/
+caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF; border: 1px solid #D4D4D4; font-weight:bold; line-height:40px;}
+
+.colhead th {text-align:center;}
+.rowhead    {font-weight:bold; text-align:right; width:100px}
+
 .table-1 {width:100%; margin-bottom:10px}
 .table-2 {width:240px;margin-bottom:10px}
 .table-3 {width:360px;margin-bottom:10px}
@@ -40,27 +45,9 @@ hr   {border:none; border-top:1px solid #e4e4e4}
 .table-5 {width:600px;margin-bottom:10px}
 .table-6 {width:800px;margin-bottom:10px}
 
-tr, th, td {padding:2px 3px 2px 5px}
-th.a-center, td.a-center{text-align:center}
-th.a-right,  td.a-right{text-align:right}
-
-.colhead th  {text-align:center;}
-.rowhead {font-weight:bold; text-align:right; width:100px}
-.fixed   {table-layout:fixed}
-
-.nobr {overflow:hidden; white-space:nowrap;}
+.nobr  {overflow:hidden; white-space:nowrap;}
+.fixed {table-layout:fixed}
 .fixed th, .fixed td {overflow:hidden; white-space:nowrap;}
-.nofixed th, .nofixed td  {overflow:visible; white-space:normal}
-
-caption     {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF;border: 1px solid #D4D4D4; font-weight:bold; line-height:40px;}
-.caption-tr {caption-side:top; text-align:right; border:none; background:none;}
-.caption-tl {caption-side:top; text-align:left;  border:none; background:none;}
-
-/*-----------------------COLOR SETTING----------------------------*/
-.odd     {background:#fff;}
-.even    {background:#ebf0f4;}
-.hoover  {background:#d0dee3;}
-.clicked {background:#fce6a2;}
 
 /*-----------------------LAYOUT SETTING----------------------------*/
 .f-left   {float:left;  padding-left: 5px}
@@ -72,9 +59,9 @@ caption     {margin:0; padding-left:10px; text-align:left; background-color: #EF
 .a-center {text-align: center;}
 .a-right  {text-align: right;}
 .a-left   {text-align: left;}
-.a-top    {vertical-align: top;}
-.a-middle {vertical-align: middle;}
-.a-bottom {vertical-align: bottom;}
+.v-top    {vertical-align: top;}
+.v-middle {vertical-align: middle;}
+.v-bottom {vertical-align: bottom;}
 
 .half-left  {float:left;  width:48%; text-align:left;  clear:left}
 .half-right {float:right; width:48%; text-align:right; clear:right}
@@ -174,6 +161,11 @@ caption     {margin:0; padding-left:10px; text-align:left; background-color: #EF
 .bg-white  {background-color:white;}
 
 /*-----------------------COLOR SETTING----------------------------*/
+.odd     {background:#fff;}
+.even    {background:#ebf0f4;}
+.hoover  {background:#d0dee3;}
+.clicked {background:#fce6a2;}
+
 .red     {color:red;}
 .blue    {color:blue}
 .yellow  {color:yellow;}
@@ -217,3 +209,9 @@ caption     {margin:0; padding-left:10px; text-align:left; background-color: #EF
 
 /* validate error   */
 .validateForm label.error,.validateForm span.error{ font-size:12px; color:#B94A48;}
+
+/*-----------------------BOOTSTRAP CUSTOMIZE----------------------------*/
+.table-bordered{border-radius:0 0 6px 6px;}
+caption{border-radius:6px 6px 0 0; border-bottom:none}
+th.a-center, td.a-center{text-align:center}
+th.a-right,  td.a-right{text-align:right}
