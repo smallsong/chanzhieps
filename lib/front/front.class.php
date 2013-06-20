@@ -440,13 +440,15 @@ class js
     /**
      * The end of javascript. 
      * 
+     * @param  bool    $newline 
      * @static
      * @access private
      * @return void
      */
-    static private function end()
+    static private function end($newline = true)
     {
-        return "\n</script>\n";
+        if($newline) return "\n</script>\n";
+        return "</script>\n";
     }
 
     /**
@@ -693,37 +695,36 @@ EOT;
      */
     static public function set($key, $value)
     {
+        static $viewOBJOut;
         $js  = self::start(false);
-        $viewObject = "xview";
-        $js .= <<<SCRIPT
-                if(typeof({$viewObject}) != 'obj')
-                {
-                   {$viewObject} = {};   
-                }
-SCRIPT;
+        if(!$viewOBJOut)
+        {
+            $js .= 'var v = {};'; 
+            $viewOBJOut = true;
+        }
+
         if(is_numeric($value))
         {
-            $js .= "{$viewObject}.{$key} = {$value}";
+            $js .= "v.{$key} = {$value};";
         }
         elseif(is_array($value) or is_object($value) or is_string($value))
         {
             $value = json_encode($value);
-            $js .= "{$viewObject}.{$key} = {$value}";
+            $js .= "v.{$key} = {$value};";
         }
         elseif(is_bool($value))
         {
             $value = $value ? 'true' : 'false';
-            $js .= "{$viewObject}.{$key} = $value";
+            $js .= "v.{$key} = $value;";
         }
         else
         {
             $value = addslashes($value);
-            $js .= "{$viewObject}.{$key} = '{$value}'";
+            $js .= "v.{$key} = '{$value};'";
         }
-        $js .= self::end();
+        $js .= self::end($newline = false);
         echo $js;
     }
-
 }
 
 /**
