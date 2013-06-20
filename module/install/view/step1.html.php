@@ -12,7 +12,6 @@
 <?php
 $wholeResult = strpos($phpResult . $pdoResult . $pdoMySQLResult . $tmpRootResult . $dataRootResult, 'fail') !== false ? 'fail' : 'ok';
 js::set('wholeResult', $wholeResult);
-js::set('wholeResult2', $wholeResult);
 ?>
 <div class="container">
   <table class='table table-bordered'>
