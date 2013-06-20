@@ -32,8 +32,8 @@ EOT;
 
 $lang->install->choice     = '您可以选择：';
 $lang->install->checking   = '系统检查';
-$lang->install->ok         = '<span class="text-success">检查通过(√)</span>';
-$lang->install->fail       = '检查失败(×)';
+$lang->install->ok         = '通过(√)';
+$lang->install->fail       = '失败(×)';
 $lang->install->loaded     = '已加载';
 $lang->install->unloaded   = '未加载';
 $lang->install->exists     = '目录存在 ';
@@ -55,8 +55,8 @@ $lang->install->pdoMySQL     = 'PDO_MySQL扩展';
 $lang->install->pdoMySQLFail = '修改PHP配置文件，加载pdo_mysql扩展。';
 $lang->install->tmpRoot      = '临时文件目录';
 $lang->install->dataRoot     = '上传文件目录';
-$lang->install->mkdir        = '<p>需要创建目录%s。<br /> linux下面命令为：<br /> mkdir -p %s</p>';
-$lang->install->chmod        = '需要修改目录 "%s" 的权限。<br />linux下面命令为：<br />chmod o=rwx -R %s';
+$lang->install->mkdir        = '<p>需要创建目录%s。linux下面命令为：<br /> <code>mkdir -p %s</code></p>';
+$lang->install->chmod        = '需要修改目录 "%s" 的权限。linux下面命令为：<br /><code>chmod o=rwx -R %s</code>';
 
 $lang->install->settingDB    = '设置数据库';
 $lang->install->requestType  = 'URL方式';
