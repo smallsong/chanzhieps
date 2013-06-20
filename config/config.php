@@ -12,7 +12,7 @@
 $config->version     = '1.0';             // The version number, don't change.
 $config->encoding    = 'UTF-8';           // The encoding.
 $config->cookiePath  = '/';               // The path of cookies.
-$config->webRoot     = getWebRoot();                // The web root.
+$config->webRoot     = getWebRoot();      // The web root.
 $config->cookieLife  = time() + 2592000;  // The lifetime of cookies.
 $config->timezone    = 'Asia/Shanghai';   // Time zone setting, more plese visit http://www.php.net/manual/en/timezones.php
 
