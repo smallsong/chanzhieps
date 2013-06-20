@@ -421,8 +421,6 @@ function getWebRoot()
     return substr($path, 0, (strrpos($path, '/') + 1));
 }
 
-
-
 /**
  * return formated json data 
  * 
