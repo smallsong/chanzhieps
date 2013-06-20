@@ -9,6 +9,11 @@
  */
 ?>
 <?php include './header.html.php';?>
+<?php
+$wholeResult = strpos($phpResult . $pdoResult . $pdoMySQLResult . $tmpRootResult . $dataRootResult, 'fail') !== false ? 'fail' : 'ok';
+js::set('wholeResult', $wholeResult);
+js::set('wholeResult2', $wholeResult);
+?>
 <div class="container">
   <table class='table table-bordered'>
     <caption><?php echo $lang->install->checking;?></caption>
@@ -72,14 +77,8 @@
     <tr>
       <td colspan='4' class='a-center'>
         <?php
-        if($phpResult == 'ok' and $pdoResult == 'ok' and $pdoMySQLResult == 'ok' and $tmpRootResult == 'ok' and $dataRootResult == 'ok')
-        {
-            echo html::a($this->createLink('install', 'step2'), $lang->install->next, '', 'class="btn btn-primary"');
-        }
-        else
-        {
-            echo html::a($this->createLink('install', 'step1'), $lang->install->reload, '', 'class="btn btn-primary"');
-        }
+        if($wholeResult == 'ok')   echo html::a(inLink('step2'), $lang->install->next, '', 'class="btn btn-primary"');
+        if($wholeResult == 'fail') echo html::a(inLink('step1'), $lang->install->reload, '', 'class="btn btn-primary"');
         ?>
       </td>
     </tr>
