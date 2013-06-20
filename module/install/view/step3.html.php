@@ -9,62 +9,25 @@
  */
 ?>
 <?php include './header.html.php';?>
-<?php
-if(!isset($error))
-{
-    $configContent = <<<EOT
-<?php
-\$config->installed       = true;	
-\$config->debug           = false;	
-\$config->requestType     = '$requestType';	
-\$config->db->host        = '$dbHost';	
-\$config->db->port        = '$dbPort';	
-\$config->db->name        = '$dbName';	
-\$config->db->user        = '$dbUser';	
-\$config->db->password    = '$dbPassword';		
-\$config->db->prefix      = '$dbPrefix';	
-EOT;
-}
-?>
 <div class='container'>
   <?php if(isset($error)):?>
   <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->error;?></caption>
     <tr><td class="text-error"><?php echo $error;?></td></tr>
-    <tr><td><?php echo html::commonButton($lang->install->pre, 'btn btn-primary', " onclick='javascript:history.back(-1)'");?></td></tr>
+    <tr><td><?php echo html::backButton($lang->install->pre, 'btn btn-primary');?></td></tr>
   </table>
   <?php else:?>
-  <table class='table table-bordered' align='center'>
+  <table class='table table-bordered'>
 	<caption><?php echo $lang->install->saveConfig;?></caption>
-	<tr>
-	  <td class='a-center'><?php echo html::textArea('config', $configContent, "style='width:98%;' rows='15'  class='area-1 f-12px'");?></td>
-	</tr>
     <tr>
       <td>
-      <p>
-      <?php
-      $configRoot   = $this->app->getConfigRoot();
-      $myConfigFile = $configRoot . 'my.php';
-      if(is_writable($configRoot))
-      {
-          if(@file_put_contents($myConfigFile, $configContent))
-          {
-              printf($lang->install->saved2File, $myConfigFile);
-          }
-          else
-          {
-              printf($lang->install->save2File, $this->app->getConfigRoot() . 'my.php');
-          }
-      }
-      else
-      {
-          printf($lang->install->save2File, $this->app->getConfigRoot() . 'my.php');
-      }
-      echo "</p>";
-      echo "<div class='a-center'>" . html::a($this->createLink('install', 'step4'), $lang->install->next, '', 'class="btn btn-primary"') . '</div>';
-      ?>
+        <?php 
+        echo html::textArea('config', $result->content, "rows='10' class='area-1 f-12px'");
+        printf($lang->install->save2File, $result->myPHP);
+        ?>
       </td>
-	</tr>
+    </tr>
+    <tr><td class='a-center'><?php echo html::a(inlink('step4'), $lang->install->next, '', 'class="btn btn-primary"');?></td></tr>
   </table>
   <?php endif;?>
 </div>

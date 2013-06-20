@@ -11,6 +11,9 @@
 /* Turn off error reporting first. */
 error_reporting(0);
 
+/* Start session. */
+session_start();
+
 /* Define the run mode as install. */
 define('RUN_MODE', 'install');
 

@@ -202,7 +202,6 @@ class installModel extends model
         $this->config->db->password = $this->post->dbPassword;
         $this->config->db->port     = $this->post->dbPort;
         $this->config->db->prefix   = $this->post->dbPrefix;
-
     }
 
     /**
@@ -299,23 +298,62 @@ class installModel extends model
     }
 
     /**
-     * Create a site, grant the priv.
+     * Create content of my.php from the post form.
+     * 
+     * @access public
+     * @return string
+     */
+    public function getConfigContent()
+    {
+        return <<<EOT
+<?php
+\$config->installed    = true;	
+\$config->debug        = false;	
+\$config->requestType  = '{$this->post->requestType}';	
+\$config->db->host     = '{$this->post->dbHost}';	
+\$config->db->port     = '{$this->post->dbPort}';	
+\$config->db->name     = '{$this->post->dbName}';	
+\$config->db->user     = '{$this->post->dbUser}';	
+\$config->db->password = '{$this->post->dbPassword}';		
+\$config->db->prefix   = '{$this->post->dbPrefix}';	
+EOT;
+    }
+
+    /**
+     * Save my.php config file.
+     * 
+     * @access public
+     * @return object
+     */
+    public function saveMyPHP()
+    {
+        $configRoot    = $this->app->getConfigRoot();
+        $configContent = $this->getConfigContent();
+
+        $return = new stdclass();
+        $return->myPHP   = $this->app->getConfigRoot() . 'my.php';
+        $return->saved   = is_writable($configRoot) && file_put_contents($return->myPHP, $configContent);
+        $return->content = $configContent;
+
+        return $return;
+    }
+
+    /**
+     * Create a site and it's admin account.
      * 
      * @access public
      * @return void
      */
-    public function grantPriv()
+    public function createAdmin()
     {
         if($this->post->password == '') die(js::error($this->lang->install->errorEmptyPassword));
 
         /* Insert the site first. */
-        $site->name   = $this->post->site;
+        $site->name   = $this->server->http_host;
         $site->domain = $this->server->http_host;
-        $site->code   = 'zentao';
         $site->type   = 'portal';
         $site->theme  = 'default';
-        $site->admins = ",{$this->post->account},";
-        $this->dao->insert(TABLE_SITE)->data($site, false)->autoCheck()->batchCheck('name', 'notempty')->check('domain', 'unique')->exec();
+        $this->dao->insert(TABLE_SITE)->data($site)->autoCheck()->check('name', 'notempty')->exec();
 
         if(!dao::isError())
         {
@@ -324,52 +362,8 @@ class installModel extends model
             $admin->account  = $this->post->account;
             $admin->realname = $this->post->account;
             $admin->password = md5($this->post->password);
-            $admin->site  = $siteID;
+            $admin->site     = $siteID;
             $this->dao->insert(TABLE_USER)->data($admin)->autoCheck()->check('account', 'notempty')->exec();
         }
-    }
-
-    /**
-     * Create site config.
-     * 
-     * @access public
-     * @return array
-     */
-    public function createSiteConfig()
-    {
-        $domain = $this->server->http_host;
-        $siteConfig = $this->app->getTmpRoot() . 'sites.php';
-        $contents = "<?php \$sites['$domain'] = 'zentao';";
-        file_put_contents($siteConfig, $contents);
-    }
-
-    /**
-     * Save the admin user.
-     * 
-     * @access public
-     * @return bool
-     */
-    public function saveAdminUser()
-    {
-        $myConfig = $this->app->getConfigRoot() . 'my.php';
-        $contents = file_get_contents($myConfig);
-        $contents .= $this->createAdminConfig($this->post->account);
-        if(is_writable($myConfig)) return file_put_contents($myConfig, $contents);
-        return false;
-    }
-
-    /**
-     * Create the admin config.
-     * 
-     * @param  string $account 
-     * @access public
-     * @return string
-     */
-    public function createAdminConfig($account)
-    {
-        $account  = ',' . trim($account) . ',';
-        $contents = "\n\$config->admin->users = '$account';\n";
-        $contents .= "\$config->admin->supers = '$account';";
-        return $contents;
     }
 }

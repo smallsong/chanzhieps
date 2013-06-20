@@ -82,11 +82,11 @@ class install extends control
             $return = $this->install->checkConfig();
             if($return->result == 'ok')
             {
-                $this->view = (object)$_POST;
-                $this->view->lang   = $this->lang;
-                $this->view->config = $this->config;
-                $this->view->domain = $this->server->HTTP_HOST;
+                $result = $this->install->saveMyPHP();
+                if($result->saved) $this->locate(inlink('step4'));
+
                 $this->view->title  = $this->lang->install->saveConfig;
+                $this->view->result = $result;
                 $this->display();
             }
             else
@@ -112,20 +112,20 @@ class install extends control
     {
         if(!empty($_POST))
         {
-            $this->install->grantPriv();
-            $this->install->createSiteConfig();
+            $this->install->createAdmin();
             if(dao::isError()) die(js::error(dao::getError()));
             die(js::locate(inlink('step5', "admin={$this->post->account}"), 'parent'));
         }
-        $this->view->title = $this->lang->install->getPriv;
+
         if(!isset($this->config->installed) or !$this->config->installed)
         {   
+            $this->view->title = $this->lang->install->errorNotSaveConfig;
             $this->view->error = $this->lang->install->errorNotSaveConfig;
             $this->display();
         }
         else
         {
-            $this->view->pmsDomain = $this->server->HTTP_HOST;
+            $this->view->title = $this->lang->install->setAdmin;
             $this->display();
         }
     }
@@ -141,7 +141,6 @@ class install extends control
     {
         session_destroy();
         $this->view->title = $this->lang->install->success;
-        if(!$this->install->saveAdminUser()) $this->view->adminConfig = $this->install->createAdminConfig($admin);
         $this->display();
     }
 }

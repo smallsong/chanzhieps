@@ -1,9 +1,8 @@
 <?php
-$config->webRoot = $this->app->getWebRoot();
-$clientTheme     = $this->app->getClientTheme();
-$webRoot         = $this->config->webRoot;
-$jsRoot          = $webRoot . "js/";
-$defaultTheme    = $webRoot . 'theme/default/';
+$clientTheme  = $this->app->getClientTheme();
+$webRoot      = $this->config->webRoot;
+$jsRoot       = $webRoot . "js/";
+$defaultTheme = $webRoot . 'theme/default/';
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +10,6 @@ $defaultTheme    = $webRoot . 'theme/default/';
   <meta charset='utf-8' />
   <?php
   echo html::title($title);
-  js::exportConfigVars();
   js::import($jsRoot . 'jquery/lib.js');
   js::import($jsRoot . 'bootstrap/bootstrap.min.js');
 
@@ -21,4 +19,4 @@ $defaultTheme    = $webRoot . 'theme/default/';
   if(isset($pageCSS)) css::internal($pageCSS);
   ?>
 </head>
-<body style="margin-top:50px;">
+<body>

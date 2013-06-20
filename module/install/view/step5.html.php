@@ -10,18 +10,15 @@
 ?>
 <?php include './header.html.php';?>
 <div class='container'>
-  <table class='table' align='center'>
+  <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->success;?></caption>
     <tr>
-      <td>
+      <th class='a-center'>
         <?php
-        if(isset($adminConfig)) echo '<pre>' . $lang->install->saveAdmin . $adminConfig . '</pre>';
-        echo '<p  class="a-center">';
         echo html::linkButton($lang->install->visitFront, 'index.php');
         echo html::linkButton($lang->install->visitAdmin, 'admin.php');
-        echo '</p>';
         ?>
-      </td>
+      </th>
 	</tr>
   </table>
 </div>

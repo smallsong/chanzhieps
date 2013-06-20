@@ -58,10 +58,7 @@ $lang->install->dataRoot     = '上传文件目录';
 $lang->install->mkdir        = '<p>需要创建目录%s。linux下面命令为：<br /> <code>mkdir -p %s</code></p>';
 $lang->install->chmod        = '需要修改目录 "%s" 的权限。linux下面命令为：<br /><code>chmod o=rwx -R %s</code>';
 
-$lang->install->settingDB    = '设置数据库';
-$lang->install->requestType  = 'URL方式';
-$lang->install->requestTypes['GET']       = '普通方式';
-$lang->install->requestTypes['PATH_INFO'] = '静态友好方式';
+$lang->install->settingDB  = '设置数据库';
 $lang->install->dbHost     = '数据库服务器';
 $lang->install->dbHostNote = '如果localhost无法访问，尝试使用127.0.0.1';
 $lang->install->dbPort     = '服务器端口';
@@ -72,27 +69,25 @@ $lang->install->dbPrefix   = '建表使用的前缀';
 $lang->install->createDB   = '自动创建数据库';
 $lang->install->clearDB    = '清空现有数据';
 
-$lang->install->errorConnectDB     = '数据库连接失败 ';
-$lang->install->errorCreateDB      = '数据库创建失败';
-$lang->install->errorDBExists      = '数据库已经存在，继续安装请选择清空数据';
-$lang->install->errorCreateTable   = '创建表失败';
-$lang->install->errorGrantPriv     = '权限初始化失败';
+$lang->install->errorConnectDB     = '数据库连接失败。 ';
+$lang->install->errorCreateDB      = '数据库创建失败。';
+$lang->install->errorDBExists      = '数据库已经存在，继续安装返回上步并选中“清空数据”选项。';
+$lang->install->errorCreateTable   = '创建表失败。';
 
-$lang->install->setConfig  = '生成配置文件';
+$lang->install->setConfig  = '数据库配置';
 $lang->install->key        = '配置项';
 $lang->install->value      = '值';
 $lang->install->saveConfig = '保存配置文件';
-$lang->install->save2File  = '<div class="a-center"><span class="fail">尝试写入配置文件，失败！</span></div>拷贝上面文本框中的内容，将其保存到 "<strong> %s </strong>"中。您以后还可继续修改此配置文件。';
+$lang->install->save2File  = '<span class="text-error">尝试写入配置文件，失败！</span>拷贝上面文本框中的内容，将其保存到 "<strong> %s </strong>"中。';
 $lang->install->saved2File = '配置信息已经成功保存到" <strong>%s</strong> "中。您后面还可继续修改此文件。';
 $lang->install->errorNotSaveConfig = '还没有保存配置文件';
 
-$lang->install->getPriv  = '分配权限';
-$lang->install->site     = '站点名称';
-$lang->install->account  = '管理员帐号';
-$lang->install->password = '管理员密码';
+$lang->install->setAdmin = '设置管理员';
+$lang->install->account  = '帐号';
+$lang->install->password = '密码';
 $lang->install->errorEmptyPassword = '密码不能为空';
+$lang->install->errorGrantPriv     = '权限初始化失败。';
 
 $lang->install->success    = "安装成功！";
-$lang->install->saveAdmin  = "请把下面两句存到config/my.php中";
 $lang->install->visitFront = '访问前台';
 $lang->install->visitAdmin = '访问后台';

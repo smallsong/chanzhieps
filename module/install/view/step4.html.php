@@ -13,34 +13,22 @@
   <?php if(isset($error)):?>
   <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->error;?></caption>
-    <tr><td><?php echo $error;?></td></tr>
-    <tr><td><?php echo html::commonButton($lang->install->pre, "onclick='javascript:history.back(-1)'");?></td></tr>
-  </table>
-  <?php elseif(isset($success)):?>
-  <table class='table table-bordered' align='center'>
-	<caption><?php echo $lang->install->success;?></caption>
-    <tr><td><?php echo $lang->install->afterSuccess;?></td></tr>
-    <tr><td><?php echo html::commonButton($lang->install->pre, "onclick='javascript:history.back(-1)'");?></td></tr>
+    <tr><td class='text-error'><?php echo $error;?></td></tr>
+    <tr><td><?php echo html::backButton($lang->install->pre, 'btn btn-primary');?></td></tr>
   </table>
   <?php else:?>
   <form method='post' target='hiddenwin'>
   <table class='table table-bordered' align='center'>
-	<caption><?php echo $lang->install->getPriv;?></caption>
-    <tr>
-      <th class='rowhead'><?php echo $lang->install->site;?></th>
-      <td><?php echo html::input('site');?></td>
+	<caption><?php echo $lang->install->setAdmin;?></caption>
+    <tr valign='middle'>
+      <th class='a-right w-100px'><?php echo $lang->install->account;?></th>
+      <td><?php echo html::input('account', '', 'class="text-2"');?></td>
 	</tr>
     <tr>
-      <th class='rowhead'><?php echo $lang->install->account;?></th>
-      <td><?php echo html::input('account');?></td>
+      <th class='a-right'><?php echo $lang->install->password;?></th>
+      <td><?php echo html::input('password', '', 'class="text-2"');?></td>
 	</tr>
-    <tr>
-      <th class='rowhead'><?php echo $lang->install->password;?></th>
-      <td><?php echo html::input('password');?></td>
-	</tr>
-    <tr class='a-center'>
-      <td colspan='2'><?php echo html::submitButton();?></td>
-	</tr>
+    <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
   </table>
   </form>
   <?php endif;?>
