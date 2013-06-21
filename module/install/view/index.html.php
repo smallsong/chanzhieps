@@ -29,4 +29,4 @@
     <?php endif;?>
   </div>
 </div>
-<?php include '../../common/view/footer.html.php';?>
+<?php include './footer.html.php';?>

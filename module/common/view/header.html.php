@@ -1,6 +1,5 @@
 <?php if($extView = $this->getExtViewFile(__FILE__)){include $extView; return helper::cd();}?>
 <?php include 'header.lite.html.php';?>
-<?php if(empty($_GET['onlybody']) or $_GET['onlybody'] != 'yes'):?>
 <div class='row' id='topbar'><div class='u-1 a-right'><?php common::printTopBar();?></div></div>
 <table class='table-1' id='header'>
   <tr valign='middle' class='a-center'>
