@@ -175,6 +175,7 @@ CREATE TABLE IF NOT EXISTS `xr_user` (
   `ip` char(15) NOT NULL default '',
   `last` datetime NOT NULL,
   `referer` varchar(255) NOT NULL,
+  `addedDate` datetime NOT NULL,
   `resetKey` char(64) NOT NULL,
   `resetTime` datetime NOT NULL,
   `allowTime` datetime NOT NULL,

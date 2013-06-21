@@ -348,10 +348,12 @@ EOT;
     {
         if($this->post->password == '') die(js::error($this->lang->install->errorEmptyPassword));
 
+        $addedDate = helper::now();
         $admin->account  = $this->post->account;
         $admin->realname = $this->post->account;
-        $admin->password = md5($this->post->password);
+        $admin->password = $this->loadModel('user')->createPassword($this->post->password, $admin->account, $addedDate);
         $admin->admin    = 'super';
+        $admin->addedDate= $addedDate;
         $this->dao->insert(TABLE_USER)->data($admin)->autoCheck()->check('account', 'notempty')->exec();
     }
 }
