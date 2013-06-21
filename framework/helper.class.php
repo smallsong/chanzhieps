@@ -89,14 +89,7 @@ class helper
             else
             {
                 $link .= "$moduleName{$config->requestFix}$methodName";
-                if($config->pathType == 'full')
-                {
-                    foreach($vars as $key => $value) $link .= "{$config->requestFix}$key{$config->requestFix}$value";
-                }
-                else
-                {
-                    foreach($vars as $value) $link .= "{$config->requestFix}$value";
-                }    
+                foreach($vars as $value) $link .= "{$config->requestFix}$value";
                 $link .= '.' . $viewType;
             }
         }
@@ -440,3 +433,15 @@ function jsonReturn($status, $message, $data = array(), $locateTo = "")
     exit;
 }
 
+/**
+ * Remove UTF8 Bom 
+ * 
+ * @param  string    $string
+ * @access public
+ * @return string
+ */
+function removeUTF8Bom($string)
+{
+    if(substr($string, 0, 3) == pack('CCC', 239, 187, 191)) return substr($string, 3); 
+    return $string;
+}
