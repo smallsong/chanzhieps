@@ -9,7 +9,7 @@
  * @version     $Id: index.html.php 867 2010-06-17 09:32:58Z wwccss $
  */
 ?>
-<?php include './header.html.php';?>
+<?php include '../../common/view/header.lite.html.php';?>
 <div class='container'>
   <div class='hero-unit'>
     <h3><?php echo $lang->install->welcome;?></h3>
@@ -29,4 +29,4 @@
     <?php endif;?>
   </div>
 </div>
-<?php include './footer.html.php';?>
+<?php include '../../common/view/footer.html.php';?>

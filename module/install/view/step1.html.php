@@ -8,7 +8,7 @@
  * @version     $Id$
  */
 ?>
-<?php include './header.html.php';?>
+<?php include '../../common/view/header.lite.html.php';?>
 <?php
 $wholeResult = strpos($phpResult . $pdoResult . $pdoMySQLResult . $tmpRootResult . $dataRootResult, 'fail') !== false ? 'fail' : 'ok';
 js::set('wholeResult', $wholeResult);

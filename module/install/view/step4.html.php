@@ -8,7 +8,7 @@
  * @version	  $Id: step4.html.php 867 2010-06-17 09:32:58Z wwccss $
  */
 ?>
-<?php include './header.html.php';?>
+<?php include '../../common/view/header.lite.html.php';?>
 <div class='container'>
   <?php if(isset($error)):?>
   <table class='table table-bordered' align='center'>

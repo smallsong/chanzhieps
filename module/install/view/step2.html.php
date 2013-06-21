@@ -8,7 +8,7 @@
  * @version     $Id$
  */
 ?>
-<?php include './header.html.php';?>
+<?php include '../../common/view/header.lite.html.php';?>
 <div class="container"> 
 <form method='post' action='<?php echo $this->createLink('install', 'step3');?>' class="form-inline" id="form1">
   <table class='table table-bordered'>
