@@ -26,6 +26,13 @@ include $frameworkRoot . 'helper.class.php';
 
 /* Instance the app. */
 $app = router::createApp('xirang', dirname(dirname(__FILE__)));
+$config = $app->config;
+
+/* Change the request settings. */
+$config->frontRequestType = $config->requestType;
+$config->requestType = 'GET';
+$config->default->module = 'admin'; 
+$config->default->method = 'index';
 
 /* Run it. */
 $dbh    = $app->connectDB();
