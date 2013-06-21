@@ -18,17 +18,18 @@ session_start();
 define('RUN_MODE', 'install');
 
 /* Load the framework. */
-include '../framework/router.class.php';
-include '../framework/control.class.php';
-include '../framework/model.class.php';
-include '../framework/helper.class.php';
+$frameworkRoot = dirname(dirname(__FILE__)) . '/framework/';
+include $frameworkRoot . 'router.class.php';
+include $frameworkRoot . 'control.class.php';
+include $frameworkRoot . 'model.class.php';
+include $frameworkRoot . 'helper.class.php';
 
 /* Instance the app and run it. */
-$app    = router::createApp('pms', dirname(dirname(__FILE__)));
+$app    = router::createApp('xirang', dirname(dirname(__FILE__)));
 $config = $app->config;
 
 /* Check installed or not. */
-if(!isset($_SESSION['installing']) and isset($config->installed) and $config->installed) die(header('location: index.php'));
+if(!isset($_SESSION['installing']) and !empty($config->installed)) die(header('location: index.php'));
 
 /* Reset the config params. */
 $config->set('requestType', 'GET');
@@ -37,7 +38,7 @@ $config->set('default.module', 'install');
 $app->setDebug();
 
 /* If setted db parms, connect it. */
-if(isset($config->installed) and $config->installed) $dbh = $app->connectDB();
+if(!empty($config->installed)) $dbh = $app->connectDB();
 
 /* Run the app. */
 $app->parseRequest();

@@ -24,11 +24,8 @@ include $frameworkRoot . 'control.class.php';
 include $frameworkRoot . 'model.class.php';
 include $frameworkRoot . 'helper.class.php';
 
-/* Log the time. */
-$startTime = getTime();
-
 /* Instance the app and run it. */
-$app = router::createApp('pms', dirname(dirname(__FILE__)));
+$app = router::createApp('xirang', dirname(dirname(__FILE__)));
 
 /* Check the reqeust is getconfig or not. Check installed or not. */
 if(isset($_GET['mode']) and $_GET['mode'] == 'getconfig') die($app->exportConfig());

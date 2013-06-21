@@ -8,27 +8,24 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-//error_reporting(0);
+/* Turn off error reporting first. */
+error_reporting(E_ALL);
 
-/* Load the framework. */
-include '../framework/router.class.php';
-include '../framework/control.class.php';
-include '../framework/model.class.php';
-include '../framework/helper.class.php';
+/* Start output buffer. */
+ob_start();
 
-/* Log the time and define the run mode. */
-$startTime = getTime();
+/* Define the run mode as admin. */
 define('RUN_MODE', 'admin');
 
-/* Instance the app. */
-$app = router::createApp('pms', dirname(dirname(__FILE__)));
+/* Load the framework. */
+$frameworkRoot = dirname(dirname(__FILE__)) . '/framework/';
+include $frameworkRoot . 'router.class.php';
+include $frameworkRoot . 'control.class.php';
+include $frameworkRoot . 'model.class.php';
+include $frameworkRoot . 'helper.class.php';
 
-/* Change the request settings. */
-$config->frontRequestType = $config->requestType;
-$config->requestType = 'GET';
-$config->default->module = 'admin'; 
-$config->default->method = 'index';
-if($_SERVER['SERVER_NAME'] != $config->admin->domain) die();
+/* Instance the app. */
+$app = router::createApp('xirang', dirname(dirname(__FILE__)));
 
 /* Run it. */
 $dbh    = $app->connectDB();
@@ -36,3 +33,6 @@ $common = $app->loadCommon();
 $app->parseRequest();
 $common->checkPriv();
 $app->loadModule();
+
+/* Flush the buffer. */
+echo removeUTF8Bom(ob_get_clean());
