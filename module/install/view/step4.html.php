@@ -17,7 +17,7 @@
     <tr><td><?php echo html::backButton($lang->install->pre, 'btn btn-primary');?></td></tr>
   </table>
   <?php else:?>
-  <form method='post' target='hiddenwin'>
+  <form method='post'>
   <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->setAdmin;?></caption>
     <tr valign='middle'>

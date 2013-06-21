@@ -12,14 +12,7 @@
 <div class='container'>
   <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->success;?></caption>
-    <tr>
-      <th class='a-center'>
-        <?php
-        echo html::linkButton($lang->install->visitFront, 'index.php');
-        echo html::linkButton($lang->install->visitAdmin, 'admin.php');
-        ?>
-      </th>
-	</tr>
+    <tr><th class='a-center'><?php echo html::linkButton($lang->install->visitAdmin, 'admin.php', 'btn btn-primary');?></th></tr>
   </table>
 </div>
 <?php include './footer.html.php';?>

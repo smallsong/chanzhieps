@@ -86,8 +86,6 @@ $lang->install->setAdmin = '设置管理员';
 $lang->install->account  = '帐号';
 $lang->install->password = '密码';
 $lang->install->errorEmptyPassword = '密码不能为空';
-$lang->install->errorGrantPriv     = '权限初始化失败。';
 
 $lang->install->success    = "安装成功！";
-$lang->install->visitFront = '访问前台';
-$lang->install->visitAdmin = '访问后台';
+$lang->install->visitAdmin = '登录后台';

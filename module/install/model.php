@@ -348,22 +348,10 @@ EOT;
     {
         if($this->post->password == '') die(js::error($this->lang->install->errorEmptyPassword));
 
-        /* Insert the site first. */
-        $site->name   = $this->server->http_host;
-        $site->domain = $this->server->http_host;
-        $site->type   = 'portal';
-        $site->theme  = 'default';
-        $this->dao->insert(TABLE_SITE)->data($site)->autoCheck()->check('name', 'notempty')->exec();
-
-        if(!dao::isError())
-        {
-            /* Set the admin. */
-            $siteID = $this->dbh->lastInsertID();
-            $admin->account  = $this->post->account;
-            $admin->realname = $this->post->account;
-            $admin->password = md5($this->post->password);
-            $admin->site     = $siteID;
-            $this->dao->insert(TABLE_USER)->data($admin)->autoCheck()->check('account', 'notempty')->exec();
-        }
+        $admin->account  = $this->post->account;
+        $admin->realname = $this->post->account;
+        $admin->password = md5($this->post->password);
+        $admin->admin    = 'super';
+        $this->dao->insert(TABLE_USER)->data($admin)->autoCheck()->check('account', 'notempty')->exec();
     }
 }
