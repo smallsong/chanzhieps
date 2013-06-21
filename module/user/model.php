@@ -330,23 +330,17 @@ class userModel extends model
         $this->dao->update(TABLE_USER)->set('password')->eq(md5($password))->set('resetKey')->eq('')->set('resetedTime')->eq('')->where('resetKey')->eq($resetKey)->exec(false);
     }
 
-    public function switchLevel($user)
+    /**
+     * Create a strong password hash with md5.
+     * 
+     * @param  string    $password 
+     * @param  string    $account 
+     * @param  string    $addedTime 
+     * @access public
+     * @return string
+     */
+    public function createPassword($password, $account, $addedTime)
     {
-        $level = 0;
-        $userConfig = $this->config->user;
-        if(!isset($userConfig->level)) return $user;
-        krsort($userConfig->level);
-        foreach($userConfig->level as $levelIndex => $rank)
-        {
-            if($user->rank > $rank)
-            {
-                $level = $levelIndex;
-                break;
-            }
-        }
-
-        if($level == 0) $level = 1;
-        $user->level = $level;
-        return $user;
+        return md5(md5($password) . $account . $addedTime);
     }
 }
