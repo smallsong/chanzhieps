@@ -84,13 +84,6 @@ class html
         global $config;
         if(empty($title)) $title = $href;
 
-        /* if page has onlybody param then add this param in all link. the param hide header and footer. */
-        if(strpos($href, 'onlybody=yes') === false and isset($_GET['onlybody']) and $_GET['onlybody'] == 'yes')
-        {
-            $onlybody = $config->requestType == 'PATH_INFO' ? "?onlybody=yes" : "&onlybody=yes";
-            $href .= $onlybody;
-        }
-
         if($target == '_self' or $target == '') return "<a href='$href' $misc>$title</a>\n";
         return "<a href='$href' target='$target' $misc>$title</a>\n";
     }
@@ -364,26 +357,15 @@ class html
      * 
      * @param  string $label    the link title
      * @param  string $link     the link url
+     * @param  string $class    the link style
      * @param  string $misc     other params
      * @static
      * @access public
      * @return string
      */
-    public static function linkButton($label = '', $link = '', $misc = '', $target = 'self')
+    public static function linkButton($label = '', $link = '', $class='btn', $misc = '', $target = 'self')
     {
-        global $config;
-        $miscNew = str_replace('class="', 'class="'.'btn ', $misc  );
-        $miscNew = str_replace('class=\'', 'class=\''.'btn ', $miscNew  );
-        $misc = $miscNew == $misc ? $misc." class='btn' " : $miscNew;
-
-        /* if page has onlybody param then add this param in all link. the param hide header and footer. */
-        if(strpos($link, 'onlybody=') === false and isset($_GET['onlybody']) and $_GET['onlybody'] == 'yes')
-        {
-            $onlybody = $config->requestType == 'PATH_INFO' ? "?onlybody=yes" : "&onlybody=yes";
-            $link .= $onlybody;
-        }
-
-        return " <input type='button' value='$label' $misc onclick='$target.location.href=\"$link\"' /> ";
+        return " <input type='button' value='$label' class='$class' $misc onclick='$target.location.href=\"$link\"' /> ";
     }
 
     /**

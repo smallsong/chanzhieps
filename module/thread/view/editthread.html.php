@@ -33,7 +33,7 @@
           <?php
           if($thread->files)
           {
-              foreach($thread->files as $file) echo html::a($file->fullURL, $file->title . '.' . $file->extension, '_blank') . ' ' . html::linkButton('Ｘ', inlink('deleteFile', "fileID=$file->id&objectID=$thread->id&objectType=thread"), '', 'hiddenwin');
+              foreach($thread->files as $file) echo html::a($file->fullURL, $file->title . '.' . $file->extension, '_blank') . ' ' . html::linkButton('Ｘ', inlink('deleteFile', "fileID=$file->id&objectID=$thread->id&objectType=thread"), 'btn', '', 'hiddenwin');
           }
           echo $this->fetch('file', 'buildForm');
           ?>

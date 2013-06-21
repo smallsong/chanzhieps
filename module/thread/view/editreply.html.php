@@ -32,7 +32,7 @@
           <?php
           if($reply->files)
           {
-              foreach($reply->files as $file) echo html::a($file->fullURL, $file->title . '.' . $file->extension, '_blank') . ' ' . html::linkButton('Ｘ', inlink('deleteFile', "fileID=$file->id&objectID=$reply->id&objectType=reply"), '', 'hiddenwin');
+              foreach($reply->files as $file) echo html::a($file->fullURL, $file->title . '.' . $file->extension, '_blank') . ' ' . html::linkButton('Ｘ', inlink('deleteFile', "fileID=$file->id&objectID=$reply->id&objectType=reply"), 'btn', '', 'hiddenwin');
           }
           echo $this->fetch('file', 'buildForm');
           ?>
