@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `xr_user` (
   `password` char(32) NOT NULL default '',
   `realname` char(30) NOT NULL default '',
   `nickname` char(60) NOT NULL default '',
-  `admin` enum('0','1','2') NOT NULL,
+  `admin` ENUM( 'no', 'common', 'super' ) NOT NULL DEFAULT 'no',
   `avatar` char(30) NOT NULL default '',
   `birthday` date NOT NULL,
   `gendar` enum('f','m','u') NOT NULL default 'u',
