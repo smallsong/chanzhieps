@@ -13,103 +13,6 @@
 class siteModel extends model
 {
     /**
-     * Get the site list.
-     * 
-     * @access public
-     * @return array    the sites.
-     */
-    public function getList()
-    {
-        return $this->dao->select('*')->from(TABLE_SITE)->orderBy('id')->fetchAll();
-    }
-
-    /**
-     * Get the key => value site pairs.
-     * 
-     * @access public
-     * @return array 
-     */
-    public function getPairs()
-    {
-        $account = ',' . $this->app->user->account . ',';
-        return $this->dao->select('id, name')
-            ->from(TABLE_SITE)
-            ->beginIF(!$this->app->user->isSuper)->where('admins')->like("%$account%")->fi()
-            ->orderBy('id')
-            ->fetchPairs();
-    }
-
-    /**
-     * Get the first site.
-     * 
-     * @access public
-     * @return object   site.
-     */
-    public function getFirst()
-    {
-        $site = $this->dao->select('*')->from(TABLE_SITE)->orderBy('id')->limit(1)->fetch();
-        if(!$site) return false;
-        $this->processSite($site);
-        return $site;
-    }
-    
-    /**
-     * Get site by the domain.
-     * 
-     * @param string $domain    the domain
-     * @access public
-     * @return object   the site.
-     */
-    public function getByDomain($domain = '')
-    {
-        if(empty($domain)) $domain = $this->getDomainWithLang();   // Get the domain with lang path like www.xirang.biz/en/
-        $site = $this->dao->findByDomain($domain)->from(TABLE_SITE)->fetch();
-        if(!$site) return false;
-        $this->processSite($site);
-        return $site;
-    }
-
-     /**
-     * Get site by the id.
-     * 
-     * @param int $id    the site id
-     * @access public
-     * @return object   the site.
-     */
-    public function getByID($siteID = '')
-    {
-        $site = $this->dao->findById((int)$siteID)->from(TABLE_SITE)->fetch();
-        $this->processSite($site);
-        return $site;
-    }
-
-    /**
-     * Get the option menu of modules of the link sites.
-     * 
-     * @param  string $linkSites 
-     * @param  string $tree 
-     * @access public
-     * @return array
-     */
-    public function getLinkSitesOptionMenu($linkSites, $tree)
-    {
-        $this->loadModel('tree');
-        $sites     = $this->getPairs();
-        $siteTrees = array();
-        if(!empty($linkSites))
-        {
-            $linkSites = explode(',', trim($linkSites, ','));
-            foreach($linkSites as $siteID)
-            {
-                $siteTree           = $this->tree->getOptionMenu($tree, 0, $siteID);
-                if($siteID) $siteTree[0] = $sites[$siteID];
-                $siteTrees[$siteID] = $siteTree;
-            }
-        }
-        return $siteTrees;
-    }
-
-    /**
      * Set the site user visiting.
      * 
      * 1. search by domin.
@@ -120,23 +23,10 @@ class siteModel extends model
      */
     public function setSite()
     {
-        /* Already in session, check it and load site config. */
-        if($this->session->site !== false)
-        {
-            if(RUN_MODE == 'admin' or $this->session->site->domain == $this->getDomainWithLang())
-            {
-                $this->app->site = $this->session->site;
-                return;
-            }
-        }
-
-        /* Search from database again. */
-        $site = $this->getByDomain();
-        if(!$site and isset($this->config->default->domain)) $site = $this->getByDomain($this->config->default->domain);
-        if(!$site) $site = $this->getFirst();
-        if(!$site) $this->app->error(sprintf($this->lang->error->siteNotFound, $_SERVER['HTTP_HOST']), __FILE__, __LINE__, $exit = true);
-        $this->session->set('site', $site);
-        $this->app->site  = $site;
+        $this->app->site = new stdclass();
+        $this->app->site->name     = '';
+        $this->app->site->keywords = '';
+        $this->app->site->mission  = '';
     }
 
     /**
