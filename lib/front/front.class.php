@@ -218,10 +218,10 @@ class html
         foreach($options as $key => $value)
         {
             $key     = str_replace('item', '', $key);
-            $string .= "<span><input type='checkbox' id='{$name}{$i}'  name='{$name}[]' value='$key' ";
+            $string .= "<label class='checkbox'><input type='checkbox' id='{$name}{$i}'  name='{$name}[]' value='$key' ";
             $string .= strpos($checked, ",$key,") !== false ? " checked ='checked'" : "";
             $string .= $attrib;
-            $string .= " /> <label for='{$name}{$i}'>$value</label></span>\n";
+            $string .= " /> $value</label>\n";
 
             $i++;
         }
