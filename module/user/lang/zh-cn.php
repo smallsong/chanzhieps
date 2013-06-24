@@ -96,11 +96,10 @@ $lang->user->notice->password = '字母和数字组合，最少六位';
 
 $lang->user->login  = new stdclass();
 $lang->user->login->common  = "登录";
-$lang->user->login->inputNameHere  = "在这输入用户名";
-$lang->user->login->keep  = "保持在线";
 $lang->user->login->welcome = '欢迎登录';
 $lang->user->login->why     = '欢迎登陆我们的系统，这样您可以使用我们为注册会员提供的各种服务。';
 $lang->user->login->openID  = '使用其他帐号进行登录：';
+$lang->user->login->keepLogin['yes'] = "保持登录";
 
 $lang->user->control = new stdclass();
 $lang->user->control->common      = '用户中心';
