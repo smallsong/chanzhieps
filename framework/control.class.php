@@ -522,6 +522,19 @@ class control
     }
 
     /**
+     * Send data directly, for ajax requests.
+     * 
+     * @param  misc    $data 
+     * @param  string $type 
+     * @access public
+     * @return void
+     */
+    public function send($data, $type = 'json')
+    {
+        if($type == 'json') echo json_encode($data);
+    }
+
+    /**
      * Create a link to one method of one module.
      * 
      * @param   string         $moduleName    module name

@@ -413,26 +413,6 @@ function getWebRoot()
     }
     return substr($path, 0, (strrpos($path, '/') + 1));
 }
-
-/**
- * return formated json data 
- * 
- * @access public
- * @return void
- */
-function jsonReturn($status, $message, $data = array(), $locateTo = "")
-{
-    $outPut = array();
-    $outPut['status'] = $status;
-    $outPut['message'] = $message;
-    $outPut['data'] = $data;
-    $outPut['locateTo'] = $locateTo;
-    ob_clean();
-    header("Content-Type:application/json;charset=utf-8");
-    echo json_encode($outPut);
-    exit;
-}
-
 /**
  * Remove UTF8 Bom 
  * 
