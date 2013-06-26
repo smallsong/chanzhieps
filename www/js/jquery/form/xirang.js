@@ -34,7 +34,7 @@ $.extend(
                 /* The result.message is just a string. */
                 if($.type(response.message) == 'string')
                 {
-                    if($('#responsera').length == 0) return bootbox.alert(response.message);
+                    if($('#responser').length == 0) return bootbox.alert(response.message);
                     return $('#responser').html(response.message).addClass('text-error').show().delay(3000).fadeOut(100);
                 }
 
