@@ -45,20 +45,153 @@ class commonModel extends model
      */
     public function checkPriv()
     {
-        if(RUN_MODE == 'front') $this->common->checkFront();
-        if(RUN_MODE == 'admin') $this->common->checkAdmin();
+        $module = $this->app->getModuleName();
+        $method = $this->app->getMethodName();
+
+        if($this->isOpenMethod($module, $method)) return true;
+
+        /* If no $app->user yet, go to the login pae. */
+        if(RUN_MODE == 'admin' and $this->app->user->account == 'guest')
+        {
+            $referer  = helper::safe64Encode($this->app->getURI(true));
+            die(js::locate(helper::createLink('user', 'login', "referer=$referer")));
+        }
+
+        /* Check the priviledge. */
+        if(!$this->hasPriv($module, $method)) $this->deny($module, $method);
     }
 
-   /**
-     * Print the run info.
+    /**
+     * Check current user has priviledge to the module's method or not.
      * 
-     * @param mixed $startTime  the start time.
+     * @param mixed $module     the module
+     * @param mixed $method     the method
+     * @static
+     * @access public
+     * @return bool
+     */
+    public function hasPriv($module, $method)
+    {
+        global $app;
+        if(RUN_MODE == 'admin')
+        {
+            if($app->user->admin == 'no')    return false;
+            if($app->user->admin == 'super') return true;
+        }
+
+        $rights  = $app->user->rights;
+        if(isset($rights[strtolower($module)][strtolower($method)])) return true;
+        return false;
+    }
+
+    /**
+     * Show the deny info.
+     * 
+     * @param mixed $module     the module
+     * @param mixed $method     the method
+     * @access private
+     * @return void
+     */
+    private function deny($module, $method)
+    {
+        $vars = "module=$module&method=$method";
+        if(isset($_SERVER['HTTP_REFERER']))
+        {
+            $referer  = helper::safe64Encode($_SERVER['HTTP_REFERER']);
+            $vars .= "&referer=$referer";
+        }
+        $denyLink = helper::createLink('user', 'deny', $vars);
+        die(js::locate($denyLink));
+    }
+
+    /** 
+     * Juage a method of one module is open or not?
+     * 
+     * @param  string $module 
+     * @param  string $method 
+     * @access public
+     * @return bool
+     */
+    public function isOpenMethod($module, $method)
+    {   
+        if($module == 'user' and strpos(',login|logout|deny|resetpassword|checkresetkey', $method)) return true;
+        if($module == 'api'  and $method == 'getsessionid') return true;
+
+        if($this->loadModel('user')->isLogon() and stripos($method, 'ajax') !== false) return true;
+
+        return false;
+    }   
+
+    /**
+     * Create the main menu.
+     * 
+     * @param  string $moduleName 
+     * @static
+     * @access public
+     * @return string
+     */
+    public static function createMainMenu($moduleName)
+    {
+        global $app, $lang;
+        $string = "<ul class='nav'>\n";
+
+        /* Get current menu. */
+        $currentMenu = $moduleName;
+        if(isset($lang->menugroup->$moduleName)) $currentMenu = $lang->menugroup->$moduleName;
+
+        /* Print all main menus. */
+        foreach($lang->menu as $key => $menu)
+        {
+            $class = $key == $currentMenu ? " class='active'" : '';
+            list($label, $module, $method) = explode('|', $menu);
+
+            if(commonModel::hasPriv($module, $method))
+            {
+                $link  = helper::createLink($module, $method);
+                $string .= "<li$class><a href='$link' id='menu$key'>$label</a></li>\n";
+            }
+        }
+
+        $string .= "</ul>\n";
+        return $string;
+    }
+
+    /**
+     * Create the module menu.
+     * 
+     * @param  string $moduleName 
+     * @static
      * @access public
      * @return void
      */
-    public function printRunInfo($startTime)
+    public static function createModuleMenu($moduleName)
     {
-        vprintf($this->lang->runInfo, $this->common->getRunInfo($startTime));
+        global $lang, $app;
+
+        if(!isset($lang->$moduleName->menu)) return false;
+        $string = "<ul class='nav nav-list leftmenu affix'>\n";
+
+        /* Get the sub menus of the module, and get current module and method. */
+        $submenus      = $lang->$moduleName->menu;  
+        $currentModule = $app->getModuleName();
+        $currentMethod = $app->getMethodName();
+
+        /* Cycling to print every sub menus. */
+        foreach($submenus as $key => $menu)
+        {
+            list($label, $module, $method) = explode('|', $menu);
+            $label .= '<i class="icon-chevron-right"></i>';
+
+            if(commonModel::hasPriv($module, $method))
+            {
+                $class = '';
+                if($module == $currentModule and $method == $currentMethod) $class = " class='active'";
+                $string .= "<li{$class}>" . html::a(helper::createLink($module, $method), $label, '', "id='submenu$key'") . "</li>\n";
+            }
+        }
+
+        $string .= "</ul>\n";
+        return $string;
     }
 
     /**
@@ -188,14 +321,7 @@ class commonModel extends model
         $user->id       = 0;
         $user->account  = 'guest';
         $user->realname = 'guest';
-        $user->isAdmin  = false;
-        $user->isSuper  = false;
-
-        if(RUN_MODE == 'cli')
-        {
-            $user->isSuper = true;
-            $user->isAdmin = true;
-        }
+        $user->admin    = RUN_MODE == 'cli' ? 'super' : 'no';
 
         $this->session->set('user', $user);
         $this->app->user = $this->session->user;
@@ -256,94 +382,6 @@ class commonModel extends model
         }
 
         return $ip;
-    }
-
-    /**
-     * Check current user has priviledge to the module's method or not.
-     * 
-     * @todo add group priviledges.
-     * @param mixed $module     the module
-     * @param mixed $method     the method
-     * @static
-     * @access public
-     * @return bool
-     */
-    public function hasPriv($module, $method)
-    {
-        return $this->app->user->isAdmin;
-    }
-
-    /**
-     * Check the priviledge of front.
-     * 
-     * @access public
-     * @return void
-     */
-    public function checkFront()
-    {
-        $module = $this->app->getModuleName();
-        $method = $this->app->getMethodName();
-        if(strpos($this->config->frontActions, $module . '-' . $method) === false) $this->deny($module, $method);
-    }
-
-    /**
-     * Check the priviledge of admin.
-     * 
-     * @access public
-     * @return void
-     */
-    public function checkAdmin()
-    {
-        $module = $this->app->getModuleName();
-        $method = $this->app->getMethodName();
-
-        /* The login, logout and deny page needn't check. */
-        if($module == 'user' and strpos(',login|logout|deny|resetpassword|checkresetkey', $method)) return true;
-
-        /* If the suer not login, try login use the PHP_AUTH_USER. */
-        if($this->app->user->account == 'guest' and $this->server->php_auth_user and $this->server->php_auth_pw)
-        {
-            $account  = $this->server->php_auth_user;
-            $password = $this->server->php_auth_pw;
-            $user = $this->loadModel('user')->identify($account, $password);
-
-            /* If identify passed, authorize the user and register it to app and session .*/
-            if($user)
-            {
-                $this->session->set('user', $user);
-                $this->app->user = $user;
-            }
-        }
-
-        /* If no $app->user yet, go to the login pae. */
-        if($this->app->user->account == 'guest')
-        {
-            $referer  = helper::safe64Encode($this->app->getURI(true));
-            die(js::locate(helper::createLink('user', 'login', "referer=$referer&from=zentao")));
-        }
-
-        /* Check the priviledge. */
-        if(!$this->hasPriv($module, $method)) $this->deny($module, $method);
-    }
-
-    /**
-     * Show the deny info.
-     * 
-     * @param mixed $module     the module
-     * @param mixed $method     the method
-     * @access private
-     * @return void
-     */
-    private function deny($module, $method)
-    {
-        $vars = "module=$module&method=$method";
-        if(isset($_SERVER['HTTP_REFERER']))
-        {
-            $referer  = helper::safe64Encode($_SERVER['HTTP_REFERER']);
-            $vars .= "&referer=$referer";
-        }
-        $denyLink = helper::createLink('user', 'deny', $vars);
-        die(js::locate($denyLink));
     }
 
     /**
