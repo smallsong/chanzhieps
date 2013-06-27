@@ -75,18 +75,16 @@ class user extends control
         /* If the user logon already, goto the pre page. */
         if($this->user->isLogon())
         {
-            if($this->refere !='' and
-               strpos($this->referer, $loginLink) === false and 
-               strpos($this->referer, $denyLink)  === false and 
-               strpos($this->referer, $regLink)   === false
-            )
+            if($this->referer and strpos($loginLink . $denyLink . $regLink, $this->referer) !== false)
             {
-                $this->locate($this->referer);
+                $locate = $this->referer;
             }
             else
             {
-                $this->locate($this->createLink($this->config->default->module));
+                $locate = $this->createLink($this->config->default->module);
             }
+
+            $this->locate($locate);
         }
 
         /* If the user sumbit post, check the user and then authorize him. */
@@ -98,27 +96,21 @@ class user extends control
                 /* Register the session. */
                 $this->session->set('user', $user);
                 $this->app->user = $this->session->user;
-                /* Admin mode, goto the default module directly. */
-                if(RUN_MODE == 'admin') jsonReturn(1, '', '', $this->createLink($this->config->default->module));
-                   // die(js::locate(, 'parent'));
 
                 /* Goto the referer or to the default module */
-                if($this->post->referer != false and 
-                   strpos($this->post->referer, $loginLink) === false and 
-                   strpos($this->post->referer, $denyLink)  === false and 
-                   strpos($this->post->referer, $regLink)   === false
-                )
+                if($this->post->referer != false and strpos($loginLink . $denyLink . $regLink, $this->post->referer) !== false)
                 {
-                    jsonReturn(1, '', '', urldecode($_POST['referer']));
+                    $this->send(array('result'=>'success', 'locate'=> urldecode($_POST['referer'])));
                 }
                 else
                 {
-                    jsonReturn(1, '', '', $this->createLink('user', 'control'));
+                    $default = $this->config->user->default;
+                    $this->send(array('result'=>'success', 'locate' => $this->createLink($default->module, $default->method)));
                 }
             }
             else
             {
-                jsonReturn(0, $this->lang->user->loginFailed);
+                $this->send(array('result'=>'fail', 'message' => $this->lang->user->loginFailed));
             }
         }
 
@@ -340,7 +332,7 @@ class user extends control
     }
 
     /**
-     * get the forgotten password
+     * Reset password.
      *
      * @access public
      * @return void

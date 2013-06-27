@@ -124,4 +124,3 @@ $lang->user->resetmail->notice  = "系统发信，请勿回复";
 
 $lang->user->reset = new stdclass();
 $lang->user->reset->success = '密码已修改';
-
