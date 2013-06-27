@@ -35,7 +35,7 @@ $.extend(
                 if($.type(response.message) == 'string')
                 {
                     if($('#responser').length == 0) return bootbox.alert(response.message);
-                    return $('#responser').html(response.message).addClass('text-error').show().delay(3000).fadeOut(100);
+                    return $('#responser').html(response.message).addClass('text-error f-12px').show().delay(5000).fadeOut(100);
                 }
 
                 /* The result.message is just a object. */
