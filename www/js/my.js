@@ -82,9 +82,23 @@ function setImageSize(image, maxWidth)
     $(image).wrap('<a href="' + $(image).attr('src') + '" target="_blank"></a>')
 }
 
+/**
+ * Set the leftmenu for admin.
+ * 
+ * @access public
+ * @return void
+ */
+function setAdminLeftMenu()
+{
+    $('ul.leftmenu').find('a').last().addClass('radius-bottom');
+    $('ul.leftmenu').find('a').first().addClass('radius-top');
+}
+
 $(document).ready(function() 
 {
     setRequiredFields();
     needPing = config.runMode == 'admin' ? true : false;
     if(needPing) setTimeout('setPing()', 100 * 60 * 5);
+
+    setAdminLeftMenu();
 })
