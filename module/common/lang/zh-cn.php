@@ -8,26 +8,10 @@
  * @version     $Id$
  * @link        http://www.zentao.net
  */
-$lang->arrow        = ' » ';
-$lang->colon        = '::';
-$lang->at           = ' 于 ';
-$lang->downArrow    = '↓';
-
-$lang->xirangEPS    = 'xirangEPS';
-$lang->homePage     = '首页';
-$lang->aboutus      = '关于我们';
-$lang->hr           = '招聘';
-$lang->currentPos   = '当前位置：';
-$lang->poweredBy    = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
-
-$lang->articleTree     = '分类浏览';
-$lang->articleFull     = '阅读正文 ';
-$lang->articleViews    = '<i>%s次阅读</i> ';
-$lang->articleComments = '<i>%s条评论</i> ';
-$lang->articleAuthor   = '<i>%s 发表于 %s</i>';
+$lang->xirangEPS      = 'xirangEPS';
+$lang->poweredBy      = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
 $lang->welcome        = "欢迎您, <strong>%s</strong> ";
-$lang->welcomeAdmin   = "欢迎您使用 禅道内容管理系统 ";
 $lang->todayIs        = '今天是%s，';
 $lang->dashboard      = '用户中心';
 $lang->register       = '免费注册';
@@ -54,15 +38,20 @@ $lang->feature      = '未来';
 $lang->year         = '年';
 $lang->submitting   = '稍候...';
 
-$lang->selectAll    = '全选';
-$lang->notFound     = '抱歉，您访问的对象并不存在！';
-$lang->messages     = '未读消息(%s)';
+/* The main menus. */
+$lang->menu = new stdclass();
+$lang->menu->admin    = '首页|admin|index';
+$lang->menu->article  = '文章|article|browseadmin';
+$lang->menu->category = '类目|category|index';
+$lang->menu->site     = '站点|site|index';
 
-/* The labels show in the positon bar. */
-$lang->position['article'] = '文章';
-$lang->position['forum']   = '论坛';
-$lang->position['thread']  = '论坛';
-$lang->position['user']    = '用户';
+/* The menus of article module. */
+$lang->article = new stdclass();
+$lang->article->menu = new stdclass();
+
+$lang->article->menu->browse   = '文章列表|article|browseadmin|';
+$lang->article->menu->create   = '添加文章|article|create|';
+$lang->article->menu->category = '类目管理|category|index';
 
 /* The error messages. */
 $lang->error = new stdclass();
@@ -88,12 +77,6 @@ $lang->pager->pre       = "上页";
 $lang->pager->next      = "下页";
 $lang->pager->last      = "末页";
 $lang->pager->locate    = "GO!";
-
-$lang->js->failed = '失败';
-$lang->js->noResponse = '请求无响应';
-
-$lang->kindeditor = new stdclass();
-$lang->kindeditor->code = '插入代码';
 
 /* The datetime settings. */
 define('DT_DATETIME1',  'Y-m-d H:i:s');
