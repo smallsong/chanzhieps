@@ -137,49 +137,23 @@ class userModel extends model
     {
         if(!$account or !$password) return false;
 
-        /* Try account first. */
+        /* First get the user from database by account or email. */
         $user = $this->dao->select('*')->from(TABLE_USER)
-            ->where('account')->eq($account)
-            ->andWhere('password')->eq(md5($password))
-            ->fetch('', false);
-        /* Then try email. */
-        if(!$user)
-        {
-            /* If there are two users using the same email, can't use email to identify. */
-            $count = $this->dao->select("count(*) AS count")->from(TABLE_USER)->where('email')->eq($account)->fetch('count', false);
-            if($count == 1)
-            {
-                $user = $this->dao->select('*')->from(TABLE_USER)
-                    ->where('email')->eq($account)
-                    ->andWhere('password')->eq(md5($password))
-                    ->fetch('', false);
-            }
-        }
-        
-        if($user)
-        {
-            $allowTime = $this->dao->select('allowTime')->from(TABLE_USER)
-                  ->where('account')->eq($account)
-                  ->fetch('allowTime', false);
-            $now = helper::now();
-            if($allowTime > $now)
-            {
-                jsonReturn(0, $this->lang->user->alert . ' ' . $this->lang->user->allowTime . ':' . $allowTime->allowTime);
-            }
+            ->beginIF(validater::checkEmail($account))->where('email')->eq($account)->fi()
+            ->beginIF(!validater::checkEmail($account))->where('account')->eq($account)->fi()
+            ->fetch();
 
-            $ip   = $_SERVER['REMOTE_ADDR'];
-            $last = helper::now();
-            $this->dao->update(TABLE_USER)
-                ->set('visits = visits + 1')
-                ->set('ip')->eq($ip)
-                ->set('last')->eq($last)
-                ->where('account')->eq($account)
-                ->exec(false);
+        /* Then check the password hash. */
+        if(!$user) return false;
+        if($this->createPassword($password, $user->account, $user->addedDate) != $user->password) return false;
 
-            /* Judge is admin or not. */
-            $user->isSuper = false;
-            if(strpos($this->config->admin->supers, ",$account,") !== false) $user->isSuper = true;
-        }
+        /* Update user data. */
+        $user->ip = $this->server->remote_addr;
+        $user->last = helper::now();
+        $user->visits ++;
+        $this->dao->update(TABLE_USER)->data($user)->where('account')->eq($account)->exec();
+
+        /* Return him.*/
         return $user;
     }
 
@@ -339,8 +313,8 @@ class userModel extends model
      * @access public
      * @return string
      */
-    public function createPassword($password, $account, $addedTime)
+    public function createPassword($password, $account, $addedDate)
     {
-        return md5(md5($password) . $account . $addedTime);
+        return md5(md5($password) . $account . $addedDate);
     }
 }
