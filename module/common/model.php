@@ -195,6 +195,24 @@ class commonModel extends model
     }
 
     /**
+     * Create menu for managers.
+     * 
+     * @access public
+     * @return string
+     */
+    public function createManagerMenu()
+    {
+        global $app, $lang;
+
+        $string  = '<p class="navbar-text pull-right">';
+        $string .= sprintf($lang->welcome, $app->user->account);
+        $string .= html::a($this->createLink('user','logout'), $lang->logout, '', 'class="navbar-link"');
+        $string .= '</p>';
+
+        return $string;
+    }
+
+    /**
      * Print the top bar.
      * 
      * @access public
