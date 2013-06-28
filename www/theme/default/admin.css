@@ -10,10 +10,10 @@
 body {padding-top: 60px;  padding-bottom: 40px;}
 
 /* The global settings of left menu. */
-.leftmenu {width: 180px; margin: 20px 0 0; padding: 0; background-color: #fff;}
+.leftmenu{width: 13.9%; margin: 20px 0 0; padding: 0; background-color: #fff;}
 
 /* The list items settings. */
-.leftmenu > li > a {display: block; width: 190px \9; margin: 0 0 -1px; padding: 8px 14px; border: 1px solid #e5e5e5;}
+.leftmenu > li > a {display: block; margin: 0 0 -1px; padding: 8px 14px; border: 1px solid #e5e5e5;}
 .leftmenu > .active > a { position: relative; z-index: 2; padding: 9px 15px; border: 0;}
 
 /* The right chevron settings. */
