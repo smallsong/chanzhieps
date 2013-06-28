@@ -5,5 +5,6 @@ $config->user->edit     = new stdclass();
 $config->user->register->requiredFields = 'account,realname,email,password,password1,password2';
 $config->user->edit->requiredFields = 'realname,email';
 
+$config->user->default = new stdclass();
 $config->user->default->module = RUN_MODE == 'front' ? 'user'    : 'admin';
 $config->user->default->method = RUN_MODE == 'front' ? 'control' : 'index';
