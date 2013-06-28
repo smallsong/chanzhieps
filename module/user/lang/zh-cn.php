@@ -32,6 +32,7 @@ $lang->user->reply       = '我的回复';
 $lang->user->message     = '我的消息';
 
 $lang->user->inputUserName = '请输入用户名';
+$lang->user->inputAccountOrEmail = '请输入用户名或Email';
 $lang->user->inputPassword = '请输入密码';
 $lang->user->searchUser    = '搜索';
 
