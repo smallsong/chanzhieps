@@ -65,15 +65,16 @@ if(file_exists($domainConfig)) include $domainConfig;
 if(file_exists($modeConfig))   include $modeConfig;
 
 /* The tables. */
-define('TABLE_SITE',    $config->db->prefix . 'site');
-define('TABLE_MODULE',  $config->db->prefix . 'module');
-define('TABLE_ARTICLE', $config->db->prefix . 'article');
-define('TABLE_BLOCK',   $config->db->prefix . 'block');
-define('TABLE_LAYOUT',  $config->db->prefix . 'layout');
-define('TABLE_COMMENT', $config->db->prefix . 'comment');
-define('TABLE_THREAD',  $config->db->prefix . 'thread');
-define('TABLE_REPLY',   $config->db->prefix . 'reply');
-define('TABLE_USER',    $config->db->prefix . 'user');
-define('TABLE_GROUP',   $config->db->prefix . 'group');
-define('TABLE_FILE',    $config->db->prefix . 'file');
-define('TABLE_MESSAGE', $config->db->prefix . 'message');
+define('TABLE_SITE',     $config->db->prefix . 'site');
+define('TABLE_CATEGORY',        $config->db->prefix . 'category');
+define('TABLE_ARTICLECATEGORY', $config->db->prefix . 'atricleCategory');
+define('TABLE_ARTICLE',         $config->db->prefix . 'article');
+define('TABLE_BLOCK',           $config->db->prefix . 'block');
+define('TABLE_LAYOUT',          $config->db->prefix . 'layout');
+define('TABLE_COMMENT',         $config->db->prefix . 'comment');
+define('TABLE_THREAD',          $config->db->prefix . 'thread');
+define('TABLE_REPLY',           $config->db->prefix . 'reply');
+define('TABLE_USER',            $config->db->prefix . 'user');
+define('TABLE_GROUP',           $config->db->prefix . 'group');
+define('TABLE_FILE',            $config->db->prefix . 'file');
+define('TABLE_MESSAGE',         $config->db->prefix . 'message');
