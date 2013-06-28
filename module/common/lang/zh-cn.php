@@ -53,6 +53,15 @@ $lang->article->menu->browse   = '文章列表|article|browseadmin|';
 $lang->article->menu->create   = '添加文章|article|create|';
 $lang->article->menu->category = '类目管理|category|index';
 
+
+/* The menus of site module. */
+$lang->site = new stdclass();
+$lang->site->menu = new stdclass();
+
+$lang->site->menu->index   = '站点设置|site|index';
+$lang->site->menu->company = '公司信息|company|index';
+$lang->site->menu->contact = '联系方式|company|contact';
+
 /* The error messages. */
 $lang->error = new stdclass();
 $lang->error->length          = array("『%s』长度错误，应当为『%s』", "『%s』长度应当不超过『%s』，且不小于『%s』。");
