@@ -3,7 +3,7 @@
  * The control file of site module of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
- * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @author      Xiying Guan <guanxiying@xirangit.com>
  * @package     site
  * @version     $Id$
  * @link        http://www.xirang.biz
@@ -18,25 +18,6 @@ class site extends control
      */
     public function index()
     {
-        $this->locate($this->createLink('site', 'browse'));
-    }
-
-    /**
-     * Create a site.
-     * 
-     * @access public
-     * @return void
-     */
-    public function create()
-    {
-        if(!empty($_POST))
-        {
-            $this->site->create();
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate($this->createLink('admin'), 'parent.parent'));
-        }
-
-        $this->view->sites = $this->site->getPairs();
         $this->display();
     }
 
@@ -85,36 +66,4 @@ class site extends control
         }
     }
 
-    /**
-     * Set a site.
-     * 
-     * @access public
-     * @return void
-     */
-    public function set()
-    {
-        if(!empty($_POST))
-        {
-            $this->site->saveSetting();
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::alert($this->lang->site->successSaved));
-        }
-
-        $site       = $this->site->getById($this->session->site->id);
-        $optionMenu = $this->loadModel('tree')->getOptionMenu('article');
-
-        /* Process the modules show in index page. */
-        $indexModules  = explode(',', $site->indexModules);
-        foreach($indexModules as $key => $catID)
-        {
-            unset($indexModules[$key]);
-            if(!isset($optionMenu[$catID])) continue;
-            $indexModules[$catID] = $optionMenu[$catID];
-        }
-        if(!$indexModules) $indexModules = array('' => '');
-        $this->view->site         = $site;
-        $this->view->optionMenu   = $optionMenu;
-        $this->view->indexModules = $indexModules;
-        $this->display();
-    }
 }

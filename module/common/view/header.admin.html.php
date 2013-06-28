@@ -13,5 +13,5 @@
   <div class="row-fluid">
     <?php 
     $moduleMenu = commonModel::createModuleMenu($this->moduleName);
-    if($moduleMenu) echo "<div class='span3 leftmenu'>$moduleMenu</div>\n<div class='span9'>\n";
+    if($moduleMenu) echo "<div class='span2'>$moduleMenu</div>\n<div class='span10'>\n";
     ?>
