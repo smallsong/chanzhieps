@@ -194,3 +194,7 @@ CREATE TABLE IF NOT EXISTS `xr_config` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `unique` (`owner`,`module`,`section`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+RENAME TABLE `xirang`.`xr_articleModule` TO `xirang`.`xr_articleCategory`;
+RENAME TABLE `xirang`.`xr_module` TO `xirang`.`xr_category`;
+ALTER TABLE `xr_articleCategory` CHANGE `module` `category` SMALLINT( 5 ) NOT NULL;
