@@ -10,34 +10,16 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php include '../../common/view/colorbox.html.php';?>
 <div class="container">
-  <h3><?php echo $session->site->name . $lang->colon . $lang->admin->manageArticle?></h3>
   <div class="tabbable">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#tab1" data-toggle="tab"><?php if($module) echo $module->name; echo $lang->article->list?></a></li>
-      <li><a href="#tab2" data-toggle="tab">类目管理</a></li>
-      <li><a href="#tab3" data-toggle="tab"><?php echo $lang->article->add;?></a></li>
-    </ul>
     <div class="tab-content">
     <div class="tab-pane active" id="tab1">
     <form method="get" action="">
       <select id="subjectSelect" name="sID">
-        <option value="0">分类筛选</option>
+        <option value="0">类目筛选</option>
         <option value="1" isleaf="0">News</option>
         <option value="2" isleaf="1">&nbsp;├Company news</option>
         <option value="3" isleaf="1">&nbsp;├Industry news</option> 
-      </select>
-      <select name="topType">
-        <option value="">推荐筛选</option>
-        <option value="onIndex">首页推荐</option>
-        <option value="onCate">类目推荐</option>
-      </select>
-      <select id="stateID" name="stateID">
-        <option selected="selected" value="">状态筛选</option>
-        <option value="1">发布中</option>
-        <option value="3">草稿</option> 
-        <option value="2">回收站</option>
       </select>
       <input type="submit" class="btn" value="筛选">
     </form>

@@ -1,5 +1,6 @@
 <?php
 $config->user = new stdclass();
+$config->user->default = new stdclass();
 $config->user->register = new stdclass();
 $config->user->edit     = new stdclass();
 $config->user->register->requiredFields = 'account,realname,email,password,password1,password2';

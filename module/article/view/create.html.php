@@ -12,12 +12,12 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
 <div class="row">
+  <h4><?php echo $lang->article->add;?></h4>
   <form method='post' target='hiddenwin' class='u-1'>
   <table align='center' class='table-1'>
-    <caption><?php echo $lang->article->add;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->article->module;?></th>
-      <td><?php echo html::select("module", $tree, $module ? $module->id : 0, 'class=select-3');?></td>
+      <td><?php echo html::select("module", $module->id, 'class=select-3');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->author;?></th>

@@ -1,6 +1,6 @@
 <?php
 /**
- * The edit view of product module of XiRangEPS.
+ * The edit view of product category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -16,7 +16,7 @@
       <caption><?php echo $lang->tree->edit;?></caption>
       <?php if($tree == 'forum'):?>
       <tr>
-        <th class='w-80px'><?php echo $lang->module->parent;?></th>
+        <th class='w-80px'><?php echo $lang->category->parent;?></th>
         <td class='f-left' style='border:0px'>
         <?php foreach($allOptionMenu as $siteID => $optionMenu)
         {
@@ -24,7 +24,7 @@
             {
                 if(empty($sites[$siteID])) continue;
                 echo $sites[$siteID] . '：';
-                echo html::select("parents[$siteID]", $optionMenu, (isset($modules[$siteID]) ? $modules[$siteID]->parent : ''), "class='text-2'") . '<br />';
+                echo html::select("parents[$siteID]", $optionMenu, (isset($categorys[$siteID]) ? $categorys[$siteID]->parent : ''), "class='text-2'") . '<br />';
                 echo html::hidden("sites[$siteID]", $siteID);
             }
         }
@@ -33,29 +33,29 @@
       </tr>  
       <?php else:?>
       <tr>
-        <th class=''><?php echo $lang->module->parent;?></th>
-        <td><?php echo html::select('parent', $optionMenu, $module->parent, "class='text-1'");?></td>
+        <th class=''><?php echo $lang->category->parent;?></th>
+        <td><?php echo html::select('parent', $optionMenu, $category->parent, "class='text-1'");?></td>
       </tr>  
       <?php endif;?>
       <tr>
-        <th class=''><?php echo $lang->module->name;?></th>
-        <td><?php echo html::input('name', $module->name, "class='text-1'");?></td>
+        <th class=''><?php echo $lang->category->name;?></th>
+        <td><?php echo html::input('name', $category->name, "class='text-1'");?></td>
       </tr>  
       <tr>
-        <th class=''><?php echo $lang->module->owners;?></th>
-        <td><?php echo html::input('owners', $module->owners, "class='text-1'");?></td>
+        <th class=''><?php echo $lang->category->owners;?></th>
+        <td><?php echo html::input('owners', $category->owners, "class='text-1'");?></td>
       </tr>  
       <tr>
-        <th class=''><?php echo $lang->module->desc;?></th>
-        <td><?php echo html::textarea('desc', $module->desc, "class='area-1' rows=3'");?></td>
+        <th class=''><?php echo $lang->category->desc;?></th>
+        <td><?php echo html::textarea('desc', $category->desc, "class='area-1' rows=3'");?></td>
       </tr>  
       <tr>
-        <th class=''><?php echo $lang->module->keyword;?></th>
-        <td><?php echo html::input('keyword', $module->keyword, "class='text-1'");?></td>
+        <th class=''><?php echo $lang->category->keyword;?></th>
+        <td><?php echo html::input('keyword', $category->keyword, "class='text-1'");?></td>
       </tr>  
       <tr>
-        <th class=''><?php echo $lang->module->readonly;?></th>
-        <td><input type='checkbox' name='readonly' value='1' <?php if($module->readonly) echo "checked=checked";?> /></td>
+        <th class=''><?php echo $lang->category->readonly;?></th>
+        <td><input type='checkbox' name='readonly' value='1' <?php if($category->readonly) echo "checked=checked";?> /></td>
       </tr>  
       <tr><td colspan='2' class='a-center'><?php echo html::submitButton() . html::hidden('tree', $tree);?></td </tr>
     </table>

@@ -1,6 +1,6 @@
 <?php
 /**
- * The tree module zh-cn file of XiRangEPS.
+ * The tree category zh-cn file of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -26,13 +26,13 @@ $lang->tree->confirmDelete = "您确定删除该模块吗？";
 $lang->tree->successSave   = "成功保存";
 $lang->tree->successFixed  = "成功修复";
 
-$lang->module = new stdclass();
-$lang->module->name    = '模块名称';
-$lang->module->parent  = '上级模块';
-$lang->module->desc    = '描述';
-$lang->module->keyword = '关键词';
-$lang->module->owners  = '负责人';
-$lang->module->readonly= '只读';
+$lang->category = new stdclass();
+$lang->category->name    = '模块名称';
+$lang->category->parent  = '上级模块';
+$lang->category->desc    = '描述';
+$lang->category->keyword = '关键词';
+$lang->category->owners  = '负责人';
+$lang->category->readonly= '只读';
 
 $lang->tree->lists['article'] = '文章';
 $lang->tree->lists['forum']   = '论坛';

@@ -42,7 +42,7 @@ $lang->submitting   = '稍候...';
 $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index';
 $lang->menu->article  = '文章|article|browseadmin';
-$lang->menu->category = '类目|category|index';
+$lang->menu->category = '类目|tree|browse|tree=article';
 $lang->menu->site     = '站点|site|index';
 
 /* The menus of article module. */
@@ -51,7 +51,7 @@ $lang->article->menu = new stdclass();
 
 $lang->article->menu->browse   = '文章列表|article|browseadmin|';
 $lang->article->menu->create   = '添加文章|article|create|';
-$lang->article->menu->category = '类目管理|category|index';
+$lang->article->menu->category = '类目管理|tree|browse|tree=article';
 
 
 /* The menus of site module. */

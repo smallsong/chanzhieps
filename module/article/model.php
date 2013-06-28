@@ -10,7 +10,7 @@
  */
 class articleModel extends model
 {
-    /**
+    /** 
      * Get article info by id.
      * 
      * @param  int $articleId 
@@ -19,16 +19,21 @@ class articleModel extends model
      * @return void
      */
     public function getById($articleId, $imgMaxWidth = 0)
-    {
-        $article = $this->dao->select('*')->from(TABLE_ARTICLE)->where('id')->eq($articleId)->fetch('', false);
+    {   
+        $article = $this->dao->select('*')->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
+            ->on('t1.id = t2.article')
+            ->where('t1.id')->eq($articleId)
+            ->andWhere('t2.site')->eq($this->app->site->id)
+            ->fetch('', false);
         if($article and empty($article->tree)) $article->tree = 'article';
         $article->files   = $this->loadModel('file')->getByObject('article', $articleId);
         $article->content = $this->file->setImgSize($article->content, $imgMaxWidth);
         foreach($article->files as $file) if($file->isImage and $file->public) $article->images[] = $file;
         return $article;
-    }
+    }   
 
-    /**
+    /** 
      * Get article list.
      * 
      * @param string $modules 
@@ -37,10 +42,13 @@ class articleModel extends model
      * @access public
      * @return array
      */
-    public function getList($modules, $orderBy, $pager = null)
+    public function getList($categories, $orderBy, $pager = null)
     {
-        return $this->dao->select('*')->from(TABLE_ARTICLE)
-            ->beginIF($modules)->where('module')->in($modules)->fi()
+        return $this->dao->select('t1.*, t2.category')->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
+            ->on('t1.id = t2.article')
+            ->where('1 = 1')
+            ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->orderBy($orderBy)
             ->page($pager, false)
             ->fetchAll('id', false);
@@ -57,8 +65,11 @@ class articleModel extends model
      */
     public function getPairs($modules, $orderBy, $pager = null)
     {
-        return $this->dao->select('id, title')->from(TABLE_ARTICLE)
-            ->beginIF($modules)->where('module')->in($modules)->fi()
+        return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
+            ->on('t1.id = t2.article')
+            ->where('t2.site')->eq($this->app->site->id)
+            ->beginIF($modules)->andWhere('t2.module')->in($modules)->fi()
             ->orderBy($orderBy)
             ->page($pager, false)
             ->fetchPairs('id', 'title', false);
@@ -78,8 +89,11 @@ class articleModel extends model
         $this->loadModel('tree');
         $childs = $this->tree->getAllChildId($moduleID);
         $articles = $this->dao->select('id, title, author, addedDate, summary')
-            ->from(TABLE_ARTICLE)
-            ->where('module')->in($childs)
+            ->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
+            ->on('t1.id = t2.article')
+            ->where('t2.site')->eq($this->app->site->id)
+            ->andWhere('module')->in($childs)
             ->orderBy('id desc')->limit($count)->fetchAll('id', false);
         if(!$getFiles) return $articles;
 
@@ -88,6 +102,21 @@ class articleModel extends model
         foreach($files as $file) $articles[$file->objectID]->files[] = $file;
 
         return $articles;
+    }
+
+    /**
+     * Get the modules in other sites for an article.
+     * 
+     * @param  string $articleID 
+     * @access public
+     * @return array
+     */
+    public function getOtherSiteModules($articleID)
+    {
+        return $this->dao->select('site, module')->from(TABLE_ARTICLECATEGORY)
+            ->where('article')->eq($articleID)
+            ->andWhere('site')->ne($this->session->site->id)
+            ->fetchPairs('site', 'module', false);
     }
 
     /**
@@ -116,14 +145,24 @@ class articleModel extends model
      */
     public function create()
     {
-        $article = fixer::input('post')->add('addedDate', helper::now())->get();
+        $article = fixer::input('post')->remove('modules')->get();
         $this->dao->insert(TABLE_ARTICLE)->data($article, false)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
         if(!dao::isError())
         {
             $articleID = $this->dao->lastInsertID();
             $this->dao->update(TABLE_ARTICLE)->set('`order`')->eq($articleID)->where('id')->eq($articleID)->exec(false);    // set the order field.
+            foreach($this->post->modules as $siteID => $moduleID)
+            {
+                if(!$moduleID) continue;
+                $tree = $this->dao->findByID($moduleID)->from(TABLE_MODULE)->fetch('tree', false);
+                $data->article = $articleID;
+                $data->site    = $siteID;
+                $data->module  = $moduleID;
+                $data->tree    = $tree;
+                $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data, false)->exec();
+            }
         }
-        return $articleID;
+        return;
     }
 
     /**
@@ -135,8 +174,29 @@ class articleModel extends model
      */
     public function update($articleID)
     {
-        $article = fixer::input('post')->add('editedDate', helper::now())->get();
+        $article = fixer::input('post')->add('editedDate', helper::now())->remove('modules')->get();
         $this->dao->update(TABLE_ARTICLE)->data($article, false)->autoCheck()->batchCheck('title, content', 'notempty')->where('id')->eq($articleID)->exec(false);
+        if(!dao::isError())
+        {
+            foreach($this->post->modules as $siteID => $moduleID)
+            {
+                $this->dao->delete()->from(TABLE_ARTICLECATEGORY)
+                    ->where('article')->eq($articleID)
+                    ->andWhere('site')->eq($siteID)
+                    ->exec(false);
+
+                if($moduleID)
+                {
+                    $tree = $this->dao->findByID($moduleID)->from(TABLE_MODULE)->fetch('tree', false);
+                    $data->module  = $moduleID;
+                    $data->tree    = $tree;
+                    $data->article = $articleID;
+                    $data->site    = $siteID;
+                    $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data,false)->exec();
+                }
+            }
+        }
+
         return;
     }
 
@@ -149,6 +209,7 @@ class articleModel extends model
      */
     public function delete($articleID)
     {
+        $this->dao->delete()->from(TABLE_ARTICLECATEGORY)->where('article')->eq($articleID)->exec(false);
         $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec(false);
     }
 
@@ -174,7 +235,7 @@ class articleModel extends model
             else
             {
                 /* substr the digest from the content. */
-                if($article->content[$digestLength] != "\n") 
+                if($article->content[$digestLength] != "\n")
                 {
                     $newDigestLength = mb_strpos($article->content, "\n", $digestLength);
                     if($newDigestLength) $digestLength = $newDigestLength;

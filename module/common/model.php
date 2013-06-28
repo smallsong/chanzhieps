@@ -179,14 +179,14 @@ class commonModel extends model
         /* Cycling to print every sub menus. */
         foreach($submenus as $key => $menu)
         {
-            list($label, $module, $method) = explode('|', $menu);
+            list($label, $module, $method, $vars) = explode('|', $menu);
             $label .= '<i class="icon-chevron-right"></i>';
 
             if(commonModel::hasPriv($module, $method))
             {
                 $class = '';
                 if($module == $currentModule and $method == $currentMethod) $class = " class='active'";
-                $string .= "<li{$class}>" . html::a(helper::createLink($module, $method), $label, '', "id='submenu$key'") . "</li>\n";
+                $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label, '', "id='submenu$key'") . "</li>\n";
             }
         }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of tree module of XiRangEPS.
+ * The model file of tree category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -13,43 +13,43 @@
 class treeModel extends model
 {
     /**
-     * Get module info by id.
+     * Get category info by id.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @access public
      * @return void
      */
-    public function getByID($moduleID)
+    public function getByID($categoryID)
     {
-        $module = $this->dao->findById((int)$moduleID)->from(TABLE_MODULE)->fetch();
-        if(!$module) return $module;
-        $pathNames   = $this->dao->select('id, name')->from(TABLE_MODULE)->where('id')->in($module->path)->orderBy('grade')->fetchPairs();
-        $module->pathNames = $pathNames;
-        return $module;
+        $category = $this->dao->findById((int)$categoryID)->from(TABLE_CATEGORY)->fetch();
+        if(!$category) return $category;
+        $pathNames   = $this->dao->select('id, name')->from(TABLE_CATEGORY)->where('id')->in($category->path)->orderBy('grade')->fetchPairs();
+        $category->pathNames = $pathNames;
+        return $category;
     }
 
     /**
      * Build the sql to execute.
      * 
      * @param string $tree              the tree type, for example, article|forum
-     * @param int    $startModuleID     the start module id
+     * @param int    $startCategoryID     the start category id
      * @param int    $siteID            the site id
      * @access public
      * @return string
      */
-    public function buildMenuQuery($tree, $startModuleID, $siteID = 0)
+    public function buildMenuQuery($tree, $startCategoryID, $siteID = 0)
     {
-        /* Get the start module path according the $startModuleID. */
-        $startModulePath = '';
-        if($startModuleID > 0)
+        /* Get the start category path according the $startCategoryID. */
+        $startCategoryPath = '';
+        if($startCategoryID > 0)
         {
-            $startModule = $this->getById($startModuleID);
-            if($startModule) $startModulePath = $startModule->path . '%';
+            $startCategory = $this->getById($startCategoryID);
+            if($startCategory) $startCategoryPath = $startCategory->path . '%';
         }
 
-        return $this->dao->select('*')->from(TABLE_MODULE)
+        return $this->dao->select('*')->from(TABLE_CATEGORY)
             ->where('tree')->eq($tree)
-            ->beginIF($startModulePath)->andWhere('path')->like($startModulePath)->fi()
+            ->beginIF($startCategoryPath)->andWhere('path')->like($startCategoryPath)->fi()
             ->beginIF($siteID)->andWhere('site')->eq($siteID)->fi()
             ->orderBy('grade desc, `order`')
             ->get($siteID ? false : true);
@@ -59,53 +59,53 @@ class treeModel extends model
      * Create a tree menu in <select> tag.
      * 
      * @param string $tree 
-     * @param int    $startModuleID 
+     * @param int    $startCategoryID 
      * @param int    $siteID
      * @access public
      * @return string
      */
-    public function getOptionMenu($tree = 'article', $startModuleID = 0, $siteID = 0)
+    public function getOptionMenu($tree = 'article', $startCategoryID = 0, $siteID = 0)
     {
-        /* First, get all modules. */
+        /* First, get all categories. */
         $treeMenu = array();
-        $stmt     = $this->dbh->query($this->buildMenuQuery($tree, $startModuleID, $siteID));
-        $modules  = array();
-        while($module = $stmt->fetch()) $modules[$module->id] = $module;
+        $stmt     = $this->dbh->query($this->buildMenuQuery($tree, $startCategoryID, $siteID));
+        $categories  = array();
+        while($category = $stmt->fetch()) $categories[$category->id] = $category;
 
         /* Cycle them, build the select control.  */
-        foreach($modules as $module)
+        foreach($categories as $category)
         {
-            $parentModules = explode(',', $module->path);
-            $moduleName = '/';
-            foreach($parentModules as $parentModuleID)
+            $parentCategories = explode(',', $category->path);
+            $categoryName = '/';
+            foreach($parentCategories as $parentCategoryID)
             {
-                if(empty($parentModuleID)) continue;
-                $moduleName .= $modules[$parentModuleID]->name . '/';
+                if(empty($parentCategoryID)) continue;
+                $categoryName .= $categories[$parentCategoryID]->name . '/';
             }
-            $moduleName = rtrim($moduleName, '/');
-            $moduleName .= "|$module->id\n";
+            $categoryName = rtrim($categoryName, '/');
+            $categoryName .= "|$category->id\n";
 
-            if(isset($treeMenu[$module->id]) and !empty($treeMenu[$module->id]))
+            if(isset($treeMenu[$category->id]) and !empty($treeMenu[$category->id]))
             {
-                if(isset($treeMenu[$module->parent]))
+                if(isset($treeMenu[$category->parent]))
                 {
-                    $treeMenu[$module->parent] .= $moduleName;
+                    $treeMenu[$category->parent] .= $categoryName;
                 }
                 else
                 {
-                    $treeMenu[$module->parent] = $moduleName;;
+                    $treeMenu[$category->parent] = $categoryName;;
                 }
-                $treeMenu[$module->parent] .= $treeMenu[$module->id];
+                $treeMenu[$category->parent] .= $treeMenu[$category->id];
             }
             else
             {
-                if(isset($treeMenu[$module->parent]) and !empty($treeMenu[$module->parent]))
+                if(isset($treeMenu[$category->parent]) and !empty($treeMenu[$category->parent]))
                 {
-                    $treeMenu[$module->parent] .= $moduleName;
+                    $treeMenu[$category->parent] .= $categoryName;
                 }
                 else
                 {
-                    $treeMenu[$module->parent] = $moduleName;
+                    $treeMenu[$category->parent] = $categoryName;
                 }    
             }
         }
@@ -118,26 +118,26 @@ class treeModel extends model
             if(!strpos($menu, '|')) continue;
             $menu     = explode('|', $menu);
             $label    = array_shift($menu);
-            $moduleID = array_pop($menu);
+            $categoryID = array_pop($menu);
             if(!empty($menu) and $this->cookie->lang == 'en') $lable = '/' . $menu;
            
-            $lastMenu[$moduleID] = $label;
+            $lastMenu[$categoryID] = $label;
         }
         return $lastMenu;
     }
 
     /**
-     * Get the id => name pairs of some modules.
+     * Get the id => name pairs of some categories.
      * 
-     * @param string $modules   the module lists
+     * @param string $categories   the category lists
      * @param string $tree      the tree
      * @access public
      * @return array
      */
-    public function getPairs($modules = '', $tree = '')
+    public function getPairs($categories = '', $tree = '')
     {
-        return $this->dao->select('id, name')->from(TABLE_MODULE)
-            ->beginIF($modules)->where('id')->in($modules)->fi()
+        return $this->dao->select('id, name')->from(TABLE_CATEGORY)
+            ->beginIF($categories)->where('id')->in($categories)->fi()
             ->beginIF($tree)->where('tree')->eq($tree)->fi()
             ->fetchPairs();
     }
@@ -146,37 +146,37 @@ class treeModel extends model
      * Get the tree menu in <ul><ol> type.
      * 
      * @param string    $tree           the tree type
-     * @param int       $startModuleID  the start module
+     * @param int       $startCategoryID  the start category
      * @param string    $userFunc       which function to be called to create the link
      * @access public
      * @return string   the html code of the tree menu.
      */
-    public function getTreeMenu($tree = 'article', $startModuleID = 0, $userFunc, $siteID = 0)
+    public function getTreeMenu($tree = 'article', $startCategoryID = 0, $userFunc, $siteID = 0)
     {
         $treeMenu = array();
-        $stmt = $this->dbh->query($this->buildMenuQuery($tree, $startModuleID, $siteID));
-        while($module = $stmt->fetch())
+        $stmt = $this->dbh->query($this->buildMenuQuery($tree, $startCategoryID, $siteID));
+        while($category = $stmt->fetch())
         {
-            $linkHtml = call_user_func($userFunc, $module);
+            $linkHtml = call_user_func($userFunc, $category);
 
-            if(isset($treeMenu[$module->id]) and !empty($treeMenu[$module->id]))
+            if(isset($treeMenu[$category->id]) and !empty($treeMenu[$category->id]))
             {
-                if(!isset($treeMenu[$module->parent])) $treeMenu[$module->parent] = '';
-                $treeMenu[$module->parent] .= "<li>$linkHtml";  
-                $treeMenu[$module->parent] .= "<ul>".$treeMenu[$module->id]."</ul>\n";
+                if(!isset($treeMenu[$category->parent])) $treeMenu[$category->parent] = '';
+                $treeMenu[$category->parent] .= "<li>$linkHtml";  
+                $treeMenu[$category->parent] .= "<ul>".$treeMenu[$category->id]."</ul>\n";
             }
             else
             {
-                if(isset($treeMenu[$module->parent]) and !empty($treeMenu[$module->parent]))
+                if(isset($treeMenu[$category->parent]) and !empty($treeMenu[$category->parent]))
                 {
-                    $treeMenu[$module->parent] .= "<li>$linkHtml\n";  
+                    $treeMenu[$category->parent] .= "<li>$linkHtml\n";  
                 }
                 else
                 {
-                    $treeMenu[$module->parent] = "<li>$linkHtml\n";  
+                    $treeMenu[$category->parent] = "<li>$linkHtml\n";  
                 }    
             }
-            $treeMenu[$module->parent] .= "</li>\n"; 
+            $treeMenu[$category->parent] .= "</li>\n"; 
         }
         $lastMenu = "<ul class='tree'>" . @array_pop($treeMenu) . "</ul>\n";
         return $lastMenu; 
@@ -185,164 +185,164 @@ class treeModel extends model
     /**
      * Create the admin link.
      * 
-     * @param string $module 
+     * @param string $category 
      * @access public
      * @return string
      */
-    public function createAdminLink($module)
+    public function createAdminLink($category)
     {
-        if($module->tree == 'forum')
+        if($category->tree == 'forum')
         {
-            $moduleName = 'forum';
+            $categoryName = 'forum';
             $methodName = 'boardAdmin';
-            $vars       = "moduleID=$module->id";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
-        elseif($module->tree == 'usercase')
+        elseif($category->tree == 'usercase')
         {
-            $moduleName = 'usercase';
+            $categoryName = 'usercase';
             $methodName = 'browseAdmin';
-            $vars       = "moduleID=$module->id";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
-        elseif($module->tree == 'extension')
+        elseif($category->tree == 'extension')
         {
-            $moduleName = 'extension';
+            $categoryName = 'extension';
             $methodName = 'browseAdmin';
-            $vars       = "moduleID=$module->id";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
-        elseif($module->tree == 'webapp')
+        elseif($category->tree == 'webapp')
         {
-            $moduleName = 'webapp';
+            $categoryName = 'webapp';
             $methodName = 'browseAdmin';
-            $vars       = "moduleID=$module->id";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
-        elseif($module->tree == 'ask')
+        elseif($category->tree == 'ask')
         {
-            $moduleName = 'ask';
+            $categoryName = 'ask';
             $methodName = 'manageFAQ';
-            $vars       = "moduleID=$module->id";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
-        elseif($module->tree == 'video')
+        elseif($category->tree == 'video')
         {
-            $moduleName = 'video';
+            $categoryName = 'video';
             $methodName = 'browseAdmin';
-            $vars       = "moduleID=$module->id&tree=$module->tree";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id&tree=$category->tree";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
-        elseif($module->tree == 'guide')
+        elseif($category->tree == 'guide')
         {
-            if($module->grade != 2) return $module->name;   // only level two can create links.
-            $moduleName = 'guide';
+            if($category->grade != 2) return $category->name;   // only level two can create links.
+            $categoryName = 'guide';
             $methodName = 'manage';
-            $vars       = "moduleID=$module->id";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+            $vars       = "categoryID=$category->id";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         else
         {
-            $moduleName = 'article';
+            $categoryName = 'article';
             $methodName = 'browseAdmin';
-            $orderBy    = $module->tree == 'article' ? 'id_desc' : '`order`';
-            $vars       = "tree=$module->tree&moduleID=$module->id&orderBy=$orderBy";
-            $linkHtml   = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module($module->id)'");
+            $orderBy    = $category->tree == 'article' ? 'id_desc' : '`order`';
+            $vars       = "tree=$category->tree&categoryID=$category->id&orderBy=$orderBy";
+            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category($category->id)'");
             return $linkHtml;
         }
         /* 
-        *$moduleName = $module->tree == 'forum' ? 'forum' : 'article';
-        $methodName = $module->tree == 'forum' ? 'boardAdmin' : 'browseAdmin';
-        $vars       = $module->tree == 'forum' ? "moduleID=$module->id" : "tree=$module->tree&moduleID=$module->id";
-        $linkHtml = html::a(helper::createLink($moduleName, $methodName, $vars), $module->name, 'mainwin', "id='module{$module->id}'");
+        *$categoryName = $category->tree == 'forum' ? 'forum' : 'article';
+        $methodName = $category->tree == 'forum' ? 'boardAdmin' : 'browseAdmin';
+        $vars       = $category->tree == 'forum' ? "categoryID=$category->id" : "tree=$category->tree&categoryID=$category->id";
+        $linkHtml = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
         return $linkHtml;*/
     }
 
     /**
      * Create the browse link.
      * 
-     * @param string $module 
+     * @param string $category 
      * @access private
      * @return string
      */
-    public function createBrowseLink($module)
+    public function createBrowseLink($category)
     {
-        $linkHtml = html::a(helper::createLink('article', 'browse', "moduleID={$module->id}"), $module->name, '', "id='module{$module->id}'");
+        $linkHtml = html::a(helper::createLink('article', 'browse', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}'");
         return $linkHtml;
     }
 
     /**
      * Create the manage link.
      * 
-     * @param string $module 
+     * @param string $category 
      * @access private
      * @return string
      */
-    public function createManageLink($module)
+    public function createManageLink($category)
     {
-        $linkHtml  = $module->name;
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',   "module={$module->id}&tree=$module->tree"), $this->lang->tree->edit, '', 'class="iframe"');
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'browse', "tree={$module->tree}&module={$module->id}"), $this->lang->tree->child);
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete', "module={$module->id}"), $this->lang->delete, 'hiddenwin');
-        $linkHtml .= ' ' . html::input("orders[$module->id]", $module->order, 'style="width:30px;text-align:center"');
+        $linkHtml  = $category->name;
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',   "category={$category->id}&tree=$category->tree"), $this->lang->tree->edit, '', 'class="iframe"');
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'browse', "tree={$category->tree}&category={$category->id}"), $this->lang->tree->child);
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete', "category={$category->id}"), $this->lang->delete, 'hiddenwin');
+        $linkHtml .= ' ' . html::input("orders[$category->id]", $category->order, 'style="width:30px;text-align:center"');
         return $linkHtml;
     }
 
     /**
-     * Get son modules of one module.
+     * Get son categories of one category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @param string $tree 
      * @access public
      * @return array
      */
-    public function getSons($moduleID, $tree = 'article')
+    public function getSons($categoryID, $tree = 'article')
     {
-        return $this->dao->select('*')->from(TABLE_MODULE)
-            ->where('parent')->eq((int)$moduleID)
+        return $this->dao->select('*')->from(TABLE_CATEGORY)
+            ->where('parent')->eq((int)$categoryID)
             ->andWhere('tree')->eq($tree)
             ->orderBy('`order`')
             ->fetchAll();
     }
     
     /**
-     * Get all child modules of one module.
+     * Get all child categories of one category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @param string $tree 
      * @access public
      * @return array
      */
-    public function getAllChildId($moduleID, $tree = '')
+    public function getAllChildId($categoryID, $tree = '')
     {
-        if($moduleID == 0 and empty($tree)) return array();
-        $module = $this->getById($moduleID);
+        if($categoryID == 0 and empty($tree)) return array();
+        $category = $this->getById($categoryID);
 
-        if($module)  return $this->dao->select('id')->from(TABLE_MODULE)->where('path')->like($module->path . '%')->fetchPairs();
-        if(!$module) return $this->dao->select('id')->from(TABLE_MODULE)->where('tree')->eq($tree)->fetchPairs();
+        if($category)  return $this->dao->select('id')->from(TABLE_CATEGORY)->where('path')->like($category->path . '%')->fetchPairs();
+        if(!$category) return $this->dao->select('id')->from(TABLE_CATEGORY)->where('tree')->eq($tree)->fetchPairs();
     }
 
     /**
-     * Get parent modules of on module.
+     * Get parent categories of on category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @access public
      * @return array
      */
-    public function getParents($moduleID)
+    public function getParents($categoryID)
     {
-        if($moduleID == 0) return array();
-        $path = $this->dao->select('path')->from(TABLE_MODULE)->where('id')->eq((int)$moduleID)->fetch('path');
+        if($categoryID == 0) return array();
+        $path = $this->dao->select('path')->from(TABLE_CATEGORY)->where('id')->eq((int)$categoryID)->fetch('path');
         $path = trim($path, ',');
         if(!$path) return array();
-        return $this->dao->select('*')->from(TABLE_MODULE)->where('id')->in($path)->orderBy('grade')->fetchAll();
+        return $this->dao->select('*')->from(TABLE_CATEGORY)->where('id')->in($path)->orderBy('grade')->fetchAll();
     }
 
     /**
@@ -354,28 +354,28 @@ class treeModel extends model
      */
     public function updateOrder($orders)
     {
-        foreach($orders as $moduleID => $order)
+        foreach($orders as $categoryID => $order)
         {
-            $this->dao->update(TABLE_MODULE)->set('`order`')->eq($order)->where('id')->eq((int)$moduleID)->limit(1)->exec();
+            $this->dao->update(TABLE_CATEGORY)->set('`order`')->eq($order)->where('id')->eq((int)$categoryID)->limit(1)->exec();
         }
     }
 
     /**
-     * Manage childs of one module.
+     * Manage childs of one category.
      * 
      * @param string $tree 
-     * @param string $parentModuleID 
+     * @param string $parentCategoryID 
      * @param string $childs 
      * @access public
      * @return void
      */
-    public function manageChild($tree, $parentModuleID, $childs)
+    public function manageChild($tree, $parentCategoryID, $childs)
     {
-        $parentModule = $this->getByID($parentModuleID);
-        if($parentModule)
+        $parentCategory = $this->getByID($parentCategoryID);
+        if($parentCategory)
         {
-            $grade      = $parentModule->grade + 1;
-            $parentPath = $parentModule->path;
+            $grade      = $parentCategory->grade + 1;
+            $parentPath = $parentCategory->path;
         }
         else
         {
@@ -384,101 +384,101 @@ class treeModel extends model
         }
 
         $i = 1;
-        foreach($childs as $moduleID => $moduleName)
+        foreach($childs as $categoryID => $categoryName)
         {
-            if(empty($moduleName)) continue;
+            if(empty($categoryName)) continue;
 
-            /* The new module. */
-            if(is_numeric($moduleID))
+            /* The new category. */
+            if(is_numeric($categoryID))
             {
-                $module->id      = $this->dao->select('MAX(id)+1 as id')->from(TABLE_MODULE)->fetch('id', false);
-                $module->name    = $moduleName;
-                $module->parent  = $parentModuleID;
-                $module->grade   = $grade;
-                $module->tree    = $tree;
-                $module->order   = $this->post->maxOrder + $i * 10;
-                $module->path    = $parentPath . "$module->id,";
-                $this->dao->insert(TABLE_MODULE)->data($module)->exec();
+                $category->id      = $this->dao->select('MAX(id)+1 as id')->from(TABLE_CATEGORY)->fetch('id', false);
+                $category->name    = $categoryName;
+                $category->parent  = $parentCategoryID;
+                $category->grade   = $grade;
+                $category->tree    = $tree;
+                $category->order   = $this->post->maxOrder + $i * 10;
+                $category->path    = $parentPath . "$category->id,";
+                $this->dao->insert(TABLE_CATEGORY)->data($category)->exec();
                 $i ++;
             }
-            /* The exisiting module. */
+            /* The exisiting category. */
             else
             {
-                $moduleID = str_replace('id', '', $moduleID);
-                $this->dao->update(TABLE_MODULE)->set('name')->eq($moduleName)->where('id')->eq($moduleID)->exec(false);
+                $categoryID = str_replace('id', '', $categoryID);
+                $this->dao->update(TABLE_CATEGORY)->set('name')->eq($categoryName)->where('id')->eq($categoryID)->exec(false);
             }
         }
     }
 
     /**
-     * Update a module.
+     * Update a category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @access public
      * @return void
      */
-    public function update($moduleID)
+    public function update($categoryID)
     {
         if($this->post->tree == 'forum')
         {
             $parents = $this->post->parents;
             $sites   = $this->post->sites;
-            $module  = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->remove('tree, parents, sites')->get();
-            $oldModule = $this->dao->findById((int)$moduleID)->from(TABLE_MODULE)->fetch('');
+            $category  = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->remove('tree, parents, sites')->get();
+            $oldCategory = $this->dao->findById((int)$categoryID)->from(TABLE_CATEGORY)->fetch('');
 
             foreach($parents as $siteID => $parentID)
             {
-                $parent = $this->dao->findById((int)$parentID)->from(TABLE_MODULE)->fetch('', false);
-                $module->id             = $moduleID;
-                $module->parent         = $parent ? $parent->id : 0;
-                $module->site           = $sites[$siteID];
-                $module->grade          = $parent ? $parent->grade + 1 : 1;
-                $module->tree           = $this->post->tree;
-                $module->order          = $oldModule->order;
-                $module->threads        = $oldModule->threads;
-                $module->posts          = $oldModule->posts;
-                $module->lastPostedBy   = $oldModule->lastPostedBy; 
-                $module->lastPostedDate = $oldModule->lastPostedDate; 
-                $module->lastPostID     = $oldModule->lastPostID;
-                $module->lastReplyID    = $oldModule->lastReplyID;
+                $parent = $this->dao->findById((int)$parentID)->from(TABLE_CATEGORY)->fetch('', false);
+                $category->id             = $categoryID;
+                $category->parent         = $parent ? $parent->id : 0;
+                $category->site           = $sites[$siteID];
+                $category->grade          = $parent ? $parent->grade + 1 : 1;
+                $category->tree           = $this->post->tree;
+                $category->order          = $oldCategory->order;
+                $category->threads        = $oldCategory->threads;
+                $category->posts          = $oldCategory->posts;
+                $category->lastPostedBy   = $oldCategory->lastPostedBy; 
+                $category->lastPostedDate = $oldCategory->lastPostedDate; 
+                $category->lastPostID     = $oldCategory->lastPostID;
+                $category->lastReplyID    = $oldCategory->lastReplyID;
 
-                $this->dao->delete()->from(TABLE_MODULE)->where('id')->eq($moduleID)->andWhere('site')->eq($module->site)->exec(false);
-                if($parentID != '') $this->dao->insert(TABLE_MODULE)->data($module)->exec(false);
-                $this->fixModulePath($module->tree);
+                $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->andWhere('site')->eq($category->site)->exec(false);
+                if($parentID != '') $this->dao->insert(TABLE_CATEGORY)->data($category)->exec(false);
+                $this->fixCategoryPath($category->tree);
             }
         }
         else
         {
-            $module = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->get();
+            $category = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->get();
             $parent = $this->getById($this->post->parent);
-            $module->grade = $parent ? $parent->grade + 1 : 1;
+            $category->grade = $parent ? $parent->grade + 1 : 1;
 
-            $this->dao->update(TABLE_MODULE)->data($module)->autoCheck()->check('name', 'notempty')->where('id')->eq($moduleID)->exec();
-            $this->fixModulePath($module->tree);
+            $this->dao->update(TABLE_CATEGORY)->data($category)->autoCheck()->check('name', 'notempty')->where('id')->eq($categoryID)->exec();
+            $this->fixCategoryPath($category->tree);
         }
 
-        $childs = $this->getAllChildId($moduleID);
-        $this->dao->update(TABLE_MODULE)->set('grade = grade + 1')->where('id')->in($childs)->andWhere('id')->ne($moduleID)->exec();
+        $childs = $this->getAllChildId($categoryID);
+        $this->dao->update(TABLE_CATEGORY)->set('grade = grade + 1')->where('id')->in($childs)->andWhere('id')->ne($categoryID)->exec();
     }
 
     /**
-     * Delete a module.
+     * Delete a category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @access public
      * @return void
      */
-    public function delete($moduleID)
+    public function delete($categoryID)
     {
-        $module = $this->getById($moduleID);
-        $childs = $this->getAllChildId($moduleID);
+        $category = $this->getById($categoryID);
+        $childs = $this->getAllChildId($categoryID);
 
-        $this->dao->update(TABLE_MODULE)->set('grade = grade - 1')->where('id')->in($childs)->exec();                 // Update childs' grade.
-        $this->dao->update(TABLE_MODULE)->set('parent')->eq($module->parent)->where('parent')->eq($moduleID)->exec(); // Update sons' parent to my parent.
-        $this->dao->delete()->from(TABLE_MODULE)->where('id')->eq($moduleID)->exec();                                 // Delete my self.
-        $this->fixModulePath($module->tree);
+        $this->dao->update(TABLE_CATEGORY)->set('grade = grade - 1')->where('id')->in($childs)->exec();                 // Update childs' grade.
+        $this->dao->update(TABLE_CATEGORY)->set('parent')->eq($category->parent)->where('parent')->eq($categoryID)->exec(); // Update sons' parent to my parent.
+        $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->exec();                                 // Delete my self.
+        $this->fixCategoryPath($category->tree);
 
-        if($module->tree == 'article') $this->dao->update(TABLE_ARTICLEMODULE)->set('module')->eq($module->parent)->where('module')->eq($moduleID)->exec();
+        if($category->tree == 'article') $this->dao->update(TABLE_ARTICLECATEGORY)->set('category')->eq($category->parent)->where('category')->eq($categoryID)->exec();
     }
 
     /**
@@ -488,46 +488,47 @@ class treeModel extends model
      * @access public
      * @return void
      */
-    public function fixModulePath($tree)
+    public function fixCategoryPath($tree)
     {
-        /* Get all modules grouped by parent. */
-        $groupModules = $this->dao->select('id, parent')->from(TABLE_MODULE)->where('tree')->eq($tree)->fetchGroup('parent', 'id');
-        $modules = array();
+        /* Get all categories grouped by parent. */
+        $groupCategories = $this->dao->select('id, parent')->from(TABLE_CATEGORY)->where('tree')->eq($tree)->fetchGroup('parent', 'id');
+        $categories = array();
 
-        /* Cycle the groupModules until it has no item any more. */
-        while(count($groupModules) > 0)
+        /* Cycle the groupCategories until it has no item any more. */
+        while(count($groupCategories) > 0)
         {
-            $oldCounts = count($groupModules);    // Record the counts before processing.
-            foreach($groupModules as $parentModuleID => $childModules)
+            $oldCounts = count($groupCategories);    // Record the counts before processing.
+            foreach($groupCategories as $parentCategoryID => $childCategories)
             {
-                /* If the parentModule doesn't exsit in the modules, skip it. If exists, compute it's child modules. */
-                if(!isset($modules[$parentModuleID]) and $parentModuleID != 0) continue;
-                if($parentModuleID == 0)
+                /* If the parentCategory doesn't exsit in the categories, skip it. If exists, compute it's child categories. */
+                if(!isset($categories[$parentCategoryID]) and $parentCategoryID != 0) continue;
+                if($parentCategoryID == 0)
                 {
-                    $parentModule->grade = 0;
-                    $parentModule->path  = ',';
+                    $parentCategory = new stdClass();
+                    $parentCategory->grade = 0;
+                    $parentCategory->path  = ',';
                 }
                 else
                 {
-                    $parentModule = $modules[$parentModuleID];
+                    $parentCategory = $categories[$parentCategoryID];
                 }
 
-                /* Compute it's child modules. */
-                foreach($childModules as $childModuleID => $childModule)
+                /* Compute it's child categories. */
+                foreach($childCategories as $childCategoryID => $childCategory)
                 {
-                    $childModule->grade = $parentModule->grade + 1;
-                    $childModule->path  = $parentModule->path . $childModule->id . ',';
-                    $modules[$childModuleID] = $childModule;    // Save child module to modules, thus the child of child can compute it's grade and path.
+                    $childCategory->grade = $parentCategory->grade + 1;
+                    $childCategory->path  = $parentCategory->path . $childCategory->id . ',';
+                    $categories[$childCategoryID] = $childCategory;    // Save child category to categories, thus the child of child can compute it's grade and path.
                 }
-                unset($groupModules[$parentModuleID]);    // Remove it from the groupModules.
+                unset($groupCategories[$parentCategoryID]);    // Remove it from the groupCategories.
             }
-            if(count($groupModules) == $oldCounts) break;   // If after processing, no module processed, break the cycle.
+            if(count($groupCategories) == $oldCounts) break;   // If after processing, no category processed, break the cycle.
         }
 
-        /* Save modules to database. */
-        foreach($modules as $module)
+        /* Save categories to database. */
+        foreach($categories as $category)
         {
-            $this->dao->update(TABLE_MODULE)->data($module)->where('id')->eq($module->id)->limit(1)->exec();
+            $this->dao->update(TABLE_CATEGORY)->data($category)->where('id')->eq($category->id)->limit(1)->exec();
         }
     }
 }

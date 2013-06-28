@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of tree module of XiRangEPS.
+ * The control file of tree category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -13,39 +13,40 @@ class tree extends control
     const NEW_CHILD_COUNT = 5;
 
     /**
-     * Browse the modules and print manage links.
+     * Browse the categorys and print manage links.
      * 
      * @param string $tree 
-     * @param int $currentModuleID 
+     * @param int $currentCategoryID 
      * @access public
      * @return void
      */
-    public function browse($tree, $currentModuleID = 0)
+    public function browse($tree = 'article', $currentCategoryID = 0)
     {
-        $parentModules = $this->tree->getParents($currentModuleID);
-        $this->view->tree            = $tree;
-        $this->view->modules         = $this->tree->getTreeMenu($tree, $rooteModuleID = 0, array('treeModel', 'createManageLink'));
-        $this->view->sons            = $this->tree->getSons($currentModuleID, $tree);
-        $this->view->currentModuleID = $currentModuleID;
-        $this->view->parentModules   = $parentModules;
+        $parentCategories              = $this->tree->getParents($currentCategoryID);
+        $this->view->title             = $this->lang->tree->manage;
+        $this->view->tree              = $tree;
+        $this->view->categories        = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
+        $this->view->sons              = $this->tree->getSons($currentCategoryID, $tree);
+        $this->view->currentCategoryID = $currentCategoryID;
+        $this->view->parentCategories  = $parentCategories;
         $this->display();
     }
 
     /**
-     * Edit a module.
+     * Edit a category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @param string $tree 
      * @access public
      * @return void
      */
-    public function edit($moduleID, $tree)
+    public function edit($categoryID, $tree)
     {
         if(!empty($_POST))
         {
-            $this->tree->update($moduleID);
+            $this->tree->update($categoryID);
             echo js::alert($this->lang->tree->successSave);
-            die(js::reload('parent'));
+            die(js::locate(inlink('browse', "tree=$tree")));
         }
 
         if($tree == 'forum')
@@ -69,22 +70,22 @@ class tree extends control
             /* Assigns. */
             $this->view->sites         = $this->site->getPairs();
             $this->view->allOptionMenu = $allOptionMenu;
-            $this->view->modules       = $this->dao->select('*')->from(TABLE_MODULE)->where('id')->eq($moduleID)->fetchAll('site', false);
+            $this->view->categorys       = $this->dao->select('*')->from(TABLE_MODULE)->where('id')->eq($categoryID)->fetchAll('site', false);
         }
 
-        $this->view->module     = $this->tree->getById($moduleID);
-        $this->view->optionMenu = $this->tree->getOptionMenu($this->view->module->tree);
+        $this->view->category     = $this->tree->getById($categoryID);
+        $this->view->optionMenu = $this->tree->getOptionMenu($this->view->category->tree);
         $this->view->tree       = $tree;
 
         /* Remove self and childs from the $optionMenu. */
-        $childs = $this->tree->getAllChildId($moduleID);
-        foreach($childs as $childModuleID) unset($this->tree->optionMenu[$childModuleID]);
+        $childs = $this->tree->getAllChildId($categoryID);
+        foreach($childs as $childCategoryID) unset($this->tree->optionMenu[$childCategoryID]);
 
         $this->display();
     }
 
     /**
-     * Update the modules order.
+     * Update the categorys order.
      * 
      * @access public
      * @return void
@@ -109,10 +110,9 @@ class tree extends control
     {
         if(!empty($_POST))
         {
-            $this->tree->manageChild($tree, $_POST['parentModuleID'], $_POST['modules']);
+            $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categorys']);
             die(js::reload('parent'));
         }
-
     }
 
     /**
@@ -125,28 +125,28 @@ class tree extends control
      */
     public function fix($tree)
     {
-        $this->tree->fixModulePath($tree);
+        $this->tree->fixCategoryPath($tree);
         die(js::alert($this->lang->tree->successFixed) . js::reload('parent'));
     }
 
     /**
-     * Delete a module.
+     * Delete a category.
      * 
-     * @param string $moduleID 
+     * @param string $categoryID 
      * @param string $confirm 
      * @access public
      * @return void
      */
-    public function delete($moduleID, $confirm = 'no')
+    public function delete($categoryID, $confirm = 'no')
     {
         if($confirm == 'no')
         {
-            echo js::confirm($this->lang->tree->confirmDelete, $this->createLink('tree', 'delete', "moduleID=$moduleID&confirm=yes"));
+            echo js::confirm($this->lang->tree->confirmDelete, $this->createLink('tree', 'delete', "categoryID=$categoryID&confirm=yes"));
             exit;
         }
         else
         {
-            $this->tree->delete($moduleID);
+            $this->tree->delete($categoryID);
             die(js::reload('parent'));
         }
     }
