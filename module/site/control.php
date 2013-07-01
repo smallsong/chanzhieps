@@ -45,7 +45,7 @@ class site extends control
                 $fileModel->delete($file->id);
             }
 
-            /*upload new log*/
+            /*upload new logo*/
             $logo     = $fileModel->saveUpload('logo');
             $fileID   = array_keys($logo);
             $file     = $fileModel->getById($fileID[0]); 
@@ -62,52 +62,6 @@ class site extends control
             $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
         }
         $this->display();
-    }
-
-
-    /**
-     * Edit a site.
-     * 
-     * @param  string $siteID 
-     * @access public
-     * @return void
-     */
-    public function edit($siteID)
-    {
-        if(!empty($_POST))
-        {
-            $this->site->update($siteID);
-            if(dao::isError()) die(js::error(dao::getError()));
-            echo js::alert($this->lang->site->successSaved);
-            die(js::locate($this->createLink('admin'), 'parent.parent'));
-        }
-
-        $this->view->site  = $this->site->getById($siteID);
-        $this->view->sites = $this->site->getPairs();
-        unset($this->view->sites[$siteID]);
-        $this->display();
-    }
-
-    /**
-     * Delete a site.
-     * 
-     * @param  string $siteID 
-     * @param  string $confirm 
-     * @access public
-     * @return void
-     */
-    public function delete($siteID, $confirm = 'no')
-    {
-        if($confirm == 'no')
-        {
-            echo js::confirm($this->lang->site->confirmDelete, $this->createLink('site', 'delete', "siteID=$siteID&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->site->delete($siteID);
-            die(js::locate($this->createLink('admin', 'index'), 'top'));
-        }
     }
 
 }
