@@ -24,6 +24,8 @@ $.extend(
                 if(response.result == 'success')
                 {
                     if($.isFunction(callback)) return callback(response);
+                    if($('#responser').length && response.message.length)  $('#responser').html(response.message).addClass('text-error f-12px').show().delay(3000).fadeOut(100);
+
                     if(response.locate) return location.href = response.locate;
                 }
 
@@ -97,5 +99,5 @@ $.extend(
 
 $(document).ready(function()
 {
-    $.ajaxForm('#ajaxForm')
+    $.ajaxForm('#ajaxForm');
 })
