@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS `xr_article` (
   `editor` varchar(60) NOT NULL,
   `addedDate` datetime NOT NULL,
   `editedDate` datetime NOT NULL,
-  `module` smallint(6) NOT NULL,
   `type` varchar(30) NOT NULL,
   `views` mediumint(5) unsigned NOT NULL default '0',
   `sticky` enum('0','1','2','3') NOT NULL default '0',
@@ -26,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `xr_article` (
 CREATE TABLE IF NOT EXISTS `xr_articleCategory` (
   `article` mediumint(9) NOT NULL,
   `category` smallint(5) NOT NULL,
-  UNIQUE KEY `article` (`article`,`cotegory`)
+  UNIQUE KEY `article` (`article`,`category`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 -- DROP TABLE IF EXISTS `xr_block`;
 CREATE TABLE IF NOT EXISTS `xr_block` (
@@ -130,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `xr_reply` (
 CREATE TABLE IF NOT EXISTS `xr_thread` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
   `site` smallint(6) NOT NULL,
-  `module` mediumint(9) NOT NULL,
+  `category` mediumint(9) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `author` varchar(60) NOT NULL,
@@ -145,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `xr_thread` (
   `lastRepliedDate` datetime NOT NULL,
   `lastReplyID` mediumint(8) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `module` (`module`),
+  KEY `category` (`category`),
   KEY `site` (`site`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 -- DROP TABLE IF EXISTS `xr_user`;
