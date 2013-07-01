@@ -43,7 +43,7 @@ $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index';
 $lang->menu->article  = '文章|article|browseadmin';
 $lang->menu->category = '类目|tree|browse|tree=article';
-$lang->menu->site     = '站点|site|index';
+$lang->menu->site     = '站点|site|setbasic';
 
 /* The menus of article module. */
 $lang->article = new stdclass();
@@ -53,14 +53,21 @@ $lang->article->menu->browse   = '文章列表|article|browseadmin|';
 $lang->article->menu->create   = '添加文章|article|create|';
 $lang->article->menu->category = '类目管理|tree|browse|tree=article';
 
-
 /* The menus of site module. */
 $lang->site = new stdclass();
 $lang->site->menu = new stdclass();
 
-$lang->site->menu->index   = '站点设置|site|index';
-$lang->site->menu->company = '公司信息|company|index';
-$lang->site->menu->contact = '联系方式|company|contact';
+$lang->site->menu->basic   = '站点设置|site|setbasic|';
+$lang->site->menu->company = '公司信息|company|index|';
+$lang->site->menu->contact = '联系方式|company|contact|';
+
+/* The menus of company module. */
+$lang->company = new stdclass();
+$lang->company->menu = new stdclass();
+
+$lang->company->menu->basic = '公司信息|company|basic';
+$lang->company->menu->contact  = '联系方式|company|contact';
+
 
 /* The error messages. */
 $lang->error = new stdclass();

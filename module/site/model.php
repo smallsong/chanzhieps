@@ -29,23 +29,17 @@ class siteModel extends model
         $this->app->site->mission  = '';
     }
 
-   /**
+    /**
      * Save the settings of the site.
      * 
+     * @param object $settings
      * @access public
      * @return void
      */
-    public function saveSetting()
+    public function saveSetting($settings)
     {
-        $indexModules = join(',', $this->post->indexModules);
-        foreach($this->post->menuModules as $key => $moduleID)
-        {
-            if(empty($moduleID) and empty($this->post->menuLinks[$key])) continue;
-            $menus[] = !empty($this->post->menuLinks[$key]) ? $this->post->menuLinks[$key] : $moduleID;
-        }
-        $site->indexModules = $indexModules;
-        $site->menus        = join(',', $menus);
-        $this->dao->update(TABLE_SITE)->data($site)->where('id')->eq($this->session->site->id)->exec();
+        $path    = "system.common"; 
+        return $this->loadModel('setting')->setItems($path, $settings);
     }
 
-    }
+}

@@ -11,13 +11,25 @@
 class site extends control
 {
     /**
-     * Index page.
+     * set site basic info.
      * 
      * @access public
      * @return void
      */
-    public function index()
+    public function setbasic()
     {
+        if(!empty($_POST))
+        {
+            $settings = new stdclass();
+            $settings->global = new stdclass();
+
+            $settings->global->name   = $this->post->name;
+            $settings->global->slogan = $this->post->slogan;
+            $settings->global->desc   = $this->post->desc;
+
+            $re = $this->site->saveSetting($settings);
+            if($re) $this->send(array('return'=>'success', 'message'=>'保存成功'  ,'loacte'=>inlink('setbasic')));
+        }
         $this->display();
     }
 
