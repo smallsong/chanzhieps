@@ -22,11 +22,11 @@ CREATE TABLE IF NOT EXISTS `xr_article` (
   KEY `views` (`views`),
   KEY `sticky` (`sticky`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
--- DROP TABLE IF EXISTS `xr_articleModule`;
-CREATE TABLE IF NOT EXISTS `xr_articleModule` (
+-- DROP TABLE IF EXISTS `xr_articleCategory`;
+CREATE TABLE IF NOT EXISTS `xr_articleCategory` (
   `article` mediumint(9) NOT NULL,
-  `module` smallint(5) NOT NULL,
-  UNIQUE KEY `article` (`article`,`module`)
+  `category` smallint(5) NOT NULL,
+  UNIQUE KEY `article` (`article`,`cotegory`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 -- DROP TABLE IF EXISTS `xr_block`;
 CREATE TABLE IF NOT EXISTS `xr_block` (
@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS `xr_message` (
   KEY `readed` (`readed`),
   KEY `to` (`to`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
--- DROP TABLE IF EXISTS `xr_module`;
-CREATE TABLE IF NOT EXISTS `xr_module` (
+-- DROP TABLE IF EXISTS `xr_category`;
+CREATE TABLE IF NOT EXISTS `xr_category` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` char(30) NOT NULL default '',
   `desc` varchar(150) NOT NULL,
@@ -194,7 +194,3 @@ CREATE TABLE IF NOT EXISTS `xr_config` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `unique` (`owner`,`module`,`section`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-RENAME TABLE `xirang`.`xr_articleModule` TO `xirang`.`xr_articleCategory`;
-RENAME TABLE `xirang`.`xr_module` TO `xirang`.`xr_category`;
-ALTER TABLE `xr_articleCategory` CHANGE `module` `category` SMALLINT( 5 ) NOT NULL;
