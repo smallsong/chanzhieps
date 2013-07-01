@@ -16,22 +16,54 @@ class site extends control
      * @access public
      * @return void
      */
-    public function setbasic()
+    public function setBasic()
     {
         if(!empty($_POST))
         {
-            $settings = new stdclass();
-            $settings->global = new stdclass();
-
-            $settings->global->name   = $this->post->name;
-            $settings->global->slogan = $this->post->slogan;
-            $settings->global->desc   = $this->post->desc;
-
-            $re = $this->site->saveSetting($settings);
-            if($re) $this->send(array('return'=>'success', 'message'=>'保存成功'  ,'loacte'=>inlink('setbasic')));
+            $result = $this->site->saveSetting((object)$_POST);
+            if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
+            $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
         $this->display();
     }
+    /**
+     * set logo.
+     * 
+     * @access public
+     * @return void
+     */
+    public function setLogo()
+    {
+        if(!empty($_FILES))
+        {
+            $fileModel =  $this->loadModel('file');
+
+            /*delete old logo*/
+            $oldLogos  = $fileModel->getByObject('logo');
+            foreach($oldLogos as $file)
+            {
+                $fileModel->delete($file->id);
+            }
+
+            /*upload new log*/
+            $logo     = $fileModel->saveUpload('logo');
+            $fileID   = array_keys($logo);
+            $file     = $fileModel->getById($fileID[0]); 
+            $setting  = new stdclass();
+            $setting->fileID    = $file->id;
+            $setting->pathname  = $file->pathname;
+            $setting->webPath   = $file->webPath;
+            $setting->addedBy   = $file->addedBy;
+            $setting->addedDate = $file->addedDate;
+
+
+            $result = $this->loadModel('setting')->setItems('system.site.logo', $setting);
+            if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess, 'locate'=>inlink('setLogo')));
+            $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
+        }
+        $this->display();
+    }
+
 
     /**
      * Edit a site.

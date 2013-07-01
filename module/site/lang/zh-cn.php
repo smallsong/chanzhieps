@@ -26,8 +26,9 @@ $lang->site->indexModules = '首页显示分类列表';
 
 
 $lang->site->setBasic     = "设置基本信息";
-$lang->site->setLogo     = "设置Logo";
-$lang->site->setMenu     = "设置导航";
+$lang->site->setLogo      = "设置Logo";
+$lang->site->setLogoFaild = "设置Logo失败";
+$lang->site->setMenu      = "设置导航";
 
 
 $lang->site->confirmDelete = "您确定删除该网站吗？";

@@ -38,9 +38,13 @@ class fileModel extends model
      * @access public
      * @return void
      */
-    public function getByObject($objectType, $objectID)
+    public function getByObject($objectType, $objectID = '')
     {
-        $files = $this->dao->select('*')->from(TABLE_FILE)->where('objectType')->eq($objectType)->andWhere('objectID')->in($objectID)->orderBy('id')->fetchAll('id', false);
+        $files = $this->dao->select('*')->from(TABLE_FILE)
+            ->where('objectType')->eq($objectType)
+            ->beginIF($objectID)->andWhere('objectID')->in($objectID)->fi()
+            ->orderBy('id')
+            ->fetchAll('id');
 
         /* Process urls. */
         foreach($files as $file)

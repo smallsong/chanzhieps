@@ -37,6 +37,9 @@ $lang->actions      = '操作';
 $lang->feature      = '未来';
 $lang->year         = '年';
 $lang->submitting   = '稍候...';
+$lang->saveSuccess  = '保存成功';
+$lang->setSuccess   = '设置成功';
+$lang->fail         = '失败';
 
 /* The main menus. */
 $lang->menu = new stdclass();
@@ -58,6 +61,7 @@ $lang->site = new stdclass();
 $lang->site->menu = new stdclass();
 
 $lang->site->menu->basic   = '站点设置|site|setbasic|';
+$lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
 $lang->site->menu->company = '公司信息|company|index|';
 $lang->site->menu->contact = '联系方式|company|contact|';
 

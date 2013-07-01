@@ -10,20 +10,14 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<form action="" method="post" id="ajaxForm">
+<form method="post" id="ajaxForm" enctype="multipart/form-data">
   <table class="table table-bordered table-form">
-    <caption><?php echo $lang->site->setBasic;?></caption> 
+    <caption><?php echo $lang->site->setLogo;?></caption> 
     <tr>
-      <th class="w-150px"><?php echo $lang->site->name;?></th> 
-      <td><?php echo html::input('name', $this->config->site->name, 'class="text-5"');?></td> 
-    </tr>
-    <tr>
-      <th class="w-150px"><?php echo $lang->site->slogan;?></th> 
-      <td><?php echo html::input('slogan', $this->config->site->slogan, 'class="text-1"');?></td> 
-    </tr>
-    <tr>
-      <th class="w-150px"><?php echo $lang->site->desc;?></th> 
-      <td><?php echo html::textarea('desc', $this->config->site->desc, 'class="area-1" rows="5"');?></td> 
+      <th class="w-150px">
+        <?php if(isset($this->config->site->logo)) echo html::image($this->config->site->logo->webPath);?>
+      </th> 
+      <td><?php echo html::file('files');?></td> 
     </tr>
     <tr>
       <td colspan="2" class="a-center">
