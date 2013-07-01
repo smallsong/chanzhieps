@@ -25,3 +25,11 @@ body {padding-top: 60px;  padding-bottom: 40px;}
 /* The affix settings. */
 .leftmenu.affix {top: 40px;}
 .leftmenu.affix-bottom {position: absolute; top: auto; bottom: 270px;}
+
+/* The form settings. */
+.table-form th {text-align:right;vertical-align:middle;}
+.table-form td {vertical-align:middle;}
+.table-form td input{vertical-align:middle;margin:0;}
+.table-form td textarea{vertical-align:middle;margin:0;}
+
+
