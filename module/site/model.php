@@ -24,9 +24,7 @@ class siteModel extends model
     public function setSite()
     {
         $this->app->site = new stdclass();
-        $this->app->site->name     = '';
-        $this->app->site->keywords = '';
-        $this->app->site->mission  = '';
+        $this->app->site = $this->config;
     }
 
     /**
