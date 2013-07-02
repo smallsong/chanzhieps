@@ -1,6 +1,6 @@
 <?php
 /**
- * The article module zh-cn file of XiRangEPS.
+ * The article category zh-cn file of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -11,8 +11,7 @@
 $lang->article->common = '文章维护';
 
 $lang->article->id           = '编号';
-$lang->article->module       = '分类模块';
-$lang->article->otherModules = '其他站点分类';
+$lang->article->category     = '分类模块';
 $lang->article->title        = '标题';
 $lang->article->content      = '内容';
 $lang->article->original     = '原创';
