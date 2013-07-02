@@ -9,10 +9,10 @@ $themeRoot = $webRoot . "theme/";
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
   <?php
   if(!isset($title))    $title    = $lang->xirangEPS;
-  if(!isset($keywords)) $keywords = $app->site->keywords;
-  if(!isset($desc))     $desc     = $app->site->desc;
+  if(!isset($keywords)) $keywords = $config->site->keywords;
+  if(!isset($desc))     $desc     = $config->site->desc;
 
-  echo html::title($title . '-' . $app->site->name);
+  echo html::title($title . '-' . $config->site->name);
   echo html::meta('keywords',    $keywords);
   echo html::meta('description', $desc);
 
@@ -35,7 +35,7 @@ $themeRoot = $webRoot . "theme/";
   if(RUN_MODE == 'admin') css::import($themeRoot . 'default/admin.css', $config->version);
 
   echo html::icon($webRoot . 'favicon.ico');
-  echo html::rss($config->webRoot .'rss.xml', $app->site->name);
+  echo html::rss($config->webRoot .'rss.xml', $config->site->name);
 ?>
 </head>
 <body>

@@ -14,20 +14,17 @@ class siteModel extends model
 {
     /**
      * Set the site user visiting.
-     * 
-     * 1. search by domin.
-     * 2.if not, then search default domein
-     * 3.if not, then search first domain.
      *
-     * after get the site, register it to session.
+     * @access public
+     * @return void
      */
     public function setSite()
     {
-        $this->app->site = new stdclass();
-        $this->app->site->name = isset($this->config->site->name) ? $this->config->site->name : "";
-        $this->app->site->keywords = isset($this->config->site->keywords) ? $this->config->site->keywords : "";
-        $this->app->site->slogan = isset($this->config->site->slogan) ? $this->config->site->slogan : "";
-        $this->app->site->desc = isset($this->config->site->desc) ? $this->config->site->desc : "";
+        if(!isset($this->config->site))           $this->config->site           = new stdclass();
+        if(!isset($this->config->site->name))     $this->config->site->name     = $this->lang->xirangEPS;
+        if(!isset($this->config->site->keywords)) $this->config->site->keywords = '';
+        if(!isset($this->config->site->slogan))   $this->config->site->slogan   = '';
+        if(!isset($this->config->site->desc))     $this->config->site->desc     = '';
     }
 
     /**
