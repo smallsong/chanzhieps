@@ -19,7 +19,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->install->dbHost;?></th>
-      <td><?php echo html::input('dbHost', 'localhost', ' check-type="required" required-message="input"  ');?><?php echo $lang->install->dbHostNote;?></td>
+      <td><?php echo html::input('dbHost', '127.0.0.1');?><?php echo $lang->install->dbHostNote;?></td>
     </tr>
     <tr>
       <th><?php echo $lang->install->dbPort;?></th>
