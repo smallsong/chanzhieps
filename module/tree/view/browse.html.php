@@ -10,11 +10,9 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php include '../../common/view/treeview.html.php';?>
-<div class="row">
-  <div class="u-4-1">
-    <form method='post' target='hiddenwin' action='<?php echo $this->createLink('tree', 'updateOrder', "tree=$tree");?>'>
-    <table class='table-1'>
+  <div class="span3">
+    <form method='post' id="treeForm" action='<?php echo $this->createLink('tree', 'updateOrder', "tree=$tree");?>'>
+    <table class='table-1 table-bordered'>
       <caption><?php echo $title;?></caption>
       <tr>
         <td>
@@ -28,9 +26,9 @@
     </form>
   </div>
 
-  <div class="u-4-3">
-    <form method='post' target='hiddenwin' action='<?php echo $this->createLink('tree', 'manageChild', "tree=$tree");?>'>
-      <table align='center' class='table-1'>
+  <div class="span9">
+    <form method='post' id="ajaxForm" action='<?php echo $this->createLink('tree', 'manageChild', "tree=$tree");?>'>
+      <table align='center' class='table-1 table-bordered'>
         <caption><?php echo $lang->tree->manageChild;?></caption>
         <tr>
           <td width='10%'>
@@ -49,9 +47,9 @@
             foreach($sons as $sonCategory)
             {
                 if($sonCategory->order > $maxOrder) $maxOrder = $sonCategory->order;
-                echo html::input("categorys[id$sonCategory->id]", $sonCategory->name, 'style="margin-bottom:5px"') . '<br />';
+                echo html::input("categories[id$sonCategory->id]", $sonCategory->name, 'style="margin-bottom:5px"') . '<br />';
             }
-            for($i = 0; $i < TREE::NEW_CHILD_COUNT ; $i ++) echo html::input("categorys[]", '', 'style="margin-bottom:5px"') . '<br />';
+            for($i = 0; $i < TREE::NEW_CHILD_COUNT ; $i ++) echo html::input("categories[]", '', 'style="margin-bottom:5px"') . '<br />';
            ?>
           </td>
         </tr>
@@ -68,5 +66,5 @@
       </table>
     </form>
   </div>
-</div>  
+<?php include '../../common/view/treeview.html.php';?>
 <?php include '../../common/view/footer.admin.html.php';?>

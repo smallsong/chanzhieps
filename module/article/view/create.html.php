@@ -1,6 +1,6 @@
 <?php
 /**
- * The create view file of block module of XiRangEPS.
+ * The create view file of block category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -10,14 +10,12 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php include '../../common/view/kindeditor.html.php';?>
-<div class="row">
-  <h4><?php echo $lang->article->add;?></h4>
-  <form method='post' target='hiddenwin' class='u-1'>
-  <table align='center' class='table-1'>
+  <form method='post' target='hiddenwin' id="ajaxForm"> 
+  <table class='table table-bordered table-form'>
+    <caption><?php echo $lang->article->add;?></caption>
     <tr>
-      <th class='w-100px'><?php echo $lang->article->module;?></th>
-      <td><?php echo html::select("module", $module->id, 'class=select-3');?></td>
+      <th><?php echo $lang->article->category;?></th>
+      <td><?php echo html::select("categories[]", $tree, $category ? $category->id : 0, 'class=select-3');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->author;?></th>
@@ -53,7 +51,6 @@
       <td colspan='2' class='a-center'>
         <?php 
         echo html::submitButton();
-        echo html::hidden('type', $type);
         ?>
       </td>
     </tr>
