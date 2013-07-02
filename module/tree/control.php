@@ -13,7 +13,7 @@ class tree extends control
     const NEW_CHILD_COUNT = 5;
 
     /**
-     * Browse the categorys and print manage links.
+     * Browse the categories and print manage links.
      * 
      * @param string $tree 
      * @param int $currentCategoryID 
@@ -70,7 +70,7 @@ class tree extends control
             /* Assigns. */
             $this->view->sites         = $this->site->getPairs();
             $this->view->allOptionMenu = $allOptionMenu;
-            $this->view->categorys       = $this->dao->select('*')->from(TABLE_MODULE)->where('id')->eq($categoryID)->fetchAll('site', false);
+            $this->view->categories       = $this->dao->select('*')->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->fetchAll('site', false);
         }
 
         $this->view->category     = $this->tree->getById($categoryID);
@@ -85,7 +85,7 @@ class tree extends control
     }
 
     /**
-     * Update the categorys order.
+     * Update the categories order.
      * 
      * @access public
      * @return void
@@ -95,7 +95,6 @@ class tree extends control
         if(!empty($_POST))
         {
             $this->tree->updateOrder($_POST['orders']);
-            die(js::reload('parent'));
         }
     }
 
@@ -110,8 +109,8 @@ class tree extends control
     {
         if(!empty($_POST))
         {
-            $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categorys']);
-            die(js::reload('parent'));
+            $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categories']);
+            die(js::locate(inlink('browse', "tree=$tree")));
         }
     }
 
@@ -147,7 +146,7 @@ class tree extends control
         else
         {
             $this->tree->delete($categoryID);
-            die(js::reload('parent'));
+            die(js::locate(inlink('browse', "tree=article")));
         }
     }
 }
