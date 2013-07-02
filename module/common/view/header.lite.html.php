@@ -10,7 +10,7 @@ $themeRoot = $webRoot . "theme/";
   <?php
   if(!isset($title))    $title    = $lang->xirangEPS;
   if(!isset($keywords)) $keywords = $app->site->keywords;
-  if(!isset($desc))     $desc     = $app->site->mission;
+  if(!isset($desc))     $desc     = $app->site->desc;
 
   echo html::title($title . '-' . $app->site->name);
   echo html::meta('keywords',    $keywords);
