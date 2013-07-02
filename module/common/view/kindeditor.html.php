@@ -6,9 +6,7 @@ if(!isset($config->$moduleName->editor->$methodName)) return;
 $editors = $config->$moduleName->editor->$methodName;
 $editors['id'] = explode(',', $editors['id']);
 ?>
-<script src='<?php echo $jsRoot;?>jquery/kindeditor/kindeditor-min.js' type='text/javascript'></script>
-<script type="text/javascript">KE.lang['code'] = '<?php echo $lang->kindeditor->code;?>'</script>
-<script src='<?php echo $jsRoot;?>jquery/kindeditor/code.js' type='text/javascript'></script>
+<script src='<?php echo $jsRoot;?>kindeditor/kindeditor-min.js' type='text/javascript'></script>
 <script language='javascript' type='text/javascript'>
 var editor = <?php echo json_encode($editors);?>;
 
