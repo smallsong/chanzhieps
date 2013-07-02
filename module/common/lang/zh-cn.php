@@ -47,6 +47,7 @@ $lang->menu->admin    = '首页|admin|index';
 $lang->menu->article  = '文章|article|browseadmin';
 $lang->menu->category = '类目|tree|browse|tree=article';
 $lang->menu->site     = '站点|site|setbasic';
+$lang->menu->company     = '公司|company|setbasic';
 
 /* The menus of article module. */
 $lang->article = new stdclass();
@@ -62,15 +63,13 @@ $lang->site->menu = new stdclass();
 
 $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
-$lang->site->menu->company = '公司信息|company|index|';
-$lang->site->menu->contact = '联系方式|company|contact|';
 
 /* The menus of company module. */
 $lang->company = new stdclass();
 $lang->company->menu = new stdclass();
 
-$lang->company->menu->basic = '公司信息|company|basic';
-$lang->company->menu->contact  = '联系方式|company|contact';
+$lang->company->menu->basic = '公司信息|company|setbasic|';
+$lang->company->menu->contact  = '联系方式|company|setcontact|';
 
 
 /* The error messages. */
