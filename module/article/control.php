@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of article module of XiRangEPS.
+ * The control file of article category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -18,15 +18,15 @@ class article extends control
      */
     public function index()
     {   
-        $indexModules   = explode(',', $this->app->site->indexModules);
-        $defaultModule = $indexModules[0];
-        $this->locate(inlink('browse', "module=$defaultModule"));
+        $indexCategories   = explode(',', $this->app->site->indexCategories);
+        $defaultCategory = $indexCategories[0];
+        $this->locate(inlink('browse', "category=$defaultCategory"));
     }   
 
     /** 
      * Browse article in front.
      * 
-     * @param int $moduleID     the module id
+     * @param int $categoryID     the category id
      * @param string $orderBy   the order by
      * @param int $recTotal     record total
      * @param int $recPerPage   record per page
@@ -34,37 +34,37 @@ class article extends control
      * @access public
      * @return void
      */
-    public function browse($moduleID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function browse($categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         $this->app->loadLang('user');
 
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $childModules = $this->loadModel('tree')->getAllChildID($moduleID);
-        $articles = $this->article->getList($childModules, $orderBy, $pager);
-        $module   = $this->tree->getById($moduleID);
+        $childCategories = $this->loadModel('tree')->getAllChildID($categoryID);
+        $articles = $this->article->getList($childCategories, $orderBy, $pager);
+        $category   = $this->tree->getById($categoryID);
 
         if($this->session->site->type == 'blog')
         {   
             $this->article->createDigest($articles);
             $this->view->comments = $this->article->getCommentCounts(array_keys($articles));
-            $this->view->modules  = $this->tree->getPairs($childModules);
+            $this->view->categories  = $this->tree->getPairs($childCategories);
         }   
     
-        $this->view->header->title = $module->name;
-        if($module)
+        $this->view->header->title = $category->name;
+        if($category)
         {
-            $this->view->header->keywords = trim($module->keyword . ' ' . $this->app->site->keywords);
-            if($module->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $module->desc));
+            $this->view->header->keywords = trim($category->keyword . ' ' . $this->app->site->keywords);
+            if($category->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
         }
 
-        $this->view->module      = $module;
+        $this->view->category      = $category;
         $this->view->articles    = $articles;
         $this->view->pager       = $pager;
         $this->view->site        = $this->app->site;
         $this->view->layouts     = $this->loadModel('block')->getLayouts('article.list');
-        $this->view->articleTree = $this->loadModel('tree')->getTreeMenu($this->view->module->tree, 0, array('treeModel', 'createBrowseLink'));
+        $this->view->articleTree = $this->loadModel('tree')->getTreeMenu($this->view->category->tree, 0, array('treeModel', 'createBrowseLink'));
 
         $this->display();
     }
@@ -73,7 +73,7 @@ class article extends control
      * Browse article in admin.
      * 
      * @param string $tree      the article tree
-     * @param int    $moduleID  the module id
+     * @param int    $categoryID  the category id
      * @param string $orderBy   the order by
      * @param int    $recTotal 
      * @param int    $recPerPage 
@@ -81,7 +81,7 @@ class article extends control
      * @access public
      * @return void
      */
-    public function browseAdmin($tree = 'article', $moduleID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function browseAdmin($tree = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         /* Set the session. */
         $this->session->set('articleList', $this->app->getURI(true));
@@ -89,12 +89,12 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $childModules = $this->loadModel('tree')->getAllChildID($moduleID, $tree);
-        $articles = $childModules ? $this->article->getList($childModules, $orderBy, $pager) : array();
+        $childCategories = $this->loadModel('tree')->getAllChildID($categoryID, $tree);
+        $articles = $childCategories ? $this->article->getList($childCategories, $orderBy, $pager) : array();
 
         $this->view->articles = $articles;
         $this->view->pager    = $pager;
-        $this->view->module   = $this->tree->getById($moduleID);
+        $this->view->category = $this->tree->getById($categoryID);
         $this->view->tree     = $tree;
 
         $this->display();
@@ -103,23 +103,29 @@ class article extends control
     /**
      * Create a article.
      * 
-     * @param mixed $moduleID   the module or the tree
+     * @param mixed $categoryID   the category or the tree
      * @param string $tree 
      * @access public
      * @return void
      */
-    public function create($moduleID = 0)
+    public function create()                                                                                                                      
     {
-        /* Set the mdoule and tree.  */
+        $categoryID = $this->get->categoryID;
+        $tree   ='article';    
+
+        /* Set the mdoule and tree.  */ 
+        $category = $this->loadModel('tree')->getById($categoryID);                                                                                            
+        $categoryID = 0;
 
         if($_POST)
         {
-            $this->article->create();
-            if(dao::isError()) die(js::error(dao::getError()));
-            $orderBy = 'id_desc';
-            die(js::locate(inlink('browseAdmin', "module=$moduleID&orderBy=$orderBy"), 'parent'));
+            $this->article->create();       
+            if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('browseadmin')));
         }
 
+        $this->view->category    = $category;
+        $this->view->tree        = $this->loadModel('tree')->getOptionMenu($tree);
         $this->display();
     }
 
@@ -141,10 +147,10 @@ class article extends control
             die(js::locate($this->session->articleList, 'parent'));
         }
 
-        $this->view->module      = $this->loadModel('tree')->getById($this->view->article->module);
+        $this->view->category      = $this->loadModel('tree')->getById($this->view->article->category);
         $this->view->tree        = $this->loadModel('tree')->getOptionMenu($this->view->article->tree);
         $this->view->siteTrees   = $this->loadModel('site')->getLinkSitesOptionMenu($this->session->site->linkSites, $this->view->article->tree);
-        $this->view->siteModules = $this->article->getOtherSiteModules($articleID);
+        $this->view->siteCategories = $this->article->getOtherSiteCategories($articleID);
         $this->display();
     }
 
@@ -184,11 +190,11 @@ class article extends control
         {
             $this->view->layouts          = $this->loadModel('block')->getLayouts('article.view');
             $this->view->articleTree      = $this->loadModel('tree')->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
-            $this->view->module           = $this->tree->getById($article->module);
+            $this->view->category           = $this->tree->getById($article->category);
 
-            $this->view->header->title    = $article->title . (isset($this->view->module->name) ? '|' . $this->view->module->name : '');
-            $this->view->header->keywords = trim($article->keywords . ' ' . $this->view->module->keyword . ' ' . $this->app->site->keywords);
-            $this->view->header->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->module->desc));
+            $this->view->header->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
+            $this->view->header->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->app->site->keywords);
+            $this->view->header->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
 
             $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
         }

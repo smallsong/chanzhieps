@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of article module of XiRangEPS.
+ * The model file of article category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -36,7 +36,7 @@ class articleModel extends model
     /** 
      * Get article list.
      * 
-     * @param string $modules 
+     * @param string $categories 
      * @param string $orderBy 
      * @param string $pager 
      * @access public
@@ -57,43 +57,43 @@ class articleModel extends model
     /**
      * Get article pairs.
      * 
-     * @param string $modules 
+     * @param string $categories 
      * @param string $orderBy 
      * @param string $pager 
      * @access public
      * @return array
      */
-    public function getPairs($modules, $orderBy, $pager = null)
+    public function getPairs($categories, $orderBy, $pager = null)
     {
         return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
             ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
             ->on('t1.id = t2.article')
             ->where('t2.site')->eq($this->app->site->id)
-            ->beginIF($modules)->andWhere('t2.module')->in($modules)->fi()
+            ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->orderBy($orderBy)
             ->page($pager, false)
             ->fetchPairs('id', 'title', false);
     }
 
     /**
-     * Get articles of an module.
+     * Get articles of an category.
      * 
-     * @param string $moduleID  the module id
+     * @param string $categoryID  the category id
      * @param string $getFiles  get it's files or not
      * @param int $count 
      * @access public
      * @return array
      */
-    public function getModuleArticle($moduleID, $getFiles = false, $count = 10)
+    public function getCategoryArticle($categoryID, $getFiles = false, $count = 10)
     {
         $this->loadModel('tree');
-        $childs = $this->tree->getAllChildId($moduleID);
+        $childs = $this->tree->getAllChildId($categoryID);
         $articles = $this->dao->select('id, title, author, addedDate, summary')
             ->from(TABLE_ARTICLE)->alias('t1')
             ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
             ->on('t1.id = t2.article')
             ->where('t2.site')->eq($this->app->site->id)
-            ->andWhere('module')->in($childs)
+            ->andWhere('category')->in($childs)
             ->orderBy('id desc')->limit($count)->fetchAll('id', false);
         if(!$getFiles) return $articles;
 
@@ -105,18 +105,18 @@ class articleModel extends model
     }
 
     /**
-     * Get the modules in other sites for an article.
+     * Get the categories in other sites for an article.
      * 
      * @param  string $articleID 
      * @access public
      * @return array
      */
-    public function getOtherSiteModules($articleID)
+    public function getOtherSiteCategories($articleID)
     {
-        return $this->dao->select('site, module')->from(TABLE_ARTICLECATEGORY)
+        return $this->dao->select('site, category')->from(TABLE_ARTICLECATEGORY)
             ->where('article')->eq($articleID)
             ->andWhere('site')->ne($this->session->site->id)
-            ->fetchPairs('site', 'module', false);
+            ->fetchPairs('site', 'category', false);
     }
 
     /**
@@ -145,20 +145,18 @@ class articleModel extends model
      */
     public function create()
     {
-        $article = fixer::input('post')->remove('modules')->get();
+        $article = fixer::input('post')->remove('categories')->get();
         $this->dao->insert(TABLE_ARTICLE)->data($article, false)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
         if(!dao::isError())
         {
             $articleID = $this->dao->lastInsertID();
             $this->dao->update(TABLE_ARTICLE)->set('`order`')->eq($articleID)->where('id')->eq($articleID)->exec(false);    // set the order field.
-            foreach($this->post->modules as $siteID => $moduleID)
+            foreach($this->post->categories as $siteID => $categoryID)
             {
-                if(!$moduleID) continue;
-                $tree = $this->dao->findByID($moduleID)->from(TABLE_MODULE)->fetch('tree', false);
+                $data = new stdClass();
+                if(!$categoryID) continue;
                 $data->article = $articleID;
-                $data->site    = $siteID;
-                $data->module  = $moduleID;
-                $data->tree    = $tree;
+                $data->category  = $categoryID;
                 $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data, false)->exec();
             }
         }
@@ -174,21 +172,21 @@ class articleModel extends model
      */
     public function update($articleID)
     {
-        $article = fixer::input('post')->add('editedDate', helper::now())->remove('modules')->get();
+        $article = fixer::input('post')->add('editedDate', helper::now())->remove('categories')->get();
         $this->dao->update(TABLE_ARTICLE)->data($article, false)->autoCheck()->batchCheck('title, content', 'notempty')->where('id')->eq($articleID)->exec(false);
         if(!dao::isError())
         {
-            foreach($this->post->modules as $siteID => $moduleID)
+            foreach($this->post->categories as $siteID => $categoryID)
             {
                 $this->dao->delete()->from(TABLE_ARTICLECATEGORY)
                     ->where('article')->eq($articleID)
                     ->andWhere('site')->eq($siteID)
                     ->exec(false);
 
-                if($moduleID)
+                if($categoryID)
                 {
-                    $tree = $this->dao->findByID($moduleID)->from(TABLE_MODULE)->fetch('tree', false);
-                    $data->module  = $moduleID;
+                    $tree = $this->dao->findByID($categoryID)->from(TABLE_CATEGORY)->fetch('tree', false);
+                    $data->category  = $categoryID;
                     $data->tree    = $tree;
                     $data->article = $articleID;
                     $data->site    = $siteID;
