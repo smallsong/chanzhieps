@@ -284,7 +284,8 @@ class helper
         $files = array();
         $dir = realpath($dir);
         if(is_dir($dir)) $files = glob($dir . DIRECTORY_SEPARATOR . '*' . $pattern);
-        return $files;
+        if($files) return $files;
+        return array();
     }
 
     /**

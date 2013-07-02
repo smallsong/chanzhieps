@@ -1409,8 +1409,7 @@ class router
         if(!is_file($mainConfigFile))
         {
             if($exitIfNone) self::error("config file $mainConfigFile not found", __FILE__, __LINE__, true);
-            if(empty($extConfigFiles)) return false;  //  and no extension file, exit.
-            $configFiles = $extConfigFiles;
+            if(empty($extConfigFiles)) $configFiles = array();    // No main and extension config files, set $configFiles as an empty array.
         }
         else
         {
@@ -1438,6 +1437,8 @@ class router
         /* Merge from the db configs. */
         if($moduleName != 'common' and isset($config->system->$moduleName))
         {
+            if(!isset($config->$moduleName)) $config->$moduleName = new stdclass();    // Init the $config->$moduleName if not set.
+
             foreach($config->system->$moduleName as $item)
             {
                 if($item->section)
@@ -1447,12 +1448,11 @@ class router
                 }
                 else
                 {
-                    if(!$item->section) $config->{$moduleName}->{$item->key} = $item->value;
+                    $config->{$moduleName}->{$item->key} = $item->value;
                 }
             }
         }
 
- 
         return $config;
     }
 
