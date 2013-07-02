@@ -1435,6 +1435,24 @@ class router
             if(is_file($siteConfigFile)) include $siteConfigFile;
         }
 
+        /* Merge from the db configs. */
+        if($moduleName != 'common' and isset($config->system->$moduleName))
+        {
+            foreach($config->system->$moduleName as $item)
+            {
+                if($item->section)
+                {
+                    if(!isset($config->{$moduleName}->{$item->section})) $config->{$moduleName}->{$item->section} = new stdclass();
+                    $config->{$moduleName}->{$item->section}->{$item->key} = $item->value;
+                }
+                else
+                {
+                    if(!$item->section) $config->{$moduleName}->{$item->key} = $item->value;
+                }
+            }
+        }
+
+ 
         return $config;
     }
 
