@@ -12,17 +12,6 @@
 <?php
 class installModel extends model
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        /* Init the $app->site object. */
-        $this->app->site = new stdclass();
-        $this->app->site->name     = '';
-        $this->app->site->keywords = '';
-        $this->app->site->mission  = '';
-    }
-
     /**
      * Get the php version.
      * 
