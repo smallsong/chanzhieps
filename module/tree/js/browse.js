@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $('#treeForm').submit(function(){    });
     $.ajaxForm('#treeForm');
+    $.ajaxLink('#treeForm a[class!=delete]', '.span9');
 })
 
