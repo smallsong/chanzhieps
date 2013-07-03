@@ -287,7 +287,7 @@ class pager
     public function get($align = 'right', $type = 'full')
     {
         /* If the RecTotal is zero, return with no record. */
-        if($this->recTotal == 0) { return "<div style='float:$align; clear:none;' class='pager'>{$this->lang->pager->noRecord}</div>"; }
+        if($this->recTotal == 0) { return "<div style='float:$align; clear:none;' class='pagination'>{$this->lang->pager->noRecord}</div>"; }
 
         /* Set the params. */
         $this->setParams();
@@ -310,7 +310,7 @@ class pager
             $pager .= $this->createRecPerPageJS();
         }
 
-        return "<div style='float:$align; clear:none;' class='pager'>$pager</div>";
+        return "<div style='float:$align; clear:none;' class='pagination form-inline'>$pager</div>";
     }
 
     /**
@@ -441,7 +441,7 @@ EOT;
         $range[200]  = 200;
         $range[500]  = 500;
         $range[1000] = 1000;
-        return html::select('_recPerPage', $range, $this->recPerPage, "onchange='submitPage(\"changeRecPerPage\");'");
+        return html::select('_recPerPage', $range, $this->recPerPage, "onchange='submitPage(\"changeRecPerPage\");' class='w-60px'");
     }
 
     /**
