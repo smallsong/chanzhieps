@@ -11,6 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
   <div class="span3">
+    <?php js::set('categoryID', $currentCategoryID);?>
     <form method='post' id="treeForm" action='<?php echo $this->createLink('tree', 'updateOrder', "tree=$tree");?>'>
     <table class='table-1 table-bordered'>
       <caption><?php echo $title;?></caption>
@@ -25,46 +26,7 @@
     </table>
     </form>
   </div>
-
   <div class="span9">
-    <form method='post' id="ajaxForm" action='<?php echo $this->createLink('tree', 'manageChild', "tree=$tree");?>'>
-      <table class='table-1 table-bordered'>
-        <caption><?php echo $lang->tree->manageChild;?></caption>
-        <tr>
-          <td width='10%'>
-            <nobr>
-            <?php
-            foreach($parentCategories as $category)
-            {
-                echo html::a($this->createLink('tree', 'browse', "tree=$tree&categoryID=$category->id"), $category->name);
-            }
-            ?>
-            </nobr>
-          </td>
-          <td> 
-            <?php
-            $maxOrder = 0;
-            foreach($sons as $sonCategory)
-            {
-                if($sonCategory->order > $maxOrder) $maxOrder = $sonCategory->order;
-                echo html::input("categories[id$sonCategory->id]", $sonCategory->name, 'style="margin-bottom:5px"') . '<br />';
-            }
-            for($i = 0; $i < TREE::NEW_CHILD_COUNT ; $i ++) echo html::input("categories[]", '', 'style="margin-bottom:5px"') . '<br />';
-           ?>
-          </td>
-        </tr>
-        <tr>
-          <td class='a-center' colspan='2'>
-            <?php 
-            echo html::submitButton() . html::resetButton();
-            echo html::hidden('parentCategoryID', $currentCategoryID);
-            echo html::hidden('maxOrder', $maxOrder);
-            ?>      
-            <input type='hidden' value='<?php echo $currentCategoryID;?>' name='parentCategoryID' />
-          </td>
-        </tr>
-      </table>
-    </form>
   </div>
 <?php include '../../common/view/treeview.html.php';?>
 <?php include '../../common/view/footer.admin.html.php';?>
