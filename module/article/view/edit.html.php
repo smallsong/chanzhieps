@@ -10,6 +10,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
+<?php include '../../common/view/kindeditor.html.php';?>
   <form method='post' target='hiddenwin' id='ajaxForm'>
   <table class='table table-bordered table-form'>
     <caption><?php echo $lang->article->edit;?></caption>
