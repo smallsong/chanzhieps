@@ -213,18 +213,18 @@ class articleModel extends model
      */
     public function validate()
     {
-        $error = new stdClass();
+        $error = array();
         if(array(0) == $this->post->categories) 
         {
-            $error->categories = sprintf($this->lang->error->notempty, $this->lang->article->categories);
+            $error['categories'] = sprintf($this->lang->error->notempty, $this->lang->article->categories);
         }
-        if(empty($this->post->title))
+        if(!$this->post->title)
         {
-            $error->title = sprintf($this->lang->error->notempty, $this->lang->article->title);
+            $error['title'] = sprintf($this->lang->error->notempty, $this->lang->article->title);
         }
-        if(empty($this->post->content))
+        if(!$this->post->content)
         {
-            $error->content = sprintf($this->lang->error->notempty, $this->lang->article->content);
+            $error['content'] = sprintf($this->lang->error->notempty, $this->lang->article->content);
         }
         return $error;
     }
