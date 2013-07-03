@@ -543,20 +543,20 @@ class treeModel extends model
      */
     public function validate($category)
     {
-        $error = new stdClass();
+        $error = array();
         if(!is_numeric($this->post->parent))
         {
-            $error->parent = sprintf($this->lang->error->int[0], $this->lang->tree->parent);
+            $error['parent'] = sprintf($this->lang->error->int[0], $this->lang->tree->parent);
         }
         if($this->post->parent == $category) 
         {
-            $error->parent = sprintf($this->lang->error->parentNotEqSelf, $this->lang->category->parent);
+            $error['parent'] = sprintf($this->lang->error->parentNotEqSelf, $this->lang->category->parent);
         }
-        if(empty($this->post->name))
+        if(empty($_POST['name']))
         {
-            $error->name = sprintf($this->lang->error->notempty, $this->lang->category->name);
+            $error['name'] = sprintf($this->lang->error->notempty, $this->lang->category->name);
         }
-        return $error;
+        return (array)$error;
     }
 
 }
