@@ -67,16 +67,16 @@ class treeModel extends model
     public function getOptionMenu($tree = 'article', $startCategoryID = 0, $siteID = 0)
     {
         /* First, get all categories. */
-        $treeMenu = array();
-        $stmt     = $this->dbh->query($this->buildMenuQuery($tree, $startCategoryID, $siteID));
-        $categories  = array();
+        $treeMenu   = array();
+        $stmt       = $this->dbh->query($this->buildMenuQuery($tree, $startCategoryID, $siteID));
+        $categories = array();
         while($category = $stmt->fetch()) $categories[$category->id] = $category;
 
         /* Cycle them, build the select control.  */
         foreach($categories as $category)
         {
             $parentCategories = explode(',', $category->path);
-            $categoryName = '/';
+            $categoryName     = '/';
             foreach($parentCategories as $parentCategoryID)
             {
                 if(empty($parentCategoryID)) continue;
@@ -116,8 +116,8 @@ class treeModel extends model
         foreach($topMenu as $menu)
         {
             if(!strpos($menu, '|')) continue;
-            $menu     = explode('|', $menu);
-            $label    = array_shift($menu);
+            $menu       = explode('|', $menu);
+            $label      = array_shift($menu);
             $categoryID = array_pop($menu);
             if(!empty($menu) and $this->cookie->lang == 'en') $lable = '/' . $menu;
            
@@ -194,74 +194,74 @@ class treeModel extends model
         if($category->tree == 'forum')
         {
             $categoryName = 'forum';
-            $methodName = 'boardAdmin';
-            $vars       = "categoryID=$category->id";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'boardAdmin';
+            $vars         = "categoryID=$category->id";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         elseif($category->tree == 'usercase')
         {
             $categoryName = 'usercase';
-            $methodName = 'browseAdmin';
-            $vars       = "categoryID=$category->id";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'browseAdmin';
+            $vars         = "categoryID=$category->id";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         elseif($category->tree == 'extension')
         {
             $categoryName = 'extension';
-            $methodName = 'browseAdmin';
-            $vars       = "categoryID=$category->id";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'browseAdmin';
+            $vars         = "categoryID=$category->id";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         elseif($category->tree == 'webapp')
         {
             $categoryName = 'webapp';
-            $methodName = 'browseAdmin';
-            $vars       = "categoryID=$category->id";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'browseAdmin';
+            $vars         = "categoryID=$category->id";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         elseif($category->tree == 'ask')
         {
             $categoryName = 'ask';
-            $methodName = 'manageFAQ';
-            $vars       = "categoryID=$category->id";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'manageFAQ';
+            $vars         = "categoryID=$category->id";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         elseif($category->tree == 'video')
         {
             $categoryName = 'video';
-            $methodName = 'browseAdmin';
-            $vars       = "categoryID=$category->id&tree=$category->tree";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'browseAdmin';
+            $vars         = "categoryID=$category->id&tree=$category->tree";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         elseif($category->tree == 'guide')
         {
             if($category->grade != 2) return $category->name;   // only level two can create links.
             $categoryName = 'guide';
-            $methodName = 'manage';
-            $vars       = "categoryID=$category->id";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+            $methodName   = 'manage';
+            $vars         = "categoryID=$category->id";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
             return $linkHtml;
         }
         else
         {
             $categoryName = 'article';
-            $methodName = 'browseAdmin';
-            $orderBy    = $category->tree == 'article' ? 'id_desc' : '`order`';
-            $vars       = "tree=$category->tree&categoryID=$category->id&orderBy=$orderBy";
-            $linkHtml   = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category($category->id)'");
+            $methodName   = 'browseAdmin';
+            $orderBy      = $category->tree == 'article' ? 'id_desc' : '`order`';
+            $vars         = "tree=$category->tree&categoryID=$category->id&orderBy=$orderBy";
+            $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category($category->id)'");
             return $linkHtml;
         }
         /* 
         *$categoryName = $category->tree == 'forum' ? 'forum' : 'article';
-        $methodName = $category->tree == 'forum' ? 'boardAdmin' : 'browseAdmin';
-        $vars       = $category->tree == 'forum' ? "categoryID=$category->id" : "tree=$category->tree&categoryID=$category->id";
-        $linkHtml = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
+        $methodName    = $category->tree == 'forum' ? 'boardAdmin' : 'browseAdmin';
+        $vars          = $category->tree == 'forum' ? "categoryID=$category->id" : "tree=$category->tree&categoryID=$category->id";
+        $linkHtml      = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category{$category->id}'");
         return $linkHtml;*/
     }
 
@@ -289,7 +289,7 @@ class treeModel extends model
     {
         $linkHtml  = $category->name;
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',   "category={$category->id}&tree=$category->tree"), $this->lang->tree->edit, '', 'class="iframe"');
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'browse', "tree={$category->tree}&category={$category->id}"), $this->lang->tree->child);
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'manageChild', "tree={$category->tree}&category={$category->id}"), $this->lang->tree->child, '', 'class="iframe"');
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete', "category={$category->id}"), $this->lang->delete, '', 'class="delete"');
         $linkHtml .= ' ' . html::input("orders[$category->id]", $category->order, 'style="width:30px;text-align:center"');
         return $linkHtml;
@@ -409,6 +409,7 @@ class treeModel extends model
                 $this->dao->update(TABLE_CATEGORY)->set('name')->eq($categoryName)->where('id')->eq($categoryID)->exec();
             }
         }
+        return !dao::isError();
     }
 
     /**
@@ -422,9 +423,9 @@ class treeModel extends model
     {
         if($this->post->tree == 'forum')
         {
-            $parents = $this->post->parents;
-            $sites   = $this->post->sites;
-            $category  = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->remove('tree, parents, sites')->get();
+            $parents     = $this->post->parents;
+            $sites       = $this->post->sites;
+            $category    = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->remove('tree, parents, sites')->get();
             $oldCategory = $this->dao->findById((int)$categoryID)->from(TABLE_CATEGORY)->fetch('');
 
             foreach($parents as $siteID => $parentID)
@@ -451,7 +452,7 @@ class treeModel extends model
         else
         {
             $category = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->get();
-            $parent = $this->getById($this->post->parent);
+            $parent   = $this->getById($this->post->parent);
             $category->grade = $parent ? $parent->grade + 1 : 1;
 
             $this->dao->update(TABLE_CATEGORY)->data($category)->autoCheck()->check('name', 'notempty')->where('id')->eq($categoryID)->exec();
@@ -473,7 +474,7 @@ class treeModel extends model
     public function delete($categoryID)
     {
         $category = $this->getById($categoryID);
-        $childs = $this->getAllChildId($categoryID);
+        $childs   = $this->getAllChildId($categoryID);
 
         $this->dao->update(TABLE_CATEGORY)->set('grade = grade - 1')->where('id')->in($childs)->exec();                 // Update childs' grade.
         $this->dao->update(TABLE_CATEGORY)->set('parent')->eq($category->parent)->where('parent')->eq($categoryID)->exec(); // Update sons' parent to my parent.
@@ -481,6 +482,7 @@ class treeModel extends model
         $this->fixCategoryPath($category->tree);
 
         if($category->tree == 'article') $this->dao->update(TABLE_ARTICLECATEGORY)->set('category')->eq($category->parent)->where('category')->eq($categoryID)->exec();
+        return !dao::isError();
     }
 
     /**
