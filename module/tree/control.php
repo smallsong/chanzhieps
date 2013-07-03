@@ -78,6 +78,7 @@ class tree extends control
         $this->view->category     = $this->tree->getById($categoryID);
         $this->view->optionMenu = $this->tree->getOptionMenu($this->view->category->tree);
         $this->view->tree       = $tree;
+        $this->view->categories        = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
 
         /* Remove self and childs from the $optionMenu. */
         $childs = $this->tree->getAllChildId($categoryID);
@@ -108,13 +109,23 @@ class tree extends control
      * @access public
      * @return void
      */
-    public function manageChild($tree)
+    public function manageChild($tree, $currentCategoryID = 0)
     {
+        $parentCategories              = $this->tree->getParents($currentCategoryID);
+        $this->view->title             = $this->lang->tree->manage;
+        $this->view->tree              = $tree;
+        $this->view->categories        = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
+        $this->view->sons              = $this->tree->getSons($currentCategoryID, $tree);
+        $this->view->currentCategoryID = $currentCategoryID;
+        $this->view->parentCategories  = $parentCategories;
+
         if(!empty($_POST))
         {
-            $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categories']);
+            $result = $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categories']);
+            if($result) $this->send(array('result' => 'success', 'locate'=>inlink('browse')));
+            $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
-        $this->send(array('result' => 'success', 'locate' => inlink('browse')));
+        $this->display();
     }
 
     /**
@@ -139,17 +150,10 @@ class tree extends control
      * @access public
      * @return void
      */
-    public function delete($categoryID, $confirm = 'no')
+    public function delete($categoryID)
     {
-        if($confirm == 'no')
-        {
-            echo js::confirm($this->lang->tree->confirmDelete, $this->createLink('tree', 'delete', "categoryID=$categoryID&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->tree->delete($categoryID);
-            die(js::locate(inlink('browse', "tree=article")));
-        }
+        $result = $this->tree->delete($categoryID);
+        if($result) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 }
