@@ -183,7 +183,7 @@ class articleModel extends model
     public function update($articleID)
     {
         $article = fixer::input('post')->remove('category')->get();
-        $this->dao->update(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->create->requiredFields, 'notempty')->where('id')->eq($articleID)->exec();
+        $this->dao->update(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->create->article->requiredFields, 'notempty')->where('id')->eq($articleID)->exec();
         if(!dao::isError())
         {
             $categoryID = $this->post->category;
