@@ -11,7 +11,7 @@
 ?>
 <?php include '../../common/view/header.html.php';?>
 <div id='doc3'>
-  <form method='post' target='hiddenwin'>
+  <form method='post'>
     <table align='center' class='table-4'> 
       <caption><?php echo $lang->product->create;?></caption>
       <tr>
