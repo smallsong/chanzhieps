@@ -94,7 +94,21 @@ $.extend(
     enableForm:function(formID)
     {
         $(formID).find(':submit').attr('disabled', false);
+    },
+    /* ajaxLink */
+    ajaxLink:function(linkSelector, output)
+    {
+        var that=this,target=$(output);
+        if(!target.size())return false;
+        $(linkSelector).click(function()
+            {
+                var rel=$(this).attr('href');
+                if(!rel)return;
+                target.attr('rel',rel).load(rel);
+                return false;
+            });
     }
+ 
 });
 
 $(document).ready(function()
