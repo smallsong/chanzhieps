@@ -512,10 +512,7 @@ class dao
         {
             /* Get the SELECT, FROM position, thus get the fields, replace it by count(*). */
             $sql       = $this->processSQL();
-            $selectPOS = strpos($sql, 'SELECT') + strlen('SELECT');
-            $fromPOS   = strpos($sql, 'FROM');
-            $fields    = substr($sql, $selectPOS, $fromPOS - $selectPOS );
-            $sql       = str_replace($fields, ' COUNT(*) AS recTotal ', $sql);
+            $sql       = str_replace('SELECT', 'SELECT SQL_CALC_FOUND_ROWS ', $sql);
 
             /* Remove the part after order and limit. */
             $subLength = strlen($sql);
@@ -536,6 +533,9 @@ class dao
                 $this->app->error($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
             }
 
+            $sql  = 'SELECT FOUND_ROWS() as recTotal;';
+            $row = $this->dbh->query($sql)->fetch();
+ 
             $pager->setRecTotal($row->recTotal);
             $pager->setPageTotal();
         }
