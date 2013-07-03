@@ -391,6 +391,7 @@ class treeModel extends model
             /* The new category. */
             if(is_numeric($categoryID))
             {
+                $category = new stdClass();
                 $category->id      = $this->dao->select('MAX(id)+1 as id')->from(TABLE_CATEGORY)->fetch('id', false);
                 $category->name    = $categoryName;
                 $category->parent  = $parentCategoryID;

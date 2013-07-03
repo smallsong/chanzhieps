@@ -45,8 +45,7 @@ class tree extends control
         if(!empty($_POST))
         {
             $this->tree->update($categoryID);
-            echo js::alert($this->lang->tree->successSave);
-            die(js::locate(inlink('browse', "tree=$tree")));
+            $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave, 'locate' => inlink('browse')));
         }
 
         if($tree == 'forum')
@@ -96,6 +95,7 @@ class tree extends control
         {
             $this->tree->updateOrder($_POST['orders']);
         }
+        $this->send(array('result' => 'success', 'locate' => inlink('browse')));
     }
 
     /**
@@ -110,8 +110,8 @@ class tree extends control
         if(!empty($_POST))
         {
             $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categories']);
-            die(js::locate(inlink('browse', "tree=$tree")));
         }
+        $this->send(array('result' => 'success', 'locate' => inlink('browse')));
     }
 
     /**

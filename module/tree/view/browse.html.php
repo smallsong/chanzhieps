@@ -28,7 +28,7 @@
 
   <div class="span9">
     <form method='post' id="ajaxForm" action='<?php echo $this->createLink('tree', 'manageChild', "tree=$tree");?>'>
-      <table align='center' class='table-1 table-bordered'>
+      <table class='table-1 table-bordered'>
         <caption><?php echo $lang->tree->manageChild;?></caption>
         <tr>
           <td width='10%'>
