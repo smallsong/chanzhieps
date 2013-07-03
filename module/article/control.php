@@ -51,7 +51,7 @@ class article extends control
             $this->view->comments = $this->article->getCommentCounts(array_keys($articles));
             $this->view->categories  = $this->tree->getPairs($childCategories);
         }   
-    
+
         $this->view->header->title = $category->name;
         if($category)
         {
@@ -91,11 +91,11 @@ class article extends control
 
         $childCategories = $this->loadModel('tree')->getAllChildID($categoryID, $tree);
         $articles = $childCategories ? $this->article->getList($childCategories, $orderBy, $pager) : array();
-
         $this->view->articles = $articles;
         $this->view->pager    = $pager;
         $this->view->category = $this->tree->getById($categoryID);
         $this->view->tree     = $tree;
+        $this->view->categories = $this->loadModel('tree')->getPairs();
 
         $this->display();
     }   
@@ -114,12 +114,15 @@ class article extends control
         $tree   ='article';    
 
         /* Set the mdoule and tree.  */ 
-        $category = $this->loadModel('tree')->getById($categoryID);                                                                                            
+        $category   = $this->loadModel('tree')->getById($categoryID);                                                                                            
         $categoryID = 0;
 
         if($_POST)
         {
-            $this->article->create();       
+            $error = $this->article->validate();
+            if(!empty($error)) $this->send(array('result'=> 'falt', 'message'=> $error));
+
+            $result = $this->article->create();       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('browseadmin')));
         }
@@ -142,15 +145,16 @@ class article extends control
         $this->view->article= $this->article->getById($articleID);
         if($_POST)
         {
+            $error = $this->article->validate();
+            if(!empty($error)) $this->send(array('result'=> 'falt', 'message'=> $error));
+
             $this->article->update($articleID);
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate($this->session->articleList, 'parent'));
+            if(dao::isError()) $this->send(array('result'=> 'fail', 'message'=> dao::getError));
+            $this->send(array('result'=>'success', 'message'=> $this->lang->saveSuccess, 'locate'=> inlink('browseAdmin')));
         }
 
-        $this->view->category      = $this->loadModel('tree')->getById($this->view->article->category);
-        $this->view->tree        = $this->loadModel('tree')->getOptionMenu($this->view->article->tree);
-        $this->view->siteTrees   = $this->loadModel('site')->getLinkSitesOptionMenu($this->session->site->linkSites, $this->view->article->tree);
-        $this->view->siteCategories = $this->article->getOtherSiteCategories($articleID);
+        $this->view->category = $this->loadModel('tree')->getById($this->view->article->category);
+        $this->view->tree     = $this->loadModel('tree')->getOptionMenu($this->view->article->tree);
         $this->display();
     }
 
@@ -211,17 +215,10 @@ class article extends control
      * @access public
      * @return void
      */
-    public function delete($articleID, $confirm = 'no')
+    public function delete($articleID)
     {
-        if($confirm == 'no')
-        {
-            echo js::confirm($this->lang->article->confirmDelete, inlink('delete', "articleID=$articleID&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->article->delete($articleID);
-            die(js::reload('parent'));
-        }
+        $result = $this->article->delete($articleID);
+        if($result) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message'=>dao::getError()));
     }
 }
