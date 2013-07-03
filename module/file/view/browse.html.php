@@ -1,5 +1,5 @@
 <?php include '../../common/view/header.admin.html.php'; ?>
-<table class='table-1' align='center'>
+<table class='table table-bordered table-form'>
   <caption><?php echo $lang->file->browse;?></caption>
   <tr>
     <th><?php echo $lang->file->id;?></th>
@@ -41,7 +41,7 @@
 </table>
 <form method='post' enctype='multipart/form-data' target='hiddenwin' 
 action='<?php echo inlink('upload', "objectType=$objectType&objectID=$objectID");?>'>
-<table class='table-1' align='center'>
+<table class='table table-bordered table-form'>
   <tr>
     <td><?php echo $lang->file->upload;?></td>
     <td><?php echo $this->fetch('file', 'buildForm');?></td>
