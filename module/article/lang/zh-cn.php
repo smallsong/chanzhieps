@@ -12,6 +12,7 @@ $lang->article->common = '文章维护';
 
 $lang->article->id           = '编号';
 $lang->article->category     = '分类模块';
+$lang->article->categories   = '分类模块';
 $lang->article->title        = '标题';
 $lang->article->content      = '内容';
 $lang->article->original     = '原创';
