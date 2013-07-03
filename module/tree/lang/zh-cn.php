@@ -36,3 +36,5 @@ $lang->category->readonly= '只读';
 
 $lang->tree->lists['article'] = '文章';
 $lang->tree->lists['forum']   = '论坛';
+
+$lang->error->parentNotEqSelf = '『%s』不能为自身';

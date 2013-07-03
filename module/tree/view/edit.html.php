@@ -10,7 +10,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-  <form method='post' id='ajaxForm'>
+<form method='post' action="<?php echo inlink('edit', array('categoryID' => $_GET['category'], 'tree'=>$_GET['tree']));?>" id='editForm'>
     <table class='table table-bordered table-form'> 
       <caption><?php echo $lang->tree->edit;?></caption>
       <?php if($tree == 'forum'):?>

@@ -44,8 +44,11 @@ class tree extends control
     {
         if(!empty($_POST))
         {
+            $error = $this->tree->validate($categoryID);
+            if(!empty($error)) $this->send(array('result' =>'fail', 'message'=>$error));
             $this->tree->update($categoryID);
-            $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave, 'locate' => inlink('browse')));
+            if(!dao::isError()) $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave));
+            $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 
         if($tree == 'forum')

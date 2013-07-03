@@ -406,7 +406,7 @@ class treeModel extends model
             else
             {
                 $categoryID = str_replace('id', '', $categoryID);
-                $this->dao->update(TABLE_CATEGORY)->set('name')->eq($categoryName)->where('id')->eq($categoryID)->exec(false);
+                $this->dao->update(TABLE_CATEGORY)->set('name')->eq($categoryName)->where('id')->eq($categoryID)->exec();
             }
         }
     }
@@ -443,8 +443,8 @@ class treeModel extends model
                 $category->lastPostID     = $oldCategory->lastPostID;
                 $category->lastReplyID    = $oldCategory->lastReplyID;
 
-                $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->andWhere('site')->eq($category->site)->exec(false);
-                if($parentID != '') $this->dao->insert(TABLE_CATEGORY)->data($category)->exec(false);
+                $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->andWhere('site')->eq($category->site)->exec();
+                if($parentID != '') $this->dao->insert(TABLE_CATEGORY)->data($category)->exec();
                 $this->fixCategoryPath($category->tree);
             }
         }
@@ -460,6 +460,7 @@ class treeModel extends model
 
         $childs = $this->getAllChildId($categoryID);
         $this->dao->update(TABLE_CATEGORY)->set('grade = grade + 1')->where('id')->in($childs)->andWhere('id')->ne($categoryID)->exec();
+        return !dao::isError();
     }
 
     /**
@@ -532,4 +533,30 @@ class treeModel extends model
             $this->dao->update(TABLE_CATEGORY)->data($category)->where('id')->eq($category->id)->limit(1)->exec();
         }
     }
+        
+
+    /**
+     * Validate an category.
+     * 
+     * @access public
+     * @return object
+     */
+    public function validate($category)
+    {
+        $error = new stdClass();
+        if(!is_numeric($this->post->parent))
+        {
+            $error->parent = sprintf($this->lang->error->int[0], $this->lang->tree->parent);
+        }
+        if($this->post->parent == $category) 
+        {
+            $error->parent = sprintf($this->lang->error->parentNotEqSelf, $this->lang->category->parent);
+        }
+        if(empty($this->post->name))
+        {
+            $error->name = sprintf($this->lang->error->notempty, $this->lang->category->name);
+        }
+        return $error;
+    }
+
 }

@@ -1,0 +1,9 @@
+$(document).ready(function()
+{
+    $.ajaxForm('#editForm',
+      function(data)
+      {
+          bootbox.alert(data.message);
+      }
+      );
+});
