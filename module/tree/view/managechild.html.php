@@ -1,8 +1,8 @@
     <form method='post' id="childForm" action='<?php echo $this->createLink('tree', 'manageChild', "tree=$tree");?>'>
-      <table class='table table-bordered'>
+      <table class='table table-bordered table-form'>
         <caption><?php echo $lang->tree->manageChild;?></caption>
         <tr>
-          <td class="w-p10 v-middle" style="vertical-align:middle;">
+          <td class="w-p10">
             <nobr>
             <?php
             $sp = "";
