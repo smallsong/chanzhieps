@@ -9,7 +9,6 @@
  * @link        http://www.xirang.biz
  */
 ?>
-<?php include '../../common/view/header.admin.html.php';?>
 <form method='post' action="<?php echo inlink('edit', array('categoryID' => $_GET['category'], 'tree'=>$_GET['tree']));?>" id='editForm'>
     <table class='table table-bordered table-form'> 
       <caption><?php echo $lang->tree->edit;?></caption>
@@ -59,4 +58,4 @@
       <tr><td colspan='2' class='a-center'><?php echo html::submitButton() . html::hidden('tree', $tree);?></td </tr>
     </table>
   </form>
-  <?php include '../../common/view/footer.admin.html.php';?>
+  <?php if(isset($pageJS)) js::execute($pageJS);?>
