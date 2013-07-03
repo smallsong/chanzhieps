@@ -10,14 +10,12 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php include '../../common/view/kindeditor.html.php';?>
-<div class="yui-d0">
-  <form method='post' target='hiddenwin'>
-  <table align='center' class='table-1'>
+  <form method='post' target='hiddenwin' id='ajaxForm'>
+  <table class='table table-bordered table-form'>
     <caption><?php echo $lang->article->edit;?></caption>
     <tr>
-      <th class='w-100px'><?php echo $lang->article->module;?></th>
-      <td><?php echo html::select("module", $tree, $module ? $module->id: 0,'class=select-3');?></td> 
+      <th class='w-100px'><?php echo $lang->article->category;?></th>
+      <td><?php echo html::select("category", $tree, $category ? $category->id: 0,'class=select-3');?></td> 
     </tr> 
     <tr>
       <th><?php echo $lang->article->author;?></th>
@@ -58,5 +56,4 @@
     </tr>
   </table>
   </form>
-</div>
 <?php include '../../common/view/footer.admin.html.php';?>
