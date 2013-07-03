@@ -42,11 +42,11 @@
     </tr>
     <tr>
       <th><?php echo $lang->article->summary;?></th>
-      <td><?php echo html::textarea('summary', '', 'rows=5 class=area-1');?></td>
+      <td><?php echo html::textarea('summary', '', 'rows="5" class="area-1"');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->content;?></th>
-      <td><?php echo html::textarea('content', '', 'rows=25 class=area-1');?></td>
+      <td><?php echo html::textarea('content', '', 'rows=25 class="area-1"');?></td>
     </tr>
     <tr>
       <td colspan='2' class='a-center'>
