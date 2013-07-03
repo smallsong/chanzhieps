@@ -226,9 +226,7 @@ class articleModel extends model
         {
             $error->content = sprintf($this->lang->error->notempty, $this->lang->article->content);
         }
-
         return $error;
-
     }
 
     /**
