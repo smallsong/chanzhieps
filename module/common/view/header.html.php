@@ -1,13 +1,20 @@
 <?php if($extView = $this->getExtViewFile(__FILE__)){include $extView; return helper::cd();}?>
 <?php include 'header.lite.html.php';?>
-<div class='row' id='topbar'><div class='u-1 a-right'><?php commonModel::printTopBar();?></div></div>
-<table class='table-1' id='header'>
-  <tr valign='middle' class='a-center'>
-    <td id='logobox' ><?php $config->features->logo and $app->site->logo ? print("<a href=http://{$app->site->domain}>" . html::image($app->site->fullLogoURL) . '</ a>'): print($app->site->name);?></td>
-    <td id='sloganbox'><h1><?php echo $app->site->slogan;?></h1></td>
-    <td id='searchbox'><?php commonModel::printSearch();?></td>
-  </tr>
-</table>
-
-<div class='row' id='navbar'><?php commonModel::printNavBar()?></div>
-<div id='docbody'>
+<div class="container">
+  <div class="masthead">
+    <h3 class="muted">Project name</h3>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Downloads</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /.navbar -->
+  </div>
