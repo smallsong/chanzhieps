@@ -291,7 +291,7 @@ class treeModel extends model
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',   "category={$category->id}&tree=$category->tree"), $this->lang->tree->edit, '', 'class="iframe"');
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'manageChild', "tree={$category->tree}&category={$category->id}"), $this->lang->tree->child, '', 'class="iframe"');
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete', "category={$category->id}"), $this->lang->delete, '', 'class="delete"');
-        $linkHtml .= ' ' . html::input("orders[$category->id]", $category->order, 'style="width:30px;text-align:center"');
+        $linkHtml .= ' ' . html::input("orders[$category->id]", $category->order);
         return $linkHtml;
     }
 
