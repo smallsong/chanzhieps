@@ -20,7 +20,7 @@ class site extends control
     {
         if(!empty($_POST))
         {
-            $result = $this->site->saveSetting((object)$_POST);
+            $result = $this->loadModel('setting')->setItems('system.common.site', (object)$_POST);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
@@ -49,6 +49,7 @@ class site extends control
             $logo     = $fileModel->saveUpload('logo');
             $fileID   = array_keys($logo);
             $file     = $fileModel->getById($fileID[0]); 
+
             $setting  = new stdclass();
             $setting->fileID    = $file->id;
             $setting->pathname  = $file->pathname;
@@ -56,11 +57,13 @@ class site extends control
             $setting->addedBy   = $file->addedBy;
             $setting->addedDate = $file->addedDate;
 
-
-            $result = $this->loadModel('setting')->setItems('system.site.logo', $setting);
+            $config = array();
+            $config['logo'] = json_encode($setting);
+            $result = $this->loadModel('setting')->setItems('system.common.site', $config);
             if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess, 'locate'=>inlink('setLogo')));
             $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
         }
+        if(isset($this->config->site->logo)) $this->view->logo = json_decode($this->config->site->logo);
         $this->display();
     }
 

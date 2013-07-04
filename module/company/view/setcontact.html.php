@@ -15,35 +15,35 @@
     <caption><?php echo $lang->company->setContact;?></caption> 
     <tr>
       <th class="w-150px"><?php echo $lang->company->address?></th> 
-      <td><?php echo html::input('address', $this->config->company->contact->address, 'class="text-1"');?></td> 
+      <td><?php echo html::input('address', $contact->address, 'class="text-1"');?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->company->phone;?></th> 
-      <td><?php echo html::input('phone', $this->config->company->contact->phone, 'class="text-1"');?></td> 
+      <td><?php echo html::input('phone', $contact->phone, 'class="text-1"');?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->company->email;?></th> 
-      <td><?php echo html::input('email', $this->config->company->contact->email, 'class="text-1"');?></td> 
+      <td><?php echo html::input('email', $contact->email, 'class="text-1"');?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->company->fax;?></th> 
-      <td><?php echo html::input('fax', $this->config->company->contact->fax, 'class="text-1"');?></td> 
+      <td><?php echo html::input('fax', $contact->fax, 'class="text-1"');?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->company->qq;?></th> 
-      <td><?php echo html::input('qq', $this->config->company->contact->qq, 'class="text-1"');?></td>
+      <td><?php echo html::input('qq', $contact->qq, 'class="text-1"');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->company->weixin;?></th> 
-      <td><?php echo html::input('weixin', $this->config->company->contact->weixin, 'class="text-1"');?></td>
+      <td><?php echo html::input('weixin', $contact->weixin, 'class="text-1"');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->company->weibo;?></th> 
-      <td><?php echo html::input('weibo', $this->config->company->contact->weibo, 'class="text-1"');?></td>
+      <td><?php echo html::input('weibo', $contact->weibo, 'class="text-1"');?></td>
     </tr>
      <tr>
       <th><?php echo $lang->company->wangwang;?></th> 
-      <td><?php echo html::input('wangwang', $this->config->company->contact->wangwang, 'class="text-1"');?></td>
+      <td><?php echo html::input('wangwang', $contact->wangwang, 'class="text-1"');?></td>
     </tr>
     <tr>
       <td colspan="2" class="a-center">

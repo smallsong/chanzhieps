@@ -20,7 +20,7 @@ class company extends control
     {
         if(!empty($_POST))
         {
-            $result = $this->loadModel('setting')->setItems('system.company', (object)$_POST);
+            $result = $this->loadModel('setting')->setItems('system.common.company', (object)$_POST);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
@@ -37,10 +37,12 @@ class company extends control
     {
         if(!empty($_POST))
         {
-            $result = $this->loadModel('setting')->setItems('system.company.contact', (object)$_POST);
+            $contact = array('contact' => json_encode($_POST));
+            $result = $this->loadModel('setting')->setItems('system.common.company', $contact);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
+        $this->view->contact = json_decode($this->config->company->contact);
         $this->display();
     }
 

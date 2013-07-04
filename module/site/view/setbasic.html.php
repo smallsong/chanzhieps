@@ -26,6 +26,10 @@
       <td><?php echo html::textarea('desc', $this->config->site->desc, 'class="area-1" rows="5"');?></td> 
     </tr>
     <tr>
+      <th class="w-150px"><?php echo $lang->site->icp;?></th> 
+      <td><?php echo html::input('icp', $this->config->site->icp, 'class="text-1"');?></td> 
+    </tr>
+    <tr>
       <td colspan="2" class="a-center">
         <?php echo html::submitButton();?>
         <span id="responser"></span>

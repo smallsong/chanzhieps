@@ -16,6 +16,7 @@ $lang->site->domain       = '网站域名';
 $lang->site->logo         = 'Logo';
 $lang->site->keywords     = '关键词';
 $lang->site->desc         = '站点描述';
+$lang->site->icp          = '备案编号';
 $lang->site->slogan       = '站点口号';
 $lang->site->mission      = '站点使命';
 $lang->site->admins       = '管理员';

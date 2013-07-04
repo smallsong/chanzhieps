@@ -36,7 +36,7 @@ class siteModel extends model
      */
     public function saveSetting($settings)
     {
-        $path  = "system.site"; 
+        $path  = "common.site"; 
         return $this->loadModel('setting')->setItems($path, $settings);
     }
 
