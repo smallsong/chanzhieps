@@ -31,7 +31,7 @@
       </tr>  
       <?php else:?>
       <tr>
-        <th class=''><?php echo $lang->category->parent;?></th>
+        <th class='w-100px'><?php echo $lang->category->parent;?></th>
         <td><?php echo html::select('parent', $optionMenu, $category->parent, "class='text-1'");?></td>
       </tr>  
       <?php endif;?>
@@ -51,10 +51,12 @@
         <th class=''><?php echo $lang->category->keyword;?></th>
         <td><?php echo html::input('keyword', $category->keyword, "class='text-1'");?></td>
       </tr>  
+<?php if(0):?>
       <tr>
         <th class=''><?php echo $lang->category->readonly;?></th>
         <td><input type='checkbox' name='readonly' value='1' <?php if($category->readonly) echo "checked=checked";?> /></td>
       </tr>  
+<?php endif;?>
       <tr><td colspan='2' class='a-center'><?php echo html::submitButton() . html::hidden('tree', $tree);?></td </tr>
     </table>
   </form>
