@@ -40,23 +40,18 @@ class commonModel extends model
         $this->config->personal = isset($config[$account]) ? $config[$account] : array();
 
         /* Overide the items defined in config/config.php and config/my.php. */
-        $globalModules = array('site', 'company');
-        foreach($globalModules as $module)
+        if(isset($this->config->system->common))
         {
-            if(!isset($this->config->$module)) $this->config->$module = new stdClass();
-            if(isset($this->config->system->$module))
+            foreach($this->config->system->common as $record)
             {
-                foreach($this->config->system->$module as $record)
+                if($record->section)
                 {
-                    if($record->section)
-                    {
-                        if(!isset($this->config->$module->{$record->section})) $this->config->$module->{$record->section} = new stdclass();
-                        $this->config->$module->{$record->section}->{$record->key} = $record->value;
-                    }
-                    else
-                    {
-                        if(!$record->section) $this->config->$module->{$record->key} = $record->value;
-                    }
+                    if(!isset($this->config->{$record->section})) $this->config->{$record->section} = new stdclass();
+                    $this->config->{$record->section}->{$record->key} = $record->value;
+                }
+                else
+                {
+                    if(!$record->section) $this->config->{$record->key} = $record->value;
                 }
             }
         }
@@ -118,10 +113,6 @@ class commonModel extends model
             if($app->user->admin == 'super') return true;
         }
 
-        if(RUN_MODE == 'front')
-        {
-            return isset($this->config->front->groups->guest[$module]) && in_array($method, $this->config->front->groups->guest[$module]);
-        }
         $rights  = $app->user->rights;
         if(isset($rights[strtolower($module)][strtolower($method)])) return true;
         return false;
