@@ -10,22 +10,26 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<div class="hero-unit">
-  <h1></h1>
-  <p></p>
-</div>
-<div class="row-fluid">
-  <div class="span4">
-    <h2>article</h2>
-    <p></p>
-  </div>
-  <div class="span4">
-    <h2>category</h2>
-    <p></p>
-  </div>
-  <div class="span4">
-    <h2>site</h2>
-    <p></p>
+<div class="container" id="menuContainer">
+  <div class="row-fluid">
+    <div class="span5 shortcut article-create"> 
+      <?php echo html::a($this->createLink('article', 'create'), '<h3>' . $lang->shortcuts->createArticle . '</h3>')?>
+    </div>
+    <div class="span3 shortcut article-view"> 
+      <?php echo html::a($this->createLink('article', 'browseadmin'), '<h3>' . $lang->shortcuts->browseArticle . '</h3>')?>
+    </div>
+    <div class="span4 shortcut category"> 
+      <?php echo html::a($this->createLink('tree', 'browse'), '<h3>' . $lang->shortcuts->category . '</h3>')?>
+    </div>
+    <div class="span4 shortcut site"> 
+      <?php echo html::a($this->createLink('site', 'setBasic'), '<h3>' . $lang->shortcuts->site . '</h3>')?>
+    </div>
+    <div class="span4 shortcut company">
+      <?php echo html::a($this->createLink('company', 'setBasic'), '<h3>' . $lang->shortcuts->company . '</h3>')?>
+    </div>
+    <div class="span4 shortcut contact"> 
+      <?php echo html::a($this->createLink('company', 'setcontact'), '<h3>' . $lang->shortcuts->contact . '</h3>')?>
+    </div>
   </div>
 </div>
 <?php include '../../common/view/footer.admin.html.php';?>
