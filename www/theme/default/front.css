@@ -1,0 +1,10 @@
+body {color: #a7a7a7;padding-bottom: 60px; padding-top: 20px; background: url(theme/default/images/main/bg.4.gif) r
+.muted{color:#ffffff;}     
+.navbar .navbar-inner {background: #FE6A21; border: none; border-radius: 0; box-shadow: none; padding: 0;}
+.navbar .nav {display: table; margin: 0; width: 100%;}
+.navbar .nav li {display: table-cell; float: none; width: 1%;}
+.navbar .nav li a {color: #ffffff; text-shadow: none; border-left: 1px solid rgba(255, 255, 255, 0.75); border-righ
+.navbar .nav li.active a,.navbar .nav li.active a:hover, .navbar .nav li.active a:active, .navbar .nav li.active a:
+.navbar .nav li:first-child a {border-left: 0 none;}
+.navbar .nav li:last-child a {border-right: 0 none;}
+        
