@@ -40,7 +40,6 @@ class commonModel extends model
         $this->config->personal = isset($config[$account]) ? $config[$account] : array();
 
         /* Overide the items defined in config/config.php and config/my.php. */
-        $this->config->company = new stdClass();
         if(isset($this->config->system->common))
         {
             foreach($this->config->system->common as $record)
