@@ -15,11 +15,11 @@
     <caption><?php echo $lang->company->setBasic;?></caption> 
     <tr>
       <th class="w-150px"><?php echo $lang->company->name;?></th> 
-      <td><?php echo html::input('name', $this->config->company->name, 'class="text-5"');?></td> 
+      <td><?php echo html::input('name', isset($this->config->company->name) ? $this->config->company->name : "", 'class="text-5"');?></td> 
     </tr>
     <tr>
       <th class="w-150px"><?php echo $lang->company->desc;?></th> 
-      <td><?php echo html::textarea('desc', $this->config->company->desc, 'class="area-1" rows="5"');?></td> 
+      <td><?php echo html::textarea('desc',  isset($this->config->company->desc) ? $this->config->company->desc : "", 'class="area-1" rows="5"');?></td> 
     </tr>
     <tr>
       <td colspan="2" class="a-center">
