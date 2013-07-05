@@ -41,6 +41,12 @@ $lang->saveSuccess  = '保存成功';
 $lang->setSuccess   = '设置成功';
 $lang->fail         = '失败';
 
+/* Front menus.*/
+$lang->frontMenu = new stdClass();
+$lang->frontMenu->home     = '首页|index|index';
+$lang->frontMenu->about    = '关于我们|company|index';
+$lang->frontMenu->contact  = '联系方式|company|contact';
+
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index';

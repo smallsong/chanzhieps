@@ -3,19 +3,7 @@
 <div class="container">
   <div class="masthead">
     <h3 class="muted"><?php echo $config->company->name;?></h3>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <ul class="nav">
-            <li class="active"><a href="#">首页</a></li>
-            <li><a href="#">关于我们</a></li>
-            <li><a href="#">新闻动态</a></li>
-            <li><a href="#">招聘信息</a></li>
-            <li><a href="#">联系我们</a></li>
-          </ul>
-        </div>
-      </div>
-    </div><!-- /.navbar -->
+    <?php echo commonModel::createFrontMenu();?>
   </div>
 <style>
 body {
