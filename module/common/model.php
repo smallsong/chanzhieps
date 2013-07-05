@@ -40,6 +40,7 @@ class commonModel extends model
         $this->config->personal = isset($config[$account]) ? $config[$account] : array();
 
         /* Overide the items defined in config/config.php and config/my.php. */
+        $this->config->company = new stdClass();
         if(isset($this->config->system->common))
         {
             foreach($this->config->system->common as $record)
@@ -111,6 +112,10 @@ class commonModel extends model
         {
             if($app->user->admin == 'no')    return false;
             if($app->user->admin == 'super') return true;
+        }
+        if(RUN_MODE == 'front')
+        {
+            return isset($this->config->front->groups->guest[$module]) && in_array($method, $this->config->front->groups->guest[$module]);
         }
 
         $rights  = $app->user->rights;
@@ -287,7 +292,7 @@ class commonModel extends model
     public static function printNavBar()
     {
         global $app;
-        echo "<ul class='u-1 nav'>";
+        echo "<ul class='nav'>";
         echo '<li>' . html::a($app->config->webRoot, $app->lang->homePage) . '</li>';
         foreach($app->site->menuLinks as $menu) echo "<li>$menu</li>";
         echo '</ul>';
