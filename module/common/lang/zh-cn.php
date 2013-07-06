@@ -13,6 +13,7 @@ $lang->poweredBy      = "由 <a href='http://www.xirang.biz' target='_blank'>{$l
 
 $lang->welcome        = "欢迎您, <strong>%s</strong> ";
 $lang->todayIs        = '今天是%s，';
+$lang->aboutUs        = '关于我们';
 $lang->dashboard      = '用户中心';
 $lang->register       = '免费注册';
 $lang->logout         = '退出';
@@ -21,6 +22,7 @@ $lang->account        = '帐号';
 $lang->password       = '密码';
 $lang->forgotPassword = '忘记密码?';
 
+$lang->currentPos   = '当前位置';
 $lang->categoryMenu = '分类导航';
 $lang->reset        = '重填';
 $lang->edit         = '编辑';

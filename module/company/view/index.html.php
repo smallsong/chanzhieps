@@ -1,10 +1,10 @@
 <?php 
 include '../../common/view/header.html.php';
 $contact    = json_decode($this->config->company->contact);
-//$common->printPositionBar($this->app->getModuleName());
 ?>
 <div class="row">
   <div class="span9">
+    <?php $common->printPositionBar($this->app->getModuleName());?>
     <h1><?php echo $company->name;?></h1>
     <p><?php echo $company->content;?></p>
     <br/>

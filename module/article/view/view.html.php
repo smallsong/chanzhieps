@@ -3,6 +3,7 @@
 <?php js::set('currentMenu', "#category" . $category->id);?>
 <div class='row'>
   <div class='span9'>
+    <?php $common->printPositionBar($category, $article);?>
       <h2 class='a-center'><?php echo $article->title;?></h2>
         <div class='f-12px'>
         <?php

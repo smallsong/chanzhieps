@@ -1,5 +1,6 @@
 <div class='row'>
   <div class='span9'>
+    <?php echo $common->printPositionBar($category);?>
     <ul class='article-list'>
     <?php foreach($articles as $article):?>
       <li>

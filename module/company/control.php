@@ -18,6 +18,8 @@ class company extends control
      */
     public function index()
     {
+        $this->config->site->menuLinks = array();
+        $this->app->site->menuLinks[] = $this->lang->aboutUs;
         $this->view->company = $this->config->company;
         $this->display();
     }

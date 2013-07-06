@@ -349,12 +349,12 @@ class commonModel extends model
      */
     public function printPositionBar($module = '', $object = '', $misc = '')
     {
-        echo '<div class="row"><div class="u-1">';
-        echo $this->lang->currentPos;
-        echo html::a($this->config->webRoot, $this->app->site->name);
+        return ;
+        echo '<ul class="breadcrumb">';
+        echo '<li>' . html::a($this->config->webRoot, $this->config->site->name) . '</li>';
         $funcName = 'print' . $this->app->getModuleName();
-        echo $this->common->$funcName($module, $object, $misc);
-        echo '</div></div>';
+        echo $this->$funcName($module, $object, $misc);
+        echo '</ul>';
     }
 
     /**
@@ -489,10 +489,23 @@ class commonModel extends model
      * @access public
      * @return void
      */
+    public function printcompany($module)
+    {
+        echo ' <span class="divider">/</span></li> ' . $this->lang->aboutUs; 
+    }
+
+    /**
+     * Print the positon bar of article module.
+     * 
+     * @param  object $module 
+     * @param  object $article 
+     * @access public
+     * @return void
+     */
     public function printArticle($module, $article)
     {
-        foreach($module->pathNames as $moduleID => $moduleName) echo ' > ' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName);
-        if($article) echo ' > ' . html::a(inlink('view', "id=$article->id"), $article->title);
+        foreach($module->pathNames as $moduleID => $moduleName) echo ' <span class="divider">/</span> ' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName);
+        if($article) echo '<span class="divider">/</span>' . html::a(inlink('view', "id=$article->id"), $article->title);
     }
 
     /**

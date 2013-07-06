@@ -25,6 +25,9 @@ padding:0;
 .navbar .nav li:first-child a {border-left: 0 none;}
 .navbar .nav li:last-child a {border-right: 0 none;}
 
+/* breadcrumb setting*/
+ul.breadcrumb {background:none; margin-top:10px;border-bottom:1px solid; }
+
 /*side widget*/
 .widget{margin-bottom:30px;color:#5A5A5A;font-size:13px;}
 .widget h4{color: #FE6A21;margin-top:15px; margin-bottom:10px; }
@@ -32,6 +35,6 @@ padding:0;
 .widget ul li{width:100%;padding:0;list-style-type:none;margin-bottom:5px;}
 .widget ul li span { font-weight:bold; margin-right:5px;}
 .widget-category ul {width:100%;padding:0;margin-left:0;}
-.widget-category ul li a{line-height:30px;width:100%;height:25px;color:#5A5A5A;display:block; font-size:14px; font-weight:700;  margin-bottom:5px;border-radius:0px;background:#E0E0E0;}
+.widget-category ul li a{line-height:30px; height:25px;color:#5A5A5A;display:block; font-size:14px; font-weight:700;  margin-bottom:5px;border-radius:0px;background:#E0E0E0;}
 .widget-category ul a:hover{background:#FE6A21;color:#FFFFFF;}
 
