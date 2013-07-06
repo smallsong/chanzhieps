@@ -22,7 +22,6 @@ $lang->password       = '密码';
 $lang->forgotPassword = '忘记密码?';
 
 $lang->categoryMenu = '分类导航';
-
 $lang->reset        = '重填';
 $lang->edit         = '编辑';
 $lang->copy         = '复制';
@@ -42,6 +41,19 @@ $lang->submitting   = '稍候...';
 $lang->saveSuccess  = '保存成功';
 $lang->setSuccess   = '设置成功';
 $lang->fail         = '失败';
+
+/* contact fields*/
+$lang->company->contactUs   = "联系我们";
+$lang->company->address = "地址";
+$lang->company->phone   = "电话";
+$lang->company->email   = "Email";
+$lang->company->fax     = "传真";
+$lang->company->qq       = "QQ";
+$lang->company->weibo    = "微博";
+$lang->company->weixin   = "微信";
+$lang->company->wangwang = "阿里旺旺";
+
+
 
 /* Front menus.*/
 $lang->frontMenu = new stdClass();
