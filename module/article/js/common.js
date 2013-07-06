@@ -1,7 +1,4 @@
-$(function() { 
-    if($('.u-24-5').height() < $('.u-24-19').height() )
-    {
-        $('.u-24-5 .box-content').css('height', $('.u-24-19').height() - 50); 
-    }
+$(document).ready(function()
+{
+  $(v.currentMenu).parent('li').addClass('active');
 });
-
