@@ -5,4 +5,5 @@
    echo $config->site->icp;
    ?>
    </footer>
+<?php if(isset($pageJS)) js::execute($pageJS); ?>
 </div>
