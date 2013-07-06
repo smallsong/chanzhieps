@@ -185,12 +185,12 @@ class article extends control
         $article = $this->article->getById($articleID);
         if(RUN_MODE == 'front')
         {
-            $this->view->layouts          = $this->loadModel('block')->getLayouts('article.view');
+            //$this->view->layouts          = $this->loadModel('block')->getLayouts('article.view');
             $this->view->articleTree      = $this->loadModel('tree')->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
             $this->view->category         = $this->tree->getById($article->category);
 
             $this->view->header->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
-            $this->view->header->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->app->site->keywords);
+            $this->view->header->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->config->site->keywords);
             $this->view->header->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
 
             $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
