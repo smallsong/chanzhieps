@@ -18,7 +18,7 @@ class article extends control
      */
     public function index()
     {   
-        $indexCategories = explode(',', $this->app->site->indexCategories);
+        $indexCategories = explode(',', $this->config->site->indexCategories);
         $defaultCategory = $indexCategories[0];
         $this->locate(inlink('browse', "category=$defaultCategory"));
     }   
@@ -45,25 +45,18 @@ class article extends control
         $articles        = $this->article->getList($childCategories, $orderBy, $pager);
         $category        = $this->tree->getById($categoryID);
 
-        if($this->session->site->type == 'blog')
-        {   
-            $this->article->createDigest($articles);
-            $this->view->comments   = $this->article->getCommentCounts(array_keys($articles));
-            $this->view->categories = $this->tree->getPairs($childCategories);
-        }   
-
         $this->view->header->title = $category->name;
         if($category)
         {
-            $this->view->header->keywords = trim($category->keyword . ' ' . $this->app->site->keywords);
+            $this->view->header->keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
             if($category->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
         }
 
         $this->view->category    = $category;
         $this->view->articles    = $articles;
         $this->view->pager       = $pager;
-        $this->view->site        = $this->app->site;
-        $this->view->layouts     = $this->loadModel('block')->getLayouts('article.list');
+        $this->view->site        = $this->config->site;
+      //$this->view->layouts     = $this->loadModel('block')->getLayouts('article.list');
         $this->view->articleTree = $this->loadModel('tree')->getTreeMenu($this->view->category->tree, 0, array('treeModel', 'createBrowseLink'));
 
         $this->display();
