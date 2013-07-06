@@ -10,6 +10,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
+<?php include '../../common/view/kindeditor.html.php';?>
 <form action="" method="post" id="ajaxForm">
   <table class="table table-bordered table-form">
     <caption><?php echo $lang->company->setBasic;?></caption> 
@@ -20,6 +21,10 @@
     <tr>
       <th class="w-150px"><?php echo $lang->company->desc;?></th> 
       <td><?php echo html::textarea('desc',  isset($this->config->company->desc) ? $this->config->company->desc : "", 'class="area-1" rows="5"');?></td> 
+    </tr>
+    <tr>
+      <th class="w-150px"><?php echo $lang->company->content;?></th> 
+      <td><?php echo html::textarea('content',  isset($this->config->company->content) ? $this->config->company->content : "", 'class="area-1" rows="15"');?></td> 
     </tr>
     <tr>
       <td colspan="2" class="a-center">

@@ -18,6 +18,7 @@ $sideCategoryMenus =  treeModel::getSons(0);
         <h4><?php echo $lang->company->contactUs;?></h4>
         <ul>
         <?php foreach($contact as $item => $value):?>
+        <?php if($value == "") continue;?>
           <li><span><?php echo $lang->company->$item;?>:</span><?php echo $value;?></li>
         <?php endforeach;?>
         </ul>
