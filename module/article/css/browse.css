@@ -1,0 +1,7 @@
+h2{color:#666666;}
+.article-list{margin: 10px 0 0;}
+.article-list li{list-style: none;}
+.article-title{margin: 10px 0 0;}
+.article-title a{color: #A7A7A7;}
+.article-title a:hover, .article-title a:active{color: #5A5A5A; text-decoration: none;}
+
