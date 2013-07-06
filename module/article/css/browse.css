@@ -1,7 +1,8 @@
-h2{color:#666666;}
 .article-list{margin: 10px 0 0;}
 .article-list li{list-style: none;}
 .article-title{margin: 10px 0 0;}
-.article-title a{color: #A7A7A7;}
-.article-title a:hover, .article-title a:active{color: #5A5A5A; text-decoration: none;}
-
+.meta{margin-bottom: 10px;}
+.article-title a{color: #5A5A5A;}
+.article-title a:hover, .article-title a:active{color: #FE6A21; text-decoration: none;}
+a.readmore{color: #FE6A21;font-weight: bold;padding-left: 650px;}
+a.readmore:hover, a.readmore:active{color: #5A5A5A;text-decoration: none;}

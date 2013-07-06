@@ -42,7 +42,7 @@ $lang->article->successSave   = '成功保存';
 $lang->article->original      = '本站原创';
 
 $lang->article->lblAddedDate = '<strong>添加时间：</strong> %s ';
-$lang->article->lblAuthor    = "<strong>作者： <span class='red'>%s</span></strong> ";
+$lang->article->lblAuthor    = "<strong>作者：</strong> %s ";
 $lang->article->lblSource    = '<strong>来源：</strong>';
 $lang->article->lblViews     = '<strong>阅读：</strong>%s';
 $lang->article->lblEditor    = '<i>最后编辑：%s 于 %s</i>';
