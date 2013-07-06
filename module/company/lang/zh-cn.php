@@ -23,5 +23,7 @@ $lang->company->weibo    = "微博";
 $lang->company->weixin   = "微信";
 $lang->company->wangwang = "阿里旺旺";
 
+$lang->company->contactUs   = "联系我们";
+
 $lang->company->setBasic   = "设置基本信息";
 $lang->company->setContact = "设置联系方式";

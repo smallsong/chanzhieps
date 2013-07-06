@@ -19,6 +19,9 @@ $config->front->groups->guest['article'][] = 'index';
 $config->front->groups->guest['article'][] = 'browse';
 $config->front->groups->guest['article'][] = 'view';
 
+$config->front->groups->guest['company'][]   = 'index';
+$config->front->groups->guest['company'][]   = 'contact';
+
 $config->front->groups->guest['forum'][]   = 'index';
 $config->front->groups->guest['forum'][]   = 'board';
 

@@ -11,6 +11,18 @@
 class company extends control
 {
     /**
+     * company profile about us.
+     * 
+     * @access public
+     * @return void
+     */
+    public function index()
+    {
+        $this->view->company = $this->config->company;
+        $this->display();
+    }
+
+    /**
      * set company basic info.
      * 
      * @access public
