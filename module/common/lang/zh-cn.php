@@ -43,6 +43,7 @@ $lang->setSuccess   = '设置成功';
 $lang->fail         = '失败';
 
 /* contact fields*/
+$lang->company = new stdClass();
 $lang->company->contactUs   = "联系我们";
 $lang->company->address = "地址";
 $lang->company->phone   = "电话";
@@ -85,7 +86,7 @@ $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
 
 /* The menus of company module. */
-$lang->company = new stdclass();
+if(!isset($lang->company)) $lang->company = new stdclass();
 $lang->company->menu = new stdclass();
 
 $lang->company->menu->basic = '公司信息|company|setbasic|';
