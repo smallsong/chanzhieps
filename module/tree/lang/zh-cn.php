@@ -9,6 +9,7 @@
  * @link        http://www.xirang.biz
  */
 $lang->tree = new stdclass();
+$lang->tree->category    = '类目';
 $lang->tree->common      = '类目维护';
 $lang->tree->add         = "添加";
 $lang->tree->edit        = "编辑";

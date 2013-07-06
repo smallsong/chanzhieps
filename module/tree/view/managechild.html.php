@@ -5,11 +5,11 @@
           <td class="w-p10">
             <nobr>
             <?php
-            $sp = "";
+            $sp = '<i class="icon-chevron-right"></i>';
+            echo html::a($this->createLink('tree', 'browse'), $lang->tree->category);
             foreach($parentCategories as $category)
             {
-                echo html::a($this->createLink('tree', 'browse', "tree=$tree&categoryID=$category->id"), $sp . $category->name, '', 'class="black"');
-                $sp = '<i class="icon-chevron-right"></i>';
+                echo html::a($this->createLink('tree', 'browse', "tree=$tree&categoryID=$category->id"), $sp . $category->name);
             }
             ?>
             </nobr>
