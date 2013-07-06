@@ -12,7 +12,7 @@ img.logo{max-height:70px;margin:20px 0;}
 font-size:16px; color: #ffffff; text-shadow: none;
 border-left: 1px solid rgba(255, 255, 255, 0.1);
 border-right: 1px solid rgba(0, 0, 0, 0.1); text-align: center; 
-line-height:75px; height:72px; background-image: url("./images/main/nav-color1.gif");
+line-height:75px; height:75px; background-image: url("./images/main/nav-color1.gif");
 padding:0;
 }
 
