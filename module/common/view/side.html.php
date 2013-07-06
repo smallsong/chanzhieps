@@ -1,26 +1,23 @@
+<?php
+$contact    = json_decode($this->config->company->contact);
+$sideCategoryMenus =  treeModel::getSons(0);
+?>
   <div class="span3">
-    <?php $contact = json_decode($this->config->company->contact);?>
     <div class="sidebar"> 
       <div class="widget">  
         <h4><?php echo $lang->company->contactUs;?></h4>
-        <hr/>
         <ul>
-          <li><?php echo $lang->company->address . ':' . $contact->address;?></li>
-          <li><?php echo $lang->company->phone . ':' . $contact->phone;?></li>
-          <li><?php echo $lang->company->email . ':' . $contact->email;?></li>
-          <li><?php echo $lang->company->fax . ':' . $contact->fax;?></li>
-          <li><?php echo $lang->company->qq . ':' . $contact->qq;?></li>
+        <?php foreach($contact as $item => $value):?>
+          <li><span><?php echo $lang->company->$item;?>:</span><?php echo $value;?></li>
+        <?php endforeach;?>
         </ul>
       </div>
-      <div class="widget"> 
-        <h4><?php echo $lang->company->contactUs;?></h4>
-        <hr/>
+      <div class="widget widget-category"> 
+        <h4><?php echo $lang->categoryMenu;?></h4>
         <ul>
-          <li><?php echo $lang->company->address . ':' . $contact->address;?></li>
-          <li><?php echo $lang->company->phone . ':' . $contact->phone;?></li>
-          <li><?php echo $lang->company->email . ':' . $contact->email;?></li>
-          <li><?php echo $lang->company->fax . ':' . $contact->fax;?></li>
-          <li><?php echo $lang->company->qq . ':' . $contact->qq;?></li>
+        <?php foreach($sideCategoryMenus as $category):?>
+        <li><?php echo html::a($this->createLink('article', 'browse', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}' class='btn'");?></li>
+        <?php endforeach;?>
         </ul>
       </div>
     </div>

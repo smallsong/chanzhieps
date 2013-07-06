@@ -21,6 +21,8 @@ $lang->account        = '帐号';
 $lang->password       = '密码';
 $lang->forgotPassword = '忘记密码?';
 
+$lang->categoryMenu = '分类导航';
+
 $lang->reset        = '重填';
 $lang->edit         = '编辑';
 $lang->copy         = '复制';

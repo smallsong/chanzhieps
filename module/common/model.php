@@ -173,7 +173,7 @@ class commonModel extends model
         global $app, $lang;   
         $menus = $lang->frontMenu;
         $moduleName = $app->getModuleName();
-        $methodName = $app->getModuleName();
+        $methodName = $app->getMethodName();
 
         $string = '
             <div class="navbar">
