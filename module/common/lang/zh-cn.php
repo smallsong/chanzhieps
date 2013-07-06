@@ -60,7 +60,6 @@ $lang->company->wangwang = "阿里旺旺";
 $lang->frontMenu = new stdClass();
 $lang->frontMenu->home     = '首页|index|index';
 $lang->frontMenu->about    = '关于我们|company|index';
-$lang->frontMenu->contact  = '联系方式|company|contact';
 
 /* The main menus. */
 $lang->menu = new stdclass();

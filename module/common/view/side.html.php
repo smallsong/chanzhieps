@@ -4,14 +4,7 @@ $sideCategoryMenus =  treeModel::getSons(0);
 ?>
   <div class="span3">
     <div class="sidebar"> 
-      <div class="widget">  
-        <h4><?php echo $lang->company->contactUs;?></h4>
-        <ul>
-        <?php foreach($contact as $item => $value):?>
-          <li><span><?php echo $lang->company->$item;?>:</span><?php echo $value;?></li>
-        <?php endforeach;?>
-        </ul>
-      </div>
+ 
       <div class="widget widget-category"> 
         <h4><?php echo $lang->categoryMenu;?></h4>
         <ul>
@@ -20,6 +13,16 @@ $sideCategoryMenus =  treeModel::getSons(0);
         <?php endforeach;?>
         </ul>
       </div>
+
+      <div class="widget">  
+        <h4><?php echo $lang->company->contactUs;?></h4>
+        <ul>
+        <?php foreach($contact as $item => $value):?>
+          <li><span><?php echo $lang->company->$item;?>:</span><?php echo $value;?></li>
+        <?php endforeach;?>
+        </ul>
+      </div>
+ 
     </div>
   </div>
 

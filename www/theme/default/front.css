@@ -1,8 +1,8 @@
 body {color: #a7a7a7;padding-bottom: 60px; padding-top: 20px; background: url(./images/main/bg.4.png) repeat-x #F1F1F1;}
 
 *::-moz-selection {background: none repeat scroll 0 0 #8D8D8B;color: #FFFFFF;}
-img.logo{height:70px;margin:20px 0;}
-.slogan {text-align:right;margin-right:40px; margin-top:20px; color:#FFFFFF;padding:0 0 10px 0;}
+img.logo{max-height:70px;margin:20px 0;}
+.slogan {text-align:right;margin-right:40px; margin-top:20px; color:#827E7E;padding:0 0 10px 0;}
 .slogan h3 {margin:0;}
 
 .navbar .navbar-inner {border: none; border-radius: 0; box-shadow: none; padding: 0;margin-top:7px;}
@@ -26,10 +26,12 @@ padding:0;
 .navbar .nav li:last-child a {border-right: 0 none;}
 
 /*side widget*/
-.widget{margin-bottom:20px;color:#878787;font-size:13px;}
+.widget{margin-bottom:30px;color:#5A5A5A;font-size:13px;}
+.widget h4{color: #FE6A21;margin-top:15px; margin-bottom:10px; }
+.widget ul {margin:0 2px;}
 .widget ul li{width:100%;padding:0;list-style-type:none;margin-bottom:5px;}
-.widget ul li span { font-weight:bold;}
+.widget ul li span { font-weight:bold; margin-right:5px;}
 .widget-category ul {width:100%;padding:0;margin-left:0;}
-.widget-category ul li a{line-height:30px;width:100%;height:25px;color:#878787;display:block; font-size:14px;margin-bottom:5px;border-radius:0px;background:#E7E7E7}
-.widget-category ul a:hover{background:#21A5DB;color:#FFFFFF;}
+.widget-category ul li a{line-height:30px;width:100%;height:25px;color:#5A5A5A;display:block; font-size:14px; font-weight:700;  margin-bottom:5px;border-radius:0px;background:#E0E0E0;}
+.widget-category ul a:hover{background:#FE6A21;color:#FFFFFF;}
 
