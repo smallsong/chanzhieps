@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->company->email;?></th> 
-      <td><?php echo html::input('email', isset($contact->email) ? $contact->email : '' 'class="text-1"');?></td> 
+      <td><?php echo html::input('email', isset($contact->email) ? $contact->email : '', 'class="text-1"');?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->company->fax;?></th> 
