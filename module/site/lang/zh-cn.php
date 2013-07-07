@@ -32,6 +32,7 @@ $lang->site->setLogo        = "设置Logo";
 $lang->site->setLogoFaild   = "设置Logo失败";
 $lang->site->setMenu        = "设置导航";
 
+$lang->error->notSelectedLogo   = "没有选择Logo图片";
 
 $lang->site->confirmDelete = "您确定删除该网站吗？";
 $lang->site->successSaved  = "成功保存";
