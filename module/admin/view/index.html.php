@@ -24,10 +24,13 @@
     <div class="span4 shortcut site"> 
       <?php echo html::a($this->createLink('site', 'setBasic'), '<h3>' . $lang->shortcuts->site . '</h3>')?>
     </div>
-    <div class="span4 shortcut company">
+    <div class="span2 shortcut logo"> 
+      <?php echo html::a($this->createLink('site', 'setlogo'), '<h3>' . $lang->shortcuts->logo . '</h3>')?>
+    </div>
+   <div class="span3 shortcut company">
       <?php echo html::a($this->createLink('company', 'setBasic'), '<h3>' . $lang->shortcuts->company . '</h3>')?>
     </div>
-    <div class="span4 shortcut contact"> 
+    <div class="span3 shortcut contact"> 
       <?php echo html::a($this->createLink('company', 'setcontact'), '<h3>' . $lang->shortcuts->contact . '</h3>')?>
     </div>
   </div>
