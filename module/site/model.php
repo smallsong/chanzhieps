@@ -20,11 +20,13 @@ class siteModel extends model
      */
     public function setSite()
     {
-        if(!isset($this->config->site))           $this->config->site           = new stdclass();
-        if(!isset($this->config->site->name))     $this->config->site->name     = $this->lang->xirangEPS;
-        if(!isset($this->config->site->keywords)) $this->config->site->keywords = '';
-        if(!isset($this->config->site->slogan))   $this->config->site->slogan   = '';
-        if(!isset($this->config->site->desc))     $this->config->site->desc     = '';
+        if(!isset($this->config->site))                 $this->config->site                 = new stdclass();
+        if(!isset($this->config->site->name))           $this->config->site->name           = $this->lang->xirangEPS;
+        if(!isset($this->config->site->keywords))       $this->config->site->keywords       = '';
+        if(!isset($this->config->site->slogan))         $this->config->site->slogan         = '';
+        if(!isset($this->config->site->copyrightStart)) $this->config->site->copyrightStart = date('Y')-1;
+        if(!isset($this->config->site->icp))            $this->config->site->icp            = '';
+        if(!isset($this->config->site->desc))           $this->config->site->desc           = '';
 
         if(!isset($this->config->company))        $this->config->company              = new stdclass();
         if(!isset($this->config->company->name))  $this->config->company->name        = '';

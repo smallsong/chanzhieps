@@ -1,0 +1,65 @@
+#!/usr/bin/env php
+<?php
+/**
+ * The cli router file of xirangeps.
+ *
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @package     XiRangEPS
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+define('IN_SHELL', true);
+
+/* Judge the args. */
+if($argc != 2) die('Usage: ' . basename(__FILE__) . " <request>\n");
+
+/* Parse the request into params. */
+$request = parse_url(trim($argv[1]));
+$_SERVER['HTTP_HOST'] = $request['host'];
+
+/* Load the framework. */
+chdir(dirname(dirname(__FILE__)));
+include './framework/router.class.php';
+include './framework/control.class.php';
+include './framework/model.class.php';
+include './framework/helper.class.php';
+include './config/config.php';
+    
+/* Set the PATH_INFO variable. */
+if($config->requestType == 'PATH_INFO')
+{
+    $path = pathinfo($request['path']);
+
+    /* url like http://www.xirang.biz/zentao/my-todo.html, PATH_INFO is 'my-todo.html'. */
+    if(strpos($path['basename'], $config->requestFix))
+    {
+        $_SERVER['PATH_INFO'] = $path['basename'];
+    }
+    else 
+    {
+        /* url like http://www.xirang.biz/zentao/my/, PATH_INFO is 'my'. */
+        if(is_dir('./module/' . $path['basename']))
+        {
+            $_SERVER['PATH_INFO'] = $path['basename'];
+        }
+        /* url like http://www.xirang.biz/zentao/, PATH_INFO is '/'. */
+        else
+        {
+            $_SERVER['PATH_INFO'] = '/';
+        }
+    }
+}
+else
+{
+    parse_str($request['query'], $_GET);
+    $_SERVER['SCRIPT_NAME'] = $_SERVER['HTTP_HOST'] . 'index.php';
+    $_SERVER['REQUEST_URI'] = isset($request['query']) ? $request['query'] : '';
+}
+
+/* Instance the app and run it. */
+$app    = router::createApp('pms', dirname(dirname(__FILE__)));
+$common = $app->loadCommon();
+$app->parseRequest();
+$app->loadModule();
