@@ -27,7 +27,7 @@ $themeRoot = $webRoot . "theme/";
   }
   else
   {
-      css::import($themeRoot . 'all.css', $config->version);
+      css::import($themeRoot . 'default/all.css', $config->version);
       js::import($jsRoot     . 'all.js',  $config->version);
   }
 
