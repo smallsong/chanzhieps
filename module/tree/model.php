@@ -387,12 +387,12 @@ class treeModel extends model
         foreach($childs as $categoryID => $categoryName)
         {
             if(empty($categoryName)) continue;
-
             /* The new category. */
             if(is_numeric($categoryID))
             {
                 $category = new stdClass();
-                $category->id      = $this->dao->select('MAX(id)+1 as id')->from(TABLE_CATEGORY)->fetch('id', false);
+                $category->id      = $this->dao->select('MAX(id) as id')->from(TABLE_CATEGORY)->fetch('id', false);
+                $category->id      = (int)($category->id) + 1;
                 $category->name    = $categoryName;
                 $category->parent  = $parentCategoryID;
                 $category->grade   = $grade;
