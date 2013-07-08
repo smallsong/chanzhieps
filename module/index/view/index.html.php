@@ -1,11 +1,10 @@
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/treeview.html.php'; ?>
-<?php $LatestArticles =  articleModel::getLatestArticle(0,4);
+<?php $LatestArticles =  articleModel::getLatestArticle(0,5);
       $contact        = json_decode($this->config->company->contact);
 ?>
 <div class="hero-unit radius">
-  <h1>Hello, world!</h1>
-  <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+<?php echo $this->config->site->desc; ?>
 </div>
 <div class="row-fluid">
   <div class="span4">
@@ -16,7 +15,7 @@
   <div class="span4">
     <h2><?php echo $lang->index->news;?></h2>
     <?php foreach($LatestArticles as $id => $article): ?>
-      <p><?php echo html::a(inlink('view', "id=$id"), $article, '', "class='latest-news'");?></p>
+      <p><?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news'");?></p>
     <?php endforeach; ?>
     <p><a href="#" class="btn btn-info">了解更多</a></p>
   </div>
