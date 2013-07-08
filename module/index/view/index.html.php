@@ -1,6 +1,6 @@
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/treeview.html.php'; ?>
-<?php $LatestArticles =  articleModel::getLatestArticle(0,5);
+<?php $LatestArticles =  articleModel::getLatestArticle(0,8);
       $contact        = json_decode($this->config->company->contact);
 ?>
 <div class="hero-unit radius">
@@ -10,6 +10,7 @@
   <div class="span4">
     <h2><?php echo $lang->index->aboutus;?></h2>
     <p><?php echo $this->config->company->desc;?></p>
+    <p><?php echo html::a($this->createLink('company', 'index'), '更多', '', "class='btn btn-info'");?></p>
   </div>
   <div class="span4">
     <h2><?php echo $lang->index->news;?></h2>
