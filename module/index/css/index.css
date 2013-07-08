@@ -1,6 +1,6 @@
-.hero-unit {background-color: #F0F0F0; border: 1px solid #E4E4E4; margin: 10px 0;}
+.hero-unit {background-color: #F0F0F0; border: 1px solid #E4E4E4; margin: 10px 0; padding: 35px;}
 .span4 h2{color: #4691EF; font-size:24px;}
-.hero-unit h1{color:#666;}
+.hero-unit h1{color:#666;line-height: 1.5;}
 a.latest-news{color: #5A5A5A; }
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
 
