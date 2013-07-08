@@ -9,7 +9,7 @@
  * @link        http://www.xirang.biz
  */
 /* Turn off error reporting first. */
-error_reporting(E_ALL);
+error_reporting(0);
 
 /* Start output buffer. */
 ob_start();
