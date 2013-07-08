@@ -15,7 +15,7 @@ tgz:
 	cp -fr bin xirangeps/
 	cp -fr config xirangeps/ && rm -fr xirangeps/config/my.php
 	cp -fr db xirangeps/
-	cp -fr doc xirangeps/ && rm -fr xirangeps/doc/phpdoc && rm -fr xirangeps/doc/doxygen
+	#cp -fr doc xirangeps/ && rm -fr xirangeps/doc/phpdoc && rm -fr xirangeps/doc/doxygen
 	cp -fr framework xirangeps/
 	cp -fr lib xirangeps/
 	cp -fr module xirangeps/
