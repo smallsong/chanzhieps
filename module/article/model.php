@@ -76,7 +76,6 @@ class articleModel extends model
         return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
             ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
             ->on('t1.id = t2.article')
-            ->where('t2.site')->eq($this->app->site->id)
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->orderBy($orderBy)
             ->page($pager)
@@ -110,6 +109,16 @@ class articleModel extends model
         foreach($files as $file) $articles[$file->objectID]->files[] = $file;
 
         return $articles;
+    }
+    public function getLatestArticle($categories, $count)
+    {
+        return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
+            ->on('t1.id = t2.article')
+            ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
+            ->orderBy('addedDate_desc')->limit($count)
+            ->fetchPairs('id', 'title');
+        
     }
 
     /**

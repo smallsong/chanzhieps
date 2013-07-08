@@ -4,7 +4,7 @@
 <div class='row'>
   <div class='span9'>
     <?php $common->printPositionBar($category, $article);?>
-      <h2 class='a-center'><?php echo $article->title;?></h2>
+      <h2><?php echo $article->title;?></h2>
         <div class='f-12px'>
         <?php
         printf($lang->article->lblAddedDate, $article->addedDate);
@@ -12,7 +12,7 @@
         printf($lang->article->lblSource);
         if($article->original)
         {
-            echo "<strong>{$lang->article->original}</strong>";
+            echo "<strong>{$lang->article->original}</strong> &nbsp;&nbsp;";
         }
         else
         {

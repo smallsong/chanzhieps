@@ -1,8 +1,7 @@
 .article-list{margin: 10px 0 0;}
-.article-list li{list-style: none;}
+.article-list li{list-style: none; margin: 0 0 35px;}
 .article-title{margin: 10px 0 0;}
 .meta{margin-bottom: 10px;}
 .article-title a{color: #5A5A5A;}
-.article-title a:hover, .article-title a:active{color: #FE6A21; text-decoration: none;}
-a.readmore{color: #FE6A21;font-weight: bold;padding-left: 650px;}
-a.readmore:hover, a.readmore:active{color: #5A5A5A;text-decoration: none;}
+.article-title a:hover, .article-title a:active{color: #4691EF; text-decoration: none;}
+.summary{margin-bottom:10px;}

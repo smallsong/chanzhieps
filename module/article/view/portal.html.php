@@ -11,11 +11,11 @@
         <div class='summary'>
           <?php echo $article->summary;?> 
         </div>
-          <?php echo html::a(inlink('view', "id=$article->id"), '更多>>', '', "class='readmore'");?>
+          <?php echo html::a(inlink('view', "id=$article->id"), '阅读全文', '', "class='btn btn-info'");?>
       </li>
     <?php endforeach;?>
     </ul>
     <?php $pager->show();?>
   </div>
-  <div class='span3'><?php include '../../common/view/side.html.php';?></div>
+  <?php include '../../common/view/side.html.php';?>
 </div>

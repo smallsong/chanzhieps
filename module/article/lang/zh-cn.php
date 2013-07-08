@@ -41,8 +41,8 @@ $lang->article->confirmDelete = '您确定删除该文章吗？';
 $lang->article->successSave   = '成功保存';
 $lang->article->original      = '本站原创';
 
-$lang->article->lblAddedDate = '<strong>添加时间：</strong> %s ';
-$lang->article->lblAuthor    = "<strong>作者：</strong> %s ";
+$lang->article->lblAddedDate = '<strong>添加时间：</strong> %s &nbsp;&nbsp;';
+$lang->article->lblAuthor    = "<strong>作者：</strong> %s &nbsp;&nbsp;";
 $lang->article->lblSource    = '<strong>来源：</strong>';
 $lang->article->lblViews     = '<strong>阅读：</strong>%s';
 $lang->article->lblEditor    = '<i>最后编辑：%s 于 %s</i>';
