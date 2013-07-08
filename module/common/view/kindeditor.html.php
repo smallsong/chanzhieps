@@ -54,7 +54,7 @@ $(document).ready(function()
 $editorTool=$editors['tools'];
 foreach($editors['id'] as $editorID)
 {
-   echo "KE.show({id:'" . $editorID . "', items:" . $editorTool.", filterMode:true, urlType:'relative', imageUploadJson: createLink('file', 'ajaxUpload')});\n";
+   echo "KE.show({id:'" . $editorID . "', items:" . $editorTool.", filterMode:true, urlType:'relative', imageUploadJson: createLink('file', 'ajaxUpload'), afterChange : function(){this.sync();} });\n";
 }
 ?>
 </script>
