@@ -10,14 +10,12 @@
   <div class="span4">
     <h2><?php echo $lang->index->aboutus;?></h2>
     <p><?php echo $this->config->company->desc;?></p>
-    <p><a href="#" class="btn btn-info">了解更多</a></p>
   </div>
   <div class="span4">
     <h2><?php echo $lang->index->news;?></h2>
     <?php foreach($LatestArticles as $id => $article): ?>
       <p><?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news'");?></p>
     <?php endforeach; ?>
-    <p><a href="#" class="btn btn-info">了解更多</a></p>
   </div>
   <div class="span4">
     <h2><?php echo $lang->index->contact;?></h2>
@@ -25,7 +23,6 @@
     <?php if($value == "") continue;?>
     <p><strong><?php echo $lang->company->$item;?>:</strong><?php echo $value;?></p>
     <?php endforeach;?>
-    <p><a href="#" class="btn btn-info">了解更多</a></p>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
