@@ -28,6 +28,11 @@ include $frameworkRoot . 'helper.class.php';
 $app = router::createApp('xirang', dirname(dirname(__FILE__)));
 $config = $app->config;
 
+/* Check the reqeust is getconfig or not. Check installed or not. */
+if(isset($_GET['mode']) and $_GET['mode'] == 'getconfig') die($app->exportConfig());
+if(!isset($config->installed) or !$config->installed) die(header('location: install.php'));
+
+
 /* Change the request settings. */
 $config->frontRequestType = $config->requestType;
 $config->requestType = 'GET';
