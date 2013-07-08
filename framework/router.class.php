@@ -1444,7 +1444,10 @@ class router
                 if($item->section)
                 {
                     if(!isset($config->{$moduleName}->{$item->section})) $config->{$moduleName}->{$item->section} = new stdclass();
-                    $config->{$moduleName}->{$item->section}->{$item->key} = $item->value;
+                    if(is_object($config->{$moduleName}->{$item->section}))
+                    {
+                        $config->{$moduleName}->{$item->section}->{$item->key} = $item->value;
+                    }
                 }
                 else
                 {
