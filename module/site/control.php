@@ -34,7 +34,7 @@ class site extends control
      */
     public function setLogo()
     {
-        if(!empty($_POST))
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             if(!empty($_FILES))
             {
