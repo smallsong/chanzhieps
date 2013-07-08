@@ -33,7 +33,7 @@ file_put_contents($allJSFile, $jsCode);
 $themeRoot  = $baseDir . '/www/theme/';
 
 /* Common css files. */
-$cssCode  = file_get_contents($themeRoot . 'bootstrap/css/core.min.css');
+$cssCode  = str_replace('../img', '../bootstrap/img', file_get_contents($themeRoot . 'bootstrap/css/core.min.css'));
 $cssCode .= file_get_contents($themeRoot . 'default/style.css');
 
 /* Combine them. */
