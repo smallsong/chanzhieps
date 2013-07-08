@@ -1,4 +1,7 @@
 .hero-unit {background-color: #F0F0F0; border: 1px solid #E4E4E4; margin: 10px 0;}
-.span4 h2{color: #FE6A21; font-size:24px;}
+.span4 h2{color: #4691EF; font-size:24px;}
 .hero-unit h1{color:#666;}
+a.latest-news{color: #5A5A5A; }
+a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
+
 
