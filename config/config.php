@@ -8,7 +8,12 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
+/* Judge class config and function getWebRoot exists or not, make sure php shells can work. */
+if(!class_exists('config')){class config{}}
+if(!function_exists('getWebRoot')){function getWebRoot(){}}
+
 /* The basic settings. */
+$config = new config();
 $config->version     = '1.0';             // The version number, don't change.
 $config->encoding    = 'UTF-8';           // The encoding.
 $config->cookiePath  = '/';               // The path of cookies.
