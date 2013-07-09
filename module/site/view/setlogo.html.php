@@ -15,7 +15,7 @@
     <caption><?php echo $lang->site->setLogo;?></caption> 
     <tr>
       <th class="w-150px">
-        <?php if(isset($this->config->site->logo)) echo html::image($logo->webPath);?>
+        <?php if(isset($this->config->site->logo)) echo html::image($logo->webPath, "width='150px'");?>
       </th> 
       <td><?php echo html::file('files');?></td> 
     </tr>
