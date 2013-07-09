@@ -43,18 +43,11 @@ tgz:
 	chmod a+rx xirangeps/bin/*
 	find xirangeps/ -name ext |xargs chmod -R 777
 	# zip it.
-	zip -r -9 XirangEps.$(VERSION).zip xirangeps
+	zip -r -9 xirangEPS.$(VERSION).zip xirangeps
 	rm -fr xirangeps
-patchphpdoc:
-	#sudo cp misc/doc/phpdoc/*.tpl /usr/share/php/data/PhpDocumentor/phpDocumentor/Converters/HTML/frames/templates/phphtmllib/templates/
-phpdoc:
-	#phpdoc -d bin,framework,config,lib,module,www -t api -o HTML:frames:phphtmllib -ti ZenTaoPMSAPI?ο??ֲ? -s on -pp on -i *test*
-	#phpdoc -d bin,framework,config,lib,module,www -t api.chm -o chm:default:default -ti ZenTaoPMSAPI?ο??ֲ? -s on -pp on -i *test*
-doxygen:
-	#doxygen doc/doxygen/doxygen.conf
 build4linux:	
-	unzip XirangEps.$(VERSION).zip
-	rm -fr XirangEps.$(VERSION).zip
+	unzip xirangEPS.$(VERSION).zip
+	rm -fr xirangEPS.$(VERSION).zip
 	# build xmapp.
 	cd ./build/linux/ && ./buildxmapp.sh $(xampp)
 	mv ./build/linux/lampp ./
