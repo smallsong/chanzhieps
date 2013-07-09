@@ -1,7 +1,7 @@
 body {color: #5A5A5A;padding-bottom: 60px; padding-top: 20px; background: url(./images/main/bg.4.png) repeat-x #F1F1F1;}
 
 *::-moz-selection {background: none repeat scroll 0 0 #8D8D8B;color: #FFFFFF;}
-img.logo{max-height:70px;margin:20px 0;}
+img.logo{max-height:95px;margin:0 0 15px 0;}
 .slogan {text-align:right;margin-right:40px; margin-top:20px; color:#827E7E;padding:0 0 10px 0;}
 .slogan h3 {margin:0;}
 
