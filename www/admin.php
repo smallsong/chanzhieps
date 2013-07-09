@@ -32,7 +32,6 @@ $config = $app->config;
 if(isset($_GET['mode']) and $_GET['mode'] == 'getconfig') die($app->exportConfig());
 if(!isset($config->installed) or !$config->installed) die(header('location: install.php'));
 
-
 /* Change the request settings. */
 $config->frontRequestType = $config->requestType;
 $config->requestType = 'GET';
