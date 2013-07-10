@@ -1,9 +1,12 @@
-#menuContainer { margin-top:60px; }
-#menuContainer .shortcut{margin:5px; text-align:center;}
-#menuContainer .shortcut:hover{opacity: 0.9;margin:5px;}
-#menuContainer .shortcut:first-child{margin-left:5px; }
-#menuContainer h3{line-height: 140px; color: #FFFFFF; font-weight:500;}
-#menuContainer a:hover{text-decoration: none;}
+#shortcutContainer {margin-top:60px;}
+
+#shortcutContainer .shortcut{margin:5px; text-align:center;}
+#shortcutContainer .shortcut:hover{opacity: 0.9; margin:5px;}
+#shortcutContainer .shortcut:first-child{margin-left:5px;}
+
+#shortcutContainer h3{line-height: 140px; color: #FFFFFF; font-weight:500;}
+#shortcutContainer a:hover{text-decoration: none;}
+
 .article-view{background:#2D89EF;}
 .article-create{background:#B91D47;}
 .category{background:#00A300;}

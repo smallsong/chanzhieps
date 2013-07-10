@@ -10,7 +10,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<div class="container" id="menuContainer">
+<div class="container" id="shortcutContainer">
   <div class="row-fluid">
     <div class="span5 shortcut article-create"> 
       <?php echo html::a($this->createLink('article', 'create'), '<h3>' . $lang->shortcuts->createArticle . '</h3>')?>
