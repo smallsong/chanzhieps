@@ -41,23 +41,23 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
+        $category        = $this->tree->getById($categoryID);
         $childCategories = $this->loadModel('tree')->getAllChildID($categoryID);
         $articles        = $this->article->getList($childCategories, $orderBy, $pager);
-        $category        = $this->tree->getById($categoryID);
 
-        $this->view->header->title = $category->name;
         if($category)
         {
             $this->view->header->keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
-            if($category->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
+            if($category->desc) $this->view->header->desc = strip_tags($category->desc);
         }
 
-        $this->view->category    = $category;
-        $this->view->articles    = $articles;
-        $this->view->pager       = $pager;
-        $this->view->site        = $this->config->site;
-      //$this->view->layouts     = $this->loadModel('block')->getLayouts('article.list');
-        $this->view->articleTree = $this->loadModel('tree')->getTreeMenu($this->view->category->tree, 0, array('treeModel', 'createBrowseLink'));
+        $this->view->header->title = $category->name;
+        $this->view->category      = $category;
+        $this->view->articles      = $articles;
+        $this->view->pager         = $pager;
+        $this->view->site          = $this->config->site;
+        //$this->view->layouts     = $this->loadModel('block')->getLayouts('article.list');
+        $this->view->articleTree   = $this->loadModel('tree')->getTreeMenu($this->view->category->tree, 0, array('treeModel', 'createBrowseLink'));
 
         $this->display();
     }
@@ -82,8 +82,9 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $childCategories = $this->loadModel('tree')->getAllChildID($categoryID, $tree);
-        $articles = $childCategories ? $this->article->getList($childCategories, $orderBy, $pager) : array();
+        $allCategories = $this->loadModel('tree')->getAllChildID($categoryID, $tree);
+        $articles = $allCategories ? $this->article->getList($allCategories, $orderBy, $pager) : array();
+
         $this->view->articles   = $articles;
         $this->view->pager      = $pager;
         $this->view->category   = $this->tree->getById($categoryID);
@@ -104,7 +105,7 @@ class article extends control
     public function create()                                                                                                                      
     {
         $categoryID = $this->get->categoryID;
-        $tree       ='article';    
+        $tree       = 'article';    
 
         /* Set the mdoule and tree.  */ 
         $category   = $this->loadModel('tree')->getById($categoryID);                                                                                            
@@ -113,7 +114,7 @@ class article extends control
         if($_POST)
         {
             $error = $this->article->validate();
-            if(!empty($error)) $this->send(array('result'=> 'falt', 'message'=> $error));
+            if(!empty($error)) $this->send(array('result'=> 'fail', 'message'=> $error));
 
             $result = $this->article->create();       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
@@ -214,4 +215,5 @@ class article extends control
         if($result) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
+
 }
