@@ -212,7 +212,7 @@ class control
         $modelFile = helper::setModelFile($moduleName);
 
         /* If no model file, try load config. */
-        if(!helper::import($modelFile)) 
+        if(!is_file($modelFile)  or !helper::import($modelFile)) 
         {
             $this->app->loadConfig($moduleName, false);
             $this->app->loadLang($moduleName);
