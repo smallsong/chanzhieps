@@ -20,19 +20,4 @@ class admin extends control
     {
         $this->display();
     }
-
-    public function top()
-    {
-        $this->display();
-    }
-
-    public function left()
-    {
-        $this->display();
-    }
-
-    public function dashboard()
-    {
-        $this->display();
-    }
 }
