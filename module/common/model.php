@@ -222,11 +222,11 @@ class commonModel extends model
         foreach($lang->menu as $key => $menu)
         {
             $class = $key == $currentMenu ? " class='active'" : '';
-            list($label, $module, $method) = explode('|', $menu);
+            list($label, $module, $method, $vars) = explode('|', $menu);
 
             if(commonModel::hasPriv($module, $method))
             {
-                $link  = helper::createLink($module, $method);
+                $link  = helper::createLink($module, $method, $vars);
                 $string .= "<li$class><a href='$link' id='menu$key'>$label</a></li>\n";
             }
         }

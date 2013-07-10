@@ -65,11 +65,11 @@ $lang->frontMenu->about    = '关于我们|company|index';
 
 /* The main menus. */
 $lang->menu = new stdclass();
-$lang->menu->admin    = '首页|admin|index';
-$lang->menu->article  = '文章|article|browseadmin';
+$lang->menu->admin    = '首页|admin|index|';
+$lang->menu->article  = '文章|article|browseadmin|';
 $lang->menu->tree     = '类目|tree|browse|tree=article';
-$lang->menu->site     = '站点|site|setbasic';
-$lang->menu->company  = '公司|company|setbasic';
+$lang->menu->site     = '站点|site|setbasic|';
+$lang->menu->company  = '公司|company|setbasic|';
 
 /* The menus of article module. */
 $lang->article = new stdclass();
