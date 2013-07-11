@@ -89,8 +89,8 @@ $lang->user->register  = new stdclass();
 $lang->user->register->welcome    = '欢迎注册成为会员';
 $lang->user->register->why        = '欢迎注册成为我们的会员，您可以享受更多的服务。';
 $lang->user->register->lblUserInfo= '用户信息';
-$lang->user->register->lblAccount = '请设置您的用户名，英文字母和数字的组合';
-$lang->user->register->lblPassword= '请设置您的密码。数字和字母的组合，六位以上。';
+$lang->user->register->lblAccount = '必须是三位以上的英文字母或数字';
+$lang->user->register->lblPassword= '数字和字母组成，六位以上';
 
 $lang->user->notice = new stdclass();
 $lang->user->notice->password = '字母和数字组合，最少六位';

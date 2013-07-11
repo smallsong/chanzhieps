@@ -1,10 +1,7 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row'>
-  <div class='u-24-5'>
-    <div class='cont-left'><?php include 'blockusermenu.html.php';?></div>
-  </div>
-  <div class='u-24-19'>
-    <div class='cont'>
+  <?php include 'blockusermenu.html.php';?>
+  <div class='span9'>
       <table class='table-1'>
       <caption><?php echo $lang->user->reply;?></caption>
         <tr>
@@ -19,7 +16,6 @@
         <?php endforeach;?>
         <tr><td colspan='8'><?php $pager->show();?></td></tr>
       </table>
-    </div>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php';?>

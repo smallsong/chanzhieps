@@ -58,18 +58,18 @@ class userModel extends model
      */
     public function create()
     {
-        if(!$this->checkPassword()) return;
+        $this->checkPassword();
 
         $user = fixer::input('post')
-            ->setDefault('join', date('Y-m-d'))
+            ->setDefault('addedDate', date('Y-m-d H:i:s'))
             ->setDefault('last', helper::now())
             ->setDefault('visits', 1)
-            ->setIF($this->post->password1 != false, 'password', md5($this->post->password1))
             ->setIF($this->post->password1 == false, 'password', '')
-            ->setIF($this->cookie->r != '', 'referee', $this->cookie->r)
-            ->setIF($this->cookie->r == '', 'referee', '')
+            ->setIF($this->cookie->r != '', 'referer', $this->cookie->r)
+            ->setIF($this->cookie->r == '', 'referer', '')
             ->remove('password1, password2')
             ->get();
+        $user->password = $this->createPassword($this->post->password1, $user->account, $user->addedDate); 
 
         $this->dao->insert(TABLE_USER)->data($user)
             ->autoCheck()
@@ -89,7 +89,7 @@ class userModel extends model
      */
     public function update($account)
     {
-        if(!$this->checkPassword()) return;
+        $this->checkPassword();
 
         $user = fixer::input('post')
             ->setIF(isset($_POST['join']) and $this->post->join == '', 'join', '0000-00-00')
@@ -119,8 +119,12 @@ class userModel extends model
     {
         if($this->post->password1 != false)
         {
-            if($this->post->password1 != $this->post->password2) dao::$errors['password'][] = $this->lang->error->passwordsame;
-            if(!validater::checkReg($this->post->password1, '|(.){6,}|')) dao::$errors['password'][] = $this->lang->error->passwordrule;
+            if($this->post->password1 != $this->post->password2) dao::$errors['password1'][] = $this->lang->error->passwordsame;
+            if(!validater::checkReg($this->post->password1, '|(.){6,}|')) dao::$errors['password1'][] = $this->lang->error->passwordrule;
+        }
+        else
+        {
+            dao::$errors['password1'][] = $this->lang->user->inputPassword;
         }
         return !dao::isError();
     }

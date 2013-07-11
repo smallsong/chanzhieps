@@ -1,11 +1,9 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row'>
-  <div class='u-24-5'>
-    <div class='cont-left'><?php include 'blockusermenu.html.php';?></div>
-  </div>
-  <div class='u-24-19'>
+<?php include './side.html.php';?>
+  <div class='span9'>
     <form method='post' target='hiddenwin' class='cont bd-none'>
-      <table class='table-1'>
+      <table class='table table-bordered'>
         <caption><?php echo $lang->user->editProfile;?></caption>
         <tr>
           <td align='right'><?php echo $lang->user->realname;?></td>

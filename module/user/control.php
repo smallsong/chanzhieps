@@ -29,7 +29,7 @@ class user extends control
         if(!empty($_POST))
         {
             $this->user->create();
-            if(dao::isError()) die(js::error(dao::getError()));
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
             echo js::alert($this->lang->user->lblRegistered);
             $user = $this->user->identify($this->post->account, $this->post->password1);
             if($user)
@@ -46,7 +46,7 @@ class user extends control
             strpos($_SERVER['HTTP_REFERER'], $this->app->site->domain) == false or 
             strpos($_SERVER['HTTP_REFERER'], 'login.php') != false)
         {
-            $referer = urlencode('http://' . $this->app->site->domain . '/' . $this->config->webRoot);
+            $referer = urlencode($this->config->webRoot);
         }
         else
         {
@@ -114,7 +114,7 @@ class user extends control
             }
         }
 
-        $this->view->header->title = $this->lang->user->login->common;
+        $this->view->title = $this->lang->user->login->common;
         $this->view->referer       = $this->referer;
         $this->display();
     }
@@ -181,7 +181,7 @@ class user extends control
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
         $user = $this->user->getByAccount($this->app->user->account);
 
-        $this->view->user = $this->user->switchLevel($user);
+        //$this->view->user = $this->user->switchLevel($user);
         $this->display();
     }
 

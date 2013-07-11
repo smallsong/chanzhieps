@@ -114,7 +114,11 @@ class commonModel extends model
         }
         if(RUN_MODE == 'front')
         {
-            return isset($this->config->front->groups->guest[$module]) && in_array($method, $this->config->front->groups->guest[$module]);
+            if(
+                isset($this->config->front->groups->guest[$module]) 
+                && in_array($method, $this->config->front->groups->guest[$module])
+              ) return true;
+              return isset($this->config->front->groups->user[$module]) && in_array($method, $this->config->front->groups->user[$module]);
         }
 
         $rights  = $app->user->rights;
