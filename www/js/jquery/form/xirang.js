@@ -56,7 +56,7 @@ $.extend(
 
                         /* Append error message, set style and set the focus events. */
                         $('#' + errorLabel).remove(); 
-                        $(errorOBJ).after(errorMSG);
+                        $(errorOBJ).parent().append(errorMSG);
                         $(errorOBJ).css('margin-bottom', 0);
                         $(errorOBJ).css('border-color','#953B39')
                         $(errorOBJ).focus(function()
@@ -114,26 +114,4 @@ $.extend(
 $(document).ready(function()
 {
     $.ajaxForm('#ajaxForm');
-
-    $('a.delete').click(function()
-    {
-        var that = $(this);
-        if(confirm('确定删除？'))
-        {
-            delUrl = that.attr('href');
-            that.text('正在删除...');
-            $.getJSON(delUrl,function(data) 
-            {
-                if(data.result=='success')
-                {
-                    location.reload();
-                }
-                else
-                {
-                    alert(data.info);
-                }
-            });
-        }
-        return false;
-    });
 });
