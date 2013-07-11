@@ -101,4 +101,27 @@ $(document).ready(function()
     if(needPing) setTimeout('setPing()', 100 * 60 * 5);
 
     setAdminLeftMenu();
+    /* ajax delete. */
+    $('a.delete').click(function()
+    {
+        var that = $(this);
+        if(confirm('确定删除？'))
+        {
+            delUrl = that.attr('href');
+            that.text('正在删除...');
+            $.getJSON(delUrl,function(data) 
+            {
+                if(data.result=='success')
+                {
+                    location.reload();
+                }
+                else
+                {
+                    alert(data.info);
+                }
+            });
+        }
+        return false;
+    });
+
 })
