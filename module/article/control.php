@@ -37,12 +37,11 @@ class article extends control
     public function browse($categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         $this->app->loadLang('user');
-
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $category        = $this->tree->getById($categoryID);
-        $childCategories = $this->loadModel('tree')->getAllChildID($categoryID);
+        $category        = $this->loadModel('tree')->getById($categoryID);
+        $childCategories = $this->tree->getAllChildID($categoryID);
         $articles        = $this->article->getList($childCategories, $orderBy, $pager);
 
         if($category)
