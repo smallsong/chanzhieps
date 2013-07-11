@@ -167,12 +167,12 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .hoover  {background:#d0dee3;}
 .clicked {background:#fce6a2;}
 
-.red     {color:red;}
+.red     {color:#B94A48;}
 .blue    {color:blue}
 .yellow  {color:yellow;}
 .gray    {color:gray;}
 .green   {color:green;}
-.star    {color:red; font-size:18px; font-weight:bold;}
+.star    {color:#B94A48; font-size:18px; font-weight:bold;}
 .warning {background:yellow; color:red; font-weight:bold}
 
 /*-----------------------SPECIAL PART SETTING--------------------*/
