@@ -11,7 +11,10 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
   <div class="span3">
-    <?php js::set('categoryID', $currentCategoryID);?>
+    <?php 
+        js::set('categoryID', $currentCategoryID);
+        js::set('tree', $tree);
+    ?>
     <form method='post' id="treeForm" action='<?php echo $this->createLink('tree', 'updateOrder', "tree=$tree");?>'>
     <table class='table-1 table-bordered'>
       <caption><?php echo $title;?></caption>
