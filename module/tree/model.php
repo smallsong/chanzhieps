@@ -397,6 +397,7 @@ class treeModel extends model
                 $category->parent  = $parentCategoryID;
                 $category->grade   = $grade;
                 $category->tree    = $tree;
+                $category->owners  = $this->app->user->account;
                 $category->order   = $this->post->maxOrder + $i * 10;
                 $category->path    = $parentPath . "$category->id,";
                 $this->dao->insert(TABLE_CATEGORY)->data($category)->exec();
