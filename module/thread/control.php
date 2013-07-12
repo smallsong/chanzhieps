@@ -82,7 +82,7 @@ class thread extends control
             $thread     = $this->thread->getByID($threadID);
             $this->thread->setCookie($replyID);
             if(dao::isError()) die(js::error(dao::getError()));
-            $this->loadModel('message')->send($thread->author, sprintf($this->lang->thread->message, $this->app->user->account, count($thread->replies), $thread->title, $this->post->content), $this->createLink('thread', 'view', "thread=$threadID&recTotal=$recTotal&recPerPage=$recPerPage&pageTotal=$pageID"));
+            $this->loadModel('message')->sendMessage($thread->author, sprintf($this->lang->thread->message, $this->app->user->account, count($thread->replies), $thread->title, $this->post->content), $this->createLink('thread', 'view', "thread=$threadID&recTotal=$recTotal&recPerPage=$recPerPage&pageTotal=$pageID"));
             die(js::locate(inlink('view', "thread=$threadID&recTotal=$recTotal&recPerPage=$recPerPage&pageTotal=$pageID"), 'parent'));
         }
     }
@@ -176,26 +176,20 @@ class thread extends control
      * Delete a thread.
      * 
      * @param string $threadID 
-     * @param string $confirm 
      * @access public
      * @return void
      */
-    public function deleteThread($threadID, $confirm = 'no')
+    public function deleteThread($threadID)
     {
         $owners = $this->thread->getBoardOwners($threadID);
-        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) exit;
+        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) $this->send(array('result' => 'fail'));
 
-        if($confirm == 'no')
-        {
-            echo js::confirm($this->lang->thread->confirmDeleteThread, inlink('deleteThread', "threadID=$threadID&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $category = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('category')->fetch('category', false);
-            $this->thread->deleteThread($threadID);
-            die(js::locate($this->createLink('forum', 'board', "boardID=$category"), 'parent'));
-        }
+
+        $category = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('category')->fetch('category', false);
+        $result = $this->thread->deleteThread($threadID);
+        
+        if($result) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
    
     /**
@@ -235,22 +229,16 @@ class thread extends control
      * @access public
      * @return void
      */
-    public function deleteReply($replyID, $confirm = 'no')
+    public function deleteReply($replyID)
     {
         $thread = $this->dao->findById($replyID)->from(TABLE_REPLY)->fields('thread')->fetch('thread');
         $owners = $this->thread->getBoardOwners($thread);
 
-        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) die();
-        if($confirm == 'no')
-        {
-            echo js::confirm($this->lang->thread->confirmDeleteReply, inlink('deleteReply', "replyID=$replyID&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->thread->deleteReply($replyID);
-            die(js::reload('parent'));
-        }
+        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) $this->send(array('result' => 'fail'));
+
+        $result = $this->thread->deleteReply($replyID);
+        if($result) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 
     /**
