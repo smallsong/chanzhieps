@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of forum module of XiRangEPS.
+ * The model file of forum category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -19,7 +19,7 @@ class forumModel extends model
     public function getBoards()
     {
         $boards    = array();
-        $rawBoards = $this->dao->select('*')->from(TABLE_MODULE)->where('tree')->eq('forum')->orderBy('grade, `order`')->fetchGroup('parent');
+        $rawBoards = $this->dao->select('*')->from(TABLE_CATEGORY)->where('tree')->eq('forum')->orderBy('grade, `order`')->fetchGroup('parent');
         if(!isset($rawBoards[0])) return $boards;
 
         foreach($rawBoards[0] as $parentBoard)
@@ -47,7 +47,7 @@ class forumModel extends model
     {
         if($mode == 'thread')
         {
-            $this->dao->update(TABLE_MODULE)
+            $this->dao->update(TABLE_CATEGORY)
                 ->set('threads = threads + 1')
                 ->set('posts = posts + 1')
                 ->set('lastPostedBy')->eq($post->author)
@@ -59,7 +59,7 @@ class forumModel extends model
         }
         elseif($mode == 'reply')
         {
-            $this->dao->update(TABLE_MODULE)
+            $this->dao->update(TABLE_CATEGORY)
                 ->set('posts = posts + 1')
                 ->set('lastPostedBy')->eq($post->author)
                 ->set('lastPostedDate')->eq($post->addedDate)
