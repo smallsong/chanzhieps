@@ -93,13 +93,13 @@ class tree extends control
      * @access public
      * @return void
      */
-    public function updateOrder()
+    public function updateOrder($tree)
     {
         if(!empty($_POST))
         {
             $this->tree->updateOrder($_POST['orders']);
         }
-        $this->send(array('result' => 'success', 'locate' => inlink('browse')));
+        $this->send(array('result' => 'success', 'locate' => inlink('browse', 'tree='.$tree)));
     }
 
     /**
@@ -120,9 +120,9 @@ class tree extends control
         $this->view->parentCategories  = $parentCategories;
 
         if(!empty($_POST))
-        {
+        { 
             $result = $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categories']);
-            if($result) $this->send(array('result' => 'success', 'locate'=>inlink('browse')));
+            if($result) $this->send(array('result' => 'success', 'locate'=>inlink('browse', 'tree='.$tree)));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
         $this->display();
