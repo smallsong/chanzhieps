@@ -27,8 +27,10 @@ $config->front->groups->guest['forum'][]   = 'board';
 
 $config->front->groups->guest['thread'][]  = 'view';
 
+$config->front->groups->guest['comment'][] = 'show';
 $config->front->groups->guest['comment'][] = 'post';
 $config->front->groups->guest['comment'][] = 'isgarbage';
+$config->front->groups->guest['comment'][] = 'checkcode';
 $config->front->groups->guest['comment'][] = 'ajaxgetcomment';
 
 $config->front->groups->guest['rss'][]     = 'index';

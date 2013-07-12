@@ -40,6 +40,7 @@ if(isset($comments) and $comments):?>
           echo html::textarea('content', '', "rows=5 class='area-1'");
           echo html::hidden('objectType', $objectType);
           echo html::hidden('objectID', $objectID);
+          echo html::a('', '', '', 'name="comment"');
           ?>
         </td>
       </tr>

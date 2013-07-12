@@ -120,17 +120,10 @@ class commentModel extends model
                 ->beginIF($type == 'single')->andWhere('id')->eq($commentID)->fi()
                 ->beginIF($type == 'pre')->andWhere('id')->ge($commentID)->fi()
                 ->exec(false);
-            $this->dao->delete()
-                ->from(TABLE_COMMENTSITE)
-                ->where('status')->eq(0)
-                ->beginIF($type == 'single')->andWhere('comment')->eq($commentID)->fi()
-                ->beginIF($type == 'pre')->andWhere('comment')->ge($commentID)->fi()
-                ->exec(false);
         }
         else
         {
             $this->dao->delete()->from(TABLE_COMMENT)->where('id')->eq($commentID)->exec(false);
-            $this->dao->delete()->from(TABLE_COMMENTSITE)->where('comment')->eq($commentID)->exec(false);
         }
     }
 
@@ -149,12 +142,6 @@ class commentModel extends model
             ->where('status')->eq(0)
             ->beginIF($type == 'single')->andWhere('id')->eq($commentID)->fi()
             ->beginIF($type == 'pre')->andWhere('id')->ge($commentID)->fi()
-            ->exec(false);
-        $this->dao->update(TABLE_COMMENTSITE)
-            ->set('status')->eq(1)
-            ->where('status')->eq(0)
-            ->beginIF($type == 'single')->andWhere('comment')->eq($commentID)->fi()
-            ->beginIF($type == 'pre')->andWhere('comment')->ge($commentID)->fi()
             ->exec(false);
     }
 

@@ -10,7 +10,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<table class="table table-hover table-striped" style="border: 1px solid #E4E4E4;" >
+<table class="table table-hover table-bordered table-striped">
   <caption><?php echo $lang->article->list;?></caption>
   <thead>
     <tr>

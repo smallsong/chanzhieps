@@ -1,6 +1,6 @@
 <?php
 /**
- * The browse view file of block module of XiRangEPS.
+ * The browse view file of comment module of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -10,8 +10,8 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<div class="yui-d0">
-  <table align='center' class='table-1 fixed'>
+<?php js::set('lang.comment', $lang->comment);?>
+  <table class="table table-hover table-bordered table-striped">
     <caption>
       <div class='f-left'><?php echo $lang->comment->manage;?></div>
       <div class='f-right'>
@@ -30,7 +30,7 @@
       <td colspan='2'>
         <?php 
           $config->requestType = $config->frontRequestType;
-          $objectViewLink = 'http://' . $session->site->domain . $this->createLink($comment->objectType, 'view', "id=$comment->objectID");
+          $objectViewLink = $this->createLink($comment->objectType, 'view', "id=$comment->objectID");
           $config->requestType = 'GET';
           echo <<<EOT
           <strong>$comment->author</strong> <i class='red'>$comment->email</i> at
@@ -44,12 +44,13 @@ EOT;
       <td><?php echo html::textarea('', $comment->content, "rows='2'cols='110' class='area-1'");?></td>
       <td class='textcenter'>
         <?php 
-        echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, 'hiddenwin');
-        if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass, 'hiddenwin');
+        echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, '', 'class="delete"');
+        if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass, '', "class='pass' confirminfo='{$lang->comment->confirmPassSingle}'");
         echo html::a($objectViewLink . '#comment', $lang->comment->reply, '_blank');
         echo '<br />';
-        if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, 'hiddenwin');
-        if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, 'hiddenwin');
+        if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, '', 'class="deletepre"');
+        if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pass' confirminfo='{$lang->comment->confirmPassPre}'");
+;
         ?>
       </td>
     </tr>
@@ -57,5 +58,4 @@ EOT;
     </tr>
     <tr><td colspan='3' class='a-right'><?php $pager->show();?></td></tr>
   </table>
-</div>
 <?php include '../../common/view/footer.admin.html.php';?>

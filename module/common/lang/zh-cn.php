@@ -46,6 +46,12 @@ $lang->saveSuccess  = '保存成功';
 $lang->setSuccess   = '设置成功';
 $lang->fail         = '失败';
 
+
+/* for javascript */
+$lang->js->confirmDelete = '确认删除?';
+$lang->js->deleteing     = '正在删除...';
+$lang->js->doing         = '正在处理...';
+
 /* contact fields*/
 $lang->company = new stdClass();
 $lang->company->contactUs   = "联系我们";
@@ -71,6 +77,7 @@ $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index|';
 $lang->menu->article  = '文章|article|browseadmin|';
 $lang->menu->tree     = '类目|tree|browse|tree=article';
+$lang->menu->comment  = '评论|comment|browseadmin|';
 $lang->menu->forum    = '论坛|thread|browseadmin|';
 $lang->menu->site     = '站点|site|setbasic|';
 $lang->menu->company  = '公司|company|setbasic|';

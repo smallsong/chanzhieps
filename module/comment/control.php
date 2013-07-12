@@ -66,7 +66,7 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function browseadmin($status = '0', $recTotal = 0, $recPerPage = 5, $pageID = 1)
+    public function browseAdmin($status = '0', $recTotal = 0, $recPerPage = 5, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
@@ -97,19 +97,11 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function delete($commentID, $type, $status = 0, $confirm = 'no')
+    public function delete($commentID, $type, $status = 0)
     {
-        if($confirm == 'no')
-        {
-            $confirm = ($type == 'single') ? $this->lang->comment->confirmDeleteSingle : $this->lang->comment->confirmDeletePre;
-            echo js::confirm($confirm, inlink('delete', "commentID=$commentID&type=$type&status=$status&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->comment->delete($commentID, $type);
-            die(js::locate(inlink('getlatest', "status=$status"), 'parent'));
-        }
+        $this->comment->delete($commentID, $type);
+        if(!dao::isError()) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 
     /**
@@ -121,19 +113,11 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function pass($commentID, $type, $confirm = 'no')
+    public function pass($commentID, $type)
     {
-        if($confirm == 'no')
-        {
-            $confirm = ($type == 'single') ? $this->lang->comment->confirmPassSingle : $this->lang->comment->confirmPassPre;
-            echo js::confirm($confirm, inlink('pass', "commentID=$commentID&type=$type&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->comment->pass($commentID, $type);
-            die(js::locate(inlink('getlatest'), 'parent'));
-        }
+        $this->comment->pass($commentID, $type);
+        if(!dao::isError()) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 
     /**
@@ -181,6 +165,10 @@ class comment extends control
         echo $commentCont;
     }
 
+    /**
+     * ajax show verifyCode form.
+     *
+     */    
     public function checkCode()
     {
        echo  $this->comment->setVerify();

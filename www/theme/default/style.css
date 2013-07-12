@@ -46,6 +46,12 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .table-5 {width:600px;margin-bottom:10px}
 .table-6 {width:800px;margin-bottom:10px}
 
+/* form table settings. */
+.table-form {border:1px solid #DDDDDD;}
+.table-form tr th, .table-form tr td {border:none;}
+.table-form tr td:first-child {text-align:right; }
+.table-form tr:last-child th, .table-form tr:last-child td {text-align:center;}
+
 .nobr  {overflow:hidden; white-space:nowrap;}
 .fixed {table-layout:fixed}
 .fixed th, .fixed td {overflow:hidden; white-space:nowrap;}
