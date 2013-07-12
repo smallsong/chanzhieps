@@ -20,8 +20,9 @@ class messageModel extends model
      * @access public
      * @return void
      */
-    public function send($to, $message, $link = '', $from = 'system')
+    public function sendMessage($to, $message, $link = '', $from = 'system')
     {
+        $data = new stdClass();
         $data->from    = $from;
         $data->content = mb_substr(strip_tags($message), 0, 50);
         $data->link    = 'http://' . $this->server->http_host . $link;
@@ -42,6 +43,7 @@ class messageModel extends model
             $data->to = $to;
             $this->dao->insert(TABLE_MESSAGE)->data($data, false)->exec();
         }
+        return;
     }
 
     /**
