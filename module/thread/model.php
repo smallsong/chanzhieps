@@ -171,7 +171,7 @@ class threadModel extends model
             ->remove('files,labels')
             ->get();
         /* Stop for blacklist. */
-        if($this->checkBlacklist($thread)) die('');
+        if($this->checkBlacklist($thread)) die();
 
         if(trim(strip_tags($thread->content) == '')) $thread->content = '';
         $this->dao->insert(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
@@ -300,7 +300,7 @@ class threadModel extends model
     {
         $this->dao->delete()->from(TABLE_THREAD)->where('id')->eq($threadID)->exec(false);
         $this->dao->delete()->from(TABLE_REPLY)->where('thread')->eq($threadID)->exec(false);
-        return;
+        return !dao::isError();
     }
 
     public function hideThread($threadID)
@@ -329,7 +329,7 @@ class threadModel extends model
     public function deleteReply($replyID)
     {
         $this->dao->delete()->from(TABLE_REPLY)->where('id')->eq($replyID)->exec(false);
-        return;
+        return !dao::isError();
     }
 
     /**
