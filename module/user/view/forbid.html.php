@@ -29,7 +29,7 @@
       <th class='w-80px'><?php echo $lang->user->account;?></th>
       <th class='w-40px'><?php echo $lang->user->gendar;?></th>
       <th class='w-120px'><?php echo $lang->user->company;?></th>
-      <th class='w-80px'><?php echo $lang->user->join;?></th>
+      <th class='w-80px'><?php echo $lang->user->addedDate;?></th>
       <th class='w-60px'><?php echo $lang->user->visits;?></th>
       <th class='w-100px'><?php echo $lang->user->last;?></th>
       <th class='w-150px'><?php echo $lang->user->operate;?></th>
@@ -42,7 +42,7 @@
       <td class='a-right'><?php echo $user->account; ?> </td>
       <td class='a-right'><?php echo $user->gendar; ?> </td>
       <td class='a-right'><?php echo $user->company; ?> </td>
-      <td class='a-right'><?php echo $user->join; ?> </td>
+      <td class='a-right'><?php echo $user->addedDate; ?> </td>
       <td class='a-right'><?php echo $user->visits; ?> </td>
       <td class='a-right'><?php echo $user->last; ?> </td>
       <td>
