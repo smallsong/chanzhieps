@@ -33,10 +33,11 @@ $lang->thread->confirmHideThread   = "您确定隐藏该主题吗？";
 $lang->thread->confirmDeleteReply  = "您确定删除该回帖吗？";
 $lang->thread->confirmDeleteFile   = "您确定删除该附件吗？";
 
-$lang->thread->lblUser   = '<strong>%s</strong><br />访问次数：%s<br />注册日期：%s<br />上次访问：%s<br />当前积分：%s';
+$lang->thread->lblUser   = '<strong>%s</strong><br />访问次数：%s<br />注册日期：%s<br />上次访问：%s<br />';
 $lang->thread->lblEdited = '<i>%s 最后编辑, %s</i> ';
 $lang->thread->message   = '%s在论坛#%s回复了主题：%s，内容为：%s';
 
+$lang->reply = new stdClass();
 $lang->reply->common    = '回复 ';
 $lang->reply->content   = '内容 ';
 $lang->reply->author    = '作者';
