@@ -13,28 +13,24 @@
 <?php include '../../common/view/header.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
 <?php $common->printPositionBar($board);?>
-<div class='row'>
-  <div class='u-1'>
-    <div class='cont'>
-      <form method='post' target='hiddenwin' enctype='multipart/form-data'>
-      <table class='table-1'>
-        <caption class='caption-bold'><?php echo $board->name;?></caption>
-        <tr>
-          <th class='w-100px'><?php echo $lang->thread->title;?></th>
-          <td><?php echo html::input('title', '', "class='text-1'");?></td>
-        </tr>
-        <tr>
-          <th><?php echo $lang->thread->content;?></th>
-          <td><?php echo html::textarea('content', '', "rows=20 class='area-1' tabindex=1");?></td>
-        </tr>
-        <tr>
-          <th><?php echo $lang->thread->file;?></th>
-          <td><?php echo $this->fetch('file', 'buildForm');?></td>
-        </tr>
-        <tr><td colspan='2' align='center'><?php echo html::submitButton('', 'tabindex=2');?></td></tr>
-      </table>
-      </form>
-    </div>
-  </div>
+<div class='row-fluid'>
+  <form method='post' id="ajaxForm" enctype='multipart/form-data'>
+  <table class='table table-bordered table-form'>
+    <caption class='caption-bold'><?php echo $board->name;?></caption>
+    <tr>
+      <th class='w-100px'><?php echo $lang->thread->title;?></th>
+      <td><?php echo html::input('title', '', "class='text-1'");?></td>
+    </tr>
+    <tr>
+      <th><?php echo $lang->thread->content;?></th>
+      <td><?php echo html::textarea('content', '', "rows=20 class='area-1' tabindex=1");?></td>
+    </tr>
+    <tr>
+      <th><?php echo $lang->thread->file;?></th>
+      <td><?php echo $this->fetch('file', 'buildForm');?></td>
+    </tr>
+    <tr><td colspan='2' align='center'><?php echo html::submitButton('', 'tabindex=2');?></td></tr>
+  </table>
+  </form>
 </div>
 <?php include '../../common/view/footer.html.php';?>

@@ -1,17 +1,17 @@
-<?php if($this->thread->hasManagePriv($this->app->user->account, $board->owners)){ echo 'test'; $config->thread->editor->view['tools'] = 'fullTools';} ?>
+<?php if($this->thread->hasManagePriv($this->app->user->account, $board->owners)){$config->thread->editor->view['tools'] = 'fullTools';} ?>
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/kindeditor.html.php'; ?>
 <?php $common->printPositionBar($board, $thread);?>
-<div class='row'>
+<div class='row-fluid'>
   <div class='u-1 cont' id='thread'>
-    <table class='table-1'>
+    <table class='table'>
       <caption class='caption-bold'><?php echo $thread->addedDate . " " . $thread->title;?></caption>
       <tr valign='top'>
         <td class='user'>
           <?php
           $user = $users[$thread->author];
           $user->last = substr($user->last, 5, -3);
-          printf($lang->thread->lblUser, $user->account, $user->visits, $user->join, $user->last, $user->score);
+          printf($lang->thread->lblUser, $user->account, $user->visits, $user->addedDate, $user->last);
           ?>
         </td>
         <td id=<?php echo $thread->id;?>>
@@ -64,7 +64,7 @@
           <?php
           $user = $users[$reply->author];
           if(strlen($user->last) > 11) $user->last = substr($user->last, 5, -3);
-          printf($lang->thread->lblUser, $user->account, $user->visits, $user->join, $user->last, $user->score);
+          printf($lang->thread->lblUser, $user->account, $user->visits, $user->addedDate, $user->last);
           ?>
         </td>
         <td id=<?php echo $reply->id;?>>
@@ -98,7 +98,7 @@
     </table>
    <?php endforeach;?>
    <div class='f-right'><?php $pager->show();?></div>
-  
+   <div style="clear: both"></div>
    <?php if($this->session->user->account != 'guest' and !$board->readonly):?>
      <form method='post' target='hiddenwin' enctype='multipart/form-data' name='reply' id='reply' action='<?php echo inlink('reply', "thread=$thread->id");?>'>
      <table class='table-1 border'>
@@ -110,8 +110,7 @@
            echo $this->fetch('file', 'buildForm');
            echo '<div id="yz"></div>';
            echo '<br />';
-           echo html::submitButton('', 'onclick="return checkGarbage(\'content\')" tabindex=2'). html::hidden('recTotal', $pager->recTotal).
-               html::hidden('recPerPage', $pager->recPerPage). html::hidden('pageID', $pager->pageTotal);
+           echo html::submitButton('', 'onclick="return checkGarbage(\'content\')" tabindex=2'). html::hidden('recTotal', $pager->recTotal). html::hidden('recPerPage', $pager->recPerPage). html::hidden('pageID', $pager->pageTotal);
            ?>
          </td>
        </tr>
@@ -121,5 +120,4 @@
    <div id='zbyz' class='hidden'><?php $this->loadModel('comment')->setVerify();?></div>
   </div>
 </div>
-<?php include '../../common/view/syntaxhighlighter.html.php'; ?>
 <?php include '../../common/view/footer.html.php'; ?>

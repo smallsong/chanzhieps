@@ -13,11 +13,9 @@
 <?php include '../../common/view/header.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
 <?php $common->printPositionBar($board, $thread);?>
-<div class='row'>
-  <div class='u-1'>
-    <div class='cont'>
-      <form method='post' target='hiddenwin' enctype='multipart/form-data'>
-      <table class='table-1 border'>
+<div class='row-fluid'>
+      <form method='post' id='ajaxForm' enctype='multipart/form-data'>
+      <table class='table table-bordered'>
         <caption class='caption-bold'><?php echo $lang->thread->editReply;?></caption>
         <tr>
           <th><?php echo $lang->reply->content;?></th>
@@ -41,8 +39,6 @@
         <tr><td colspan='2' align='center'><?php echo html::submitButton('', 'onclick="return checkGarbage(\'content\')" tabindex=2') . html::backButton();?></td></tr>
       </table>
       </form>
-    </div>
     <div id='zbyz' class='hidden'><?php $this->loadModel('comment')->setVerify();?></div>
-  </div>
 </div>
 <?php include '../../common/view/footer.html.php';?>
