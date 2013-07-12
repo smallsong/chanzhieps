@@ -87,7 +87,7 @@ $lang->article = new stdclass();
 $lang->article->menu = new stdclass();
 
 $lang->article->menu->browse   = '文章列表|article|browseadmin|';
-$lang->article->menu->create   = '添加文章|article|create|';
+$lang->article->menu->create   = '发布文章|article|create|';
 $lang->article->menu->tree     = '类目管理|tree|browse|tree=article';
 
 /* The menus of forum module. */
