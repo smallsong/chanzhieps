@@ -12,6 +12,7 @@ $lang->xirangEPS      = 'xirangEPS';
 $lang->poweredBy      = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
 $lang->colon        = '::';
+$lang->arrow        = '>'; 
 
 $lang->welcome        = "欢迎您, <strong>%s</strong> ";
 $lang->todayIs        = '今天是%s，';
