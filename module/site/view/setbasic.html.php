@@ -12,7 +12,7 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
 <form action="" method="post" id="ajaxForm">
-  <table class="table table-bordered table-form">
+  <table class="table table-bordered table-inline">
     <caption><?php echo $lang->site->setBasic;?></caption> 
     <tr>
       <th class="w-150px"><?php echo $lang->site->name;?></th> 

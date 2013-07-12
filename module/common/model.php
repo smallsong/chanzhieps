@@ -68,7 +68,7 @@ class commonModel extends model
     {
         $sessionName = RUN_MODE == 'front' ? 'frontsid' : 'adminsid';
         session_name($sessionName);
-        session_start();
+        if(!isset($_SESSION)) session_start();
     }
 
     /**

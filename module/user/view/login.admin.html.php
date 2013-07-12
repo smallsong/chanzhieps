@@ -1,5 +1,5 @@
 <?php include '../../common/view/header.lite.html.php';?>
-<div class="container">
+<div id="adminContainer" class="container">
   <form method="post" id='ajaxForm' class="radius shadow">
     <div id='logo'><?php echo html::image("$themeRoot/default/images/main/logo.login.png");?></div>
     <div id='responser' class='text-center'></div>
