@@ -11,6 +11,8 @@
 $lang->xirangEPS      = 'xirangEPS';
 $lang->poweredBy      = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
+$lang->colon        = '::';
+
 $lang->welcome        = "欢迎您, <strong>%s</strong> ";
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
@@ -62,12 +64,14 @@ $lang->company->wangwang = "阿里旺旺";
 $lang->frontMenu = new stdClass();
 $lang->frontMenu->home     = '首页|index|index';
 $lang->frontMenu->about    = '关于我们|company|index';
+$lang->frontMenu->forum    = '论坛|forum|index';
 
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index|';
 $lang->menu->article  = '文章|article|browseadmin|';
 $lang->menu->tree     = '类目|tree|browse|tree=article';
+$lang->menu->forum    = '论坛|thread|browseadmin|';
 $lang->menu->site     = '站点|site|setbasic|';
 $lang->menu->company  = '公司|company|setbasic|';
 
@@ -78,6 +82,15 @@ $lang->article->menu = new stdclass();
 $lang->article->menu->browse   = '文章列表|article|browseadmin|';
 $lang->article->menu->create   = '添加文章|article|create|';
 $lang->article->menu->tree     = '类目管理|tree|browse|tree=article';
+
+/* The menus of forum module. */
+$lang->forum       = new stdclass();
+$lang->forum->menu = new stdclass();
+
+$lang->forum->menu->browse   = '主题列表|thread|browseadmin|';
+$lang->forum->menu->tree     = '版块管理|tree|browse|tree=forum';
+
+$lang->thread = $lang->forum;
 
 /* The menus of site module. */
 $lang->site = new stdclass();
