@@ -32,7 +32,7 @@ class userModel extends model
      */
     public function getBasicInfo($users)
     {
-        $users = $this->dao->select('account, realname, `join`, last, visits, score, love, rank, sect')->from(TABLE_USER)->where('account')->in($users)->fetchAll('account', false);
+        $users = $this->dao->select('account, realname, `addedDate`, last, visits')->from(TABLE_USER)->where('account')->in($users)->fetchAll('account', false);
         if(!$users) return array();
         foreach($users as $account => $user) if($user->realname == '') $user->realname = $account;
         return $users;
@@ -92,7 +92,7 @@ class userModel extends model
         if($_POST['password1'] != '') $this->checkPassword();
         if(dao::isError()) return false;
         $user = fixer::input('post')
-            ->setIF(isset($_POST['join']) and $this->post->join == '', 'join', '0000-00-00')
+            ->setIF(isset($_POST['addedDate']) and $this->post->addedDate == '', 'addedDate', '0000-00-00')
             ->setIF($this->post->password1 != false, 'password', md5($this->post->password1))
             ->cleanInt('imobile,qq,zipcode')
             ->specialChars('company,address,phone,')
