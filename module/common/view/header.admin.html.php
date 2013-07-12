@@ -1,4 +1,5 @@
 <?php include 'header.lite.html.php';?>
+<?php js::set('lang', $lang->js);?>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
