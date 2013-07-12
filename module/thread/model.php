@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of thread module of XiRangEPS.
+ * The model file of thread category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -28,13 +28,17 @@ class threadModel extends model
             ->andWhere("(INSTR('$userReplies', CONCAT('_',id,'_')) != 0 or hidden != '1' or author = '{$this->app->user->account}')") //exclude hide.
             ->orderBy('id')->page($pager, false)->fetchAll('id', false);
         $thread->files   = $this->loadModel('file')->getByObject('thread', $thread->id);
-        $replyFiles      = $this->file->getByObject('reply', array_keys($thread->replies));
 
-        foreach($replyFiles as $fileID => $replyFile) $thread->replies[$replyFile->objectID]->files[$fileID] = $replyFile;
-
-        foreach($thread->replies as $replyID => $reply)
+        if($thread->replies == true)
         {
-            $reply->content = $this->file->setImgSize($reply->content, $this->config->thread->maxImgSize);
+            $replyFiles      = $this->file->getByObject('reply', array_keys($thread->replies));
+
+            foreach($replyFiles as $fileID => $replyFile) $thread->replies[$replyFile->objectID]->files[$fileID] = $replyFile;
+
+            foreach($thread->replies as $replyID => $reply)
+            {
+                $reply->content = $this->file->setImgSize($reply->content, $this->config->thread->maxImgSize);
+            }
         }
         return $thread;
     }
@@ -42,17 +46,17 @@ class threadModel extends model
     /**
      * Get threads list.
      * 
-     * @param string $module        the module
+     * @param string $category        the category
      * @param string $orderBy       the order by 
      * @param string $pager         the pager object
      * @access public
      * @return array
      */
-    public function getList($module, $orderBy, $pager = null)
+    public function getList($category, $orderBy, $pager = null)
     {
         $userThreads = $this->cookie->threads;
         $threads = $this->dao->select('*')->from(TABLE_THREAD)
-            ->where('module')->in($module)
+            ->where('category')->in($category)
             ->andWhere("(INSTR('$userThreads', CONCAT('_',id,'_')) != 0 or hidden != 1 or author = '{$this->app->user->account}')") //exclude hide.
             ->orderBy($orderBy)->page($pager, false)->fetchAll('id', false);
         $this->processThreads($threads);
@@ -62,14 +66,14 @@ class threadModel extends model
     /**
      * Get stick threads.
      * 
-     * @param  int    $module 
+     * @param  int    $category 
      * @access public
      * @return array
      */
-    public function getSticks($module)
+    public function getSticks($category)
     {
         $globalSticks = $this->dao->select('*')->from(TABLE_THREAD)->where('stick')->eq(2)->orderBy('id desc')->fetchAll();
-        $boardSticks  = $this->dao->select('*')->from(TABLE_THREAD)->where('stick')->eq(1)->andWhere('module')->eq($module)->orderBy('id desc')->fetchAll();
+        $boardSticks  = $this->dao->select('*')->from(TABLE_THREAD)->where('stick')->eq(1)->andWhere('category')->eq($category)->orderBy('id desc')->fetchAll();
 
         return array_merge($globalSticks, $boardSticks);
     }
@@ -118,7 +122,7 @@ class threadModel extends model
     public function getBoardOwners($thread)
     {
         $owners = $this->dao->select('owners')
-            ->from(TABLE_MODULE)->alias('t1')->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.id = t2.module')
+            ->from(TABLE_CATEGORY)->alias('t1')->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.id = t2.category')
             ->where('t2.id')->eq($thread)
             ->fetch('owners');
         return $owners;
@@ -151,39 +155,42 @@ class threadModel extends model
     /**
      * Post a thread.
      * 
-     * @param string $module 
+     * @param string $category 
      * @access public
      * @return void
      */
-    public function post($module)
+    public function post($category)
     {
         $thread = fixer::input('post')
             ->specialChars('title')
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
             ->add('lastRepliedDate', helper::now())
-            ->add('module', $module)
+            ->add('category', $category)
             ->stripTags('content', $this->config->thread->editor->allowableTags)
             ->remove('files,labels')
             ->get();
         /* Stop garbage thread.*/
-        if(strpos($this->config->thread->writeBoard, ",$module,") === false and (!preg_match('/[\x{4e00}-\x{9fa5}]/u', $thread->title) or !preg_match('/[\x{4e00}-\x{9fa5}]/u', $thread->content))) die();
+        if(strpos($this->config->thread->writeBoard, ",$category,") === false and (!preg_match('/[\x{4e00}-\x{9fa5}]/u', $thread->title) or !preg_match('/[\x{4e00}-\x{9fa5}]/u', $thread->content))) die();
         /* Stop for blacklist. */
         if($this->checkBlacklist($thread)) die();
 
         if(trim(strip_tags($thread->content) == '')) $thread->content = '';
         $this->dao->insert(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
 
-        $threadID = $this->dao->lastInsertID();
-        /* set cookie in thread author.*/
-        $this->setCookie($threadID, 'thread');
-        /* Upload file.*/
-        $this->uploadFile('thread', $threadID);
+        if(!dao::isError())
+        {
+            $threadID = $this->dao->lastInsertID();
+            /* set cookie in thread author.*/
+            $this->setCookie($threadID, 'thread');
+            /* Upload file.*/
+            $this->uploadFile('thread', $threadID);
 
-        $thread->threadID = $threadID;
-        $thread->replyID  = 0;
-        $this->loadModel('forum')->updateBoardStats($module, 'thread', $thread);
-        return $threadID;
+            $thread->threadID = $threadID;
+            $thread->replyID  = 0;
+            $this->loadModel('forum')->updateBoardStats($category, 'thread', $thread);
+        }
+        return;
     }
 
     /**
@@ -338,8 +345,7 @@ class threadModel extends model
      */
     public function hasEditPriv($user, $boardOwner, $author)
     {
-        $judgeUser = ',' . $user . ',';
-        if($user == $author or strpos($this->config->admin->users, $judgeUser) !== false or strpos($boardOwner, $judgeUser) !== false) return true;
+        if($this->app->user->admin == true or strpos($boardOwner, $user) !== false) return true;
         return false;
     }
 
@@ -353,8 +359,7 @@ class threadModel extends model
      */
     public function hasManagePriv($user, $boardOwner)
     {
-        $judgeUser = ',' . $user . ',';
-        if(strpos($this->config->admin->users, $judgeUser) !== false or strpos($boardOwner, $judgeUser) !== false) return true;
+        if($this->app->user->admin == true or strpos($boardOwner, $user) !== false) return true;
         return false;
     }
 
@@ -427,7 +432,7 @@ class threadModel extends model
         $replyID = $this->dao->lastInsertID();
         /* Upload file.*/
         $this->uploadFile('reply', $replyID);
-        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, module')->fetch();
+        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, category')->fetch();
 
         $thread->replies += 1;
         $thread->lastRepliedDate = helper::now();
@@ -437,7 +442,7 @@ class threadModel extends model
 
         $reply->threadID = $threadID;
         $reply->replyID  = $replyID;
-        $this->loadModel('forum')->updateBoardStats($thread->module, 'reply', $reply);
+        $this->loadModel('forum')->updateBoardStats($thread->category, 'reply', $reply);
 
         return $replyID;
     }
