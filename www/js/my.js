@@ -105,10 +105,10 @@ $(document).ready(function()
     $('a.delete').click(function()
     {
         var that = $(this);
-        if(confirm('确定删除？'))
+        if(confirm(v.lang.confirmDelete))
         {
             delUrl = that.attr('href');
-            that.text('正在删除...');
+            that.text(v.lang.deleteing);
             $.getJSON(delUrl,function(data) 
             {
                 if(data.result=='success')
@@ -117,7 +117,7 @@ $(document).ready(function()
                 }
                 else
                 {
-                    alert(data.info);
+                    alert(data.message);
                 }
             });
         }
