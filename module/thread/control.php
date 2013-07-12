@@ -52,11 +52,11 @@ class thread extends control
         {
             $result = $this->thread->post($categoryID);
             if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
-            $locate = js::locate($this->createLink('forum', 'board', "categoryID=$categoryID"), 'parent');
+            $locate = $this->createLink('forum', 'board', "categoryID=$categoryID");
             $this->send(array(
-            'resault' => 'success', 
+            'result' => 'success', 
             'message' => $this->lang->saveSuccess, 
-            'locate' => $locate));
+            'locate' =>$locate));
         }
         $this->view->board = $board;
         $this->view->tree  = $this->tree->getOptionMenu('thread');

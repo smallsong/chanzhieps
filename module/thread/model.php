@@ -170,10 +170,8 @@ class threadModel extends model
             ->stripTags('content', $this->config->thread->editor->allowableTags)
             ->remove('files,labels')
             ->get();
-        /* Stop garbage thread.*/
-        if(strpos($this->config->thread->writeBoard, ",$category,") === false and (!preg_match('/[\x{4e00}-\x{9fa5}]/u', $thread->title) or !preg_match('/[\x{4e00}-\x{9fa5}]/u', $thread->content))) die();
         /* Stop for blacklist. */
-        if($this->checkBlacklist($thread)) die();
+        if($this->checkBlacklist($thread)) die('');
 
         if(trim(strip_tags($thread->content) == '')) $thread->content = '';
         $this->dao->insert(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
