@@ -87,28 +87,18 @@ class commentModel extends model
             ->specialChars('content')
             ->add('date', helper::now())
             ->add('ip', $this->server->REMOTE_ADDR)
-            ->remove('yzm')
+            ->remove('verifyCode')
             ->get();
         // Stop garbage comment.
-        if($this->isGarbage($comment->content)) die();
+        if($this->isGarbage($_POST['content'])) return false;
         $this->dao->insert(TABLE_COMMENT)
             ->data($comment, false)
             ->autoCheck()
             ->checkIF($comment->email, 'email', 'email')
             ->batchCheck('author, content', 'notempty')
             ->exec();
-        if(!dao::isError())
-        {
-            $commentID = $this->dao->lastInsertID();
-            $sites = $this->dao->select('site')->from(TABLE_ARTICLEMODULE)->where('article')->eq($comment->objectID)->fetchPairs('site', 'site', false);
-            foreach($sites as $siteID)
-            {
-                $data->comment = $commentID;
-                $data->site    = $siteID;
-                $this->dao->insert(TABLE_COMMENTSITE)->data($data)->exec();
-            }
-            return $commentID;
-        }
+        $commentID = $this->dao->lastInsertId();
+        return $commentID;
     }
 
     /**
@@ -224,7 +214,7 @@ class commentModel extends model
     public function isGarbage($content = '')
     {
         $isGarbage = false;
-     //   if(!preg_match('/[\x{4e00}-\x{9fa5}]/u', $content) or preg_match('/&lt;a (.*)&gt;/', $content)) $isGarbage = true;
+        if(strpos($content, 'http://') !== false) return true;
         $lineCount = preg_match_all('/(?<=href=)([^\>]*)(?=\>)/ ',$content, $out);
         if($lineCount > 1) $isGarbage = true;
         if($lineCount > 5) die();
@@ -251,9 +241,22 @@ class commentModel extends model
         $action    = $actionKey[$action];
         $yzStr     = $before . $action . $after;
         eval("\$result = $yzStr;");
-        $this->session->set('yzm', $result);
-        echo $this->lang->comment->securityCode . '：';
-        echo $numbers[$before] . " $actions[$action] " . $numbers[$after] . " {$this->lang->securityCode->equal} ";
-        echo '<input type="text" name="yzm" id="yzm"  size="8" />' . $this->lang->securityCode->notice;
+        $this->session->set('verifyCode', $result);
+        echo '<td>' . $this->lang->comment->securityCode . '</td>';
+        echo '<td> <span class="label label-important" style="line-height:20px;">' . $numbers[$before] . " $actions[$action] " . $numbers[$after] . "</span>&nbsp;&nbsp;" . $this->lang->securityCode->equal . "&nbsp;&nbsp;";
+        echo '<input type="text" name="verifyCode" id="verifyCode" class="w-20px" />' . $this->lang->securityCode->notice . '</td>';
+    }
+
+    public function getValidateErrors()
+    {
+       $errors = array();
+       if($this->post->author  == false) $errors['author'] = sprintf($this->lang->error->notempty, $this->lang->comment->author);
+       if($this->post->content == false) $errors['content'] = sprintf($this->lang->error->notempty, $this->lang->comment->content);
+       if($this->post->email  !== false && !validater::checkEmail($this->post->email)) $errors['email'] = sprintf($this->lang->error->email, $this->lang->comment->email);
+
+       if($this->post->verifyCode !== false && $this->post->verifyCode != $this->session->verifyCode) $errors['verifyCode'] = $this->lang->error->securityCode;
+
+       return $errors;
+
     }
 }

@@ -34,7 +34,8 @@ $lang->comment->confirmPassPre      = '您确定要通过之前的评论吗？';
 $lang->comment->reviewed            = '已审核';
 $lang->comment->unReviewed          = '未审核 ';
 
+$lang->securityCode = new stdClass();
 $lang->securityCode->numbers = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十');
-$lang->securityCode->actions = array('*' => 'Ｘ', '-' => '－', '+' => '＋');
+$lang->securityCode->actions = array('*' => '乘', '-' => '减', '+' => '加');
 $lang->securityCode->equal   = '等于';
 $lang->securityCode->notice  = '（填数字）';

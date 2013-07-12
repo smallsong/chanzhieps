@@ -89,8 +89,8 @@ class userModel extends model
      */
     public function update($account)
     {
-        $this->checkPassword();
-
+        if($_POST['password1'] != '') $this->checkPassword();
+        if(dao::isError()) return false;
         $user = fixer::input('post')
             ->setIF(isset($_POST['join']) and $this->post->join == '', 'join', '0000-00-00')
             ->setIF($this->post->password1 != false, 'password', md5($this->post->password1))
@@ -98,8 +98,12 @@ class userModel extends model
             ->specialChars('company,address,phone,')
             ->remove('password1, password2')
             ->get();
-
-        $this->dao->update(TABLE_USER)->data($user)
+        $addedDate = $this->dao->select('*')
+            ->from(TABLE_USER)
+            ->where('account')->eq($account)
+            ->fetch('addedDate');
+        $user->password = $this->createPassword($this->post->password1, $account, $addedDate); 
+        return $this->dao->update(TABLE_USER)->data($user)
             ->autoCheck()
             ->batchCheck($this->config->user->edit->requiredFields, 'notempty')
             ->checkIF($this->post->email != false, 'email', 'email')

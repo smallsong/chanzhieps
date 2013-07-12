@@ -179,9 +179,7 @@ class user extends control
     public function profile()
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
-        $user = $this->user->getByAccount($this->app->user->account);
-
-        //$this->view->user = $this->user->switchLevel($user);
+        $this->view->user = $this->user->getByAccount($this->app->user->account);
         $this->display();
     }
 
@@ -253,8 +251,8 @@ class user extends control
         if(!empty($_POST))
         {
             $this->user->update($this->app->user->account);
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate(inlink('profile'), 'parent'));
+            if(dao::isError()) $this->send( array( 'result' => 'fail', 'message' => dao::getError() ) );
+            $this->send(array('result' => 'success', 'locate' => inlink('profile')));
         }
         $this->view->user = $this->user->getByAccount($this->app->user->account);
         $this->display();

@@ -1,4 +1,0 @@
-.table tr td {border:none;}
-.table tr td:first-child {text-align:right; border-left:1px solid #DDDDDD;}
-.table tr td:last-child {border-right:1px solid #DDDDDD;}
-.table tr:last-child td {border:1px solid #DDDDDD; text-align:center;}

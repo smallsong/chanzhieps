@@ -22,6 +22,7 @@ class comment extends control
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
+        $this->view->thisUri = inlink('show',array('objectType' => $objectType, 'objectID'=>$objectID));
 
         $this->view->objectType = $objectType;
         $this->view->objectID   = $objectID;
@@ -40,13 +41,20 @@ class comment extends control
     {
         if($_POST)
         {
+            $errors = $this->comment->getValidateErrors();
+            if(!empty($errors)) $this->send(array('result' => 'fail', 'message' => $errors));
+
+            if(!isset($_POST['verifyCode']) && $this->comment->isGarbage($_POST['content'])) $this->send(array('result' => 'success', 'message' => array('notice' => $this->lang->securityCode)) );
+
             $commentID = $this->comment->post();
-            if(dao::isError()) die(js::error(dao::getError()));
+            if(!$commentID) $this->send( array('result' => 'fail', 'message' => dao::getError() ) );
+            if(dao::isError()) $this->send( array('result' => 'fail', 'message' => dao::getError() ) );
             $this->comment->setCookie($commentID);
-            echo js::alert($this->lang->comment->thanks);
-            die(js::reload('parent'));
+            $this->send( array('result' => 'success', 'message' => $this->lang->comment->thanks) );
         }
     }
+
+    
 
     /**
      * Get the latest approvaled comments.
@@ -69,8 +77,20 @@ class comment extends control
     }
 
     /**
-     * Delete comments.
+     * Delete check garbage comment.
      * 
+     * @access public
+     * @return void
+
+     */
+    public function isGarbage()
+    {
+        $content = $_POST['content'];
+        if($this->comment->isGarbage($content)) die('1');
+        die('0');
+    }
+
+    /** 
      * @param string $commentID 
      * @param string $type          single|pre
      * @param string $confirm 
@@ -142,19 +162,6 @@ class comment extends control
         echo '</div>';
     }
 
-    /**
-     * Check garbage comment.
-     * 
-     * @access public
-     * @return void
-     */
-    public function isGarbage()
-    {
-        $content = $_POST['content'];
-        if($this->comment->isGarbage($content)) die('1');
-        die('0');
-    }
-
     public function ajaxGetComment($objectType, $objectID, $recTotal = 0, $recPerPage = 15, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
@@ -172,5 +179,11 @@ class comment extends control
         $commentCont .= "<div class='c-right'></div>";
         
         echo $commentCont;
+    }
+
+    public function checkCode()
+    {
+       echo  $this->comment->setVerify();
+            
     }
 }

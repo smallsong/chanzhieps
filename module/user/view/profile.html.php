@@ -3,7 +3,7 @@
   <?php include 'side.html.php';?>
   <div class='span9'>
     <form method='post' target='hiddenwin' class='cont bd-none'>
-    <table class='table-1' id='profile'>
+    <table class='table table-form' id='profile'>
       <caption><?php echo $lang->user->profile;?></caption>
         <tr>
           <td align='right' class='w-60px'><?php echo $lang->user->realname;?></td>
@@ -38,14 +38,14 @@
           <td><?php echo $user->qq;?></td>
         </tr>  
         <tr>
-          <td align='right'><?php echo $lang->user->msn;?></td>
-          <td><?php echo $user->msn;?></td>
-        </tr>  
-        <tr>
           <td align='right'><?php echo $lang->user->gtalk;?></td>
           <td><?php echo $user->gtalk;?></td>
         </tr>  
-        <tr><td colspan='2' align='center'><?php echo html::a(inlink('edit'), $lang->user->editProfile);?></td></tr>
+        <tr>
+          <td colspan='2' class="a-center">
+            <?php echo html::a(inlink('edit'), $lang->user->editProfile, '', 'class="btn btn-primary"');?>
+          </td>
+        </tr>
       </table>
     </form>
   </div>
