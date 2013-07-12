@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of thread module of XiRangEPS.
+ * The control file of thread category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -10,18 +10,37 @@
  */
 class thread extends control
 {
-    /**
+    public function browse()
+    {
+    }
+
+    public function browseAdmin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {
+        /* init pager. */ 
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+
+        $boards  = $this->loadModel('tree')->getAllChildID($boardID, 'forum');
+        $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
+
+        $this->view->threads       = $threads;
+        $this->view->board         = $this->loadModel('tree')->getById($boardID);
+        $this->view->pager         = $pager;
+        $this->view->header->title = $this->view->board ? $this->view->board->name : '';
+        $this->display();
+    }
+    /** 
      * Post a thread.
      * 
-     * @param int $moduleID 
+     * @param int $categoryID 
      * @access public
      * @return void
      */
-    public function post($moduleID = 0)
+    public function post($categoryID = 0)
     {
         if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
 
-        $board = $this->loadModel('tree')->getById($moduleID);
+        $board = $this->loadModel('tree')->getById($categoryID);
         if($board->readonly)
         {
             $this->app->loadLang('forum');
@@ -31,9 +50,13 @@ class thread extends control
 
         if($_POST)
         {
-            $this->thread->post($moduleID);
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate($this->createLink('forum', 'board', "moduleID=$moduleID"), 'parent'));
+            $result = $this->thread->post($categoryID);
+            if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
+            $locate = js::locate($this->createLink('forum', 'board', "categoryID=$categoryID"), 'parent');
+            $this->send(array(
+            'resault' => 'success', 
+            'message' => $this->lang->saveSuccess, 
+            'locate' => $locate));
         }
         $this->view->board = $board;
         $this->view->tree  = $this->tree->getOptionMenu('thread');
@@ -74,9 +97,9 @@ class thread extends control
     public function editThread($threadID)
     {
         /* Judge current user has priviledge to edit the thread or not. */
-        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('author, module')->fetch();
+        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('author, category')->fetch();
         if(!$thread) exit;
-        $owners = $this->dao->findById($thread->module)->from(TABLE_MODULE)->fields('owners')->fetch('owners');
+        $owners = $this->dao->findById($thread->category)->from(TABLE_CATEGORY)->fields('owners')->fetch('owners');
         if(!$this->thread->hasEditPriv($this->session->user->account, $owners, $thread->author)) exit;
         $thread->files = $this->loadModel('file')->getByObject('thread', $threadID);
 
@@ -87,7 +110,7 @@ class thread extends control
             die(js::locate(inlink('view', "threaID=$threadID"), 'parent'));
         }
         $this->view->thread = $this->thread->getById($threadID);
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->module);
+        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
         $this->view->header->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->display();
     }
@@ -119,7 +142,7 @@ class thread extends control
         $reply->files       = $this->loadModel('file')->getByObject('reply', $replyID);
         $this->view->reply  = $reply;
         $this->view->thread = $this->thread->getByID($this->view->reply->thread);
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->module);
+        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
         $this->view->header->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->display();
     }
@@ -142,7 +165,7 @@ class thread extends control
         $this->view->thread = $this->thread->getByID($threadID, $pager);
         $this->view->pager  = $pager;
         $this->view->users  = $this->loadModel('user')->getBasicInfo($this->thread->extractUsers($this->view->thread));
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->module);
+        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
         $this->view->layouts= $this->loadModel('block')->getLayouts('thread.view');
         $this->view->header->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->dao->update(TABLE_THREAD)->set('views = views + 1')->where('id')->eq($threadID)->exec();
@@ -169,9 +192,9 @@ class thread extends control
         }
         else
         {
-            $module = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('module')->fetch('module', false);
+            $category = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('category')->fetch('category', false);
             $this->thread->deleteThread($threadID);
-            die(js::locate($this->createLink('forum', 'board', "boardID=$module"), 'parent'));
+            die(js::locate($this->createLink('forum', 'board', "boardID=$category"), 'parent'));
         }
     }
    
