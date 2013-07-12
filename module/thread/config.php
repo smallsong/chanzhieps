@@ -1,6 +1,8 @@
 <?php
+$config->thread = new stdClass();
 $config->thread->newDays      = 3;
 $config->thread->maxImgSize   = 750;
+$config->thread->editor = new stdClass();
 $config->thread->editor->post = array('id' => 'content', 'tools' => 'forumTools');
 $config->thread->editor->view = array('id' => 'content', 'tools' => 'forumTools');
 $config->thread->editor->editthread = array('id' => 'content', 'tools' => 'forumTools');
