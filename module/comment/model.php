@@ -252,7 +252,7 @@ class commentModel extends model
        $errors = array();
        if($this->post->author  == false) $errors['author'] = sprintf($this->lang->error->notempty, $this->lang->comment->author);
        if($this->post->content == false) $errors['content'] = sprintf($this->lang->error->notempty, $this->lang->comment->content);
-       if($this->post->email  !== false && !validater::checkEmail($this->post->email)) $errors['email'] = sprintf($this->lang->error->email, $this->lang->comment->email);
+       if($this->post->email   != '' && !validater::checkEmail($this->post->email)) $errors['email'] = sprintf($this->lang->error->email, $this->lang->comment->email);
 
        if($this->post->verifyCode !== false && $this->post->verifyCode != $this->session->verifyCode) $errors['verifyCode'] = $this->lang->error->securityCode;
 

@@ -72,7 +72,7 @@ $(document).ready(function()
         {
             bootbox.alert(data.message, function()
             {
-                    $('#commentList').parent().load(v.thisUri);
+                    $('#commentForm').parent().load(v.thisUri);
             });   
         }
         else
