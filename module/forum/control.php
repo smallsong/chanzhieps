@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of forum module of XiRangEPS.
+ * The control file of forum category of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -19,7 +19,7 @@ class forum extends control
     public function index()
     {
         $this->view->header->title = $this->lang->forum->common;
-        $this->view->layouts       = $this->loadModel('block')->getLayouts('forum.index');
+        //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.index');
         $this->view->boards        = $this->forum->getBoards();
 
         $this->display();
@@ -45,11 +45,11 @@ class forum extends control
         $this->view->threads       = $this->thread->getList($boardID, $orderBy, $pager);
         $this->view->pager         = $pager;
         $this->view->board         = $this->loadModel('tree')->getById($boardID);
-        $this->view->layouts       = $this->loadModel('block')->getLayouts('forum.board');
+        //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.board');
         $this->view->header->title = $this->view->board->name;
         if($this->view->board)
         {
-            $this->view->header->keywords = trim($this->view->board->keyword . ' ' . $this->app->site->keywords);
+            $this->view->header->keywords = trim($this->view->board->keyword . ' ' . $this->config->site->keywords);
             if($this->view->board->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->board->desc));
         }
 
@@ -108,18 +108,18 @@ class forum extends control
         }
         unset($data);
 
-        $boards = $this->dao->select('id, name')->from(TABLE_MODULE)->where('tree')->eq('forum')->andWhere('grade')->eq(2)->fetchPairs('id', 'name', false);
+        $boards = $this->dao->select('id, name')->from(TABLE_CATEGORY)->where('tree')->eq('forum')->andWhere('grade')->eq(2)->fetchPairs('id', 'name', false);
         foreach($boards as $boardID => $boardName)
         {
             $newestPost = $this->dao->select('t1.id as threadID, t1.author, t1.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
                 ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
-                ->where('t1.module')->eq($boardID)->orderBy('t1.id desc, t2.id desc')->limit(1)->fetch('', false);
+                ->where('t1.category')->eq($boardID)->orderBy('t1.id desc, t2.id desc')->limit(1)->fetch('', false);
             $newestReply = $this->dao->select('t2.thread as threadID, t2.author, t2.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
                 ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
-                ->where('t1.module')->eq($boardID)->orderBy('t2.id desc')->limit(1)->fetch('', false);
+                ->where('t1.category')->eq($boardID)->orderBy('t2.id desc')->limit(1)->fetch('', false);
 
-            $threadsAndReplies = $this->dao->select('COUNT(id) as threads, SUM(replies) as replies')->from(TABLE_THREAD)->where('module')->eq($boardID)->fetch('', false);
-            $this->dao->update(TABLE_MODULE)
+            $threadsAndReplies = $this->dao->select('COUNT(id) as threads, SUM(replies) as replies')->from(TABLE_THREAD)->where('category')->eq($boardID)->fetch('', false);
+            $this->dao->update(TABLE_CATEGORY)
                 ->set('threads')->eq($threadsAndReplies->threads)
                 ->set('posts')->eq($threadsAndReplies->threads + $threadsAndReplies->replies)
                 ->where('id')->eq($boardID)
@@ -132,7 +132,7 @@ class forum extends control
                 $data->lastPostedDate = $lastThread->addedDate;
                 $data->lastPostID     = $lastThread->threadID;
                 $data->lastReplyID    = $lastThread->replyID;
-                $this->dao->update(TABLE_MODULE)->data($data, false)->where('id')->eq($boardID)->exec(false);
+                $this->dao->update(TABLE_CATEGORY)->data($data, false)->where('id')->eq($boardID)->exec(false);
             }
         }
         echo 'success';
