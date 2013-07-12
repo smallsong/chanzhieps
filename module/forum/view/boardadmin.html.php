@@ -1,10 +1,11 @@
 <?php include '../../common/view/header.admin.html.php'; ?>
 <div class="row">
   <div class='u-1'>
+  <?php echo html::a($this->createLink('tree', 'browse', 'tree=forum'), '模块')?>
   <table class='table-1'>
     <?php $config->requestType = 'PATH_INFO';?>
     <caption>
-      <div class='f-left'><?php echo $header->title;?></div>
+      <div class='f-left'><?php $header->title;?></div>
       <div class='f-right'><?php if($board) echo html::a($this->createLink('thread', 'post', "boardID=$board->id"), $lang->forum->post, '_blank');?></div>
     </caption>
     <tr>

@@ -1,5 +1,5 @@
-.caption-bold {background:#0055ee; border:1px solid #0085cc; border-bottom:none; color:white; padding-top:4px;}
-#forum table{border:1px solid #cececc; border-top:none;}
+.caption-bold {background:#E0E0E0; color:#5A5A5A; padding-top:4px; border-radius: 0;}
+.row-fluid table{border:1px solid #cececc; border-top:none;}
 #forum th, #forum td {border:none}
 .common-board {background:url(/theme/default/images/forum/forum-icons.png) 0px   -2px; display:block; width:22px; height:25px}
 .new-board    {background:url(/theme/default/images/forum/forum-icons.png) -24px -2px; display:block; width:22px; height:25px}
