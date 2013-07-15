@@ -40,9 +40,7 @@ class user extends control
             }
         }
         /* Set the referer. */
-        if(!isset($_SERVER['HTTP_REFERER']) or 
-            strpos($_SERVER['HTTP_REFERER'], $this->app->site->domain) == false or 
-            strpos($_SERVER['HTTP_REFERER'], 'login.php') != false)
+        if(!isset($_SERVER['HTTP_REFERER']) or strpos($_SERVER['HTTP_REFERER'], 'login.php') != false)
         {
             $referer = urlencode($this->config->webRoot);
         }
