@@ -113,6 +113,8 @@ global $config;
 $lang->user->control->menus[10]  = '个人资料|user|profile';
 $lang->user->control->menus[20]  = '编辑资料|user|edit';
 $lang->user->control->menus[28]  = '我的消息|user|message';
+$lang->user->control->menus[30]  = '我的主题|user|thread';
+$lang->user->control->menus[40]  = '我的回帖|user|reply';
 
 $lang->user->control->menus[50]  = '退出登录|user|logout';
 
