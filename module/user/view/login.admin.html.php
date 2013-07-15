@@ -1,6 +1,6 @@
 <?php include '../../common/view/header.lite.html.php';?>
 <div id="adminContainer" class="container">
-  <form method="post" id='ajaxForm' class="radius shadow">
+  <form method="post" id='ajaxForm' class="login-form radius shadow">
     <div id='logo'><?php echo html::image("$themeRoot/default/images/main/logo.login.png");?></div>
     <div id='responser' class='text-center'></div>
     <?php echo html::input('account','',"class='input-block-level' placeholder='{$lang->user->inputAccountOrEmail}'");?>
