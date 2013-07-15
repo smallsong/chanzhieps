@@ -40,6 +40,7 @@ $lang->user->errorDeny     = "抱歉，您无权访问『<b>%s</b>』模块的�
 $lang->user->loginFailed   = "登录失败，请检查您的用户名或密码是否填写正确。";
 $lang->user->lblZenTaoID   = '提示：可以用禅道社区帐号登录';
 $lang->user->lblRegistered = '恭喜您，已经成功注册。';
+$lang->user->forbidSuccess = '禁用成功';
 
 $lang->user->forbidUser          = '禁用管理';
 $lang->user->forbid              = '禁用';
@@ -54,6 +55,7 @@ $lang->user->operate             = '操作';
 $lang->user->gendarList = new stdclass();
 $lang->user->gendarList->m = '男';
 $lang->user->gendarList->f = '女';
+$lang->user->gendarList->u = '';
 
 $lang->user->id        = '用户编号';
 $lang->user->account   = '用户名';

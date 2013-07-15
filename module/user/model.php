@@ -247,6 +247,8 @@ class userModel extends model
 
         $date = date($format,$intdate);
         $this->dao->update(TABLE_USER)->set('allowTime')->eq($date)->where('id')->eq($userID)->exec();
+        if(dao::isError()) return dao::getError();
+        return true;
     }
 
     /**
@@ -295,7 +297,7 @@ class userModel extends model
     {
         $user = $this->dao->select('*')->from(TABLE_USER)
             ->where('resetKey')->eq($resetKey)
-            ->fetch('', false);
+            ->fetch('');
         return $user;
     }
 
@@ -309,7 +311,16 @@ class userModel extends model
      */
     public function resetPassword($resetKey, $password)
     {
-        $this->dao->update(TABLE_USER)->set('password')->eq(md5($password))->set('resetKey')->eq('')->set('resetedTime')->eq('')->where('resetKey')->eq($resetKey)->exec(false);
+        $user = $this->dao->select('*')->from(TABLE_USER)
+                ->where('resetKey')->eq($resetKey)
+                ->fetch();
+        
+        $this->dao->update(TABLE_USER)
+            ->set('password')->eq(md5($password))
+            ->set('resetKey')->eq('')
+            ->set('resetedTime')->eq('')
+            ->where('resetKey')->eq($resetKey)
+            ->exec();
     }
 
     /**

@@ -82,6 +82,7 @@ $lang->menu->comment  = '评论|comment|browseadmin|';
 $lang->menu->forum    = '论坛|thread|browseadmin|';
 $lang->menu->site     = '站点|site|setbasic|';
 $lang->menu->company  = '公司|company|setbasic|';
+$lang->menu->user  = '会员|user|forbid|';
 
 /* The menus of article module. */
 $lang->article = new stdclass();

@@ -11,7 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <div class="yui-d0">
-  <form method='post' class='u-1'>
+  <form method='post' class='form-inline'>
     <tr>
       <td>
         <?php echo $lang->user->inputUserName; ?>
@@ -20,34 +20,34 @@
       </td>
     </tr>
   </form>
-  <table align='center' class='table-1 fixed'>
-    <caption><div class='f-left'><?php echo $lang->user->forbidUser;?></div></caption>
+  <table align='center' class='table table-hover table-list table-striped'>
+    <caption><?php echo $lang->user->forbidUser;?></caption>
   <tr>
       <th class='w-40px'><?php echo $lang->user->id;?></th>
-      <th class='w-80px'><?php echo $lang->user->realname;?></th>
+      <th class='w-60px'><?php echo $lang->user->realname;?></th>
       <th class='w-60px'><?php echo $lang->user->nickname;?></th>
       <th class='w-80px'><?php echo $lang->user->account;?></th>
-      <th class='w-40px'><?php echo $lang->user->gendar;?></th>
+      <th class='w-30px'><?php echo $lang->user->gendar;?></th>
       <th class='w-120px'><?php echo $lang->user->company;?></th>
-      <th class='w-80px'><?php echo $lang->user->addedDate;?></th>
-      <th class='w-60px'><?php echo $lang->user->visits;?></th>
+      <th class='w-100px'><?php echo $lang->user->addedDate;?></th>
+      <th class='w-50px'><?php echo $lang->user->visits;?></th>
       <th class='w-100px'><?php echo $lang->user->last;?></th>
-      <th class='w-150px'><?php echo $lang->user->operate;?></th>
+      <th class='w-150px'><?php echo $lang->user->forbid;?></th>
     </tr>
+    <tbody>
     <?php foreach($users as $user):?>
     <tr>
-      <td class='a-right'><strong><?php echo $user->id;?></strong></td>
-      <td class='a-right'><?php echo $user->realname; ?> </td>
-      <td class='a-right'><?php echo $user->nickname; ?> </td>
-      <td class='a-right'><?php echo $user->account; ?> </td>
-      <td class='a-right'><?php echo $user->gendar; ?> </td>
-      <td class='a-right'><?php echo $user->company; ?> </td>
-      <td class='a-right'><?php echo $user->addedDate; ?> </td>
-      <td class='a-right'><?php echo $user->visits; ?> </td>
-      <td class='a-right'><?php echo $user->last; ?> </td>
-      <td>
+      <td><?php echo $user->id;?></td>
+      <td><?php echo $user->realname; ?> </td>
+      <td><?php echo $user->nickname; ?> </td>
+      <td><?php echo $user->account; ?> </td>
+      <td><?php $gendar = $user->gendar; echo $lang->user->gendarList->$gendar; ?> </td>
+      <td><?php echo $user->company; ?> </td>
+      <td><?php echo $user->addedDate; ?> </td>
+      <td><?php echo $user->visits; ?> </td>
+      <td><?php echo $user->last; ?> </td>
+      <td class="operate">
         <?php 
-          echo $lang->user->forbid;
           echo html::a($this->createLink('user' ,'forbid' ,"date=oneday&userID=$user->id"),$lang->user->forbidoneday); 
           echo html::a($this->createLink('user' ,'forbid' ,"date=twodays&userID=$user->id" ),$lang->user->forbidtwodays); 
           echo html::a($this->createLink('user' ,'forbid' ,"date=threedays&userID=$user->id" ),$lang->user->forbidthreedays); 
@@ -57,7 +57,8 @@
         ?>
       </td>
     </tr>
-   <?php endforeach;?>
+    <?php endforeach;?>
+    </tbody>
     <tr><td colspan='10' class='a-right'><?php $pager->show();?></td></tr>
   </table>
 </div>

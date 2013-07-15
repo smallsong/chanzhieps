@@ -1,11 +1,9 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row'>
-  <div class='u-24-5'>
-    <div class='cont-left'><?php include 'blockusermenu.html.php';?></div>
-  </div>
-  <div class='u-24-19'>
+<?php include('side.html.php')?>
+  <div class='span9'>
     <div class='cont'>
-      <table class='table-1'>
+      <table class='table'>
       <caption><?php echo $lang->user->thread;?></caption>
         <tr>
           <th colspan='2'><?php echo $lang->thread->title;?></th>

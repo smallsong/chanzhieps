@@ -56,6 +56,8 @@ $config->front->groups->user['user'][]     = 'logout';
 $config->front->groups->user['user'][]     = 'thread';
 $config->front->groups->user['user'][]     = 'reply';
 $config->front->groups->user['user'][]     = 'message';
+$config->front->groups->user['user'][]     = 'resetpassword';
+
 $config->front->groups->user['file'][]     = 'ajaxupload';
 
 $config->front->groups->user['message'][]  = 'view';

@@ -1,6 +1,6 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row'>
-  <?php include 'blockusermenu.html.php';?>
+  <?php include 'side.html.php';?>
   <div class='span9'>
       <table class='table-1'>
       <caption><?php echo $lang->user->reply;?></caption>

@@ -30,16 +30,14 @@ class user extends control
         {
             $this->user->create();
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
-            echo js::alert($this->lang->user->lblRegistered);
             $user = $this->user->identify($this->post->account, $this->post->password1);
             if($user)
             {
                 $this->session->set('user', $user);
                 $this->app->user = $this->session->user;
                 $url = $this->post->referer ? urldecode($this->post->referer) : inlink('user', 'control');
-                die(js::locate($url, 'parent'));
+                $this->send( array('result' => 'success', 'locate'=>$url) );
             }
-            die(js::locate($this->createLink('index', 'index'), 'parent'));
         }
         /* Set the referer. */
         if(!isset($_SERVER['HTTP_REFERER']) or 
@@ -292,7 +290,12 @@ class user extends control
      */
     public function forbid($date = '0', $userID = 0, $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
-        if ($date != '0') $this->user->forbid($date, $userID);
+        if ($date != '0')
+        {
+            $result = $this->user->forbid($date, $userID);
+            if($result === true) $this->send(array('result'=>'success', 'message' => $this->lang->user->forbidSuccess));
+            $this->send(array('message' => $result ));
+        }
 
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
