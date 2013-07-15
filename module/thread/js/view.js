@@ -12,7 +12,7 @@ function checkGarbage(id)
       });
 }
 
-function toReply(threadID, account)
+$(document).ready(function()
 {
-    $('#reply').attr('action', createLink('thread', 'reply', "threadID=" + threadID + "&repliedUser=" + account));
-}
+    $.ajaxForm('#reply');   
+});
