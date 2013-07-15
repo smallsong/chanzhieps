@@ -15,8 +15,8 @@
     <caption>
       <div class='f-left'><?php echo $lang->comment->manage;?></div>
       <div class='f-right'>
-        <?php echo html::a(inlink('getlatest', 'status=0'), $lang->comment->unReviewed);?>
-        <?php echo html::a(inlink('getlatest', 'status=1'), $lang->comment->reviewed);?>
+        <?php echo html::a(inlink('browseadmin', 'status=0'), $lang->comment->unReviewed);?>
+        <?php echo html::a(inlink('browseadmin', 'status=1'), $lang->comment->reviewed);?>
       </div>
     </caption>
     <tr>
