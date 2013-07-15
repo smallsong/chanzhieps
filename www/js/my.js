@@ -101,14 +101,14 @@ $(document).ready(function()
     if(needPing) setTimeout('setPing()', 100 * 60 * 5);
 
     setAdminLeftMenu();
+
     /* ajax delete. */
     $('a.delete').click(function()
     {
-        var that = $(this);
         if(confirm(v.lang.confirmDelete))
         {
-            delUrl = that.attr('href');
-            that.text(v.lang.deleteing);
+            delUrl = $(this).attr('href');
+            $(this).text(v.lang.deleteing);
             $.getJSON(delUrl,function(data) 
             {
                 if(data.result=='success')
@@ -124,4 +124,20 @@ $(document).ready(function()
         return false;
     });
 
+    $('a.ajaxLink').click(function()
+    {
+        url = $(this).attr('href');
+        $.getJSON(url, function(data) 
+        {
+            if(data.result=='success')
+            {
+                location.reload();
+            }
+            else
+            {
+                alert(data.message);
+            }
+        });
+        return false;
+    });
 })
