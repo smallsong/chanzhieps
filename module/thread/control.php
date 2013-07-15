@@ -75,15 +75,12 @@ class thread extends control
         if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
         if($_POST)
         {
-            $recTotal   = $_POST['recTotal']+1;
-            $recPerPage = $_POST['recPerPage'];
-            $pageID     = $_POST['pageID'];
             $replyID    = $this->thread->reply($threadID);
             $thread     = $this->thread->getByID($threadID);
             $this->thread->setCookie($replyID);
-            if(dao::isError()) die(js::error(dao::getError()));
-            $this->loadModel('message')->sendMessage($thread->author, sprintf($this->lang->thread->message, $this->app->user->account, count($thread->replies), $thread->title, $this->post->content), $this->createLink('thread', 'view', "thread=$threadID&recTotal=$recTotal&recPerPage=$recPerPage&pageTotal=$pageID"));
-            die(js::locate(inlink('view', "thread=$threadID&recTotal=$recTotal&recPerPage=$recPerPage&pageTotal=$pageID"), 'parent'));
+
+            if(!dao::isError()) $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
+            $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
     }
 
@@ -186,7 +183,7 @@ class thread extends control
 
 
         $category = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('category')->fetch('category', false);
-        $result = $this->thread->deleteThread($threadID);
+        $result   = $this->thread->deleteThread($threadID);
         
         if($result) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
@@ -255,7 +252,9 @@ class thread extends control
 
         if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) die();
         $this->dao->update(TABLE_THREAD)->set('stick')->eq($stick)->where('id')->eq($threadID)->exec();
-        die(js::reload('parent'));
+
+        if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
+        $this->send(array('result' => 'success'));
     }
 
     /**
