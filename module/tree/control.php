@@ -47,6 +47,7 @@ class tree extends control
             $error = $this->tree->validate($categoryID);
             if(!empty($error)) $this->send(array('result' =>'fail', 'message'=>$error));
             $this->tree->update($categoryID);
+
             if(!dao::isError()) $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
