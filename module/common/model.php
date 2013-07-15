@@ -305,25 +305,22 @@ class commonModel extends model
     {
         global $app, $dao;
         $divider = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
-        if($app->config->features->user)
+        if($app->session->user->account != 'guest')
         {
-            if($app->session->user->account != 'guest')
-            {
-                printf($app->lang->welcome, $app->session->user->account);
-                $messages = $dao->select('COUNT(*) as count')->from(TABLE_MESSAGE)->where('`to`')->eq($app->session->user->account)->andWhere('readed')->eq(0)->fetch('count', false);
-                if($messages) echo html::a(helper::createLink('user', 'message'), sprintf($app->lang->messages, $messages));
-                echo html::a(helper::createLink('user', 'control'), $app->lang->dashboard);
-                echo $divider;
-                echo html::a(helper::createLink('user', 'logout'),  $app->lang->logout);
-                echo $divider;
-            }    
-            else
-            {
-                echo html::a(helper::createLink('user', 'login'),    $app->lang->login);
-                echo $divider;
-                echo html::a(helper::createLink('user', 'register'), $app->lang->register);
-            }    
-        }
+            printf($app->lang->welcome, $app->session->user->account);
+            $messages = $dao->select('COUNT(*) as count')->from(TABLE_MESSAGE)->where('`to`')->eq($app->session->user->account)->andWhere('readed')->eq(0)->fetch('count', false);
+            if($messages) echo html::a(helper::createLink('user', 'message'), sprintf($app->lang->messages, $messages));
+            echo html::a(helper::createLink('user', 'control'), $app->lang->dashboard);
+            echo $divider;
+            echo html::a(helper::createLink('user', 'logout'),  $app->lang->logout);
+            echo $divider;
+        }    
+        else
+        {
+            echo html::a(helper::createLink('user', 'login'),    $app->lang->login);
+            echo $divider;
+            echo html::a(helper::createLink('user', 'register'), $app->lang->register);
+        }    
     }
 
     /**

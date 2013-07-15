@@ -1,9 +1,9 @@
 <?php
 js::set('thisUri',$thisUri);
 if(isset($comments) and $comments):?>
-<div id="commentList" class='commentList'> 
+<div id="commentList" class='commentList radius-top'> 
   <div class="box-title"><?php echo $lang->comment->list;?></div>
-  <div class='box-content' style='border:1px solid #ECECEC'>
+  <div class='box-content'>
     <?php foreach($comments as $number => $comment) :?>
       <div id='<?php echo $comment->id?>'  class='comment'>
       <strong>#<?php echo ($number + 1)?> <?php echo $comment->author;?></strong> at <?php echo $comment->date;?><br />
@@ -50,9 +50,9 @@ if(isset($comments) and $comments):?>
   </form>
 </div>
 <style>
-.commentList { background-color: #F2FAFF; border:1px solid #C0DCF5; padding: 0; margin-bottom:20px; }
-.comment { border: 1px solid #C0DCF5; margin: 10px 5px 5px; padding: 5px;}
-.box-title { background: #E0E0E0; color: #03356E; margin:0;padding:0 0 0 8px; line-height:34px; height:34px; font-weight:bold; border: 0; }
+.commentList {border:1px solid #DDDDDD; padding: 0; margin-bottom:20px; }
+.comment { border: 1px solid #DDDDDD; margin: 10px 5px 5px; padding: 5px;}
+.box-title {margin:0;padding:0 0 0 8px; line-height:34px; height:34px; font-weight:bold; border: 0; }
 .page {margin-right:10px;padding:8px; font-size:13px;}
 </style>
 <script type='text/javascript'>
