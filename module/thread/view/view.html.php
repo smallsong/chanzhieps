@@ -28,10 +28,10 @@
           if($thread->editor) printf($lang->thread->lblEdited, $thread->editor, $thread->editedDate);
           if($this->thread->hasManagePriv($this->app->user->account, $board->owners))
           {
-              echo $lang->thread->sticks[$thread->stick];
+              echo $lang->thread->sticks[$thread->stick] . ' ';
               foreach($lang->thread->sticks as $stick => $label)
               {
-                  echo html::a(inlink('stick', "thread=$thread->id&stick=$stick"), $label, 'hiddenwin');
+                  if($thread->stick != $stick) echo html::a(inlink('stick', "thread=$thread->id&stick=$stick"), $label, '', 'class="ajaxLink"');
               }
           }
           if(!$board->readonly)
@@ -100,7 +100,7 @@
    <div class='f-right'><?php $pager->show();?></div>
    <div style="clear: both"></div>
    <?php if($this->session->user->account != 'guest' and !$board->readonly):?>
-     <form method='post' target='hiddenwin' enctype='multipart/form-data' name='reply' id='reply' action='<?php echo inlink('reply', "thread=$thread->id");?>'>
+     <form method='post' enctype='multipart/form-data' id='reply' action='<?php echo inlink('reply', "thread=$thread->id");?>'>
      <table class='table-1 border'>
        <caption class='caption-bold'><?php echo $lang->reply->common;?></caption>
        <tr>
