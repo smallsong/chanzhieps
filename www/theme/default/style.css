@@ -206,9 +206,6 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .tree .active {color:blue; font-weight:bold}
 
 /* Other items.*/
-#commentbox table {border:none}
-.comment {margin:10px 5px 5px 5px; padding:5px; border:1px solid #c0dcf5; background-color: #f2faff;} 
-.comment strong {color:#03356e;}
 
 /*-----------------------BOOTSTRAP CUSTOMIZE----------------------------*/
 .table{margin-bottom:10px}

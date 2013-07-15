@@ -4,6 +4,7 @@ if(isset($comments) and $comments):?>
 <div id="commentList" class='commentList radius-top'> 
   <div class="box-title"><?php echo $lang->comment->list;?></div>
   <div class='box-content'>
+    <a name="first"></a>
     <?php foreach($comments as $number => $comment) :?>
       <div id='<?php echo $comment->id?>'  class='comment'>
       <strong>#<?php echo ($number + 1)?> <?php echo $comment->author;?></strong> at <?php echo $comment->date;?><br />
@@ -40,7 +41,6 @@ if(isset($comments) and $comments):?>
           echo html::textarea('content', '', "rows=5 class='area-1'");
           echo html::hidden('objectType', $objectType);
           echo html::hidden('objectID', $objectID);
-          echo html::a('', '', '', 'name="comment"');
           ?>
         </td>
       </tr>
@@ -73,7 +73,7 @@ $(document).ready(function()
         {
             bootbox.alert(data.message, function()
             {
-                    $('#commentForm').parent().parent().load(v.thisUri);
+                    $('#commentForm').parent().parent().load(v.thisUri,location.href="#first");
             });   
         }
         else

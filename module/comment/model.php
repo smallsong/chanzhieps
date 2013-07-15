@@ -89,8 +89,6 @@ class commentModel extends model
             ->add('ip', $this->server->REMOTE_ADDR)
             ->remove('verifyCode')
             ->get();
-        // Stop garbage comment.
-        if($this->isGarbage($_POST['content'])) return false;
         $this->dao->insert(TABLE_COMMENT)
             ->data($comment, false)
             ->autoCheck()
