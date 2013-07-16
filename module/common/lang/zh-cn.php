@@ -108,6 +108,7 @@ $lang->site->menu = new stdclass();
 
 $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
+$lang->site->menu->menu    = '菜单设置|site|menubrowse|';
 
 /* The menus of company module. */
 if(!isset($lang->company)) $lang->company = new stdclass();
