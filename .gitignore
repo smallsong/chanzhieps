@@ -1,0 +1,15 @@
+
+# /config/
+/config/my.php
+
+# /tmp/
+/tmp/*
+
+# /tmp/log/
+/tmp/log/*
+
+# /tmp/model/
+/tmp/model/*
+
+# /www/data/
+/www/data/upload
