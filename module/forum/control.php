@@ -18,7 +18,7 @@ class forum extends control
      */
     public function index()
     {
-        $this->view->header->title = $this->lang->forum->common;
+        $this->view->title = $this->lang->forum->common;
         //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.index');
         $this->view->boards        = $this->forum->getBoards();
 
@@ -46,11 +46,11 @@ class forum extends control
         $this->view->pager         = $pager;
         $this->view->board         = $this->loadModel('tree')->getById($boardID);
         //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.board');
-        $this->view->header->title = $this->view->board->name;
+        $this->view->title = $this->view->board->name;
         if($this->view->board)
         {
-            $this->view->header->keywords = trim($this->view->board->keyword . ' ' . $this->config->site->keywords);
-            if($this->view->board->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->board->desc));
+            $this->view->keywords = trim($this->view->board->keyword . ' ' . $this->config->site->keywords);
+            if($this->view->board->desc) $this->view->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->board->desc));
         }
 
         $this->display();
@@ -79,7 +79,7 @@ class forum extends control
         $this->view->threads       = $threads;
         $this->view->pager         = $pager;
         $this->view->board         = $this->loadModel('tree')->getById($boardID);
-        $this->view->header->title = $this->view->board ? $this->view->board->name : '';
+        $this->view->title = $this->view->board ? $this->view->board->name : '';
 
         $this->display();
     }

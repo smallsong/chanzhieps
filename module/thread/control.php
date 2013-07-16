@@ -23,10 +23,10 @@ class thread extends control
         $boards  = $this->loadModel('tree')->getAllChildID($boardID, 'forum');
         $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
 
-        $this->view->threads       = $threads;
-        $this->view->board         = $this->loadModel('tree')->getById($boardID);
-        $this->view->pager         = $pager;
-        $this->view->header->title = $this->view->board ? $this->view->board->name : '';
+        $this->view->threads = $threads;
+        $this->view->board   = $this->loadModel('tree')->getById($boardID);
+        $this->view->pager   = $pager;
+        $this->view->title   = $this->lang->thread->browse;
         $this->display();
     }
     /** 
@@ -108,7 +108,7 @@ class thread extends control
         }
         $this->view->thread = $this->thread->getById($threadID);
         $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->header->title = $this->view->thread->title . '|' . $this->view->board->name;
+        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->display();
     }
 
@@ -140,7 +140,7 @@ class thread extends control
         $this->view->reply  = $reply;
         $this->view->thread = $this->thread->getByID($this->view->reply->thread);
         $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->header->title = $this->view->thread->title . '|' . $this->view->board->name;
+        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->display();
     }
 
@@ -164,7 +164,7 @@ class thread extends control
         $this->view->users  = $this->loadModel('user')->getBasicInfo($this->thread->extractUsers($this->view->thread));
         $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
         $this->view->layouts= $this->loadModel('block')->getLayouts('thread.view');
-        $this->view->header->title = $this->view->thread->title . '|' . $this->view->board->name;
+        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->dao->update(TABLE_THREAD)->set('views = views + 1')->where('id')->eq($threadID)->exec();
         $this->display();
     }
