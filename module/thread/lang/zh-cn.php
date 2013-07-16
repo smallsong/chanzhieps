@@ -10,6 +10,8 @@
  */
 $lang->thread->common    = '主题';
 
+$lang->thread->browse     = '主题列表';
+$lang->thread->id         = '编号';
 $lang->thread->title      = '标题';
 $lang->thread->author     = '作者';
 $lang->thread->content    = '内容 ';
