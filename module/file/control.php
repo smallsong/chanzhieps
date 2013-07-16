@@ -5,7 +5,7 @@
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     file
- * @version     $Id$
+ * @version     $Id: control.php 1042 2010-08-19 09:02:39Z yuren_@126.com $
  * @link        http://www.xirang.biz
  */
 class file extends control
@@ -109,6 +109,7 @@ class file extends control
      */
     public function upload($objectType, $objectID)
     {
+        $this->send(array('result' => 'success'));
         $files = $this->loadModel('file')->getUpload('files');
         if($files) $this->file->saveUpload($objectType, $objectID);
         die(js::reload('parent'));
