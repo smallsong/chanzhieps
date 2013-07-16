@@ -290,6 +290,7 @@ class commonModel extends model
         $string  = '<p class="navbar-text pull-right">';
         $string .= sprintf($lang->welcome, $app->user->account);
         $string .= html::a($this->createLink('user','logout'), $lang->logout, '', 'class="navbar-link"');
+        $string .= html::a(getWebroot(), '<i class="icon-home icon-white"></i>'.$lang->frontHome, '_blank', 'class="navbar-link"');
         $string .= '</p>';
 
         return $string;
@@ -304,7 +305,7 @@ class commonModel extends model
     public static function printTopBar()
     {
         global $app, $dao;
-        $divider = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+        $divider = '&nbsp;|&nbsp;';
         if($app->session->user->account != 'guest')
         {
             printf($app->lang->welcome, $app->session->user->account);

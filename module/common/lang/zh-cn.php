@@ -17,6 +17,7 @@ $lang->arrow        = '>';
 $lang->welcome        = "欢迎您, <strong>%s</strong> ";
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
+$lang->frontHome      = '前台首页';
 $lang->dashboard      = '用户中心';
 $lang->register       = '免费注册';
 $lang->logout         = '退出';
