@@ -1,6 +1,7 @@
 $(document).ready(function()
 {
     $('.deletepre').click(function(){
+      var that = $(this);
       bootbox.confirm(v.lang.comment.confirmDeletePre,function(result)
       {
           if(result)
