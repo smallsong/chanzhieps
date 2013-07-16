@@ -20,7 +20,10 @@ class company extends control
     {
         $this->config->site->menuLinks = array();
         $this->app->site->menuLinks[] = $this->lang->aboutUs;
-        $this->view->company = $this->config->company;
+        $this->view->company  = $this->config->company;
+        $this->view->title    = $this->config->company->name;
+        $this->view->keywords = $this->config->company->name;
+
         $this->display();
     }
 
