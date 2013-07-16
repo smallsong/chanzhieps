@@ -27,6 +27,7 @@ class siteModel extends model
         if(!isset($this->config->site->copyrightStart)) $this->config->site->copyrightStart = date('Y')-1;
         if(!isset($this->config->site->icp))            $this->config->site->icp            = '';
         if(!isset($this->config->site->desc))           $this->config->site->desc           = '';
+        if(!isset($this->config->site->menu))           $this->config->site->menu           = json_encode(array());
 
         if(!isset($this->config->company))        $this->config->company              = new stdclass();
         if(!isset($this->config->company->name))  $this->config->company->name        = '';

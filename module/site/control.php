@@ -74,4 +74,27 @@ class site extends control
         $this->display();
     }
 
+   /**
+     * add menu.
+     * 
+     * @access public
+     * @return void
+     */
+    public function addMenu()
+    {
+        if(!empty($_POST))
+        {
+            $menu = array('menu' => json_encode($_POST));
+            $result = $this->loadModel('setting')->setItems('system.common.site', $menu);
+            if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
+            $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
+        }
+        $this->display();
+    }
+
+    public function menubrowse($orderBy = 'menuOrder_desc')
+    {   
+        $this->view->menus = $this->config->site->menu;
+        $this->display();
+    }   
 }

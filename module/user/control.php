@@ -145,7 +145,7 @@ class user extends control
 
         $this->setReferer();
 
-        $this->view->header->title     = $this->lang->user->deny;
+        $this->view->title             = $this->lang->user->deny;
         $this->view->module            = $module;
         $this->view->method            = $method;
         $this->view->denyPage          = $this->referer;

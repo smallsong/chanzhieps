@@ -31,7 +31,7 @@ class threadModel extends model
 
         if($thread->replies == true)
         {
-            $replyFiles      = $this->file->getByObject('reply', array_keys($thread->replies));
+            $replyFiles = $this->file->getByObject('reply', array_keys($thread->replies));
 
             foreach($replyFiles as $fileID => $replyFile) $thread->replies[$replyFile->objectID]->files[$fileID] = $replyFile;
 
@@ -427,22 +427,25 @@ class threadModel extends model
     {
         $this->dao->insert(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->exec();
 
-        $replyID = $this->dao->lastInsertID();
-        /* Upload file.*/
-        $this->uploadFile('reply', $replyID);
-        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, category')->fetch();
+        if(!dao::isError())
+        {
+            $replyID = $this->dao->lastInsertID();
+            /* Upload file.*/
+            $this->uploadFile('reply', $replyID);
+            $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, category')->fetch();
 
-        $thread->replies += 1;
-        $thread->lastRepliedDate = helper::now();
-        $thread->lastRepliedBy   = $this->app->user->account;
-        $thread->lastReplyID     = $replyID;
-        $this->dao->update(TABLE_THREAD)->data($thread)->where('id')->eq($threadID)->exec();
+            $thread->replies += 1;
+            $thread->lastRepliedDate = helper::now();
+            $thread->lastRepliedBy   = $this->app->user->account;
+            $thread->lastReplyID     = $replyID;
+            $this->dao->update(TABLE_THREAD)->data($thread)->where('id')->eq($threadID)->exec();
 
-        $reply->threadID = $threadID;
-        $reply->replyID  = $replyID;
-        $this->loadModel('forum')->updateBoardStats($thread->category, 'reply', $reply);
+            $reply->threadID = $threadID;
+            $reply->replyID  = $replyID;
+            $this->loadModel('forum')->updateBoardStats($thread->category, 'reply', $reply);
+        }
 
-        return $replyID;
+        return;
     }
 
     private function uploadFile($objectType, $objectID)
