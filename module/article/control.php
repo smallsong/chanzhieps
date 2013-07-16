@@ -46,11 +46,11 @@ class article extends control
 
         if($category)
         {
-            $this->view->header->keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
-            if($category->desc) $this->view->header->desc = strip_tags($category->desc);
+            $this->view->keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
+            if($category->desc) $this->view->desc = strip_tags($category->desc);
         }
 
-        $this->view->header->title = $category->name;
+        $this->view->title = $category->name;
         $this->view->category      = $category;
         $this->view->articles      = $articles;
         $this->view->pager         = $pager;
@@ -84,6 +84,7 @@ class article extends control
         $allCategories = $this->loadModel('tree')->getAllChildID($categoryID, $tree);
         $articles = $allCategories ? $this->article->getList($allCategories, $orderBy, $pager) : array();
 
+        $this->view->title      = $tree;
         $this->view->articles   = $articles;
         $this->view->pager      = $pager;
         $this->view->category   = $this->tree->getById($categoryID);
@@ -189,9 +190,9 @@ class article extends control
             $this->view->articleTree      = $this->loadModel('tree')->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
             $this->view->category         = $this->tree->getById($article->category);
 
-            $this->view->header->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
-            $this->view->header->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->config->site->keywords);
-            $this->view->header->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
+            $this->view->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
+            $this->view->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->config->site->keywords);
+            $this->view->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
 
             $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
         }
