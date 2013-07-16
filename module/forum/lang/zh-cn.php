@@ -8,7 +8,7 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-$lang->forum->common      = '项目管理论坛 禅道论坛 项目管理软件论坛 项目管理经验交流';
+$lang->forum->common      = '论坛';
 $lang->forum->board       = '版块';
 $lang->forum->owners      = '版主';
 $lang->forum->threadCount = '主题数';
