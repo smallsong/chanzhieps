@@ -343,7 +343,7 @@ class threadModel extends model
      */
     public function hasEditPriv($user, $boardOwner, $author)
     {
-        if($this->app->user->admin == true or strpos($boardOwner, $user) !== false) return true;
+        if($this->app->user->admin == 'super' or strpos($boardOwner, $user) !== false) return true;
         return false;
     }
 
@@ -357,7 +357,7 @@ class threadModel extends model
      */
     public function hasManagePriv($user, $boardOwner)
     {
-        if($this->app->user->admin == true or strpos($boardOwner, $user) !== false) return true;
+        if($this->app->user->admin == 'super' or strpos($boardOwner, $user) !== false) return true;
         return false;
     }
 
@@ -461,7 +461,7 @@ class threadModel extends model
         foreach($files as $file)
         {
             echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title . '.' . $file->extension, '_blank', "style='text-decoration: underline'");
-            if($managePriv or $this->app->user->account == $file->addedBy) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&objectID=$objectID&objectType=$type"), 'Ｘ', 'hiddenwin', "title='{$this->lang->delete}'");
+            if($managePriv or $this->app->user->account == $file->addedBy) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&objectID=$objectID&objectType=$type"), 'Ｘ', '', "title='{$this->lang->delete}' class='delete'");
             echo ' ';
         }
     }
