@@ -109,6 +109,7 @@ class file extends control
      */
     public function upload($objectType, $objectID)
     {
+        $this->send(array('result' => 'success'));
         $files = $this->loadModel('file')->getUpload('files');
         if($files) $this->file->saveUpload($objectType, $objectID);
         die(js::reload('parent'));

@@ -1,4 +1,3 @@
-<?php include '../../common/view/header.admin.html.php'; ?>
 <table class='table table-bordered table-form'>
   <caption><?php echo $lang->file->browse;?></caption>
   <tr>
@@ -39,8 +38,7 @@
   </tr>
   <?php endforeach;?>
 </table>
-<form method='post' enctype='multipart/form-data' target='hiddenwin' 
-action='<?php echo inlink('upload', "objectType=$objectType&objectID=$objectID");?>'>
+<form id="fileForm" method='post' class="form-inline" enctype='multipart/form-data' action='<?php echo inlink('upload', "objectType=$objectType&objectID=$objectID");?>'>
 <table class='table table-bordered table-form'>
   <tr>
     <td><?php echo $lang->file->upload;?></td>
@@ -49,4 +47,12 @@ action='<?php echo inlink('upload', "objectType=$objectType&objectID=$objectID")
   <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
 </table>
 </form>
-<?php include '../../common/view/footer.admin.html.php'; ?>
+<script>
+$(document).ready(function()
+{   
+    $.ajaxForm('#fileForm', function(data)
+    {
+        alert('ok');
+    });
+});
+</script>
