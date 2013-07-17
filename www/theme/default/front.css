@@ -8,13 +8,14 @@ body {color:#5A5A5A; padding-bottom:60px; padding-top:0; background:url(./images
 
 
 /* header setting. */
+.masthead{height:190px; padding:20px 0 10px;}
 img.logo{max-height:95px; margin:0 0 10px 0; }
 
 .slogan {margin-top:15px; color:#827E7E;}
 .slogan h3 {margin:0; }
 
 /* main menu settings. */
-.navbar .navbar-inner {border:none; border-radius:0; box-shadow:none; padding:0; margin-top:7px; }
+.navbar .navbar-inner {border:none; border-radius:0; box-shadow:none; padding:0; margin-top:10px; }
 
 .navbar .nav {display:table; margin:0; width:100%; position:relative; z-index:2; background-repeat:repeat-x; }
 .navbar .nav li {display:table-cell; float:none; width:1%; height:75px; position:relative; }
