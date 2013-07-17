@@ -50,7 +50,6 @@ EOT;
         echo '<br />';
         if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, '', 'class="deletepre"');
         if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pass' confirminfo='{$lang->comment->confirmPassPre}'");
-;
         ?>
       </td>
     </tr>
