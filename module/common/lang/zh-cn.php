@@ -108,7 +108,7 @@ $lang->site->menu = new stdclass();
 
 $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
-$lang->site->menu->menu    = '菜单设置|site|menubrowse|';
+$lang->site->menu->menu    = '导航设置|menu|index|';
 
 /* The menus of company module. */
 if(!isset($lang->company)) $lang->company = new stdclass();
@@ -120,19 +120,19 @@ $lang->company->menu->contact  = '联系方式|company|setcontact|';
 
 /* The error messages. */
 $lang->error = new stdclass();
-$lang->error->length          = array("『%s』长度错误，应当为『%s』", "『%s』长度应当不超过『%s』，且不小于『%s』。");
-$lang->error->reg             = "『%s』不符合格式，应当为:『%s』。";
-$lang->error->unique          = "『%s』已经有『%s』这条记录了。";
-$lang->error->notempty        = "『%s』不能为空。";
-$lang->error->equal           = "『%s』必须为『%s』。";
-$lang->error->int             = array("『%s』应当是数字。", "『%s』最小值为%s",  "『%s』应当介于『%s-%s』之间。");
-$lang->error->float           = "『%s』应当是数字，可以是小数。";
-$lang->error->email           = "『%s』应当为合法的EMAIL。";
-$lang->error->date            = "『%s』应当为合法的日期。";
-$lang->error->account         = "『%s』应当为字母和数字的组合，至少三位";
-$lang->error->passwordsame    = "两次密码应当相等。";
-$lang->error->passwordrule    = "密码应该符合规则，长度至少为六位。";
-$lang->error->securityCode    = "请输入正确的验证码";
+$lang->error->length       = array("『%s』长度错误，应当为『%s』", "『%s』长度应当不超过『%s』，且不小于『%s』。");
+$lang->error->reg          = "『%s』不符合格式，应当为:『%s』。";
+$lang->error->unique       = "『%s』已经有『%s』这条记录了。";
+$lang->error->notempty     = "『%s』不能为空。";
+$lang->error->equal        = "『%s』必须为『%s』。";
+$lang->error->int          = array("『%s』应当是数字。", "『%s』最小值为%s",  "『%s』应当介于『%s-%s』之间。");
+$lang->error->float        = "『%s』应当是数字，可以是小数。";
+$lang->error->email        = "『%s』应当为合法的EMAIL。";
+$lang->error->date         = "『%s』应当为合法的日期。";
+$lang->error->account      = "『%s』应当为字母和数字的组合，至少三位";
+$lang->error->passwordsame = "两次密码应当相等。";
+$lang->error->passwordrule = "密码应该符合规则，长度至少为六位。";
+$lang->error->captcha      = "请输入正确的验证码";
 
 /* The pager items. */
 $lang->pager = new stdclass();

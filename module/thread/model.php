@@ -46,7 +46,7 @@ class threadModel extends model
     /**
      * Get threads list.
      * 
-     * @param string $category        the category
+     * @param int    $category      the category
      * @param string $orderBy       the order by 
      * @param string $pager         the pager object
      * @access public

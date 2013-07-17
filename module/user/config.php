@@ -1,5 +1,4 @@
 <?php
-$config->user = new stdclass();
 $config->user->default = new stdclass();
 $config->user->register = new stdclass();
 $config->user->edit     = new stdclass();

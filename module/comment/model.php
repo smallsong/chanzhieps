@@ -238,8 +238,7 @@ class commentModel extends model
        if($this->post->author  == false) $errors['author'] = sprintf($this->lang->error->notempty, $this->lang->comment->author);
        if($this->post->content == false) $errors['content'] = sprintf($this->lang->error->notempty, $this->lang->comment->content);
        if($this->post->email   != '' && !validater::checkEmail($this->post->email)) $errors['email'] = sprintf($this->lang->error->email, $this->lang->comment->email);
-
-       if($this->post->captcha !== false && $this->post->captcha != $this->session->captcha) $errors['captcha'] = $this->lang->error->securityCode;
+       if($this->post->captcha !== false && $this->post->captcha != $this->session->captcha) $errors['captcha'] = $this->lang->error->captcha;
 
        return $errors;
     }
