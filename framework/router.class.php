@@ -1391,6 +1391,8 @@ class router
      */
     public function loadConfig($moduleName, $exitIfNone = true)
     {
+        global $config;
+        if(!isset($config->$moduleName) or !is_object($config->$moduleName)) $config->$moduleName = new stdClass();
         $extConfigFiles = array();
 
         /* Set the main config file and extension config file. */
@@ -1416,7 +1418,6 @@ class router
             $configFiles = array_merge(array($mainConfigFile), $extConfigFiles);
         }
         
-        global $config;
         if(!is_object($config)) $config = new config();
         static $loadedConfigs = array();
         foreach($configFiles as $configFile)
@@ -1426,7 +1427,6 @@ class router
             $loadedConfigs[] = $configFile;
         }
 
-        $this->config = $config;
         if($moduleName == 'common')
         {
             $this->setSiteCode();
@@ -1456,6 +1456,7 @@ class router
             }
         }
 
+        $this->config = $config; //set app->config here.
         return $config;
     }
 

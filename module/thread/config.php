@@ -1,5 +1,4 @@
 <?php
-$config->thread = new stdClass();
 $config->thread->newDays      = 3;
 $config->thread->maxImgSize   = 750;
 $config->thread->editor = new stdClass();
