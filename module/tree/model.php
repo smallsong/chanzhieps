@@ -422,43 +422,12 @@ class treeModel extends model
      */
     public function update($categoryID)
     {
-        if($this->post->tree == 'forum')
-        {
-            $parents     = $this->post->parents;
-            $sites       = $this->post->sites;
-            $category    = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->remove('tree, parents, sites')->get();
-            $oldCategory = $this->dao->findById((int)$categoryID)->from(TABLE_CATEGORY)->fetch('');
+        $category = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->get();
+        $parent   = $this->getById($this->post->parent);
+        $category->grade = $parent ? $parent->grade + 1 : 1;
 
-            foreach($parents as $siteID => $parentID)
-            {
-                $parent = $this->dao->findById((int)$parentID)->from(TABLE_CATEGORY)->fetch('', false);
-                $category->id             = $categoryID;
-                $category->parent         = $parent ? $parent->id : 0;
-                $category->site           = $sites[$siteID];
-                $category->grade          = $parent ? $parent->grade + 1 : 1;
-                $category->tree           = $this->post->tree;
-                $category->order          = $oldCategory->order;
-                $category->threads        = $oldCategory->threads;
-                $category->posts          = $oldCategory->posts;
-                $category->lastPostedBy   = $oldCategory->lastPostedBy; 
-                $category->lastPostedDate = $oldCategory->lastPostedDate; 
-                $category->lastPostID     = $oldCategory->lastPostID;
-                $category->lastReplyID    = $oldCategory->lastReplyID;
-
-                $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->andWhere('site')->eq($category->site)->exec();
-                if($parentID != '') $this->dao->insert(TABLE_CATEGORY)->data($category)->exec();
-                $this->fixCategoryPath($category->tree);
-            }
-        }
-        else
-        {
-            $category = fixer::input('post')->setDefault('readonly', 0)->specialChars('name')->get();
-            $parent   = $this->getById($this->post->parent);
-            $category->grade = $parent ? $parent->grade + 1 : 1;
-
-            $this->dao->update(TABLE_CATEGORY)->data($category)->autoCheck()->check('name', 'notempty')->where('id')->eq($categoryID)->exec();
-            $this->fixCategoryPath($category->tree);
-        }
+        $this->dao->update(TABLE_CATEGORY)->data($category)->autoCheck()->check('name', 'notempty')->where('id')->eq($categoryID)->exec();
+        $this->fixCategoryPath($category->tree);
 
         $childs = $this->getAllChildId($categoryID);
         $this->dao->update(TABLE_CATEGORY)->set('grade = grade + 1')->where('id')->in($childs)->andWhere('id')->ne($categoryID)->exec();
