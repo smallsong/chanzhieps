@@ -48,6 +48,7 @@ $config->front->groups->user['thread'][]   = 'post';
 $config->front->groups->user['thread'][]   = 'stick';
 $config->front->groups->user['thread'][]   = 'deletethread';
 $config->front->groups->user['thread'][]   = 'deletereply';
+$config->front->groups->user['thread'][]   = 'deletefile';
 
 $config->front->groups->user['user'][]     = 'control';
 $config->front->groups->user['user'][]     = 'profile';
