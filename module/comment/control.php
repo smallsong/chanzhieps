@@ -44,7 +44,7 @@ class comment extends control
             $errors = $this->comment->getValidateErrors();
             if(!empty($errors)) $this->send(array('result' => 'fail', 'message' => $errors));
 
-            if(!isset($_POST['verifyCode']) && $this->comment->isGarbage($_POST['content'])) $this->send(array('result' => 'success', 'message' => array('notice' => $this->lang->securityCode)) );
+            if(!isset($_POST['captcha']) && $this->comment->isGarbage($_POST['content'])) $this->send(array('result' => 'success', 'message' => array('notice' => $this->lang->captcha)) );
 
             $commentID = $this->comment->post();
             if(!$commentID) $this->send( array('result' => 'fail', 'message' => dao::getError() ) );
@@ -53,8 +53,6 @@ class comment extends control
             $this->send( array('result' => 'success', 'message' => $this->lang->comment->thanks) );
         }
     }
-
-    
 
     /**
      * Get the latest approvaled comments.
@@ -76,24 +74,11 @@ class comment extends control
         $this->display();
     }
 
-    /**
-     * Delete check garbage comment.
-     * 
-     * @access public
-     * @return void
-
-     */
-    public function isGarbage()
-    {
-        $content = $_POST['content'];
-        if($this->comment->isGarbage($content)) die('1');
-        die('0');
-    }
-
     /** 
-     * @param string $commentID 
+     * Delete comments.
+     *
+     * @param int    $commentID 
      * @param string $type          single|pre
-     * @param string $confirm 
      * @access public
      * @return void
      */
@@ -107,9 +92,8 @@ class comment extends control
     /**
      * Pass comments.
      * 
-     * @param string $commentID 
+     * @param int    $commentID 
      * @param string $type 
-     * @param string $confirm 
      * @access public
      * @return void
      */
@@ -165,13 +149,16 @@ class comment extends control
         echo $commentCont;
     }
 
-    /**
-     * ajax show verifyCode form.
+     /**
+     * Check a comemnt is garbage and show captcha if necessary.
+     * 
+     * @access public
+     * @return void
      *
      */    
-    public function checkCode()
+    public function captcha()
     {
-       echo  $this->comment->setVerify();
-            
+        if($this->comment->isGarbage($this->post->content)) echo $this->comment->captcha();
+        die();
     }
 }

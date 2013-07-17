@@ -148,7 +148,7 @@ class article extends control
         }
 
         $this->view->category = $this->loadModel('tree')->getById($this->view->article->category);
-        $this->view->tree     = $this->loadModel('tree')->getOptionMenu($this->view->article->tree);
+        $this->view->tree     = $this->tree->getOptionMenu('article');
         $this->display();
     }
 
@@ -177,25 +177,22 @@ class article extends control
     /**
      * View an article.
      * 
-     * @param string $articleID 
+     * @param int $articleID 
      * @access public
      * @return void
      */
     public function view($articleID)
     {
         $article = $this->article->getById($articleID);
-        if(RUN_MODE == 'front')
-        {
-            //$this->view->layouts          = $this->loadModel('block')->getLayouts('article.view');
-            $this->view->articleTree      = $this->loadModel('tree')->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
-            $this->view->category         = $this->tree->getById($article->category);
 
-            $this->view->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
-            $this->view->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->config->site->keywords);
-            $this->view->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
+        $this->view->articleTree = $this->loadModel('tree')->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
+        $this->view->category    = $this->tree->getById($article->category);
+        $this->view->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
+        $this->view->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->config->site->keywords);
+        $this->view->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
+        //$this->view->layouts          = $this->loadModel('block')->getLayouts('article.view');
 
-            $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
-        }
+        $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
         $this->view->article = $article;
 
         $this->display();
@@ -204,8 +201,7 @@ class article extends control
     /**
      * Delete a article
      * 
-     * @param string $articleID 
-     * @param string $confirm 
+     * @param int $articleID 
      * @access public
      * @return void
      */

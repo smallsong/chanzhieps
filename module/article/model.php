@@ -20,14 +20,13 @@ class articleModel extends model
      */
     public function getById($articleId, $imgMaxWidth = 0)
     {   
-        $article = $this->dao->select('*')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
-            ->on('t1.id = t2.article')
+        $article = $this->dao->select('*')
+            ->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')->on('t1.id = t2.article')
             ->where('t1.id')->eq($articleId)
-            ->fetch('');
-        if($article and empty($article->tree)) $article->tree = 'article';
+            ->fetch();
+
         $article->files   = $this->loadModel('file')->getByObject('article', $articleId);
-        $article->content = $this->file->setImgSize($article->content, $imgMaxWidth);
         foreach($article->files as $file) if($file->isImage and $file->public) $article->images[] = $file;
         return $article;
     }   
@@ -44,8 +43,7 @@ class articleModel extends model
     public function getList($categories, $orderBy, $pager = null)
     {
         $articles = $this->dao->select('t1.*, t2.category')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
-            ->on('t1.id = t2.article')
+            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')->on('t1.id = t2.article')
             ->where('1 = 1')
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->groupBy('t2.article')
@@ -55,6 +53,7 @@ class articleModel extends model
             ->where('1 = 1')
             ->beginIF($categories)->andWhere('category')->in($categories)->fi()
             ->fetchGroup('article');
+
         foreach($articles as $articleID => &$article)
         {   
             $article->categories = $categories[$articleID];
@@ -107,9 +106,16 @@ class articleModel extends model
         /* Fetch files. */
         $files = $this->loadModel('file')->getByObject('article', array_keys($articles));
         foreach($files as $file) $articles[$file->objectID]->files[] = $file;
-
         return $articles;
     }
+    /**
+     * get latest articles 
+     *
+     * @param string $categories
+     * @param int $count
+     * @access public
+     * @return array
+     */
     public function getLatestArticle($categories, $count)
     {
         return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
@@ -118,22 +124,6 @@ class articleModel extends model
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->orderBy('addedDate_desc')->limit($count)
             ->fetchPairs('id', 'title');
-        
-    }
-
-    /**
-     * Get the categories in other sites for an article.
-     * 
-     * @param  string $articleID 
-     * @access public
-     * @return array
-     */
-    public function getOtherSiteCategories($articleID)
-    {
-        return $this->dao->select('site, category')->from(TABLE_ARTICLECATEGORY)
-            ->where('article')->eq($articleID)
-            ->andWhere('site')->ne($this->session->site->id)
-            ->fetchPairs('site', 'category');
     }
 
     /**
@@ -162,23 +152,14 @@ class articleModel extends model
      */
     public function create()
     {
-        $article = fixer::input('post')->remove('categories')->add('addedDate', helper::now())->get();
+        $article = fixer::input('post')
+            ->add('addedDate', helper::now())
+            ->remove('categories')
+            ->get();
 
         $this->dao->insert(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->article->create->requiredFields, 'notempty')->exec();
 
-        if(!dao::isError())
-        {
-            $articleID = $this->dao->lastInsertID();
-            $this->dao->update(TABLE_ARTICLE)->set('`order`')->eq($articleID)->where('id')->eq($articleID)->exec();    // set the order field.
-            foreach($this->post->categories as $siteID => $categoryID)
-            {
-                $data = new stdClass();
-                if(!$categoryID) continue;
-                $data->article = $articleID;
-                $data->category  = $categoryID;
-                $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data)->exec();
-            }
-        }
+        if(!dao::isError()) $this->saveCategories($this->dao->lastInsertId());
         return;
     }
 
@@ -193,26 +174,33 @@ class articleModel extends model
     {
         $article = fixer::input('post')->remove('category')->get();
         $this->dao->update(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->article->create->requiredFields, 'notempty')->where('id')->eq($articleID)->exec();
-        if(!dao::isError())
-        {
-            $categoryID = $this->post->category;
-            {
-                $this->dao->delete()->from(TABLE_ARTICLECATEGORY)
-                    ->where('article')->eq($articleID)
-                    ->exec();
-
-                if($categoryID)
-                {
-                    $data = new stdClass();
-                    $data->category  = $categoryID;
-                    $data->article = $articleID;
-                    $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data)->exec();
-                }
-            }
-        }
+        if(!dao::isError()) $this->saveCategories($articleID);
         return;
     }
+        
+    /**
+     * save article categories.
+     *
+     * @param int $articleID
+     *
+     * @access private
+     * @return bool
+     */
+    public function saveCategories($articleID)
+    {
+       if(!$articleID) return;
+       $this->dao->delete()->from(TABLE_ARTICLECATEGORY)->where('article')->eq($articleID)->exec();
 
+       $data = new stdClass();
+       $data->article = $articleID;
+
+       foreach($this->post->categories as $category)
+       {
+           if(!$category) continue;
+           $data->category  = $category;
+           $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data)->exec();
+       }
+    }
  
     /**
      * Validate an article.
@@ -250,40 +238,5 @@ class articleModel extends model
         $this->dao->delete()->from(TABLE_ARTICLECATEGORY)->where('article')->eq($articleID)->exec();
         $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec();
         return !dao::isError();
-    }
-
-    /**
-     * Create digest for articles. 
-     * 
-     * @param string $articles 
-     * @access public
-     * @return void
-     */
-    public function createDigest($articles)
-    {
-        $this->loadModel('file');
-
-        foreach($articles as $article)
-        {
-            $digestLength = $this->config->article->digest;
-            /*  If the length of content litter than the setting, return directly. */
-            if(mb_strlen($article->content) <= $digestLength)
-            {
-                $article->digest = $this->file->setImgSize($article->content);
-            }
-            else
-            {
-                /* substr the digest from the content. */
-                if($article->content[$digestLength] != "\n")
-                {
-                    $newDigestLength = mb_strpos($article->content, "\n", $digestLength);
-                    if($newDigestLength) $digestLength = $newDigestLength;
-                }
-                $digest = mb_substr($article->content, 0, $digestLength);
-                $digest = tidy_repair_string($digest, array('show-body-only'=> true), 'UTF8');   // repair the unclosed tags.
-                $digest = $this->file->setImgSize($digest);
-                $article->digest = trim($digest);
-            }
-        }
     }
 }

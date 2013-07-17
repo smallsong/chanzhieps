@@ -87,7 +87,7 @@ class commentModel extends model
             ->specialChars('content')
             ->add('date', helper::now())
             ->add('ip', $this->server->REMOTE_ADDR)
-            ->remove('verifyCode')
+            ->remove('captcha')
             ->get();
         $this->dao->insert(TABLE_COMMENT)
             ->data($comment, false)
@@ -209,27 +209,27 @@ class commentModel extends model
     }
 
     /**
-     * Set verify code.
+     * create captcha.
      * 
      * @access public
      * @return void
      */
-    public function setVerify()
+    public function captcha()
     {
-        $numbers   = $this->lang->securityCode->numbers;
-        $actions   = $this->lang->securityCode->actions;
+        $numberLang   = $this->lang->captcha->numbers;
+        $actionLang   = $this->lang->captcha->actions;
         $action    = mt_rand(0, 2);
-        $actionKey = array_keys($actions);
+        $actionKey = array_keys($actionLang);
         $randMax   = 10;
         $before    = mt_rand(0, $randMax);
         $after     = mt_rand(0, $randMax);
         $action    = $actionKey[$action];
-        $yzStr     = $before . $action . $after;
-        eval("\$result = $yzStr;");
-        $this->session->set('verifyCode', $result);
-        echo '<td>' . $this->lang->comment->securityCode . '</td>';
-        echo '<td> <span class="label label-important" style="line-height:20px;">' . $numbers[$before] . " $actions[$action] " . $numbers[$after] . "</span>&nbsp;&nbsp;" . $this->lang->securityCode->equal . "&nbsp;&nbsp;";
-        echo '<input type="text" name="verifyCode" id="verifyCode" class="w-20px" />' . $this->lang->securityCode->notice . '</td>';
+        $captcha   = $before . $action . $after;
+        eval("\$result = $captcha;");
+        $this->session->set('captcha', $result);
+        echo '<td>' . $this->lang->comment->captcha . '</td>';
+        echo '<td> <span class="label label-important" style="line-height:20px;">' . $numberLang[$before] . " $actionLang[$action] " . $numberLang[$after] . "</span>&nbsp;&nbsp;" . $this->lang->captcha->equal . "&nbsp;&nbsp;";
+        echo '<input type="text" name="captcha" id="captcha" class="w-20px" />' . $this->lang->captcha->notice . '</td>';
     }
 
     public function getValidateErrors()
@@ -238,10 +238,8 @@ class commentModel extends model
        if($this->post->author  == false) $errors['author'] = sprintf($this->lang->error->notempty, $this->lang->comment->author);
        if($this->post->content == false) $errors['content'] = sprintf($this->lang->error->notempty, $this->lang->comment->content);
        if($this->post->email   != '' && !validater::checkEmail($this->post->email)) $errors['email'] = sprintf($this->lang->error->email, $this->lang->comment->email);
-
-       if($this->post->verifyCode !== false && $this->post->verifyCode != $this->session->verifyCode) $errors['verifyCode'] = $this->lang->error->securityCode;
+       if($this->post->captcha !== false && $this->post->captcha != $this->session->captcha) $errors['captcha'] = $this->lang->error->captcha;
 
        return $errors;
-
     }
 }

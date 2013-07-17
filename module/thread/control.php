@@ -180,7 +180,6 @@ class thread extends control
         $owners = $this->thread->getBoardOwners($threadID);
         if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) $this->send(array('result' => 'fail'));
 
-
         $category = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('category')->fetch('category', false);
         $result   = $this->thread->deleteThread($threadID);
         
@@ -215,7 +214,6 @@ class thread extends control
             die(js::reload('parent'));
         }
     }
-
 
     /**
      * Delete a reply 
@@ -257,34 +255,14 @@ class thread extends control
     }
 
     /**
-     * Convert ubb code to html.
-     * 
-     * @access public
-     * @return void
+     * delete a file from object.
+     *
+     * @param int    $fileID
+     * @param int    $objectID
+     * @param string $objectType
+     *
      */
-    public function convertUBB()
-    {
-        $threads = $this->dao->select('id, content')->from(TABLE_THREAD)->fetchPairs();
-        $replies = $this->dao->select('id, content')->from(TABLE_REPLY)->fetchPairs();
-        echo "converting thread ...";
-        foreach($threads as $threadID => $threadContent)
-        {
-            echo $threadID . " ";
-            $threadContent = html::ubb2html($threadContent);
-            $threadContent = str_replace(array('[p]', '[/p]'), array('<p>', '</p>'), $threadContent);
-            $this->dao->update(TABLE_THREAD)->set('content')->eq($threadContent)->where('id')->eq($threadID)->exec();
-        }
-        echo "<br />converting reply ...";
-        foreach($replies as $replyID => $replyContent)
-        {
-            echo $replyID . " ";
-            $replyContent = html::ubb2html($replyContent);
-            $replyContent = str_replace(array('[p]', '[/p]'), array('<p>', '</p>'), $replyContent);
-            $this->dao->update(TABLE_REPLY)->set('content')->eq($replyContent)->where('id')->eq($replyID)->exec();
-        }
-    }
-
-    public function deleteFile($fileID, $objectID, $objectType, $confirm = 'no')
+    public function deleteFile($fileID, $objectID, $objectType)
     {
         $table  = $objectType == 'thread' ? TABLE_THREAD : TABLE_REPLY;
         $object = $this->dao->findByID($objectID)->from($table)->fetch();

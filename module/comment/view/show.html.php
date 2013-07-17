@@ -60,9 +60,9 @@ $(document).ready(function()
 {
     $('#content').change(function()
     {
-        $.post(createLink('comment', 'isGarbage'), {content:$(this).val()}, function(data)
+        $.post(createLink('comment', 'captcha'), {content:$(this).val()}, function(data)
         {
-           if(data == 1) $('#checkCode').load(createLink('comment', 'checkCode')).fadeIn();
+            $('#checkCode').html(data).fadeIn();
         });
 
     });

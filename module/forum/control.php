@@ -18,9 +18,9 @@ class forum extends control
      */
     public function index()
     {
-        $this->view->title = $this->lang->forum->common;
+        $this->view->title  = $this->lang->forum->common;
+        $this->view->boards = $this->forum->getBoards();
         //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.index');
-        $this->view->boards        = $this->forum->getBoards();
 
         $this->display();
     }
