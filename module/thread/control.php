@@ -76,11 +76,10 @@ class thread extends control
         if($_POST)
         {
             $replyID    = $this->thread->reply($threadID);
-            $thread     = $this->thread->getByID($threadID);
-            $this->thread->setCookie($replyID);
-
             if(!dao::isError()) $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            $thread     = $this->thread->getById($threadID);
+            $this->thread->setCookie($replyID);
         }
     }
 
@@ -291,15 +290,7 @@ class thread extends control
         $object = $this->dao->findByID($objectID)->from($table)->fetch();
         if($this->session->user->account != $object->author) exit;
 
-        if($confirm == 'no')
-        {
-            echo js::confirm($this->lang->thread->confirmDeleteFile, inlink('deleteFile', "fileID=$fileID&objectID=$objectID&objectType=$objectType&confirm=yes"));
-            exit;
-        }
-        else
-        {
-            $this->loadModel('file')->delete($fileID);
-            die(js::locate($this->createLink('thread', "edit$objectType", "threadID=$objectID"), 'parent'));
-        }
+        if($this->loadModel('file')->delete($fileID)) $this->send(array('result'=>'success'));
+        $this->send(array('result'=>'fail', 'message'=> dao::getError()));
     }
 }
