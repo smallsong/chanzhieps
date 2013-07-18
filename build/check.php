@@ -6,53 +6,14 @@
 class control {}
 
 /* set module root path and included the resource of group module. */
-$moduleRoot = '../../module/';
+$moduleRoot = '../module/';
 include $moduleRoot . '/group/lang/resource.php';
 foreach(glob($moduleRoot . '/group/ext/lang/zh-cn/*.php') as $resourceFile)
 {
     include $resourceFile;
 }
 
-$whiteList[] = 'api-getsessionid';
-$whiteList[] = 'admin-setflow';
-$whiteList[] = 'admin-cleardata';
-$whiteList[] = 'bug-buildtemplates';
-$whiteList[] = 'bug-sendmail';
-$whiteList[] = 'board-managechild';
-$whiteList[] = 'company-create';
-$whiteList[] = 'company-delete';
-$whiteList[] = 'file-buildform';
-$whiteList[] = 'file-printfiles';
-$whiteList[] = 'file-export2csv';
-$whiteList[] = 'file-export2xml';
-$whiteList[] = 'file-export2html';
-$whiteList[] = 'file-export2excel';
-$whiteList[] = 'file-export2word';
-$whiteList[] = 'file-senddownheader';
-$whiteList[] = 'help-field';
-$whiteList[] = 'index-testext';
-$whiteList[] = 'productplan-commonaction';
-$whiteList[] = 'project-managechilds';
-$whiteList[] = 'project-tips';
-$whiteList[] = 'project-commonaction';
-$whiteList[] = 'project-sendmail';
-$whiteList[] = 'release-commonaction';
-$whiteList[] = 'task-commonaction';
-$whiteList[] = 'task-sendmail';
-$whiteList[] = 'testtask-sendmail';
 $whiteList[] = 'user-login';
-$whiteList[] = 'user-deny';
-$whiteList[] = 'user-logout';
-$whiteList[] = 'user-setreferer';
-$whiteList[] = 'svn-run';
-$whiteList[] = 'admin-ignore';
-$whiteList[] = 'admin-register';
-$whiteList[] = 'admin-win2unix';
-$whiteList[] = 'admin-bind';
-$whiteList[] = 'story-commonaction';
-$whiteList[] = 'story-sendmail';
-$whiteList[] = 'webapp-ajaxaddview';
-$whiteList[] = 'report-remind';
 
 /* checking actions of every module. */
 echo '-------------action checking-----------------' . "\n";
@@ -165,18 +126,4 @@ foreach(glob($moduleRoot . '*') as $modulePath)
     if(file_exists($cnLangFile)) include $cnLangFile;
     if(file_exists($enLangFile)) include $enLangFile;
     if(file_exists($configFile)) include $configFile;
-}
-
-echo '-------------demo data checking. -----------------' . "\n";
-$demoSQL = file("../../db/demo.sql");
-foreach($demoSQL as $line => $sql)
-{
-    if(strpos($sql, 'INSERT') === false) continue;
-
-    if(strpos($sql, $config->db->prefix . 'config')  !== false or
-       strpos($sql, $config->db->prefix . 'company') !== false or
-       strpos($sql, $config->db->prefix . 'group')   !== false) 
-    {
-        die('line ' . ($line + 1) . " has error\n");
-    }
 }
