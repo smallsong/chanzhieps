@@ -1473,11 +1473,8 @@ class router
 
         global $lang;
         if(!is_object($lang)) $lang = new language();
-        $commonModules = array('admin','block','common', 'forum', 'index','mail','misc', 'search', 'thread', 'user', 'article', 'comment', 'file', 'help', 'install', 'message', 'rss', 'site', 'tree', 'js');
-        foreach($commonModules as $module)
-        {
-            if(!isset($lang->$module)) $lang->$module = new stdclass();
-        }
+        if(!isset($lang->$moduleName)) $lang->$moduleName = new stdclass();
+
         static $loadedLangs = array();
         foreach($langFiles as $langFile)
         {
