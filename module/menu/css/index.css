@@ -1,0 +1,5 @@
+.menuList li { list-style:none; border: 1px dotted #DDDDDD; padding:8px; padding-left:5px; border-right:none; border-top:none; }
+.grade2{margin-left:30px;}
+.grade2 li:last-child{border-bottom:none;}
+.grade3{margin-left:60px;}
+.grade3 li:last-child{border-bottom:none;}

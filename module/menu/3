@@ -1,0 +1,47 @@
+<div id="menuGrade1" class="hide">
+  <li>
+    <select>
+      <option>导航类型</option>
+    </select>
+    <?php echo html::input('menu[title1][]', '首页', 'class="input-small"');?> 
+    <?php echo html::input('menu[url1][]', 'http://www.baidu.com', 'class="input"');?> 
+    <?php echo html::a('javascript:;', 'up') ?>
+    <?php echo html::a('javascript:;', 'down') ?>
+    <?php echo html::a('javascript:;', 'remove', '', 'class="delete"' ) ?>
+    <?php echo html::a('javascript:;', 'hide', '' ) ?>
+    <ul class="grade2">
+      <li> <i class="icon-plus plus2" style="margin-left:-5px;"></i> </li>
+    </ul>
+  </li>
+  <li> <i class="icon-plus plus1" style="margin-left:-5px;"></i> </li>
+</div>
+<div id="menuGrade2" class="hide">
+  <li>
+    <select>
+        <option>导航类型</option>
+    </select>
+    <?php echo html::input('menu2[title][]', '首页', 'class="input-small"');?> 
+    <?php echo html::hidden('menu2[parent][]', 'parentID', 'class="input-small"');?> 
+    <?php echo html::input('menu2[url][]', 'http://www.baidu.com', 'class="input"');?> 
+    <?php echo html::a('javascript:;', 'up') ?>
+    <?php echo html::a('javascript:;', 'down') ?>
+    <?php echo html::a('javascript:;', 'remove', '', 'class="delete"' ) ?>
+    <?php echo html::a('javascript:;', 'hide', '' ) ?>
+    <?php echo html::a('javascript:;', '添加', '', 'class="plus2"' ) ?>
+    <?php echo html::a('javascript:;', '添加子类', '', 'class="plus3"' ) ?>
+    </li>
+</div>
+<div id="menuGrade3" class="hide">
+    <select>
+        <option>导航类型</option>
+    </select>
+    <?php echo html::input('menu3[title]', '首页', 'class="input-small"');?> 
+    <?php echo html::hidden('menu3[parent]', 'parentID', 'class="input-small"');?> 
+    <?php echo html::input('menu3[url]', 'http://www.baidu.com', 'class="input"');?> 
+    <?php echo html::a('javascript:;', 'up') ?>
+    <?php echo html::a('javascript:;', 'down') ?>
+    <?php echo html::a('javascript:;', 'remove', '', 'class="delete"' ) ?>
+    <?php echo html::a('javascript:;', 'hide', '' ) ?>
+     <?php echo html::a('javascript:;', '添加', '', 'class="plus3"' ) ?>
+</div>
+
