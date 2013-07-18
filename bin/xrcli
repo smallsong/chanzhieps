@@ -32,19 +32,19 @@ if($config->requestType == 'PATH_INFO')
 {
     $path = pathinfo($request['path']);
 
-    /* url like http://www.xirang.biz/zentao/my-todo.html, PATH_INFO is 'my-todo.html'. */
+    /* url like http://www.xirang.biz/article-browse.html, PATH_INFO is 'article-browse.html'. */
     if(strpos($path['basename'], $config->requestFix))
     {
         $_SERVER['PATH_INFO'] = $path['basename'];
     }
     else 
     {
-        /* url like http://www.xirang.biz/zentao/my/, PATH_INFO is 'my'. */
+        /* url like http://www.xirang.biz/xirang/article/, PATH_INFO is 'article'. */
         if(is_dir('./module/' . $path['basename']))
         {
             $_SERVER['PATH_INFO'] = $path['basename'];
         }
-        /* url like http://www.xirang.biz/zentao/, PATH_INFO is '/'. */
+        /* url like http://www.xirang.biz/xirang/, PATH_INFO is '/'. */
         else
         {
             $_SERVER['PATH_INFO'] = '/';
