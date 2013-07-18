@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of misc of XiRangEPS.
+ * The control file of misc of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -42,7 +42,7 @@ class misc extends control
     {
         $comments = $this->loadModel('comment')->getList(1);
         $this->dao->update(TABLE_ARTICLE)->set('`type`')->eq('common')->exec(false);
-        $modules = $this->dao->select('id')->from(TABLE_MODULE)->where('tree')->in(array('zentaopmshelp', 'XiRangEPShelp'))->fetchpairs('id', 'id', false);
+        $modules = $this->dao->select('id')->from(TABLE_MODULE)->where('tree')->in(array('zentaopmshelp', 'xirangEPShelp'))->fetchpairs('id', 'id', false);
         $articles = $this->dao->select('article')->from(TABLE_ARTICLEMODULE)->where('module')->in($modules)->fetchPairs('article', 'article', false);
         $this->dao->update(TABLE_ARTICLE)->set('`type`')->eq('doc')->where('id')->in($articles)->exec(false);
 

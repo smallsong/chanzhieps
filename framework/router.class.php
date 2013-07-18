@@ -1603,7 +1603,7 @@ class config
 /**
  * The lang class.
  * 
- * @package XiRangEPS
+ * @package xirangEPS
  */
 class language 
 {
@@ -1643,7 +1643,7 @@ class language
 /**
  * The super object class.
  * 
- * @package XiRangEPS
+ * @package xirangEPS
  */
 class super
 {

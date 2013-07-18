@@ -712,7 +712,7 @@ EOT;
 /**
  * css class.
  *
- * @package XiRangEPS
+ * @package xirangEPS
  */
 class css
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * The install module English file of XiRangEPS.
+ * The install module English file of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -17,14 +17,14 @@ $lang->install->error   = 'Error ';
 $lang->install->start            = 'Start install';
 $lang->install->keepInstalling   = 'Keep install this version';
 $lang->install->seeLatestRelease = 'See the latest release.';
-$lang->install->welcome          = 'Welcome to use XiRangEPS.';
+$lang->install->welcome          = 'Welcome to use xirangEPS.';
 $lang->install->desc             = <<<EOT
-XiRangEPS is an content management software.
+xirangEPS is an content management software.
 
-XiRangEPS is developped by PHH and mysql under the XiRangEPS framework developped by the same team. Through the framework, XiRangEPS can be customed and extended very easily.
+xirangEPS is developped by PHH and mysql under the xirangEPS framework developped by the same team. Through the framework, xirangEPS can be customed and extended very easily.
 
-XiRangEPS is developped by <strong class='red'><a href='http://www.cnezsoft.com' target='_blank'>Nature EasySoft Network Tecnology Co.ltd, QingDao, China</a></strong>。
-The official website of XiRangEPS is <a href='http://www.xirang.biz' target='_blank'>http://www.xirang.biz</a>
+xirangEPS is developped by <strong class='red'><a href='http://www.cnezsoft.com' target='_blank'>Nature EasySoft Network Tecnology Co.ltd, QingDao, China</a></strong>。
+The official website of xirangEPS is <a href='http://www.xirang.biz' target='_blank'>http://www.xirang.biz</a>
 
 The version of current release is <strong class='red'>%s</strong>。
 EOT;
@@ -57,7 +57,7 @@ $lang->install->mkdir        = '<p>Should creat the directory %s。<br /> Under 
 $lang->install->chmod        = 'Should change the permission of "%s".<br />Under linux, can try<br />chmod o=rwx -R %s';
 
 $lang->install->settingDB    = 'Set database';
-$lang->install->webRoot      = 'XiRangEPS path';
+$lang->install->webRoot      = 'xirangEPS path';
 $lang->install->requestType  = 'URL type';
 $lang->install->requestTypes['GET']       = 'GET';
 $lang->install->requestTypes['PATH_INFO'] = 'PATH_INFO';

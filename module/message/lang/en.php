@@ -1,6 +1,6 @@
 <?php
 /**
- * The message module english file of XiRangEPS.
+ * The message module english file of xirangEPS.
  *
  * @copyright   Copyright 2009-2011 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Yidong Wang <yidong@cnezsoft.com>
