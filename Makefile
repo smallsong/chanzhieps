@@ -30,8 +30,6 @@ tgz:
 	mkdir -p xirangeps/build/tools && cp build/tools/minifyfront.php xirangeps/build/tools/
 	cd xirangeps/build/tools/ && php ./minifyfront.php
 	rm -fr xirangeps/build
-	# create the restart file for svn.
-	# touch xirangeps/module/svn/restart
 	# delee the unused files.
 	find xirangeps -name .svn |xargs rm -fr
 	find xirangeps -name tests |xargs rm -fr
@@ -51,11 +49,3 @@ build4linux:
 	# build xmapp.
 	cd ./build/linux/ && ./buildxmapp.sh $(xampp)
 	mv ./build/linux/lampp ./
-saas:	
-	mkdir backup
-	mkdir tmp/model
-	mkdir tmp/extension
-	mkdir www/data/upload -p
-	chmod 777 backup
-	chmod 777 -R tmp
-	chmod 777 -R www/data
