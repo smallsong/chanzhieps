@@ -11,9 +11,10 @@
 $lang->xirangEPS      = 'xirangEPS';
 $lang->poweredBy      = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
-$lang->colon        = '::';
-$lang->arrow        = '>'; 
+$lang->colon          = '::';
+$lang->arrow          = '>'; 
 
+$lang->home           = '首页';
 $lang->welcome        = "欢迎您, <strong>%s</strong> ";
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
@@ -26,28 +27,27 @@ $lang->account        = '帐号';
 $lang->password       = '密码';
 $lang->forgotPassword = '忘记密码?';
 
-$lang->currentPos   = '当前位置';
-$lang->categoryMenu = '分类导航';
-$lang->reset        = '重填';
-$lang->edit         = '编辑';
-$lang->copy         = '复制';
-$lang->hide         = '隐藏';
-$lang->delete       = '删除';
-$lang->close        = '关闭';
-$lang->save         = '保存';
-$lang->confirm      = '确认';
-$lang->preview      = '预览';
-$lang->goback       = '返回';
-$lang->search       = '搜索';
-$lang->more         = '更多';
-$lang->actions      = '操作';
-$lang->feature      = '未来';
-$lang->year         = '年';
-$lang->submitting   = '稍候...';
-$lang->saveSuccess  = '保存成功';
-$lang->setSuccess   = '设置成功';
-$lang->fail         = '失败';
-
+$lang->currentPos     = '当前位置';
+$lang->categoryMenu   = '分类导航';
+$lang->reset          = '重填';
+$lang->edit           = '编辑';
+$lang->copy           = '复制';
+$lang->hide           = '隐藏';
+$lang->delete         = '删除';
+$lang->close          = '关闭';
+$lang->save           = '保存';
+$lang->confirm        = '确认';
+$lang->preview        = '预览';
+$lang->goback         = '返回';
+$lang->search         = '搜索';
+$lang->more           = '更多';
+$lang->actions        = '操作';
+$lang->feature        = '未来';
+$lang->year           = '年';
+$lang->submitting     = '稍候...';
+$lang->saveSuccess    = '保存成功';
+$lang->setSuccess     = '设置成功';
+$lang->fail           = '失败';
 
 /* for javascript */
 $lang->js->confirmDelete = '确认删除?';
