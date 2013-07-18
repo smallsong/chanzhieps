@@ -1052,7 +1052,7 @@ class router
     {
         if($moduleName == '') $moduleName = $this->moduleName;
         $modulePath = $this->getModuleRoot() . strtolower(trim($moduleName)) . DS;
-        if(!file_exists($modulePath)) $modulePath = $this->getModuleRoot() . "extDS$this->siteCodeDS$moduleNameDS";
+        if(!file_exists($modulePath)) $modulePath = $this->getModuleRoot() . 'ext' . DS . $this->siteCode . DS . $moduleName . DS;
         return $modulePath;
     }
 
