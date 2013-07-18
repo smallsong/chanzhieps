@@ -164,12 +164,11 @@ class control
         $this->loadModel();
 
         /* Assign them to the view. */
-        $this->view         = new stdclass();
-        $this->view->header = new stdclass();
-        $this->assign('app',    $app);
-        $this->assign('lang',   $lang);
-        $this->assign('config', $config);
-        $this->assign('common', $common);
+        $this->view          = new stdclass();
+        $this->view->app     = $app;
+        $this->view->lang    = $lang;
+        $this->view->config  = $config;
+        $this->view->common  = $common;
         $this->view->session = $app->session;
 
         $this->setSuperVars();
