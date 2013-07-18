@@ -1,10 +1,10 @@
 <?php
 /**
- * The router file of XiRangEPS.
+ * The router file of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     XiRangEPS
+ * @package     xirangEPS
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
@@ -46,4 +46,4 @@ $common->checkPriv();
 $app->loadModule();
 
 /* Flush the buffer. */
-echo removeUTF8Bom(ob_get_clean());
+echo helper::removeUTF8Bom(ob_get_clean());

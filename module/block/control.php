@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of block module of XiRangEPS.
+ * The control file of block module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>

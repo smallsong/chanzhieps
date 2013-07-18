@@ -7,34 +7,28 @@ clean:
 	rm -fr xirangeps
 	rm -fr *.tar.gz
 	rm -fr *.zip
-	rm -fr api*
-	rm -fr build/linux/lampp
-	rm -fr lampp
 tgz:
 	mkdir xirangeps
-	cp -fr bin xirangeps/
-	cp -fr config xirangeps/ && rm -fr xirangeps/config/my.php
-	cp -fr db xirangeps/
-	#cp -fr doc xirangeps/ && rm -fr xirangeps/doc/phpdoc && rm -fr xirangeps/doc/doxygen
-	cp -fr framework xirangeps/
-	cp -fr lib xirangeps/
-	cp -fr module xirangeps/
-	cp -fr www xirangeps && rm -fr xirangeps/www/data/ && mkdir -p xirangeps/www/data/upload
-	cp -fr tmp xirangeps
-	rm -fr xirangeps/tmp/cache/* 
-	rm -fr xirangeps/tmp/extension/*
-	rm -fr xirangeps/tmp/log/*
-	rm -fr xirangeps/tmp/model/*
+	cp -frv bin xirangeps/
+	cp -frv config xirangeps/ && rm -fr xirangeps/config/my.php
+	cp -frv db xirangeps/
+	cp -frv framework xirangeps/
+	cp -frv lib xirangeps/
+	cp -frv module xirangeps/
+	cp -frv www xirangeps && rm -fr xirangeps/www/data/ && mkdir -p xirangeps/www/data/upload
+	cp -frv tmp xirangeps
+	rm -frv xirangeps/tmp/cache/* 
+	rm -frv xirangeps/tmp/extension/*
+	rm -frv xirangeps/tmp/log/*
+	rm -frv xirangeps/tmp/model/*
 	cp VERSION xirangeps/
 	# combine js and css files.
-	mkdir -p xirangeps/build/tools && cp build/tools/minifyfront.php xirangeps/build/tools/
-	cd xirangeps/build/tools/ && php ./minifyfront.php
-	rm -fr xirangeps/build
-	# create the restart file for svn.
-	# touch xirangeps/module/svn/restart
+	mkdir -pv xirangeps/build/ && cp build/minifyfront.php xirangeps/build/
+	cd xirangeps/build/ && php ./minifyfront.php
+	rm -frv xirangeps/build
 	# delee the unused files.
-	find xirangeps -name .svn |xargs rm -fr
-	find xirangeps -name tests |xargs rm -fr
+	find xirangeps -name .git* |xargs rm -frv
+	find xirangeps -name tests |xargs rm -frv
 	# change mode.
 	chmod 777 -R xirangeps/tmp/
 	chmod 777 -R xirangeps/www/data
@@ -51,11 +45,3 @@ build4linux:
 	# build xmapp.
 	cd ./build/linux/ && ./buildxmapp.sh $(xampp)
 	mv ./build/linux/lampp ./
-saas:	
-	mkdir backup
-	mkdir tmp/model
-	mkdir tmp/extension
-	mkdir www/data/upload -p
-	chmod 777 backup
-	chmod 777 -R tmp
-	chmod 777 -R www/data

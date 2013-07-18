@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of tree category of XiRangEPS.
+ * The control file of tree category of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -48,38 +48,14 @@ class tree extends control
             if(!empty($error)) $this->send(array('result' =>'fail', 'message'=>$error));
             $this->tree->update($categoryID);
 
-            if(!dao::isError()) $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave));
+            if(!dao::isError()) $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave, 'locate' => inlink('browse', 'tree='.$tree)));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 
-        if($tree == 'forum')
-        {
-            /* Get current site. */
-            $this->loadModel('site');
-            $site = $this->site->getById($this->app->site->id);
-
-            /* Get option menu, use site as index. */
-            $allOptionMenu = array();
-            $linkSites     = explode(',', $this->app->site->id . ',' . $site->linkSites);
-            foreach($linkSites as $siteID)
-            {
-                $optionMenu = $this->tree->getOptionMenu('forum', 0, $siteID);
-                if(count($optionMenu) == 1) continue;
-                foreach($optionMenu as $itemID => $item) if(strpos($item, '/', 1) !== false) unset($optionMenu[$itemID]);
-                $optionMenu = array('' => '') + $optionMenu;
-                $allOptionMenu[$siteID] = $optionMenu;
-            }
-
-            /* Assigns. */
-            $this->view->sites         = $this->site->getPairs();
-            $this->view->allOptionMenu = $allOptionMenu;
-            $this->view->categories       = $this->dao->select('*')->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->fetchAll('site', false);
-        }
-
-        $this->view->category     = $this->tree->getById($categoryID);
+        $this->view->category   = $this->tree->getById($categoryID);
         $this->view->optionMenu = $this->tree->getOptionMenu($this->view->category->tree);
         $this->view->tree       = $tree;
-        $this->view->categories        = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
+        $this->view->categories = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
 
         /* Remove self and childs from the $optionMenu. */
         $childs = $this->tree->getAllChildId($categoryID);

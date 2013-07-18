@@ -6,9 +6,9 @@ $config->alipay->signType  = 'MD5';
 $config->alipay->payType   = 1;
 $config->alipay->charset   = 'utf-8';
 
-$config->alipay->pid       = '2088302779984780';
-$config->alipay->key       = 'b8baofwu5kqy25f0vzj9m1vcljc2jqzc';
-$config->alipay->email     = 'chunsheng@cnezsoft.com';
+$config->alipay->pid       = '';
+$config->alipay->key       = '';
+$config->alipay->email     = '';
 $config->alipay->notifyURL = '';
 $config->alipay->returnURL = '';
 

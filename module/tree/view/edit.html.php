@@ -1,6 +1,6 @@
 <?php
 /**
- * The edit view of product category of XiRangEPS.
+ * The edit view of product category of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -12,29 +12,10 @@
 <form method='post' action="<?php echo inlink('edit', array('categoryID' => $_GET['category'], 'tree'=>$_GET['tree']));?>" id='editForm'>
     <table class='table table-bordered table-form'> 
       <caption><?php echo $lang->tree->edit;?></caption>
-      <?php if($tree == 'forum'):?>
-      <tr>
-        <th class='w-80px'><?php echo $lang->category->parent;?></th>
-        <td class='f-left' style='border:0px'>
-        <?php foreach($allOptionMenu as $siteID => $optionMenu)
-        {
-            if(!empty($optionMenu)) 
-            {
-                if(empty($sites[$siteID])) continue;
-                echo $sites[$siteID] . '：';
-                echo html::select("parents[$siteID]", $optionMenu, (isset($categorys[$siteID]) ? $categorys[$siteID]->parent : ''), "class='text-2'") . '<br />';
-                echo html::hidden("sites[$siteID]", $siteID);
-            }
-        }
-        ?>
-        </td>
-      </tr>  
-      <?php else:?>
       <tr>
         <th class='w-100px'><?php echo $lang->category->parent;?></th>
         <td><?php echo html::select('parent', $optionMenu, $category->parent, "class='text-1'");?></td>
       </tr>  
-      <?php endif;?>
       <tr>
         <th class=''><?php echo $lang->category->name;?></th>
         <td><?php echo html::input('name', $category->name, "class='text-1'");?></td>

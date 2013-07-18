@@ -4,7 +4,7 @@ $(document).ready(function()
       function(data)
       {
           bootbox.alert(data.message);
-          $('.span9').load(createLink('tree', 'managechild', 'tree=article&category='+v.categoryID));
+          $('.span9').load(createLink('tree', 'managechild', 'tree='+v.tree+'&category='+v.categoryID));
       }
       );
 });

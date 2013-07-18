@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of install module of XiRangEPS.
+ * The model file of install module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>

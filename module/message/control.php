@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of message of XiRangEPS.
+ * The control file of message of xirangEPS.
  *
  * @copyright   Copyright 2009-2011 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Yidong Wang <yidong@cnezsoft.com>

@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of misc module of XiRangEPS.
+ * The model file of misc module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @license     LGPL (http://www.gnu.org/licenses/lgpl.html)
