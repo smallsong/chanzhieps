@@ -1052,7 +1052,7 @@ class router
     {
         if($moduleName == '') $moduleName = $this->moduleName;
         $modulePath = $this->getModuleRoot() . strtolower(trim($moduleName)) . DS;
-        if(!file_exists($modulePath)) $modulePath = $this->getModuleRoot() . "extDS$this->siteCodeDS$moduleNameDS";
+        if(!file_exists($modulePath)) $modulePath = $this->getModuleRoot() . 'ext' . DS . $this->siteCode . DS . $moduleName . DS;
         return $modulePath;
     }
 
@@ -1473,11 +1473,8 @@ class router
 
         global $lang;
         if(!is_object($lang)) $lang = new language();
-        $commonModules = array('admin','block','common', 'forum', 'index','mail','misc', 'search', 'thread', 'user', 'article', 'comment', 'file', 'help', 'install', 'message', 'rss', 'site', 'tree', 'js');
-        foreach($commonModules as $module)
-        {
-            if(!isset($lang->$module)) $lang->$module = new stdclass();
-        }
+        if(!isset($lang->$moduleName)) $lang->$moduleName = new stdclass();
+
         static $loadedLangs = array();
         foreach($langFiles as $langFile)
         {
