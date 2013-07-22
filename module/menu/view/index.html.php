@@ -10,13 +10,13 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php include './menucode.html.php';?>
+<?php include './menucode.html.php'; ?>
 <form class="form-inline" id="menuForm" method="post">
 <ul class="menuList grade1">
 <?php 
 foreach($menus[1] as $menu)
 {
-    echo '<li>';
+    echo '<li class="grade1">';
     echo $this->menu->inputTags(1, $menu);
     if(isset($menus[2][$menu['g1key']]))
     {

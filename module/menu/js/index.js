@@ -48,13 +48,13 @@ $(document).ready(function()
             var container = $(this).parents('.grade2');
             if(0 == container.size())
             { 
-                if($(this).parents('.grade1').find('.grade2').size()==0)
+                if($(this).parents('li.grade1').find('.grade2').size()==0)
                 {
-                    $(this).parents('.grade1 li').append($('#menuGrade2').html());
+                    $(this).parents('li.grade1').append($('#menuGrade2').html());
                 }
                 else
                 {
-                    $(this).parents('.grade1').find('.grade2').append($('#menuGrade2 ul').html());
+                    $(this).parents('li.grade1').find('.grade2').append($('#menuGrade2 ul').html());
                 }
             }
             else
