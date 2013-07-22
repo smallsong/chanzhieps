@@ -428,7 +428,7 @@ class dao
         if($this->mode == 'magic')
         {
             if($this->fields == '') $this->fields = '*';
-            if($this->table == '')  $this->app->error('Must set the table name', __FILE__, __LINE__, $exit = true);
+            if($this->table == '')  $this->app->triggerError('Must set the table name', __FILE__, __LINE__, $exit = true);
             $sql = sprintf($this->sqlobj->get(), $this->fields, $this->table);
         }
 
@@ -492,7 +492,7 @@ class dao
         }
         catch (PDOException $e) 
         {
-            $this->app->error($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
+            $this->app->triggerError($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
         }
     }
 
@@ -561,7 +561,7 @@ class dao
         }
         catch (PDOException $e) 
         {
-            $this->app->error($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
+            $this->app->triggerError($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
         }
     }
 
@@ -757,7 +757,7 @@ class dao
             }
             catch (PDOException $e) 
             {
-                $this->app->error($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
+                $this->app->triggerError($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
             }
         }
         else
@@ -958,7 +958,7 @@ class dao
         }
         catch (PDOException $e) 
         {
-            $this->app->error($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
+            $this->app->triggerError($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
         }
 
         foreach($rawFields as $rawField)
