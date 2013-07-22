@@ -109,10 +109,9 @@ class file extends control
      */
     public function upload($objectType, $objectID)
     {
-        $this->send(array('result' => 'success'));
         $files = $this->loadModel('file')->getUpload('files');
         if($files) $this->file->saveUpload($objectType, $objectID);
-        die(js::reload('parent'));
+        $this->send(array('result' => 'success'));
     }
 
     /**
@@ -141,7 +140,7 @@ class file extends control
         }
         else
         {
-            die('File not found');
+            die(js::alert('File not found'));
         }
     }
 
@@ -155,7 +154,7 @@ class file extends control
     public function allow($fileID)
     {
         $this->dao->update(TABLE_FILE)->set('public')->eq(1)->where('id')->eq($fileID)->exec(false);
-        die(js::reload('parent'));
+        $this->send(array( 'result' => 'success', 'message' => $this->lang->setSuccess));
     }
 
     /**
@@ -168,7 +167,7 @@ class file extends control
     public function deny($fileID)
     {
         $this->dao->update(TABLE_FILE)->set('public')->eq(0)->where('id')->eq($fileID)->exec(false);
-        die(js::reload('parent'));
+        $this->send(array( 'result' => 'success', 'message' => $this->lang->setSuccess));
     }
 
     /**
@@ -229,5 +228,27 @@ class file extends control
         header("Pragma: no-cache");
         header("Expires: 0");
         die($content);
+    }
+
+
+    /**
+     * Delet a file
+     *
+     * @param int $fileID
+     * @return void
+     */
+    public function delete($fileID)
+    {
+        $this->dao->delete()->from(TABLE_FILE)
+            ->where('id')->eq($fileID)
+            ->exec();
+        if(!dao::isError())
+        {
+            $this->send(array('result' => 'success')); 
+        }
+        else
+        {
+            $this->send(array('result' => 'fail', 'message' => dao::getError())); 
+        }
     }
 }

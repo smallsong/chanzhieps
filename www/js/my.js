@@ -94,6 +94,12 @@ function setAdminLeftMenu()
     $('ul.leftmenu').find('a').first().addClass('radius-top');
 }
 
+
+function ajaxWinReload()
+{
+  $('#ajaxWin').load($('#ajaxWin').attr('rel'));
+}
+
 $(document).ready(function() 
 {
     setRequiredFields();
@@ -103,8 +109,9 @@ $(document).ready(function()
     setAdminLeftMenu();
 
     /* ajax delete. */
-    $('a.delete').click(function()
-    {
+    $(document).on('click', 'a.delete', 
+      function(element)
+      {
         if(confirm(v.lang.confirmDelete))
         {
             delUrl = $(this).attr('href');
@@ -113,7 +120,14 @@ $(document).ready(function()
             {
                 if(data.result=='success')
                 {
-                    location.reload();
+                    if($(element.target).is('#ajaxWin a.delete'))
+                    {
+                        ajaxWinReload();
+                    }
+                    else
+                    {
+                        location.reload();
+                    }
                 }
                 else
                 {
@@ -123,6 +137,7 @@ $(document).ready(function()
         }
         return false;
     });
+
 
     $('a.ajaxLink').click(function()
     {
@@ -140,7 +155,8 @@ $(document).ready(function()
         });
         return false;
     });
-
+    
+    /* ajax modal */
     if($('a[data-toggle=modal]').size())
     {
         var div = $('<div id="ajaxWin" name="ajaxWin" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >kjgbkjjkg</div>');
@@ -149,13 +165,14 @@ $(document).ready(function()
         {
             winWidth      = 580;
             winMarginLeft = 280;
-
+            url = $(this).attr('href');
             if($(this).attr('w'))
             {
                 winWidth  = $(this).attr('w'); 
                 winMarginLeft = parseInt($(this).attr('w')-580)/2 + 280;
             }
-            $('#ajaxWin').css('width',winWidth).css('margin-left', '-' + winMarginLeft + 'px').load($(this).attr('href'));
+            $('#ajaxWin').attr('rel', url).css('width',winWidth).css('margin-left', '-' + winMarginLeft + 'px').load(url); //set rel for ajaxWinReload & resize modal
         });
     }
+
 })

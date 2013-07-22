@@ -53,7 +53,7 @@ class fileModel extends model
             $file->middleURL = '';
             $file->smallURL  = '';
             $file->isImage   = false;
-            if(strpos('jpg, gif, png ', strtolower($file->extension)) !== false)
+            if(strpos('jpeg, jpg, gif, png ', strtolower($file->extension)) !== false)
             {
                 $file->middleURL = $this->webPath . str_replace('f_', 'm_', $file->pathname);
                 $file->smallURL  = $this->webPath . str_replace('f_', 's_', $file->pathname);
@@ -276,16 +276,4 @@ class fileModel extends model
         return !dao::isError();
     }
 
-    /**
-     * Insert the set image size code.
-     * 
-     * @param  string    $content 
-     * @param  int       $maxSize 
-     * @access public
-     * @return string
-     */
-    public function setImgSize($content, $maxSize = 0)
-    {
-        return preg_replace('/<img (.*)src=/Ui', "<img \${1}onload=\"setImageSize(this," . $maxSize . ' )" src=', $content);
-    }
 }
