@@ -3,13 +3,20 @@
  * The model file of article category of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
- * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @author      Xiying Guan
  * @package     xirangEPS
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
 class menuModel extends model
 {
+    /**
+     * create form input tags of backend.
+     *
+     * @param int $grade
+     * @param array $menu
+     *
+     */
     public function inputTags($grade = 1, $menu = array())
     {
         $childGrade = $grade+1;

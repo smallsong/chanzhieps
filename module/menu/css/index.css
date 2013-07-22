@@ -3,3 +3,4 @@
 .grade2 li:last-child{border-bottom:none;}
 .grade3{margin-left:60px;}
 .grade3 li:last-child{border-bottom:none;}
+i{cursor:pointer;}
