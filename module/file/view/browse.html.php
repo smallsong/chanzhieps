@@ -15,16 +15,17 @@
   <tr>
     <td><?php echo $file->id;?></td>
     <td>
-    <?php
-    if($file->isImage)
-    {
-        echo html::a(inlink('download', "id=$file->id"), html::image($file->smallURL, "class='adminList' title='{$file->title}'"), '_blank');
-    }
-    else
-    {
-        echo html::a(inlink('download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank');
-    }
-    ?>
+      <?php
+      if($file->isImage)
+      {
+          echo html::a(inlink('download', "id=$file->id"), html::image($file->smallURL, "class='adminList' title='{$file->title}'"), '_blank');
+          if($file->isPrimary == 1) echo '<small class="label label-important">'. $lang->file->primary .'</small>';
+      }
+      else
+      {
+          echo html::a(inlink('download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank');
+      }
+      ?>
     </td>
     <td><?php echo $file->extension;?></td>
     <td><?php echo $file->size;?></td>
@@ -36,13 +37,14 @@
     <?php
     if($file->public)
     {
-        echo html::a(inlink('deny',  "id=$file->id"), $lang->file->deny, '', 'class="deny"');
+        echo html::a(inlink('deny',  "id=$file->id"), $lang->file->deny, '', 'class="option"');
     }
     else
     {
-        echo html::a(inlink('allow', "id=$file->id"), $lang->file->allow, '', 'class="allow"');
+        echo html::a(inlink('allow', "id=$file->id"), $lang->file->allow, '', 'class="option');
     }
     echo html::a(inlink('delete', "id=$file->id"), $lang->delete, '', "class='delete'");
+    if($file->isImage) echo html::a(inlink('primary', "id=$file->id"), $lang->file->setPrimary, '', "class='option'");
     ?>
     </td>
   </tr>
@@ -60,7 +62,7 @@
 <script>
 $(document).ready(function(){   
     $.ajaxForm('#fileForm', function(data) { ajaxWinReload(); }); 
-    $('a.deny, a.allow').click(function(data){
+    $('a.option').click(function(data){
         $.getJSON($(this).attr('href'), 
             function(data) 
             {

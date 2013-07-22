@@ -169,6 +169,20 @@ class file extends control
         $this->dao->update(TABLE_FILE)->set('public')->eq(0)->where('id')->eq($fileID)->exec(false);
         $this->send(array( 'result' => 'success', 'message' => $this->lang->setSuccess));
     }
+    /**
+     * set a image as primary image.
+     * 
+     * @param  int  $fileID 
+     * @access public
+     * @return void
+     */
+    public function primary($fileID)
+    {
+        $this->dao->update(TABLE_FILE)->set('isPrimary')->eq(0)->where('id')->ne($fileID)->exec(false);
+        $this->dao->update(TABLE_FILE)->set('isPrimary')->eq(1)->where('id')->eq($fileID)->exec(false);
+        $this->send(array( 'result' => 'success', 'message' => $this->lang->setSuccess));
+    }
+
 
     /**
      * Export as csv format.
