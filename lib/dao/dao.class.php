@@ -530,7 +530,7 @@ class dao
             }
             catch (PDOException $e) 
             {
-                $this->app->error($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
+                $this->app->triggerError($e->getMessage() . "<p>The sql is: $sql</p>", __FILE__, __LINE__, $exit = true);
             }
 
             $sql  = 'SELECT FOUND_ROWS() as recTotal;';
