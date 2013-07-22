@@ -66,14 +66,6 @@ $lang->company->weibo    = "微博";
 $lang->company->weixin   = "微信";
 $lang->company->wangwang = "阿里旺旺";
 
-
-
-/* Front menus.*/
-$lang->frontMenu = new stdClass();
-$lang->frontMenu->home     = '首页|index|index';
-$lang->frontMenu->about    = '关于我们|company|index';
-$lang->frontMenu->forum    = '论坛|forum|index';
-
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index|';

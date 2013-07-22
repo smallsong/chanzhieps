@@ -20,9 +20,13 @@ class menu extends control
             }
             if(isset($menus[2])) $menus[2] = $this->groupBy($menus[2], 'parent');
             if(isset($menus[3])) $menus[3] = $this->groupBy($menus[3], 'parent');
-            a($menus);exit;
+            $result = $this->loadModel('setting')->setItems('system.common.menu', array('mainMenu' => json_encode($menus)));
+            if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
+            $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
+ 
         }
-        $this->view->menus = $this->config->site->menu;
+        $this->view->menus = json_decode($this->config->menu->mainMenu,true);
+        $this->view->types = $this->lang->menu->types; 
         $this->display();
     }   
 

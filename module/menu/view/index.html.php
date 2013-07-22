@@ -10,25 +10,38 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php include './menucode.html.php';?>
+<?php include './menucode.html.php'; ?>
 <form class="form-inline" id="menuForm" method="post">
 <ul class="menuList grade1">
-<?php for($i=0; $i<3; $i++):?>
-  <li>
-    <select>
-       <option>导航类型</option>
-    </select>
-     <?php echo html::input('menu[1][title][]', '首页', 'class="input-small"');?> 
-     <?php echo html::input('menu[1][url][]', 'http://www.baidu.com', 'class="input"');?> 
-     <?php echo html::input('menu[1][g1key][]', '', 'class="input grade1key"');?> 
-     <?php echo html::a('javascript:;', 'up') ?>
-     <?php echo html::a('javascript:;', 'down') ?>
-     <?php echo html::a('javascript:;', 'remove', '', 'class="delete"' ) ?>
-     <?php echo html::a('javascript:;', '添加', '', 'class="plus1"' ) ?>
-     <?php echo html::a('javascript:;', '添加子类', '', 'class="plus2"' ) ?>
-  </li>
-<?php endfor;?>
- <li><?php echo html::a('javascript:;', '保存', '', 'class="btn btn-primary" onclick="return submitForm()"')?></li>
+<?php 
+foreach($menus[1] as $menu)
+{
+    echo '<li class="grade1">';
+    echo $this->menu->inputTags(1, $menu);
+    if(isset($menus[2][$menu['g1key']]))
+    {
+        echo '<ul class="grade2">';
+        foreach($menus[2][$menu['g1key']] as $menu2)
+        {
+            echo '<li>';
+            echo $this->menu->inputTags(2, $menu2);
+            if(isset($menus[3][$menu2['g2key']]))
+            {
+                echo '<ul class="grade3">';
+                foreach($menus[3][$menu2['g2key']] as $menu3)
+                {
+                    echo  '<li>'. $this->menu->inputTags(3, $menu3) .'</li>';
+                }
+                echo '</ul>';
+            }
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
+    echo '</li>';
+}
+?>
+  <li><?php echo html::a('javascript:;', $lang->save, '', 'class="btn btn-primary" onclick="return submitForm()"')?></li>
 </ul>
 </form>
 
