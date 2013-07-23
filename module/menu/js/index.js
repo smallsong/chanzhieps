@@ -7,7 +7,8 @@ $(document).ready(function()
         if(!v.counter) v.counter = 0;
         return v.counter++;
     }
-
+    
+    $('ul.menuList li:first .remove').hide(); 
     $(document).on('click', '.shut', function() { $(this).parent().find("ul").toggle(); if($(this).parent().find('ul li').size() != 0) $(this).toggleClass('icon-folder-close').toggleClass('icon-folder-open'); });
 
     $(document).on('click', '.icon-arrow-up', function() { $(this).parent().prev().before($(this).parent()); });
