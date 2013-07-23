@@ -22,7 +22,9 @@ $themeRoot = $webRoot . "theme/";
       js::import($jsRoot . 'jquery/min.js');
       js::import($jsRoot . 'bootstrap/min.js');
       js::import($jsRoot . 'my.js');
-      css::import($themeRoot . 'bootstrap/css/core.min.css');
+      // css::import($themeRoot . 'bootstrap/css/core.min.css');
+      css::import($themeRoot . 'default/bootstrap.zentao.min.css');
+      css::import($themeRoot . 'default/font-awesome.css');
       css::import($themeRoot . 'default/style.css');
   }
   else
