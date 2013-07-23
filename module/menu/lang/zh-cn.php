@@ -9,12 +9,12 @@
  * @link        http://www.zentao.net
  */
 
-$lang->add = '添加';
+$lang->add      = '添加';
 $lang->addChild = '添加子导航';
-$lang->delete = '删除导航';
+$lang->delete   = '删除导航';
 
 $lang->inputTitle = '请输入标题';
-$lang->inputUrl = '请输入地址';
+$lang->inputUrl   = '请输入地址';
 
 /* menu type   */
 $lang->menu->types = array();
