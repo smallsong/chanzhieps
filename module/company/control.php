@@ -55,7 +55,7 @@ class company extends control
             $contact = array('contact' => json_encode($_POST));
             $result = $this->loadModel('setting')->setItems('system.common.company', $contact);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
-            $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
+            $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
         }
         $this->view->contact = json_decode($this->config->company->contact);
         $this->display();
