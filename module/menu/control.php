@@ -27,6 +27,10 @@ class menu extends control
         }
         $this->view->menus = json_decode($this->config->menu->mainMenu,true);
         $this->view->types = $this->lang->menu->types; 
+        if(empty($this->view->menus))
+        {
+            $this->view->menus =Array( 1 => Array ( 0 => Array ( 'menuType' => 'common', 'title' => '首页', 'g1key' => '0' )));
+        }
         $this->display();
     }   
 
