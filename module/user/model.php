@@ -133,6 +133,28 @@ class userModel extends model
         return !dao::isError();
     }
     
+    /**     
+     * Update password 
+     *          
+     * @param  string $account 
+     * @access public          
+     * @return void
+     */     
+    public function updatePassword($account)
+    { 
+        if($_POST['password1'] != '') $this->checkPassword();
+        if(dao::isError()) return false;
+
+        $user = fixer::input('post')
+            ->setIF($this->post->password1 != false, 'password', md5($this->post->password1))
+            ->remove('account, password1, password2')
+            ->get();
+
+        $addedDate = $this->dao->select('*')->from(TABLE_USER)->where('account')->eq($account)->fetch('addedDate');
+        $user->password  = $this->createPassword($this->post->password1, $account, $addedDate);
+        $this->dao->update(TABLE_USER)->data($user)->autoCheck()->where('account')->eq($account)->exec();
+    }   
+
     /**
      * Identify a user.
      * 
