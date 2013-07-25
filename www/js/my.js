@@ -120,33 +120,28 @@ $(document).ready(function()
 
     /* ajax delete. */
     $(document).on('click', 'a.delete', 
-      function(element)
-      {
-        if(confirm(v.lang.confirmDelete))
+        function(element)
         {
-            delUrl = $(this).attr('href');
-            $(this).text(v.lang.deleteing);
-            $.getJSON(delUrl,function(data) 
+            if(confirm(v.lang.confirmDelete))
             {
-                if(data.result=='success')
+                delUrl = $(this).attr('href');
+                $(this).text(v.lang.deleteing);
+                $.getJSON(delUrl,function(data) 
                 {
-                    if($(element.target).is('#ajaxModal a.delete'))
+                    if(data.result=='success')
                     {
-                        reloadAjaxModal();
+                        if($(element.target).is('#ajaxModal a.delete')) reloadAjaxModal();
+                        location.reload();
                     }
                     else
                     {
-                        location.reload();
+                        alert(data.message);
                     }
-                }
-                else
-                {
-                    alert(data.message);
-                }
-            });
+                });
+            }
+            return false;
         }
-        return false;
-    });
+    );
 
     $('a.ajaxLink').click(function()
     {

@@ -13,15 +13,16 @@ $lang->setMenu  = '导航设置';
 $lang->add      = '添加';
 $lang->addChild = '添加子导航';
 $lang->delete   = '删除导航';
+$lang->js->canNotRemoveAllNav   = '不能删除所有导航';
 
 $lang->inputTitle = '请输入标题';
 $lang->inputUrl   = '请输入地址';
 
 /* menu type   */
 $lang->menu->types = array();
-$lang->menu->types['input']   = '自定义导航';
 $lang->menu->types['common']  = '通用导航';
 $lang->menu->types['article'] = '文章类目导航';
+$lang->menu->types['input']   = '自定义导航';
 
 /* system menus.*/
 $homeLink     = helper::createLink('index');
