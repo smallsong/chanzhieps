@@ -164,47 +164,6 @@ class commonModel extends model
         return false;
     }   
 
-     /**
-     * Create the front main menu.
-     * 
-     * @static
-     * @access public
-     * @return string
-     */
-    
-    public function createFrontMenu()
-    {
-        global $app, $lang;   
-        $menus = $lang->frontMenu;
-        $moduleName = $app->getModuleName();
-        $methodName = $app->getMethodName();
-
-        $string = '
-            <div class="navbar">
-              <div class="navbar-inner">
-               <div class="container">
-                 <ul class="nav">';
-
-        foreach($menus as $menu)
-        {
-            list($label, $module, $method) = explode('|', $menu);
-            $class   = ($module == $moduleName) && ($method == $methodName) ? ' class="active"' : ''; 
-            $string .= "<li{$class}>" . html::a($this->createLink($module , $method) , $label) . '</li>';
-        }
-        
-        $topCategories = $this->loadModel('tree')->getSons(0);
-        foreach($topCategories as $category)
-        {
-            $string .= '<li>' . $this->loadModel('tree')->createBrowseLink($category) .'</li>';
-        }
-        $string .= "
-                    </ul>
-                  </div>
-                </div>
-              </div>";
-        return $string;
-    }
-        
     /**
      * Create the main menu.
      * 
