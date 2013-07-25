@@ -102,6 +102,10 @@ $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
 $lang->site->menu->menu    = '导航设置|menu|index|';
 
+/* menu alias settings. */
+$lang->menuAlias = array();
+
+$lang->menuAlias['article.edit'] = ',article.browseadmin,';
 
 /* The menus of company module. */
 if(!isset($lang->company)) $lang->company = new stdclass();
