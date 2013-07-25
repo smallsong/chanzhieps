@@ -109,9 +109,14 @@ $lang->menu->menu->Mainmenu = '主菜单|menu|index|';
 if(!isset($lang->company)) $lang->company = new stdclass();
 $lang->company->menu = new stdclass();
 
-$lang->company->menu->basic = '公司信息|company|setbasic|';
+$lang->company->menu->basic    = '公司信息|company|setbasic|';
 $lang->company->menu->contact  = '联系方式|company|setcontact|';
 
+/* The menus of user module. */
+$lang->user       = new stdClass();
+$lang->user->menu = new stdClass();
+$lang->user->menu->forbid         = '会员列表|user|forbid|';
+$lang->user->menu->changepassword = '修改密码|user|changepassword';
 
 /* The error messages. */
 $lang->error = new stdclass();
