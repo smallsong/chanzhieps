@@ -24,7 +24,10 @@ $.extend(
                 if(response.result == 'success')
                 {
                     if($.isFunction(callback)) return callback(response);
-                    if($('#responser').length && response.message && response.message.length)   $('#responser').html(response.message).addClass('text-error f-12px').show().delay(3000).fadeOut(100);
+                    if($('#responser').length && response.message && response.message.length)
+                    {
+                        $('#responser').html(response.message).addClass('text-error f-12px').show().delay(3000).fadeOut(100);
+                    }
 
                     if(response.locate) return location.href = response.locate;
                 }
@@ -81,7 +84,7 @@ $.extend(
         { 
              $(this).ajaxSubmit(options);
              return false;    // Prevent the submitting event of the browser.
-         });
+        });
     },
 
     /* Disable a form. */
@@ -95,7 +98,13 @@ $.extend(
     {
         $(formID).find(':submit').attr('disabled', false);
     },
-    /* ajaxLink */
+
+    /**
+     * ajax load links to output container.
+     *
+     * @param string linkSelector     links'selectors.  
+     * @param string output           selector of container to output  
+     */
     ajaxLink:function(linkSelector, output)
     {
         var that=this,target=$(output);
@@ -104,7 +113,7 @@ $.extend(
             {
                 var rel=$(this).attr('href');
                 if(!rel)return;
-                target.attr('rel',rel).load(rel);
+                target.attr('rel', rel).load(rel);
                 return false;
             });
     }

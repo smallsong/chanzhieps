@@ -17,52 +17,81 @@ class menuModel extends model
      * @param array $menu
      *
      */
-    public function inputTags($grade = 1, $menu = array())
+    public function createEntry($grade = 1, $menu = array())
     {
-        $childGrade = $grade+1;
-        $html  =  ''; 
+        $class         = "";
+        $disabled      = '';
+        $childGrade    = $grade+1;
+        $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
         $html .= '<i class="icon-folder-open shut"></i>';
-        $html .= html::select("menu[{$grade}][menuType][]", $this->lang->menu->types, isset($menu['menuType']) ? $menu['menuType'] : '', " class='menuType' grade='{$grade}'" );
 
-        $html .= html::input("menu[{$grade}][title][]",  isset($menu['title']) ? $menu['title'] : "", 'placeholder="' . $this->lang->inputTitle . '" class="input-small titleInput"');
+        $type  = isset($menu['type']) ? $menu['type'] : ''; 
+        $html .= html::select("menu[{$grade}][type][]", $this->lang->menu->types, $type, "class='menuType' grade='{$grade}'" );
+
+        $hideArticle = $hideCommon = 'hide';
+        if(isset($menu['type']) && $menu['type'] == 'article')
+        {
+            $hideArticle = "";
+        }
+        elseif($menu['type'] == 'common')
+        {
+            $hideCommon = "";
+        }
+        $html .= html::select("menu[{$grade}][article][]", $articleTree, $menu['article'], "class='menuSelector {$hideArticle}'");
+        $html .= html::select("menu[{$grade}][common][]", $this->lang->menu->common, $menu['common'], "class='menuSelector {$hideCommon}'");
+
+        $title = isset($menu['title']) ? $menu['title'] : "";
+        $html .= html::input("menu[{$grade}][title][]", $title, "placeholder='{$this->lang->inputTitle}' class='input-small titleInput'");
+
         if(isset($menu['type']) && $menu['type'] != 'input')
         {
             $class    = "hide"; 
             $disabled = 'disabled';
         }
-        else
-        {
-            $class = "";
-            $disabled = '';
-        }
-        $html .= html::input("menu[{$grade}][url][]",    isset($menu['url']) ? $menu['url'] : "",  "placeholder='{$this->lang->inputUrl}' class='urlInput {$class}' {$disabled}");
-        $html .= html::hidden("menu[{$grade}][g{$grade}key][]", '', "class='input grade{$grade}key'"); 
-        if($grade >1 ) $html .= html::hidden("menu[{$grade}][parent][]", '', "class='grade{$grade}parent'" );
+        $url   = isset($menu['url']) ? $menu['url'] : "";
+        $html .= html::input("menu[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$class}' {$disabled}");
+
         $html .= html::a('javascript:;', $this->lang->add, '', "class='plus{$grade}'" );
         if($childGrade < 4) $html .= html::a('javascript:;', $this->lang->addChild, '', "class='plus{$childGrade}'" );
-        $html .= html::a('javascript:;', $this->lang->delete, '', 'class="remove"' );
+        $html .= html::a('javascript:;', $this->lang->delete, '', 'class="remove red"' );
         $html .= '<i class="icon-arrow-up"></i> <i class="icon-arrow-down"></i>';
+        if($grade >1 ) $html .= html::hidden("menu[{$grade}][parent][]", '', "class='grade{$grade}parent'" );
+        $html .= html::hidden("menu[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
         return $html;
     }
 
-    public function isCurrent($menu)
+    /**
+     * organize split menus to required structure.
+     *
+     * @param  array $menus         posted original menu .
+     * @return array $organizeMenus   
+     */
+    public function organizeMenu($menus)
     {
-        
+        $menuCount = count($menus['title']); // get count by common item title.
+        $organizedMenus = array();
+
+        for($i = 0; $i < $menuCount; $i++)
+        {
+            foreach($menus as $field => $values) $formattedMenus[$i][$field] = $values[$i];
+        }
+        return $formattedMenus;
     }
 
-    public function getUri()
+    /**
+     * group menu children by parent.
+     *
+     * @param  array $menus
+     * @return array $menus
+     */   
+    public function group($menus)
     {
-        
-    }
-
-    public function articleSelector($grade, $menu)
-    {
-        $tree = $this->loadModel('tree')->getOptionMenu('article');
-        return html::select("menu[{$grade}][article][]", $tree, isset($menu['article']) ? $menu['article']: 0, "class='menuSelector articleSelector'");
-    }
-
-    public function commonMenuSelector($grade, $menu)
-    {
-        return html::select("menu[{$grade}][common][]", $this->lang->menu->common, isset($menu['common']) ? $menu['common']: 0, "class='menuSelector commonSelector'");
+        $groupedMenus = array();
+        foreach($menus as $menu)
+        {
+            if(!isset($groupedMenus[$menu['parent']])) $newData[$menu['parent']] = array();
+            $groupedMenus[$menu['parent']][] = $menu;
+        }
+        return $groupedMenus;
     }
 }

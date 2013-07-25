@@ -19,7 +19,7 @@
       if($file->isImage)
       {
           echo html::a(inlink('download', "id=$file->id"), html::image($file->smallURL, "class='adminList' title='{$file->title}'"), '_blank');
-          if($file->isPrimary == 1) echo '<small class="label label-important">'. $lang->file->primary .'</small>';
+          if($file->primary == 1) echo '<small class="label label-important">'. $lang->file->primary .'</small>';
       }
       else
       {
@@ -44,7 +44,7 @@
         echo html::a(inlink('allow', "id=$file->id"), $lang->file->allow, '', 'class="option');
     }
     echo html::a(inlink('delete', "id=$file->id"), $lang->delete, '', "class='delete'");
-    if($file->isImage) echo html::a(inlink('primary', "id=$file->id"), $lang->file->setPrimary, '', "class='option'");
+    if($file->isImage) echo html::a(inlink('setPrimary', "id=$file->id"), $lang->file->setPrimary, '', "class='option'");
     ?>
     </td>
   </tr>
@@ -61,14 +61,16 @@
 </form>
 <script>
 $(document).ready(function(){   
-    $.ajaxForm('#fileForm', function(data) { ajaxWinReload(); }); 
-    $('a.option').click(function(data){
-        $.getJSON($(this).attr('href'), 
+    $.ajaxForm('#fileForm', function(data) { reloadAjaxModal(); }); 
+    $('a.option').click(function(data)
+    {
+        $.getJSON(
+            $(this).attr('href'), 
             function(data) 
             {
                 if(data.result=='success')
                 {
-                    ajaxWinReload();
+                    reloadAjaxModal();
                 }
                 else
                 {

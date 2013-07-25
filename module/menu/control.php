@@ -10,50 +10,36 @@
  */
 class menu extends control
 {
-    public function index($orderBy = 'menuOrder_desc')
+    /**
+     * menu setting function
+     *
+     * @access public
+     * @return void
+     */
+    public function index()
     {   
         if($_POST)
         {
             $menus = $_POST['menu'];
-            foreach($menus as $key => $data){
-                $menus[$key] = $this->format($data);
+            foreach($menus as $key => $menu)
+            {
+                $menus[$key] = $this->menu->organizeMenu($menu);
             }
-            if(isset($menus[2])) $menus[2] = $this->groupBy($menus[2], 'parent');
-            if(isset($menus[3])) $menus[3] = $this->groupBy($menus[3], 'parent');
+            //a($menus);exit;
+            if(isset($menus['2'])) $menus['2'] = $this->menu->group($menus['2']);
+            if(isset($menus['3'])) $menus['3'] = $this->menu->group($menus['3']);
             $result = $this->loadModel('setting')->setItems('system.common.menu', array('mainMenu' => json_encode($menus)));
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
  
         }
-        $this->view->menus = json_decode($this->config->menu->mainMenu,true);
+        $this->view->menus = $menus = json_decode($this->config->menu->mainMenu,true);
         $this->view->types = $this->lang->menu->types; 
-        if(empty($this->view->menus))
+        $this->view->articleTree  = $this->loadModel('tree')->getOptionMenu('article');
+        if(empty($this->view->menus) or $_REQUEST['t'] == 1)
         {
-            $this->view->menus =Array( 1 => Array ( 0 => Array ( 'menuType' => 'common', 'title' => '首页', 'g1key' => '0' )));
+            $this->view->menus =Array( 1 => Array ( 0 => Array ( 'menuType' => 'common', 'title' => '首页', 'key' => '0' )));
         }
         $this->display();
     }   
-
-    public function format($data)
-    {
-        $count = count($data['title']); 
-        $newData = array();
-        for($i=0; $i<$count; $i++)
-        {
-            foreach($data as $key=>$values)  $newData[$i][$key] = $values[$i];
-        }
-        return $newData;
-    }
-
-    
-    public function groupBy($list, $groupKey)
-    {
-        $newData = array();
-        foreach($list as $row)
-        {
-            if(!isset($newData[$row[$groupKey]])) $newData[$row[$groupKey]] = array();
-            $newData[$row[$groupKey]][] = $row;
-        }
-        return $newData;
-    }
 }

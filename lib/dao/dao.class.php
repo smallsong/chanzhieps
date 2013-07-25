@@ -1231,6 +1231,9 @@ class sql
      */
     public function set($set)
     {
+        /* Add ` to avoid keywords of mysql. */
+        if(strpos($set, '=') ===false) $set = '`' . trim($set, '`') . '`';
+
         if($this->isFirstSet)
         {
             $this->sql .= " $set ";

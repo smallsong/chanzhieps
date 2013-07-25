@@ -1,106 +1,122 @@
 $(document).ready(function()
 {
-    $('.menuType').change();
-    
-    function uuid()
-    {
-        if(!v.counter) v.counter = 0;
-        return v.counter++;
-    }
-    
-    $('ul.menuList li:first .remove').hide(); 
-    $(document).on('click', '.shut', function() { $(this).parent().find("ul").toggle(); if($(this).parent().find('ul li').size() != 0) $(this).toggleClass('icon-folder-close').toggleClass('icon-folder-open'); });
+    $('ul.menuList a.remove').first().remove(); 
+    $(document).on('click', '.shut',
+        function()
+        {
+            $(this).parent().find("ul").toggle();
+            if($(this).parent().find('ul li').size() != 0)
+            $(this).toggleClass('icon-folder-close').toggleClass('icon-folder-open'); 
+        }
+    );
 
-    $(document).on('click', '.icon-arrow-up', function() { $(this).parent().prev().before($(this).parent()); });
-    $(document).on('click', '.icon-arrow-down', function() { if($(this).parent().next().find('input').size()>0) $(this).parent().next().after($(this).parent()); });
+    $(document).on('click', '.icon-arrow-up', 
+        function()
+        {
+            $(this).parent().prev().before($(this).parent()); 
+        }
+    );
+
+    $(document).on('click', '.icon-arrow-down',
+        function()
+        { 
+          if($(this).parent().next().find('input').size()>0)
+          $(this).parent().next().after($(this).parent()); 
+        }
+    );
+
     $(document).on('click', '.remove', function(){$(this).parent().remove();});
+
+    /* toggle article common selector.*/
+
+
     $(document).on('change', '.menuType',
-      function() 
-      {
-          type    = $(this).val();
-          grade   = $(this).attr('grade');
-          $(this).next('.menuSelector').remove(); 
-          $(this).parent().find(':input[type=text]').val('');
-          if(type != 'input')
-          {
-              $(this).parent().find('.urlInput:first').hide().attr('disabled', true); 
-          }
-          else
-          {
-              $(this).parent().find('.urlInput:first').attr('disabled', false).show(); 
-          }
-          menuObj = menuSelector(grade, type);
-          $(this).after(menuObj); 
-          $(this).next().change();
-      });
+        function() 
+        {
+            type    = $(this).val();
+            grade   = $(this).attr('grade');
+            $(this).parent().children(':input[type=text]').val('');
+            if(type != 'input')
+            {
+                $(this).parent().children('.urlInput').hide();
+                $(this).parent().children('.menuSelector').hide();
+                $(this).parent().children('.menuSelector[name*='+type+']').show();
+            }
+            else
+            {
+                $(this).parent().children('.menuSelector').hide();
+                $(this).parent().children('.urlInput').show(); 
+            }
+        }
+    );
+
     $(document).on('change', '.menuSelector',
         function()
         {
             categories = $(this).find(':selected').text().split('/');
-            $(this).parent().find('.titleInput:first').val( categories[categories.length-1] );
+            $(this).parent().children('.titleInput').val( categories[categories.length-1] );
         }
     );
   
     /* add memu options */
-    $(document).on('click', '.plus1', function() { $(this).parent().after($('#menuGrade1').html()); });
+    $(document).on('click', '.plus1', function() { $(this).parent().after($('#grade1MenuSource').html()); });
     $(document).on('click', '.plus2', 
         function() 
         {
-            var container = $(this).parents('.grade2');
+            var container = $(this).parents('.liGrade2');
             if(0 == container.size())
             { 
-                if($(this).parents('li.grade1').find('.grade2').size()==0)
+                if($(this).parents('.liGrade1').find('.liGrade2').size()==0)
                 {
-                    $(this).parents('li.grade1').append($('#menuGrade2').html());
+                    $(this).parents('.liGrade1').append($('#grade2MenuSource').html());
                 }
                 else
                 {
-                    $(this).parents('li.grade1').find('.grade2').append($('#menuGrade2 ul').html());
+                    $(this).parents('.liGrade1').find('.ulGrade2').prepend($('#grade2MenuSource ul').html());
                 }
             }
             else
             {
-                $(this).parent().after($('#menuGrade2 ul').html()); 
+                $(this).parent().after($('#grade2MenuSource ul').html()); 
             }
-    });
+        }
+    );
 
     $(document).on('click', '.plus3', 
         function() 
         {
-            var container = $(this).parents('.grade3');
+            var container = $(this).parents('.liGrade3');
             if(0 == container.size())
             { 
-                if($(this).nextAll('.grade3').size()==0)
+                if($(this).parents('.liGrade2').find('.ulGrade3').size() == 0)
                 {
-                    $(this).parents('.grade2 li').append($('#menuGrade3').html());
+                    $(this).parents('.liGrade2').append($('#grade3MenuSource').html());
                 }
                 else
                 {
-                    $(this).nextAll('.grade3').append($('#menuGrade3 ul').html());
+                    $(this).parents('.liGrade2').find('.ulGrade3').prepend($('#grade3MenuSource ul').html());
                 }
             }
             else
             {
-                $(this).parent().after($('#menuGrade3 ul').html()); 
+                $(this).parent().after($('#grade3MenuSource ul').html()); 
             }
-    });
+        }
+    );
     
-  $.ajaxForm('#menuForm',function(data){
-      bootbox.alert(data.message);
-  });
+    $.ajaxForm('#menuForm',function(data){ bootbox.alert(data.message); });
 });
  
 function menuSelector(grade, type)
 {
-  return $('#' + type + 'Selector').html().replace('grade',grade);   
+  return $('#' + type + 'Selector').html().replace('grade', grade);   
 }
 
 function submitForm()
 {
     $('.menuList .grade1key').each(function(index,obj) { $(this).val(index); });
     $('.menuList .grade2key').each(function(index){ $(this).val(1000+(parseInt(index))); })
-    $('.menuList .grade2parent').each(function(index){ $(this).val( $(this).parent().parent().parent().find('.grade1key').val()); });
-    $('.menuList .grade3parent').each(function(i){ p = $(this).parent().parent().parent().find('.grade2key').val(); $(this).val(p); });
+    $('.menuList .grade2parent').each(function(index){ $(this).val( $(this).parents('.liGrade1').children('.grade1key').val()); });
+    $('.menuList .grade3parent').each(function(i){ p = $(this).parents('.liGrade2').children('.grade2key').val(); $(this).val(p); });
     $('#menuForm').submit();
 }
-

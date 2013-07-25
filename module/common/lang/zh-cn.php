@@ -50,6 +50,7 @@ $lang->setSuccess     = '设置成功';
 $lang->fail           = '失败';
 
 /* for javascript */
+$lang->js = new stdClass();
 $lang->js->confirmDelete = '确认删除?';
 $lang->js->deleteing     = '正在删除...';
 $lang->js->doing         = '正在处理...';
@@ -91,7 +92,7 @@ $lang->forum->menu = new stdclass();
 $lang->forum->menu->browse   = '主题列表|thread|browseadmin|';
 $lang->forum->menu->tree     = '版块管理|tree|browse|tree=forum';
 
-$lang->thread = $lang->forum;
+//$lang->thread = $lang->forum;
 
 /* The menus of site module. */
 $lang->site = new stdclass();
@@ -101,9 +102,10 @@ $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
 $lang->site->menu->menu    = '导航设置|menu|index|';
 
-/* The menus of menu module. */
-if(!isset($lang->menu)) $lang->menu = new stdclass();
-$lang->menu->menu->Mainmenu = '主菜单|menu|index|';
+/* menu alias settings. */
+$lang->menuAlias = array();
+
+$lang->menuAlias['article.edit'] = ',article.browseadmin,';
 
 /* The menus of company module. */
 if(!isset($lang->company)) $lang->company = new stdclass();
@@ -112,11 +114,21 @@ $lang->company->menu = new stdclass();
 $lang->company->menu->basic    = '公司信息|company|setbasic|';
 $lang->company->menu->contact  = '联系方式|company|setcontact|';
 
-/* The menus of user module. */
-$lang->user       = new stdClass();
-$lang->user->menu = new stdClass();
-$lang->user->menu->forbid         = '会员列表|user|forbid|';
-$lang->user->menu->changepassword = '修改密码|user|changepassword';
+/* menu module group settings. */
+$lang->menuModuleGroup = array();
+$lang->menuModuleGroup['thread'] = 'forum';
+
+/* menu method group settings. */
+$lang->menuMethodGroup = array();
+$lang->menuMethodGroup['nav.index'] = 'site';
+
+/* menu method param group settings. */
+$lang->menuMethodParamGroup = array(); 
+/* tree browse method's menu group setting*/
+$lang->menuMethodParamGroup['tree.browse'] = array();
+$lang->menuMethodParamGroup['tree.browse']['tree'] = array();
+$lang->menuMethodParamGroup['tree.browse']['tree']['forum']   = 'forum'; 
+$lang->menuMethodParamGroup['tree.browse']['tree']['article'] = 'article'; 
 
 /* The error messages. */
 $lang->error = new stdclass();

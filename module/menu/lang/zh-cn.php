@@ -9,6 +9,7 @@
  * @link        http://www.zentao.net
  */
 
+$lang->setMenu  = '导航设置';
 $lang->add      = '添加';
 $lang->addChild = '添加子导航';
 $lang->delete   = '删除导航';
