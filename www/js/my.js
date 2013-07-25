@@ -90,14 +90,24 @@ function setImageSize(image, maxWidth)
  */
 function setAdminLeftMenu()
 {
+    if($('ul.leftmenu').find('a').size()==1)
+    {
+        $('ul.leftmenu').find('a').addClass('radius');
+        return ;
+    }
     $('ul.leftmenu').find('a').last().addClass('radius-bottom');
     $('ul.leftmenu').find('a').first().addClass('radius-top');
 }
-
-
-function ajaxWinReload()
+ 
+/**
+ * reloadAjaxModal.
+ *
+ * @access public
+ * @return void
+ */
+function reloadAjaxModal()
 {
-  $('#ajaxWin').load($('#ajaxWin').attr('rel'));
+    $('#ajaxModal').load($('#ajaxModal').attr('rel'));
 }
 
 $(document).ready(function() 
@@ -120,9 +130,9 @@ $(document).ready(function()
             {
                 if(data.result=='success')
                 {
-                    if($(element.target).is('#ajaxWin a.delete'))
+                    if($(element.target).is('#ajaxModal a.delete'))
                     {
-                        ajaxWinReload();
+                        reloadAjaxModal();
                     }
                     else
                     {
@@ -137,7 +147,6 @@ $(document).ready(function()
         }
         return false;
     });
-
 
     $('a.ajaxLink').click(function()
     {
@@ -155,24 +164,32 @@ $(document).ready(function()
         });
         return false;
     });
-    
-    /* ajax modal */
+   
+    /**
+     * add ajaxModal container if there'are ajax modal a button.
+     * bind click option to a[data-toggle=moadl.
+     * record modal's location to modal's rel attribut.
+     * resize and adjust modal position.
+     */
     if($('a[data-toggle=modal]').size())
     {
-        var div = $('<div id="ajaxWin" name="ajaxWin" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >kjgbkjjkg</div>');
+        var div = $('<div id="ajaxModal" name="ajaxModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >kjgbkjjkg</div>');
         div.appendTo('body');
-        $('a[data-toggle=modal]').attr('data-target', '#ajaxWin').click(function()
+        $('a[data-toggle=modal]').attr('data-target', '#ajaxModal');
+        $('a[data-toggle=modal]').click(function()
         {
-            winWidth      = 580;
-            winMarginLeft = 280;
+            modalWidth      = 580; //extends bootstrap default modal width.
+            modalMarginLeft = 280; //extends bootstrap default modal margin-left value.
             url = $(this).attr('href');
             if($(this).attr('w'))
             {
-                winWidth  = $(this).attr('w'); 
-                winMarginLeft = parseInt($(this).attr('w')-580)/2 + 280;
+                modalWidth  = $(this).attr('w'); 
+                modalMarginLeft = parseInt($(this).attr('w')-580)/2 + 280;
             }
-            $('#ajaxWin').attr('rel', url).css('width',winWidth).css('margin-left', '-' + winMarginLeft + 'px').load(url); //set rel for ajaxWinReload & resize modal
-        });
+            $('#ajaxModal').attr('rel', url);                                //set rel for reloadAjaxModal. 
+            $('#ajaxModal').css('width',modalWidth);                         //resize modal width. 
+            $('#ajaxModal').css('margin-left', '-' + modalMarginLeft + 'px') //fix modal margin-left.
+            $('#ajaxModal').load(url); 
+        });  
     }
-
 })
