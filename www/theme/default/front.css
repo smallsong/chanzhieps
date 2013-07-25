@@ -1,41 +1,29 @@
 /* global settings.*/
-body {color:#5A5A5A; padding-bottom:60px; padding-top:0; background:url(./images/main/bg.4.png) repeat-x #F1F1F1; }
-*::-moz-selection {background:none repeat scroll 0 0 #8D8D8B; color:#FFFFFF; }
-
-/* The topnav. */
-#topbar{ padding-right:40px; margin-top:5px; height:20px; }
-#topbar a{color:#827E7E; }
-
-
-/* header setting. */
-.masthead{height:190px; padding:20px 0 10px;}
-img.logo{max-height:95px; margin:0 0 10px 0; }
-
-.slogan {margin-top:15px; color:#827E7E;}
-.slogan h3 {margin:0; }
-
-/* main menu settings. */
-.navbar .navbar-inner {border:none; border-radius:0; box-shadow:none; padding:0; margin-top:10px; }
-
-.navbar .nav {display:table; margin:0; width:100%; position:relative; z-index:2; background-repeat:repeat-x; }
-.navbar .nav li {display:table-cell; float:none; width:1%; height:75px; position:relative; }
-.navbar .nav li a 
-{ 
-    font-size:16px; text-shadow:none; text-align:center; 
-    color:#ffffff; background-image:url("./images/main/nav-color1.gif"); 
-    line-height:75px; height:75px; padding:0; 
-    border-left:1px solid rgba(255, 255, 255, 0.1); 
-    border-right:1px solid rgba(0, 0, 0, 0.1); 
-}
-
-.navbar .nav li.active a,
-.navbar .nav li a:hover,
-.navbar .nav li.active a:focus, 
-.navbar .nav li.active a:active,
-.navbar .nav li.active a:hover {color:#ffffff; background-position:0 -72px; margin-top:0; box-shadow:none; }
-
-.navbar .nav li:first-child a {border-left: 0 none;}
-.navbar .nav li:last-child  a {border-right:0 none;}
+.navbar .navbar-inner {padding: 0;}
+.navbar .nav li a {border-left: 1px solid rgba(255, 255, 255, 0.75);border-right: 1px solid rgba(0, 0, 0, 0.1);font-weight: bold;text-align: center;}
+.navbar .nav li:first-child a {border-left: 0 none;border-radius: 3px 0 0 3px;}
+.navbar .nav li:last-child a {border-radius: 0 3px 3px 0;border-right: 0 none;}
+.navbar-inner .container ul.sf-menu li{position:relative;float:left;text-align:center}
+.navbar-inner .container ul.sf-menu li a{color:#333;display:block;position:relative;float:left;text-decoration:none;width:107px;cursor:pointer}
+.navbar-inner .container ul.sf-menu li a:hover{text-decoration:none;background:#FEFEFE}
+.navbar-inner .container ul.sf-menu li ul.children{background:#F2F2F2;}
+.navbar-inner .container ul.sf-menu li ul.children li a{color:#333;width:168px;padding:8px 0;text-decoration:none;border-left:none;display:block}
+.navbar-inner .container ul.sf-menu li ul.children li a:hover{text-decoration:none;background:#666;color:#fff;border-radius:0;}
+.navbar-inner .container ul.sf-menu li ul.children li ul.children{border-left:none;background:#F2F2F2;}
+.navbar-inner .container ul.sf-menu li ul.children li ul.children a{color:#333;text-decoration:none;}
+.navbar-inner .container ul.sf-menu li ul.children li ul.children a:hover{color:#fff;background:#666;text-decoration:none;border-radius:0;}
+.navbar-inner .container ul.sf-menu li ul.children{margin:5px 0 0 0}
+.navbar-inner .container ul.sf-menu li ul.children ul.children{margin:-1px 0 0 27px}
+.sf-menu,.sf-menu *{list-style:none;margin:0;padding:0}
+.sf-menu{line-height:1.0}
+.sf-menu ul{position:absolute;top:-999em;width:12em}
+.sf-menu ul li{width:100%}
+.sf-menu li:hover{visibility:inherit}
+.sf-menu li{float:left;position:relative}
+.sf-menu a{display:block;position:relative}
+.sf-menu li:hover ul,.sf-menu li.sfHover ul{left:0;top:2.5em;z-index:99}
+ul.sf-menu li:hover li ul,ul.sf-menu li.sfHover li ul,ul.sf-menu li li:hover li ul,ul.sf-menu li li.sfHover li ul{top:-999em}
+ul.sf-menu li li:hover ul,ul.sf-menu li li.sfHover ul,ul.sf-menu li li li:hover ul,ul.sf-menu li li li.sfHover ul{left:10em;top:0}
 
 /* breadcrumb setting*/
 ul.breadcrumb {background:none; margin-top:10px; border-bottom:1px solid; }

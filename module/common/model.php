@@ -57,7 +57,6 @@ class commonModel extends model
         }
     }
 
-
     /**
      * Start the session.
      * 
@@ -191,6 +190,7 @@ class commonModel extends model
                 $string .= "<li$class><a href='$link' id='menu$key'>$label</a></li>\n";
             }
         }
+
         $string .= "</ul>\n";
         return $string;
     }
@@ -217,8 +217,7 @@ class commonModel extends model
             }
         }
 
-        if(isset($lang->menuMethodGroup["{$moduleName}.{$methodName}"])) 
-        return $lang->menuMethodGroup["{$moduleName}.{$methodName}"];
+        if(isset($lang->menuMethodGroup["{$moduleName}.{$methodName}"])) return $lang->menuMethodGroup["{$moduleName}.{$methodName}"];
 
         if(isset($lang->menuModuleGroup[$moduleName])) return $lang->menuModuleGroup[$moduleName];
 
@@ -245,6 +244,7 @@ class commonModel extends model
         $submenus      = $lang->$moduleName->menu;  
         $currentModule = commonModel::getCurrentMenu($moduleName);
         $currentMethod = $app->getMethodName();
+
         /* Cycling to print every sub menus. */
         foreach($submenus as $key => $menu)
         {
@@ -255,14 +255,10 @@ class commonModel extends model
             {
                 $class = '';
                 if($module == $app->getModuleName() && $method == $currentMethod) $class = " class='active'";
-                if(
-                    isset($lang->menuAlias["{$moduleName}.{$currentMethod}"])
-                    && strpos($lang->menuAlias["{$moduleName}.{$currentMethod}"], ",{$module}.{$method},") !== false
-                )
-                $class = " class='active'";
                 $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label, '', "id='submenu$key'") . "</li>\n";
             }
         }
+
         $string .= "</ul>\n";
         return $string;
     }
