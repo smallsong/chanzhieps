@@ -92,7 +92,7 @@ class commonModel extends model
         }
 
         /* Check the priviledge. */
-        if(!$this->hasPriv($module, $method)) $this->deny($module, $method);
+        if(!commonModel::hasPriv($module, $method)) $this->deny($module, $method);
     }
 
     /**
@@ -104,9 +104,9 @@ class commonModel extends model
      * @access public
      * @return bool
      */
-    public function hasPriv($module, $method)
+    public static function hasPriv($module, $method)
     {
-        global $app;
+        global $app, $config;
         if(RUN_MODE == 'admin')
         {
             if($app->user->admin == 'no')    return false;
@@ -115,10 +115,10 @@ class commonModel extends model
         if(RUN_MODE == 'front')
         {
             if(
-                isset($this->config->front->groups->guest[$module]) 
-                && in_array($method, $this->config->front->groups->guest[$module])
+                isset($config->front->groups->guest[$module]) 
+                && in_array($method, $config->front->groups->guest[$module])
               ) return true;
-              return isset($this->config->front->groups->user[$module]) && in_array($method, $this->config->front->groups->user[$module]);
+              return isset($config->front->groups->user[$module]) && in_array($method, $this->config->front->groups->user[$module]);
         }
 
         $rights  = $app->user->rights;
@@ -219,9 +219,7 @@ class commonModel extends model
         $string = "<ul class='nav'>\n";
 
         /* Get current menu. */
-        $currentMenu = $moduleName;
-        if(isset($lang->menugroup->$moduleName)) $currentMenu = $lang->menugroup->$moduleName;
-
+        $currentMenu = commonModel::getCurrentMenu($moduleName);
         /* Print all main menus. */
         foreach($lang->menu as $key => $menu)
         {
@@ -240,6 +238,35 @@ class commonModel extends model
     }
 
     /**
+     * get current menu module for mainmenu and moduleMenu
+     *
+     * @param  string $moduleName 
+     * @static
+     * @access public
+     * @return string
+     */
+    public static function getCurrentMenu($moduleName)
+    {
+        global $app, $lang;
+        $menuAlias  = $lang->menuAlias;
+        $methodName = $app->getMethodName(); 
+        if(isset($lang->menuMethodParamGroup["{$moduleName}.{$methodName}"]))
+        {
+            $paramSetting = $lang->menuMethodParamGroup["{$moduleName}.{$methodName}"];
+            foreach($paramSetting as $paramKey => $paramGroups)
+            {
+                if(isset($_REQUEST[$paramKey])) return $paramGroups[$_REQUEST[$paramKey]];
+            }
+        }
+
+        if(isset($lang->menuMethodGroup["{$moduleName}.{$methodName}"])) return $lang->menuMethodGroup["{$moduleName}.{$methodName}"];
+
+        if(isset($lang->menuModuleGroup[$moduleName])) return $lang->menuModuleGroup[$moduleName];
+
+        return $moduleName;
+    }
+
+    /**
      * Create the module menu.
      * 
      * @param  string $moduleName 
@@ -250,13 +277,14 @@ class commonModel extends model
     public static function createModuleMenu($moduleName)
     {
         global $lang, $app;
-
+        
+        $currentModule = $moduleName = commonModel::getCurrentMenu($moduleName);
         if(!isset($lang->$moduleName->menu)) return false;
         $string = "<ul class='nav nav-list leftmenu affix'>\n";
 
         /* Get the sub menus of the module, and get current module and method. */
         $submenus      = $lang->$moduleName->menu;  
-        $currentModule = $app->getModuleName();
+        $currentModule = commonModel::getCurrentMenu($moduleName);
         $currentMethod = $app->getMethodName();
 
         /* Cycling to print every sub menus. */
@@ -268,7 +296,7 @@ class commonModel extends model
             if(commonModel::hasPriv($module, $method))
             {
                 $class = '';
-                if($module == $currentModule and $method == $currentMethod) $class = " class='active'";
+                if($module == $app->getModuleName() && $method == $currentMethod) $class = " class='active'";
                 $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label, '', "id='submenu$key'") . "</li>\n";
             }
         }
@@ -283,13 +311,13 @@ class commonModel extends model
      * @access public
      * @return string
      */
-    public function createManagerMenu()
+    public static function createManagerMenu()
     {
         global $app, $lang;
 
         $string  = '<p class="navbar-text pull-right">';
         $string .= sprintf($lang->welcome, $app->user->account);
-        $string .= html::a($this->createLink('user','logout'), $lang->logout, '', 'class="navbar-link"');
+        $string .= html::a(helper::createLink('user','logout'), $lang->logout, '', 'class="navbar-link"');
         $string .= html::a(getWebroot(), '<i class="icon-home icon-white"></i>'.$lang->frontHome, '_blank', 'class="navbar-link"');
         $string .= '</p>';
 
