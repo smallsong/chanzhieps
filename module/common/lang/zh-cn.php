@@ -100,7 +100,7 @@ $lang->site->menu = new stdclass();
 
 $lang->site->menu->basic   = '站点设置|site|setbasic|';
 $lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
-$lang->site->menu->menu    = '导航设置|menu|index|';
+$lang->site->menu->nav     = '导航设置|nav|index|';
 
 /* menu alias settings. */
 $lang->menuAlias = array();

@@ -94,7 +94,7 @@ class user extends control
                 $this->app->user = $this->session->user;
 
                 /* Goto the referer or to the default module */
-                if($this->post->referer != false and strpos($loginLink . $denyLink . $regLink, $this->post->referer) !== false)
+                if($this->post->referer != false and strpos($loginLink . $denyLink . $regLink, $this->post->referer) === false)
                 {
                     $this->send(array('result'=>'success', 'locate'=> urldecode($_POST['referer'])));
                 }
