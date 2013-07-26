@@ -337,9 +337,8 @@ class commonModel extends model
      */
     public function printPositionBar($module = '', $object = '', $misc = '')
     {
-        return ;
         echo '<ul class="breadcrumb">';
-        echo '<li>' . html::a($this->config->webRoot, $this->config->site->name) . '</li>';
+        echo '<li>' . html::a($this->config->webRoot, '<i class="icon-home"></i>') . '</li>';
         $funcName = 'print' . $this->app->getModuleName();
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
