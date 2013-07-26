@@ -8,16 +8,16 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-class menuModel extends model
+class navModel extends model
 {
     /**
      * create form input tags of backend.
      *
      * @param int $grade
-     * @param array $menu
+     * @param array $nav
      *
      */
-    public function createEntry($grade = 1, $menu = array())
+    public function createEntry($grade = 1, $nav = array())
     {
         $class         = "";
         $disabled      = '';
@@ -25,73 +25,73 @@ class menuModel extends model
         $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
         $html .= '<i class="icon-folder-open shut"></i>';
 
-        $type  = isset($menu['type']) ? $menu['type'] : ''; 
-        $html .= html::select("menu[{$grade}][type][]", $this->lang->menu->types, $type, "class='menuType' grade='{$grade}'" );
+        $type  = isset($nav['type']) ? $nav['type'] : ''; 
+        $html .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $type, "class='navType' grade='{$grade}'" );
 
         $hideArticle = $hideCommon = 'hide';
-        if(isset($menu['type']) && $menu['type'] == 'article')
+        if(isset($nav['type']) && $nav['type'] == 'article')
         {
             $hideArticle = "";
         }
-        elseif($menu['type'] == 'common')
+        elseif($nav['type'] == 'common')
         {
             $hideCommon = "";
         }
-        $html .= html::select("menu[{$grade}][article][]", $articleTree, $menu['article'], "class='menuSelector {$hideArticle}'");
-        $html .= html::select("menu[{$grade}][common][]", $this->lang->menu->common, $menu['common'], "class='menuSelector {$hideCommon}'");
+        $html .= html::select("nav[{$grade}][article][]", $articleTree, $nav['article'], "class='navSelector {$hideArticle}'");
+        $html .= html::select("nav[{$grade}][common][]", $this->lang->nav->common, $nav['common'], "class='navSelector {$hideCommon}'");
 
-        $title = isset($menu['title']) ? $menu['title'] : "";
-        $html .= html::input("menu[{$grade}][title][]", $title, "placeholder='{$this->lang->inputTitle}' class='input-small titleInput'");
+        $title = isset($nav['title']) ? $nav['title'] : "";
+        $html .= html::input("nav[{$grade}][title][]", $title, "placeholder='{$this->lang->inputTitle}' class='input-small titleInput'");
 
-        if(isset($menu['type']) && $menu['type'] != 'input')
+        if(isset($nav['type']) && $nav['type'] != 'input')
         {
             $class    = "hide"; 
             $disabled = 'disabled';
         }
-        $url   = isset($menu['url']) ? $menu['url'] : "";
-        $html .= html::input("menu[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$class}' {$disabled}");
+        $url   = isset($nav['url']) ? $nav['url'] : "";
+        $html .= html::input("nav[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$class}' {$disabled}");
 
         $html .= html::a('javascript:;', $this->lang->add, '', "class='plus{$grade}'" );
         if($childGrade < 4) $html .= html::a('javascript:;', $this->lang->addChild, '', "class='plus{$childGrade}'" );
         $html .= html::a('javascript:;', $this->lang->delete, '', 'class="remove red"' );
         $html .= '<i class="icon-arrow-up"></i> <i class="icon-arrow-down"></i>';
-        if($grade >1 ) $html .= html::hidden("menu[{$grade}][parent][]", '', "class='grade{$grade}parent'" );
-        $html .= html::hidden("menu[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
+        if($grade >1 ) $html .= html::hidden("nav[{$grade}][parent][]", '', "class='grade{$grade}parent'" );
+        $html .= html::hidden("nav[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
         return $html;
     }
 
     /**
-     * organize split menus to required structure.
+     * organize split navs to required structure.
      *
-     * @param  array $menus         posted original menu .
-     * @return array $organizeMenus   
+     * @param  array $navs         posted original nav .
+     * @return array $organizeNavs   
      */
-    public function organizeMenu($menus)
+    public function organizeNav($navs)
     {
-        $menuCount = count($menus['title']); // get count by common item title.
-        $organizedMenus = array();
+        $navCount = count($navs['title']); // get count by common item title.
+        $organizedNavs = array();
 
-        for($i = 0; $i < $menuCount; $i++)
+        for($i = 0; $i < $navCount; $i++)
         {
-            foreach($menus as $field => $values) $formattedMenus[$i][$field] = $values[$i];
+            foreach($navs as $field => $values) $organizeNavs[$i][$field] = $values[$i];
         }
-        return $formattedMenus;
+        return $organizeNavs;
     }
 
     /**
-     * group menu children by parent.
+     * group nav children by parent.
      *
-     * @param  array $menus
-     * @return array $menus
+     * @param  array $navs
+     * @return array $navs
      */   
-    public function group($menus)
+    public function group($navs)
     {
-        $groupedMenus = array();
-        foreach($menus as $menu)
+        $groupedNavs = array();
+        foreach($navs as $nav)
         {
-            if(!isset($groupedMenus[$menu['parent']])) $newData[$menu['parent']] = array();
-            $groupedMenus[$menu['parent']][] = $menu;
+            if(!isset($groupedNavs[$nav['parent']])) $newData[$nav['parent']] = array();
+            $groupedNavs[$nav['parent']][] = $nav;
         }
-        return $groupedMenus;
+        return $groupedNavs;
     }
 }

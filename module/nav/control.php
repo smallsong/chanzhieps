@@ -1,17 +1,17 @@
 <?php
 /**
- * The control file of menu module of XiRangEPS.
+ * The control file of nav module of XiRangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Xiying Guan <guanxiying@xirangit.com>
- * @package     menu
+ * @package     nav
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-class menu extends control
+class nav extends control
 {
     /**
-     * menu setting function
+     * nav setting function
      *
      * @access public
      * @return void
@@ -20,33 +20,33 @@ class menu extends control
     {   
         if($_POST)
         {
-            $menus = $_POST['menu'];
-            foreach($menus as $key => $menu)
+            $navs = $_POST['nav'];
+            foreach($navs as $key => $nav)
             {
-                $menus[$key] = $this->menu->organizeMenu($menu);
+                $navs[$key] = $this->nav->organizeNav($nav);
             }
-            //a($menus);exit;
-            if(isset($menus['2'])) $menus['2'] = $this->menu->group($menus['2']);
-            if(isset($menus['3'])) $menus['3'] = $this->menu->group($menus['3']);
-            $settings =  array('mainMenu' => json_encode($menus));
-            $result   = $this->loadModel('setting')->setItems('system.common.menu', $settings);
+            //a($navs);exit;
+            if(isset($navs['2'])) $navs['2'] = $this->nav->group($navs['2']);
+            if(isset($navs['3'])) $navs['3'] = $this->nav->group($navs['3']);
+            $settings =  array('mainNav' => json_encode($navs));
+            $result   = $this->loadModel('setting')->setItems('system.common.nav', $settings);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
 
-        $this->view->menus = $menus = json_decode($this->config->menu->mainMenu,true);
-        $this->view->types = $this->lang->menu->types; 
+        $this->view->navs = $navs = json_decode($this->config->nav->mainNav,true);
+        $this->view->types = $this->lang->nav->types; 
         $this->view->articleTree  = $this->loadModel('tree')->getOptionMenu('article');
 
-        if(empty($this->view->menus))
+        if(empty($this->view->navs))
         {
-            $defaultMenu      = array();
-            $defaultMenu[1][] = array(
+            $defaultNav      = array();
+            $defaultNav[1][] = array(
                 'type' => 'common',
                 'common' => 'home',
                 'title' => $this->lang->home
             );
-            $this->view->menus = $defaultMenu;
+            $this->view->navs = $defaultNav;
         }
         $this->display();
     }   

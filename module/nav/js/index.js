@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
     /* add grade1 memu options */
-    $(document).on('click', '.plus1', function() { $(this).parent().after($('#grade1MenuSource').html()); });
+    $(document).on('click', '.plus1', function() { $(this).parent().after($('#grade1NavSource').html()); });
 
     /* add grade2 memu options */
     $(document).on('click', '.plus2', 
@@ -12,16 +12,16 @@ $(document).ready(function()
             { 
                 if($(this).parents('.liGrade1').find('.liGrade2').size()==0)
                 {
-                    $(this).parents('.liGrade1').append($('#grade2MenuSource').html());
+                    $(this).parents('.liGrade1').append($('#grade2NavSource').html());
                 }
                 else
                 {
-                    $(this).parents('.liGrade1').find('.ulGrade2').prepend($('#grade2MenuSource ul').html());
+                    $(this).parents('.liGrade1').find('.ulGrade2').prepend($('#grade2NavSource ul').html());
                 }
             }
             else
             {
-                $(this).parent().after($('#grade2MenuSource ul').html()); 
+                $(this).parent().after($('#grade2NavSource ul').html()); 
             }
         }
     );
@@ -35,21 +35,21 @@ $(document).ready(function()
             { 
                 if($(this).parents('.liGrade2').find('.ulGrade3').size() == 0)
                 {
-                    $(this).parents('.liGrade2').append($('#grade3MenuSource').html());
+                    $(this).parents('.liGrade2').append($('#grade3NavSource').html());
                 }
                 else
                 {
-                    $(this).parents('.liGrade2').find('.ulGrade3').prepend($('#grade3MenuSource ul').html());
+                    $(this).parents('.liGrade2').find('.ulGrade3').prepend($('#grade3NavSource ul').html());
                 }
             }
             else
             {
-                $(this).parent().after($('#grade3MenuSource ul').html()); 
+                $(this).parent().after($('#grade3NavSource ul').html()); 
             }
         }
     );
     
-    /* toggle children menu. */
+    /* toggle children nav. */
     $(document).on('click', '.shut',
         function()
         {
@@ -76,20 +76,21 @@ $(document).ready(function()
         }
     );
 
-    /* delete menu. */
+    /* delete nav. */
     $(document).on('click', '.remove', function(){
-        if($(this).parent().is('.liGrade1') && $('.menuList .liGrade1').size() >1)
+        
+        if($(this).parent().is('.liGrade1') && $('.navList .liGrade1').size() ==1)
         {
-            $(this).parent().remove();
+            bootbox.alert(v.lang.canNotRemoveAllNav);
         }
         else 
         {
-            bootbox.alert(v.lang.canNotRemoveAllNav);
+            $(this).parent().remove();
         }
     });
 
     /* toggle article common selector.*/
-    $(document).on('change', '.menuType',
+    $(document).on('change', '.navType',
         function() 
         {
             type    = $(this).val();
@@ -98,19 +99,19 @@ $(document).ready(function()
             if(type != 'input')
             {
                 $(this).parent().children('.urlInput').hide();
-                $(this).parent().children('.menuSelector').hide();
-                $(this).parent().children('.menuSelector[name*='+type+']').show();
+                $(this).parent().children('.navSelector').hide();
+                $(this).parent().children('.navSelector[name*='+type+']').show();
             }
             else
             {
-                $(this).parent().children('.menuSelector').hide();
+                $(this).parent().children('.navSelector').hide();
                 $(this).parent().children('.urlInput').show(); 
             }
         }
     );
 
-    /* set default menu title when selector changed. */
-    $(document).on('change', '.menuSelector',
+    /* set default nav title when selector changed. */
+    $(document).on('change', '.navSelector',
         function()
         {
             categories = $(this).find(':selected').text().split('/');
@@ -118,20 +119,20 @@ $(document).ready(function()
         }
     );
     
-    $.ajaxForm('#menuForm',function(data){ bootbox.alert(data.message); });
+    $.ajaxForm('#navForm',function(data){ bootbox.alert(data.message); });
 
 });
 
 /**
- * group menus and submit form
+ * group navs and submit form
  *
  * @return void 
  */
 function submitForm()
 {
-    $('.menuList .grade1key').each(function(index,obj) { $(this).val(index); });
-    $('.menuList .grade2key').each(function(index){ $(this).val(1000+(parseInt(index))); })
-    $('.menuList .grade2parent').each(function(index){ $(this).val( $(this).parents('.liGrade1').children('.grade1key').val()); });
-    $('.menuList .grade3parent').each(function(i){ p = $(this).parents('.liGrade2').children('.grade2key').val(); $(this).val(p); });
-    $('#menuForm').submit();
+    $('.navList .grade1key').each(function(index,obj) { $(this).val(index); });
+    $('.navList .grade2key').each(function(index){ $(this).val(1000+(parseInt(index))); })
+    $('.navList .grade2parent').each(function(index){ $(this).val( $(this).parents('.liGrade1').children('.grade1key').val()); });
+    $('.navList .grade3parent').each(function(i){ p = $(this).parents('.liGrade2').children('.grade2key').val(); $(this).val(p); });
+    $('#navForm').submit();
 }
