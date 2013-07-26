@@ -1,4 +1,6 @@
 /* global settings.*/
+.row{width: 100%; margin-left: 0;}
+.span9{margin-left: 0;}
 .navbar .navbar-inner {padding: 0;}
 .navbar .nav li a {border-left: 1px solid rgba(255, 255, 255, 0.75);border-right: 1px solid rgba(0, 0, 0, 0.1);font-weight: bold;text-align: center;}
 .navbar .nav li:first-child a {border-left: 0 none;border-radius: 3px 0 0 3px;}
@@ -26,7 +28,8 @@ ul.sf-menu li:hover li ul,ul.sf-menu li.sfHover li ul,ul.sf-menu li li:hover li 
 ul.sf-menu li li:hover ul,ul.sf-menu li li.sfHover ul,ul.sf-menu li li li:hover ul,ul.sf-menu li li li.sfHover ul{left:10em;top:0}
 
 /* breadcrumb setting*/
-ul.breadcrumb {background:none; margin-top:10px; border-bottom:1px solid; }
+ul.breadcrumb {background:none; margin: 0; padding: 10px 0;}
+
 
 /*side widget*/
 .widget {margin-bottom:30px; color:#5A5A5A; font-size:13px; }
