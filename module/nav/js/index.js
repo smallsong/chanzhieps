@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
     /* add grade1 memu options */
-    $(document).on('click', '.plus1', function() { $(this).parent().after($('#grade1NavSource').html()); });
+    $(document).on('click', '.plus1', function() { $(this).parent().after($('#grade1NavSource').html());});
 
     /* add grade2 memu options */
     $(document).on('click', '.plus2', 
@@ -48,7 +48,7 @@ $(document).ready(function()
             }
         }
     );
-    
+
     /* toggle children nav. */
     $(document).on('click', '.shut',
         function()
@@ -109,6 +109,8 @@ $(document).ready(function()
             }
         }
     );
+
+    $('a[class*=plus]').click(function(){ $('.navType').change();});  
 
     /* set default nav title when selector changed. */
     $(document).on('change', '.navSelector',
