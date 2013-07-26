@@ -3,9 +3,9 @@ include '../../common/view/header.html.php';
 $contact    = json_decode($this->config->company->contact);
 ?>
 <div class="row">
+  <?php $common->printPositionBar($this->app->getModuleName());?>
   <div class="span9">
-    <?php $common->printPositionBar($this->app->getModuleName());?>
-    <h1><?php echo $company->name;?></h1>
+    <h2><?php echo $company->name;?></h2>
     <p><?php echo $company->content;?></p>
     <br/>
     <address>
