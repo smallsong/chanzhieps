@@ -6,6 +6,7 @@
     <?php echo html::input('account','',"class='input-block-level' placeholder='{$lang->user->inputAccountOrEmail}'");?>
     <?php echo html::password('password','',"class='input-block-level' placeholder='{$lang->user->inputPassword}'");?>
     <?php // echo html::checkbox('keepLogin', $lang->user->login->keepLogin);?>
+    <?php echo html::hidden('referer', $referer);?>
     <?php echo html::submitButton($lang->user->login->common, 'btn btn-primary');?>
   </form>
 </div>
