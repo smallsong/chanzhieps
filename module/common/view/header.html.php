@@ -3,7 +3,7 @@
 include 'header.lite.html.php';
 if(isset($config->site->logo)) $logo = json_decode($this->config->site->logo);
 js::set('lang', $lang->js);
-$menus = json_decode($this->config->menu->mainMenu, true);
+$navs = json_decode($this->config->nav->mainNav, true);
 $current = commonModel::getCurrentMenu($moduleName);
 ?>
 <div class="container">
@@ -25,19 +25,19 @@ $current = commonModel::getCurrentMenu($moduleName);
         <div class="container">
           <ul class="nav sf-menu sf-js-enabled">
 
-            <?php foreach($menus[1] as $menu):?>
+            <?php foreach($navs[1] as $nav):?>
             <li class="cat-item"> 
-              <a href="<?php echo $menu['url'];?>"><?php echo $menu['title'];?></a>
-              <?php if(isset($menus[2][$menu['key']])):?>
+              <a href="<?php echo $nav['url'];?>"><?php echo $nav['title'];?></a>
+              <?php if(isset($navs[2][$nav['key']])):?>
               <ul class="grade2 children">
-                <?php foreach($menus[2][$menu['key']] as $menu2):?>
+                <?php foreach($navs[2][$nav['key']] as $nav2):?>
                 <li class="cat-item">
-                  <a href="<?php echo $menu2['url'];?>"><?php echo $menu2['title'];?></a>
-                  <?php if(isset($menus[3][$menu2['key']])):?>
+                  <a href="<?php echo $nav2['url'];?>"><?php echo $nav2['title'];?></a>
+                  <?php if(isset($navs[3][$nav2['key']])):?>
                   <ul class="grade3 children">
-                    <?php foreach($menus[3][$menu2['key']] as $menu3):?>
+                    <?php foreach($navs[3][$nav2['key']] as $nav3):?>
                     <li class="cat-item">
-                      <a href="<?php echo $menu3['url'];?>"><?php echo $menu3['title'];?></a>
+                      <a href="<?php echo $nav3['url'];?>"><?php echo $nav3['title'];?></a>
                     </li>
                     <?php endforeach;?>
                   </ul>
