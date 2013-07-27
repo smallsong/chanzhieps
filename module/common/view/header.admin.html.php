@@ -10,6 +10,14 @@
   </div>
 </div>
 
+<div class="page-header-primary">
+  <div class="page-header-main">
+    <h1>
+      <?php echo $this->moduleName;?>
+    </h1>
+  </div>
+</div>
+
 <div class="container-fluid">
   <div class="row-fluid">
     <?php 
