@@ -41,4 +41,12 @@ $themeRoot = $webRoot . "theme/";
   echo html::rss($config->webRoot .'rss.xml', $config->site->name);
 ?>
 </head>
-<body>
+
+<?php
+  if(RUN_MODE == 'admin'){
+    echo '<body class="with-navbar-fixed-both">';
+  }
+  else{
+    echo '<body>';
+  }
+?>
