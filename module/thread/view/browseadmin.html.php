@@ -1,13 +1,14 @@
 <?php include '../../common/view/header.admin.html.php'; ?>
-<table class='table table-hover table-bordered table-striped'>
-  <?php $config->requestType = 'PATH_INFO';?>
-  <caption>
+<!-- <h2><?php $config->requestType = 'PATH_INFO';?></h2> -->
+<table class='table'>
+  
+<!--   <caption>
     <div class='f-left'><?php echo $lang->thread->browse;?></div>
     <div class='f-right'><?php if($board) echo html::a($this->createLink('thread', 'post', "boardID=$board->id"), $lang->forum->post, '_blank');?></div>
-  </caption>
+  </caption> -->
   <tr>
     <th><?php echo $lang->thread->id;?></th>
-    <th><? echo $lang->thread->title;?></th>
+    <th><?php echo $lang->thread->title;?></th>
     <th><?php echo $lang->thread->author;?></th>
     <th><?php echo $lang->thread->postedDate;?></th>
     <th><?php echo $lang->thread->views;?></th>
