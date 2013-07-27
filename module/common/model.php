@@ -287,11 +287,11 @@ class commonModel extends model
     {
         global $app, $lang;
 
-        $string  = '<p class="navbar-text pull-right">';
-        $string .= sprintf($lang->welcome, $app->user->account);
-        $string .= html::a($this->createLink('user','logout'), $lang->logout, '', 'class="navbar-link"');
-        $string .= html::a(getWebroot(), '<i class="icon-home icon-white"></i>'.$lang->frontHome, '_blank', 'class="navbar-link"');
-        $string .= '</p>';
+        $string  = '<ul class="nav pull-right">';
+        $string .= sprintf('<li>%s</li>',html::a(getWebroot(), '<i class="icon-home icon-large"></i> '.$lang->frontHome, '_blank', 'class="navbar-link"'));
+        $string .= sprintf('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large"></i> %s <b class="caret"></b></a>',$app->user->account);
+        $string .= sprintf('<ul class="dropdown-menu"><li>%s</li></ul>',html::a($this->createLink('user','logout'), $lang->logout, ''));
+        $string .= '</li></ul>';
 
         return $string;
     }
