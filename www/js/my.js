@@ -94,6 +94,10 @@ function setAdminLeftMenu()
     $('ul.leftmenu').find('a').first().addClass('radius-top');
 }
 
+function adjustAdminMenuStyle(){
+    $(".container-withnav .page-nav-vt").height($(".container-withnav .row-fluid").height());
+}
+
 
 function ajaxWinReload()
 {
@@ -107,6 +111,7 @@ $(document).ready(function()
     if(needPing) setTimeout('setPing()', 100 * 60 * 5);
 
     setAdminLeftMenu();
+    adjustAdminMenuStyle();
 
     /* ajax delete. */
     $(document).on('click', 'a.delete', 

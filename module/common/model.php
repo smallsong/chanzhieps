@@ -252,7 +252,7 @@ class commonModel extends model
         global $lang, $app;
 
         if(!isset($lang->$moduleName->menu)) return false;
-        $string = "<ul class='nav nav-list leftmenu affix'>\n";
+        $string = "<ul class='nav nav-pills nav-stacked'>\n";
 
         /* Get the sub menus of the module, and get current module and method. */
         $submenus      = $lang->$moduleName->menu;  
@@ -263,7 +263,7 @@ class commonModel extends model
         foreach($submenus as $key => $menu)
         {
             list($label, $module, $method, $vars) = explode('|', $menu);
-            $label .= '<i class="icon-chevron-right"></i>';
+            $label .= '<i class="icon-chevron-right pull-right"></i>';
 
             if(commonModel::hasPriv($module, $method))
             {
