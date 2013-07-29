@@ -10,22 +10,21 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<form method="post" id="ajaxForm" enctype="multipart/form-data" class="form-horizontal">
-  <fieldset>
-    <legend><?php echo $lang->site->setLogo;?></legend>
-    <div class="control-group">
-      <div class="controls">
+<form method="post" id="ajaxForm" enctype="multipart/form-data">
+  <table class="table table-bordered table-form">
+    <caption><?php echo $lang->site->setLogo;?></caption> 
+    <tr>
+      <th class="w-150px">
         <?php if(isset($this->config->site->logo)) echo html::image($logo->webPath, "width='150px'");?>
-      </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="files">&nbsp;</label>
-      <div class="controls"><?php echo html::file('files');?></div>
-    </div>
-  </fieldset>
-  <div class="form-actions">
-    <?php echo html::submitButton('','btn btn-primary btn-large');?>
-    <span id="responser"></span>
-  </div>
+      </th> 
+      <td><?php echo html::file('files');?></td> 
+    </tr>
+    <tr>
+      <td colspan="2" class="a-center">
+        <?php echo html::submitButton();?>
+        <span id="responser"></span>
+      </td>
+    </tr>
+  </table>
 </form>
 <?php include '../../common/view/footer.admin.html.php';?>
