@@ -10,8 +10,8 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<!-- <h2><?php echo $lang->article->list;?></h2> -->
-<table class="table">
+<table class="table table-hover table-bordered table-striped">
+  <caption><?php echo $lang->article->list;?></caption>
   <thead>
     <tr>
       <th class="w-30px"><?php echo $lang->article->id;?></th>
