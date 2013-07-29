@@ -114,6 +114,12 @@ $lang->company->menu = new stdclass();
 $lang->company->menu->basic    = '公司信息|company|setbasic|';
 $lang->company->menu->contact  = '联系方式|company|setcontact|';
 
+/* The menus of user module. */
+$lang->user->menu = new stdClass();
+
+$lang->user->menu->forbid         = '会员列表|user|forbid|';
+$lang->user->menu->changepassword = '修改密码|user|changepassword|';
+
 /* menu module group settings. */
 $lang->menuModuleGroup = array();
 $lang->menuModuleGroup['thread'] = 'forum';
