@@ -10,18 +10,9 @@
   </div>
 </div>
 
-<div class="page-header-primary">
-  <div class="page-header-main">
-    <h1>
-      <?php echo $this->moduleName;?>
-    </h1>
-  </div>
-</div>
-
-<div class="container-fluid container-withnav">
+<div class="container-fluid">
   <div class="row-fluid">
     <?php 
     $moduleMenu = commonModel::createModuleMenu($this->moduleName);
-    if($moduleMenu) echo "<div class='span2 page-nav-vt'>$moduleMenu</div>\n<div class='span10  page-panel-content'>\n";
+    if($moduleMenu) echo "<div class='span2'>$moduleMenu</div>\n<div class='span10'>\n";
     ?>
-
