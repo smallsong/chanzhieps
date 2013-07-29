@@ -4,12 +4,11 @@ $sideCategoryMenus =  $this->loadModel('tree')->getSons(0);
 ?>
   <div class="span3">
     <div class="sidebar"> 
- 
       <div class="widget widget-category"> 
-        <h2><?php echo $lang->categoryMenu;?></h2>
+        <h4><?php echo $lang->categoryMenu;?></h4>
         <ul>
         <?php foreach($sideCategoryMenus as $category):?>
-        <li><?php echo html::a($this->createLink('article', 'browse', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}' class='btn'");?></li>
+        <li><?php echo html::a($this->createLink('article', 'browse', "categoryID={$category->id}"), '<i class="icon-chevron-right"></i>' . $category->name, '', "id='category{$category->id}'");?></li>
         <?php endforeach;?>
         </ul>
       </div>
@@ -23,7 +22,6 @@ $sideCategoryMenus =  $this->loadModel('tree')->getSons(0);
         <?php endforeach;?>
         </ul>
       </div>
- 
     </div>
   </div>
 

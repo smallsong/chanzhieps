@@ -5,7 +5,7 @@ $contact    = json_decode($this->config->company->contact);
 <div class="row">
   <?php $common->printPositionBar($this->app->getModuleName());?>
   <div class="span9">
-    <h2><?php echo $company->name;?></h2>
+    <h4><?php echo $company->name;?></h4>
     <p><?php echo $company->content;?></p>
     <br/>
     <address>

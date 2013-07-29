@@ -1,6 +1,7 @@
 /* global settings.*/
 .row{width: 100%; margin-left: 0;}
 .span9{margin-left: 0;}
+.span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
 .navbar .navbar-inner {padding: 0;}
 .navbar .nav li a {border-left: 1px solid rgba(255, 255, 255, 0.75);border-right: 1px solid rgba(0, 0, 0, 0.1);font-weight: bold;text-align: center;}
 .navbar .nav li:first-child a {border-left: 0 none;border-radius: 3px 0 0 3px;}
@@ -33,12 +34,12 @@ ul.breadcrumb {background:none; margin: 0; padding: 10px 0;}
 
 /*side widget*/
 .widget {margin-bottom:30px; color:#5A5A5A; font-size:13px; }
-.widget h4 {color:#4691EF; margin-top:15px; margin-bottom:10px; }
+.widget h4 {background: #F3F3F3; color:#333; padding: 8px 0 8px 10px; margin:10px 0; }
 
 .widget ul {margin:0 2px; }
 .widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
 .widget ul li span { font-weight:bold; margin-right:5px; }
 
 .widget-category ul {width:100%; padding:0; margin-left:0; }
-.widget-category ul li a {line-height:30px; height:25px; color:#5A5A5A; display:block; font-size:14px; font-weight:700;  margin-bottom:5px; border-radius:0px; background:#E0E0E0; }
-.widget-category ul a:hover {background:#4691EF; color:#FFFFFF; }
+.widget-category ul li a {line-height:30px; height:25px; color:#5A5A5A; display:block; font-size:14px; font-weight:700;  margin-bottom:5px; border-radius:0px;}
+.widget-category ul a:hover { }
