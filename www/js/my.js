@@ -110,17 +110,6 @@ function reloadAjaxModal()
     $('#ajaxModal').load($('#ajaxModal').attr('rel'));
 }
 
-/**
- * Adjust admin menu style.
- * 
- * @access public
- * @return void
- */
-function adjustAdminMenuStyle()
-{
-    $(".container-withnav .page-nav-vt").height($(".container-withnav .row-fluid").height());
-}
-
 $(document).ready(function() 
 {
     setRequiredFields();
@@ -128,7 +117,6 @@ $(document).ready(function()
     if(needPing) setTimeout('setPing()', 100 * 60 * 5);
 
     setAdminLeftMenu();
-    adjustAdminMenuStyle();
 
     /* ajax delete. */
     $(document).on('click', 'a.delete', function(element)
