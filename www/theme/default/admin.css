@@ -28,7 +28,7 @@ a.deletepre{color:#B94A48}
 .leftmenu .icon-chevron-right {float:right; margin-top:2px; margin-right:-6px; opacity:.25;}
 .leftmenu > li > a:hover {background-color:#f5f5f5; }
 .leftmenu a:hover .icon-chevron-right { opacity:.5; }
-/*.leftmenu .active .icon-chevron-right, .leftmenu .active a:hover .icon-chevron-right {background-image:url(../bootstrap/img/glyphicons-halflings-white.png); opacity:1;}*/
+.leftmenu .active .icon-chevron-right, .leftmenu .active a:hover .icon-chevron-right { opacity:1;}
 
 /* The affix settings. */
 .leftmenu.affix {top:40px;}
