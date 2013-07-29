@@ -117,7 +117,7 @@ class commonModel extends model
                 isset($config->front->groups->guest[$module]) 
                 && in_array($method, $config->front->groups->guest[$module])
               ) return true;
-              return isset($config->front->groups->user[$module]) && in_array($method, $this->config->front->groups->user[$module]);
+              return isset($config->front->groups->user[$module]) && in_array($method, $config->front->groups->user[$module]);
         }
 
         $rights  = $app->user->rights;
