@@ -98,7 +98,6 @@ function setAdminLeftMenu()
     $('ul.leftmenu').find('a').last().addClass('radius-bottom');
     $('ul.leftmenu').find('a').first().addClass('radius-top');
 }
-<<<<<<< HEAD:www/js/my.js
  
 /**
  * reloadAjaxModal.
