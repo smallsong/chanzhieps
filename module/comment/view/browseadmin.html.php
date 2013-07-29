@@ -11,14 +11,16 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php js::set('lang.comment', $lang->comment);?>
-  <table class="table table-hover table-bordered table-striped">
-    <caption>
-      <div class='f-left'><?php echo $lang->comment->manage;?></div>
-      <div class='f-right'>
-        <?php echo html::a(inlink('browseadmin', 'status=0'), $lang->comment->unReviewed);?>
-        <?php echo html::a(inlink('browseadmin', 'status=1'), $lang->comment->reviewed);?>
-      </div>
-    </caption>
+<div class="row-fluid">
+  <div class="span2 page-nav-vt">
+    <ul class="nav nav-pills nav-stacked">
+      <li><?php echo html::a(inlink('browseadmin', 'status=0'),'<i class="icon-question-sign icon-large"></i>  ' . $lang->comment->unReviewed . '<i class="icon-chevron-right pull-right"></i>');?></li>
+      <li><?php echo html::a(inlink('browseadmin', 'status=1'), '<i class="icon-ok-sign icon-large"></i>  ' . $lang->comment->reviewed . '<i class="icon-chevron-right pull-right"></i>');?></li>
+    </ul>
+  </div>
+  <div class="span10 page-panel-content">
+    <h2><?php echo $lang->comment->manage;?></h2>
+  <table class="table">
     <tr>
       <th class='w-id'><?php echo $lang->comment->id;?></th>
       <th><?php echo $lang->comment->content;?></th>
@@ -56,5 +58,7 @@ EOT;
     <?php endforeach;?>
     </tr>
     <tr><td colspan='3' class='a-right'><?php $pager->show();?></td></tr>
-  </table>
+  </table>    
+  </div>
+</div>
 <?php include '../../common/view/footer.admin.html.php';?>

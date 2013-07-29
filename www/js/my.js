@@ -98,6 +98,7 @@ function setAdminLeftMenu()
     $('ul.leftmenu').find('a').last().addClass('radius-bottom');
     $('ul.leftmenu').find('a').first().addClass('radius-top');
 }
+<<<<<<< HEAD:www/js/my.js
  
 /**
  * reloadAjaxModal.
@@ -110,6 +111,17 @@ function reloadAjaxModal()
     $('#ajaxModal').load($('#ajaxModal').attr('rel'));
 }
 
+/**
+ * Adjust admin menu style.
+ * 
+ * @access public
+ * @return void
+ */
+function adjustAdminMenuStyle()
+{
+    $(".container-withnav .page-nav-vt").height($(".container-withnav .row-fluid").height());
+}
+
 $(document).ready(function() 
 {
     setRequiredFields();
@@ -117,31 +129,30 @@ $(document).ready(function()
     if(needPing) setTimeout('setPing()', 100 * 60 * 5);
 
     setAdminLeftMenu();
+    adjustAdminMenuStyle();
 
     /* ajax delete. */
-    $(document).on('click', 'a.delete', 
-        function(element)
+    $(document).on('click', 'a.delete', function(element)
+    {
+        if(confirm(v.lang.confirmDelete))
         {
-            if(confirm(v.lang.confirmDelete))
+            delUrl = $(this).attr('href');
+            $(this).text(v.lang.deleteing);
+            $.getJSON(delUrl,function(data) 
             {
-                delUrl = $(this).attr('href');
-                $(this).text(v.lang.deleteing);
-                $.getJSON(delUrl,function(data) 
+                if(data.result=='success')
                 {
-                    if(data.result=='success')
-                    {
-                        if($(element.target).is('#ajaxModal a.delete')) reloadAjaxModal();
-                        location.reload();
-                    }
-                    else
-                    {
-                        alert(data.message);
-                    }
-                });
-            }
-            return false;
+                    if($(element.target).is('#ajaxModal a.delete')) reloadAjaxModal();
+                    location.reload();
+                }
+                else
+                {
+                    alert(data.message);
+                }
+            });
         }
-    );
+        return false;
+    });
 
     $('a.ajaxLink').click(function()
     {
