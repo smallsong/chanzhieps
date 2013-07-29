@@ -119,29 +119,27 @@ $(document).ready(function()
     setAdminLeftMenu();
 
     /* ajax delete. */
-    $(document).on('click', 'a.delete', 
-        function(element)
+    $(document).on('click', 'a.delete', function(element)
+    {
+        if(confirm(v.lang.confirmDelete))
         {
-            if(confirm(v.lang.confirmDelete))
+            delUrl = $(this).attr('href');
+            $(this).text(v.lang.deleteing);
+            $.getJSON(delUrl,function(data) 
             {
-                delUrl = $(this).attr('href');
-                $(this).text(v.lang.deleteing);
-                $.getJSON(delUrl,function(data) 
+                if(data.result=='success')
                 {
-                    if(data.result=='success')
-                    {
-                        if($(element.target).is('#ajaxModal a.delete')) reloadAjaxModal();
-                        location.reload();
-                    }
-                    else
-                    {
-                        alert(data.message);
-                    }
-                });
-            }
-            return false;
+                    if($(element.target).is('#ajaxModal a.delete')) reloadAjaxModal();
+                    location.reload();
+                }
+                else
+                {
+                    alert(data.message);
+                }
+            });
         }
-    );
+        return false;
+    });
 
     $('a.ajaxLink').click(function()
     {

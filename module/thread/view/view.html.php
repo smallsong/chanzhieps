@@ -97,14 +97,10 @@
       </tr>
     </table>
    <?php endforeach;?>
-   <div class='f-right'><?php $pager->show();?></div>
+   <div class='f-right mb-10px'><?php $pager->show();?></div>
    <div style="clear: both"></div>
    <?php if($this->session->user->account != 'guest' and !$board->readonly):?>
      <form method='post' enctype='multipart/form-data' id='reply' action='<?php echo inlink('reply', "thread=$thread->id");?>'>
-     <table class='table-1 border'>
-       <caption class='caption-bold'><?php echo $lang->reply->common;?></caption>
-       <tr>
-         <td>
            <?php 
            echo html::textarea('content', '', "rows=10 class='area-1' tabindex=1");
            echo $this->fetch('file', 'buildForm');
@@ -112,12 +108,8 @@
            echo '<br />';
            echo html::submitButton('', 'onclick="return checkGarbage(\'content\')" tabindex=2'). html::hidden('recTotal', $pager->recTotal). html::hidden('recPerPage', $pager->recPerPage). html::hidden('pageID', $pager->pageTotal);
            ?>
-         </td>
-       </tr>
-    </table>
    </form>
    <?php endif;?>
-   <div id='zbyz' class='hidden'><?php $this->loadModel('comment')->setVerify();?></div>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>

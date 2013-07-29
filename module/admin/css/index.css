@@ -1,8 +1,21 @@
 #shortcutContainer {margin-top:60px;}
 
-#shortcutContainer .shortcut{margin:5px; text-align:center;}
-#shortcutContainer .shortcut:hover{opacity: 0.9; margin:5px;}
-#shortcutContainer .shortcut:first-child{margin-left:5px;}
+#shortcutContainer .shortcut{
+	-webkit-transition: opacity .3s;
+	-moz-transition: opacity .3s;
+	-o-transition: opacity .3s;
+	transition: opacity .3s;
+	text-align:center;margin-top: 20px;
+}
+#shortcutContainer .shortcut:hover{
+	filter: alpha(opacity=80);
+	-moz-opacity:0.8;
+	opacity: 0.8;
+	-webkit-transition: opacity .3s;
+	-moz-transition: opacity .3s;
+	-o-transition: opacity .3s;
+	transition: opacity .3s;
+}
 
 #shortcutContainer h3{line-height: 140px; color: #FFFFFF; font-weight:500;}
 #shortcutContainer a:hover{text-decoration: none;}

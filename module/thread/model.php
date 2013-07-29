@@ -22,7 +22,6 @@ class threadModel extends model
     {
         $userReplies  = $this->cookie->rps;
         $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fetch('', false);
-        $thread->content = $this->loadModel('file')->setImgSize($thread->content, $this->config->thread->maxImgSize);
         $thread->replies = $this->dao->select('*')->from(TABLE_REPLY)
             ->where('thread')->eq($threadID)
             ->andWhere("(INSTR('$userReplies', CONCAT('_',id,'_')) != 0 or hidden != '1' or author = '{$this->app->user->account}')") //exclude hide.
@@ -34,11 +33,6 @@ class threadModel extends model
             $replyFiles = $this->file->getByObject('reply', array_keys($thread->replies));
 
             foreach($replyFiles as $fileID => $replyFile) $thread->replies[$replyFile->objectID]->files[$fileID] = $replyFile;
-
-            foreach($thread->replies as $replyID => $reply)
-            {
-                $reply->content = $this->file->setImgSize($reply->content, $this->config->thread->maxImgSize);
-            }
         }
         return $thread;
     }

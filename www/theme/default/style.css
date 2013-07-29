@@ -197,8 +197,8 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 #doccontent table, #doccontent th, #doccontent td {border:1px solid #e4e4e4;}
 #doccontent tr:first-child {background:#efefef}
 
-#thread td    {border:none}
-#thread .user {width:150px; border:none; border-right:1px solid #92c8f5}
+#thread td    {border:none;}
+#thread .user {width:150px; border:none; border-right:1px solid #dddddd;}
 #thread p     {margin:0}
 
 /* Treeview. */

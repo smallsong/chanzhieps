@@ -75,7 +75,7 @@ class thread extends control
         if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
         if($_POST)
         {
-            $replyID    = $this->thread->reply($threadID);
+            $replyID = $this->thread->reply($threadID);
             if(!dao::isError()) $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
             $thread     = $this->thread->getById($threadID);
