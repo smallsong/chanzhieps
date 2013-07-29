@@ -22,9 +22,7 @@ $themeRoot = $webRoot . "theme/";
       js::import($jsRoot . 'jquery/min.js');
       js::import($jsRoot . 'bootstrap/min.js');
       js::import($jsRoot . 'my.js');
-      // css::import($themeRoot . 'bootstrap/css/core.min.css');
-      css::import($themeRoot . 'default/bootstrap.zentao.min.css');
-      css::import($themeRoot . 'default/font-awesome.css');
+      css::import($themeRoot . 'bootstrap/css/core.min.css');
       css::import($themeRoot . 'default/style.css');
   }
   else
@@ -41,12 +39,4 @@ $themeRoot = $webRoot . "theme/";
   echo html::rss($config->webRoot .'rss.xml', $config->site->name);
 ?>
 </head>
-
-<?php
-  if(RUN_MODE == 'admin'){
-    echo '<body class="with-navbar-fixed-both">';
-  }
-  else{
-    echo '<body>';
-  }
-?>
+<body>
