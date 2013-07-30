@@ -40,9 +40,8 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $category        = $this->loadModel('tree')->getById($categoryID);
-        $childCategories = $this->tree->getAllChildID($categoryID);
-        $articles        = $this->article->getList($childCategories, $orderBy, $pager);
+        $category = $this->loadModel('tree')->getById($categoryID);
+        $articles = $this->article->getList($this->tree->getFamily($categoryID), $orderBy, $pager);
 
         if($category)
         {

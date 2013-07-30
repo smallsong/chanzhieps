@@ -93,13 +93,12 @@ class articleModel extends model
     public function getCategoryArticle($categoryID, $getFiles = false, $count = 10)
     {
         $this->loadModel('tree');
-        $childs = $this->tree->getAllChildId($categoryID);
         $articles = $this->dao->select('id, title, author, addedDate, summary')
             ->from(TABLE_ARTICLE)->alias('t1')
             ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
             ->on('t1.id = t2.article')
             ->where('t2.site')->eq($this->app->site->id)
-            ->andWhere('category')->in($childs)
+            ->andWhere('category')->in($this->tree->getFamily($categoryID))
             ->orderBy('id desc')->limit($count)->fetchAll('id');
         if(!$getFiles) return $articles;
 
