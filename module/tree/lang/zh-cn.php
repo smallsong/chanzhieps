@@ -8,7 +8,6 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-$lang->tree->common      = '类目';
 $lang->tree->add         = "添加";
 $lang->tree->edit        = "编辑";
 $lang->tree->addChild    = "添加子类目";
@@ -21,23 +20,25 @@ $lang->tree->confirmDelete = "您确定删除该类目吗？";
 $lang->tree->successSave   = "成功保存";
 $lang->tree->successFixed  = "成功修复";
 
-$lang->tree->lists['article'] = '文章';
-$lang->tree->lists['forum']   = '论坛';
-
+/* Lang items for article, products. */
 $lang->category = new stdclass();
-$lang->category->common   = '类目名称';
+$lang->category->common   = '类目';
 $lang->category->name     = '类目名称';
 $lang->category->parent   = '上级类目';
 $lang->category->desc     = '描述';
 $lang->category->keyword  = '关键词';
-$lang->category->owners   = '版主';
-$lang->category->readonly = '访问权限';
 $lang->category->children = "子类目";
 
-$lang->category->readonlyList[0] = '开放';
-$lang->category->readonlyList[1] = '只读';
+/* Lang items for forum. */
+$lang->board = new stdclass();
+$lang->board->common   = '版块';
+$lang->board->name     = '版块';
+$lang->board->parent   = '上级版块';
+$lang->board->desc     = '描述';
+$lang->board->keyword  = '关键词';
+$lang->board->children = "子版块";
+$lang->board->readonly = '访问权限';
+$lang->board->owners   = '版主';
 
-$lang->forum->common = '版块';
-$lang->forum->children = "子类目";
-
- 
+$lang->board->readonlyList[0] = '开放';
+$lang->board->readonlyList[1] = '只读';

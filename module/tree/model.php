@@ -284,9 +284,14 @@ class treeModel extends model
     public static function createManageLink($category)
     {
         global $lang;
+
+        /* Set the class of children link. */
+        $childrenLinkClass = '';
+        if($category->tree == 'forum' and $category->grade == 2) $childrenLinkClass = 'hidden';
+
         $linkHtml  = $category->name;
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',     "category={$category->id}&tree=$category->tree"), $lang->tree->edit);
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'children', "tree={$category->tree}&category={$category->id}"), $lang->tree->children);
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'children', "tree={$category->tree}&category={$category->id}"), $lang->category->children, '', "class='$childrenLinkClass'");
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete',   "category={$category->id}"), $lang->delete, '', 'class="delete"');
 
         return $linkHtml;

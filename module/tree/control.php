@@ -23,7 +23,9 @@ class tree extends control
      */
     public function browse($treeType = 'article', $root = 0, $action = 'children')
     {
-        $this->view->title    = $this->lang->tree->manage;
+        if($treeType == 'forum') $this->lang->category = $this->lang->board;
+
+        $this->view->title    = $this->lang->category->common;
         $this->view->treeType = $treeType;
         $this->view->root     = $root;
         $this->view->action   = $action;
@@ -44,6 +46,9 @@ class tree extends control
     {
         /* Get current category. */
         $category = $this->tree->getById($categoryID);
+
+        /* If tree is forum, assign board to category. */
+        if($category->tree == 'forum') $this->lang->category = $this->lang->board;
 
         if(!empty($_POST))
         {
@@ -74,6 +79,9 @@ class tree extends control
      */
     public function children($tree, $category = 0)
     {
+        /* If tree is forum, assign board to category. */
+        if($tree == 'forum') $this->lang->category = $this->lang->board;
+
         if(!empty($_POST))
         { 
             $result = $this->tree->manageChildren($tree, $this->post->parent, $this->post->children);
