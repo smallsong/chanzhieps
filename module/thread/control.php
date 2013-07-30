@@ -20,7 +20,7 @@ class thread extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $boards  = $this->loadModel('tree')->getAllChildID($boardID, 'forum');
+        $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
         $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
 
         $this->view->threads = $threads;

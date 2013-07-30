@@ -80,8 +80,8 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $allCategories = $this->loadModel('tree')->getAllChildID($categoryID, $tree);
-        $articles = $allCategories ? $this->article->getList($allCategories, $orderBy, $pager) : array();
+        $families = $this->loadModel('tree')->getFamily($categoryID, $tree);
+        $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();
 
         $this->view->title      = $tree;
         $this->view->articles   = $articles;
