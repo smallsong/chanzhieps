@@ -10,26 +10,25 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-  <div class="span3">
-    <?php 
-        js::set('categoryID', $currentCategoryID);
-        js::set('tree', $tree);
-    ?>
-    <form method='post' id="treeForm" action='<?php echo $this->createLink('tree', 'updateOrder', "tree=$tree");?>'>
+<?php 
+js::set('root',     $root);
+js::set('treeType', $treeType);
+js::set('action',   $action);
+?>
+<?php if(strpos($treeMenu, '<li>') !== false):?>
+<div class='row-fluid'>
+  <div class='span4'>
     <table class='table-1 table-bordered'>
       <caption><?php echo $title;?></caption>
       <tr>
-        <td>
-          <div id='main'><?php echo $categories;?></div>
-          <div class='a-center'>
-            <?php echo html::submitButton($lang->tree->updateOrder);?>
-          </div>
-        </td>
+        <td><div id='treeMenuBox'><?php echo $treeMenu;?></div></td>
       </tr>
     </table>
-    </form>
   </div>
-  <div class="span9">
-  </div>
+  <div class="span8" id='categoryBox'></div>
+  <?php else:?>
+  <div id='categoryBox'></div>
+  <?php endif;?>
+</div>
 <?php include '../../common/view/treeview.html.php';?>
 <?php include '../../common/view/footer.admin.html.php';?>

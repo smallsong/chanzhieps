@@ -1,7 +1,9 @@
 $(document).ready(function()
 {
-    $.ajaxForm('#treeForm');
-    $.ajaxLink('#treeForm a[class!=delete]', '.span9');
-    $('.span9').load(createLink('tree', 'managechild', 'tree=' + v.tree + '&categoryID=' + v.categoryID));
+    $.ajaxLink('#treeMenuBox a[class!=delete]', '#categoryBox');
+
+    if(v.action == 'children') var link = createLink('tree', 'children', 'treeType=' + v.treeType + '&root=' + v.root);
+    if(v.action == 'edit')     var link = createLink('tree', 'edit',     'category=' + v.root);
+    $('#categoryBox').load(link);
 })
 

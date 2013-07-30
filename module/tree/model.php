@@ -240,7 +240,7 @@ class treeModel extends model
      * @access public
      * @return string
      */
-    public function createAdminLink($category)
+    public static function createAdminLink($category)
     {
         if($category->tree == 'forum')
         {
@@ -268,7 +268,7 @@ class treeModel extends model
      * @access public
      * @return string
      */
-    public function createBrowseLink($category)
+    public static function createBrowseLink($category)
     {
         $linkHtml = html::a(helper::createLink('article', 'browse', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}'");
         return $linkHtml;
@@ -281,12 +281,13 @@ class treeModel extends model
      * @access public
      * @return string
      */
-    public function createManageLink($category)
+    public static function createManageLink($category)
     {
+        global $lang;
         $linkHtml  = $category->name;
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',   "category={$category->id}&tree=$category->tree"), $this->lang->tree->edit);
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'manageChild', "tree={$category->tree}&category={$category->id}"), $this->lang->tree->child);
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete', "category={$category->id}"), $this->lang->delete, '', 'class="delete"');
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',     "category={$category->id}&tree=$category->tree"), $lang->tree->edit);
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'children', "tree={$category->tree}&category={$category->id}"), $lang->tree->children);
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete',   "category={$category->id}"), $lang->delete, '', 'class="delete"');
 
         return $linkHtml;
     }
@@ -375,7 +376,7 @@ class treeModel extends model
 
                 /* After saving, update it's path. */
                 $categoryID   = $this->dao->lastInsertID();
-                $categoryPath = ",$categoryID";
+                $categoryPath = ",$categoryID,";
                 $categoryPath = $parent ? $parent->path . $categoryPath : $categoryPath;
                 $this->dao->update(TABLE_CATEGORY)
                     ->set('path')->eq($categoryPath)

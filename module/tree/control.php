@@ -15,122 +15,92 @@ class tree extends control
     /**
      * Browse the categories and print manage links.
      * 
-     * @param string $tree 
-     * @param int $currentCategoryID 
+     * @param  string $treeType 
+     * @param  int    $root 
+     * @param  string $action    children|edit 
      * @access public
      * @return void
      */
-    public function browse($tree = 'article', $currentCategoryID = 0)
+    public function browse($treeType = 'article', $root = 0, $action = 'children')
     {
-        $parentCategories              = $this->tree->getParents($currentCategoryID);
-        $this->view->title             = $this->lang->tree->manage;
-        $this->view->tree              = $tree;
-        $this->view->categories        = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
-        $this->view->sons              = $this->tree->getSons($currentCategoryID, $tree);
-        $this->view->currentCategoryID = $currentCategoryID;
-        $this->view->parentCategories  = $parentCategories;
+        $this->view->title    = $this->lang->tree->manage;
+        $this->view->treeType = $treeType;
+        $this->view->root     = $root;
+        $this->view->action   = $action;
+        $this->view->treeMenu = $this->tree->getTreeMenu($treeType, 0, array('treeModel', 'createManageLink'));
+        $this->view->children = $this->tree->getChildren($root, $treeType);
+
         $this->display();
     }
 
     /**
      * Edit a category.
      * 
-     * @param string $categoryID 
-     * @param string $tree 
+     * @param  int      $categoryID 
      * @access public
      * @return void
      */
-    public function edit($categoryID, $tree)
+    public function edit($categoryID)
     {
+        /* Get current category. */
+        $category = $this->tree->getById($categoryID);
+
         if(!empty($_POST))
         {
-            $error = $this->tree->validate($categoryID);
-            if(!empty($error)) $this->send(array('result' =>'fail', 'message'=>$error));
             $this->tree->update($categoryID);
-
-            if(!dao::isError()) $this->send(array('result' => 'success', 'message' => $this->lang->tree->successSave, 'locate' => inlink('browse', 'tree='.$tree)));
+            if(!dao::isError()) $this->send(array('result' => 'success', 'locate' => inlink('browse', "tree=$category->tree&category=$category->id&action=edit")));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 
-        $this->view->category   = $this->tree->getById($categoryID);
-        $this->view->optionMenu = $this->tree->getOptionMenu($this->view->category->tree);
-        $this->view->tree       = $tree;
-        $this->view->categories = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
+        /* Get option menu and remove the families of current category from it. */
+        $optionMenu = $this->tree->getOptionMenu($category->tree);
+        $families   = $this->tree->getFamily($categoryID);
+        foreach($families as $member) unset($optionMenu[$member]);
 
-        /* Remove self and childs from the $optionMenu. */
-        $childs = $this->tree->getAllChildId($categoryID);
-        foreach($childs as $childCategoryID) unset($this->tree->optionMenu[$childCategoryID]);
+        /* Assign. */
+        $this->view->category   = $category;
+        $this->view->optionMenu = $optionMenu;
 
         $this->display();
     }
 
     /**
-     * Update the categories order.
-     * 
+     * Manage children.
+     *
+     * @param  string    $tree 
+     * @param  int       $category    the current category id.
      * @access public
      * @return void
      */
-    public function updateOrder($tree)
+    public function children($tree, $category = 0)
     {
-        if(!empty($_POST))
-        {
-            $this->tree->updateOrder($_POST['orders']);
-        }
-        $this->send(array('result' => 'success', 'locate' => inlink('browse', 'tree='.$tree)));
-    }
-
-    /**
-     * Manage childs.
-     * 
-     * @param string $tree 
-     * @access public
-     * @return void
-     */
-    public function manageChild($tree, $currentCategoryID = 0)
-    {
-        $parentCategories              = $this->tree->getParents($currentCategoryID);
-        $this->view->title             = $this->lang->tree->manage;
-        $this->view->tree              = $tree;
-        $this->view->categories        = $this->tree->getTreeMenu($tree, $rootCategoryID = 0, array('treeModel', 'createManageLink'));
-        $this->view->sons              = $this->tree->getSons($currentCategoryID, $tree);
-        $this->view->currentCategoryID = $currentCategoryID;
-        $this->view->parentCategories  = $parentCategories;
-
         if(!empty($_POST))
         { 
-            $result = $this->tree->manageChild($tree, $_POST['parentCategoryID'], $_POST['categories']);
-            if($result) $this->send(array('result' => 'success', 'locate'=>inlink('browse', 'tree='.$tree)));
+            $result = $this->tree->manageChildren($tree, $this->post->parent, $this->post->children);
+            $locate = inlink('browse', "tree=$tree&category={$this->post->parent}");
+            if($result) $this->send(array('result' => 'success', 'locate' => $locate));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
-        $this->display();
-    }
 
-    /**
-     * Fix path, grades.
-     * 
-     * @param  string    $tree 
-     * @param  string    $type 
-     * @access public
-     * @return void
-     */
-    public function fix($tree)
-    {
-        $this->tree->fixCategoryPath($tree);
-        die(js::alert($this->lang->tree->successFixed) . js::reload('parent'));
+        $this->view->title    = $this->lang->tree->manage;
+        $this->view->tree     = $tree;
+        $this->view->children = $this->tree->getChildren($category, $tree);
+        $this->view->origins  = $this->tree->getOrigin($category);
+        $this->view->parent   = $category;
+
+        $this->display();
     }
 
     /**
      * Delete a category.
      * 
-     * @param string $categoryID 
-     * @param string $confirm 
+     * @param  int    $category 
      * @access public
      * @return void
      */
-    public function delete($categoryID)
+    public function delete($category)
     {
-        $result = $this->tree->delete($categoryID);
-        if($result) $this->send(array('result' => 'success'));
+        if($this->tree->delete($category)) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 }
