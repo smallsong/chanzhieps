@@ -206,7 +206,6 @@ class commonModel extends model
     public static function getCurrentMenu($moduleName)
     {
         global $app, $lang;
-        $menuAlias  = $lang->menuAlias;
         $methodName = $app->getMethodName(); 
         if(isset($lang->menuMethodParamGroup["{$moduleName}.{$methodName}"]))
         {
@@ -236,15 +235,13 @@ class commonModel extends model
     {
         global $lang, $app;
         
-        $currentModule = $moduleName = commonModel::getCurrentMenu($moduleName);
-        if(!isset($lang->$moduleName->menu)) return false;
+        $currentMenuModule = commonModel::getCurrentMenu($moduleName);
+        if(!isset($lang->$currentMenuModule->menu)) return false;
         $string = "<ul class='nav nav-list leftmenu affix'>\n";
 
         /* Get the sub menus of the module, and get current module and method. */
-        $submenus      = $lang->$moduleName->menu;  
-        $currentModule = commonModel::getCurrentMenu($moduleName);
+        $submenus      = $lang->$currentMenuModule->menu;  
         $currentMethod = $app->getMethodName();
-
         /* Cycling to print every sub menus. */
         foreach($submenus as $key => $menu)
         {
@@ -255,6 +252,10 @@ class commonModel extends model
             {
                 $class = '';
                 if($module == $app->getModuleName() && $method == $currentMethod) $class = " class='active'";
+                if( isset($lang->menuAlias["{$moduleName}.{$currentMethod}"]) 
+                    && strpos($lang->menuAlias["{$moduleName}.{$currentMethod}"], "{$module}.{$method}") !== false 
+                ) 
+                $class = " class='active'";
                 $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label, '', "id='submenu$key'") . "</li>\n";
             }
         }
