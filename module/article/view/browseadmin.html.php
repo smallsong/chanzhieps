@@ -11,11 +11,14 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <table class="table table-hover table-bordered table-striped">
-  <caption><?php echo $lang->article->list;?></caption>
+  <caption>
+    <div class='f-left'><?php echo $lang->article->list;?></div>
+    <div class='f-right'><?php echo html::a($this->inlink('create'), $lang->article->add);?></div>
+  </caption>
   <thead>
-    <tr>
-      <th class="w-30px"><?php echo $lang->article->id;?></th>
-      <th class="w-p30"><?php echo $lang->article->title;?></th>
+    <tr class='a-center'>
+      <th class="w-id"><?php echo $lang->article->id;?></th>
+      <th><?php echo $lang->article->title;?></th>
       <th class="w-p20"><?php echo $lang->article->category;?></th>
       <th class="w-140px"><?php echo $lang->article->addedDate;?></th>
       <th class="w-60px"><?php echo $lang->article->views;?></th>
@@ -23,17 +26,15 @@
     </tr>
   </thead>
   <tbody>
-  <?php foreach($articles as $article):?>
-    <tr>
+    <?php foreach($articles as $article):?>
+    <tr class='a-center'>
       <td><?php echo $article->id;?></td>
-      <td><?php echo $article->title;?></td>
+      <td class='a-left'><?php echo $article->title;?></td>
       <td>
         <?php
-        $sp = "";
         foreach($article->categories as $category)
         {
-            echo $sp . $categories[$category->category];
-            $sp = "&nbsp;";
+            echo $categories[$category->category] . ' ';
         }
         ?>
       </td>
@@ -51,7 +52,9 @@
         ?>
        </td>
      </tr>
-   <?php endforeach;?>
+     <?php endforeach;?>
+   </tbody>
+   <tfoot>
      <tr>
        <?php $colspan = $tree == 'article' ? 7 : 8;?>
        <td colspan='<?php echo $colspan;?>'>
@@ -59,6 +62,6 @@
        <div class='f-right'><?php $pager->show();?></div>
        </td>
      </tr>
-   </tbody>
+   </tfoot>
  </table>
  <?php include '../../common/view/footer.admin.html.php';?>

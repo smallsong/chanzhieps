@@ -210,8 +210,13 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .table{margin-bottom:10px}
 .table-bordered{border-radius:0 0 6px 6px;}
 caption{border-radius:6px 6px 0 0; border-bottom:none}
+th.a-left,   td.a-left  {text-align:left}
 th.a-center, td.a-center{text-align:center}
-th.a-right,  td.a-right{text-align:right}
+th.a-right,  td.a-right {text-align:right}
+
+tr.a-center th, tr.a-center td {text-align:center}
+tr.a-center .a-left {text-align:left}
+tr.a-center .a-right {text-align:right}
 
 /*----------------------- HTML5 ----------------------------*/
 .radius        {border-radius: 5px;         -moz-border-radius: 5px;         -webkit-border-radius: 5px;}
