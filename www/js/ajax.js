@@ -113,7 +113,7 @@ $.extend(
         var target = $(target);
         if(!target.size()) return false;
 
-        $(selector).click(function()
+        $(document).on('click', selector, function()
         {
             url = $(this).attr('href');
             if(!url) url = $(this).data('rel');
