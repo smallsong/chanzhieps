@@ -117,7 +117,7 @@ class article extends control
 
             $result = $this->article->create();       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
-            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('browseadmin')));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
         $this->view->category    = $category;
@@ -198,17 +198,17 @@ class article extends control
     }
 
     /**
-     * Delete a article
+     * Delete an article.
      * 
-     * @param int $articleID 
+     * @param  int      $articleID 
      * @access public
      * @return void
      */
     public function delete($articleID)
     {
         $result = $this->article->delete($articleID);
+
         if($result) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
-
 }
