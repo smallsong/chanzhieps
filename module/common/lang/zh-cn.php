@@ -51,9 +51,9 @@ $lang->fail           = '失败';
 
 /* for javascript */
 $lang->js = new stdClass();
-$lang->js->confirmDelete = '确认删除?';
-$lang->js->deleteing     = '正在删除...';
-$lang->js->doing         = '正在处理...';
+$lang->js->confirmDelete = '您确定要执行删除操作吗？';
+$lang->js->deleteing     = '删除中';
+$lang->js->doing         = '处理中';
 
 /* contact fields*/
 $lang->company = new stdClass();
