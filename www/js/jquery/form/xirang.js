@@ -110,12 +110,12 @@ $.extend(
         var that=this,target=$(output);
         if(!target.size())return false;
         $(linkSelector).click(function()
-            {
-                var rel=$(this).attr('href');
-                if(!rel)return;
-                target.attr('rel', rel).load(rel);
-                return false;
-            });
+        {
+            var rel=$(this).attr('href');
+            if(!rel)return;
+            target.attr('rel', rel).load(rel);
+            return false;
+        });
     }
  
 });
