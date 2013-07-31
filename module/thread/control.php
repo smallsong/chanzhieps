@@ -10,11 +10,7 @@
  */
 class thread extends control
 {
-    public function browse()
-    {
-    }
-
-    public function browseAdmin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {
         /* init pager. */ 
         $this->app->loadClass('pager', $static = true);

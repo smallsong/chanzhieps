@@ -64,7 +64,7 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function browseAdmin($status = '0', $recTotal = 0, $recPerPage = 5, $pageID = 1)
+    public function admin($status = '0', $recTotal = 0, $recPerPage = 5, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);

@@ -16,7 +16,7 @@
       <?php echo html::a($this->createLink('article', 'create'), '<h3>' . $lang->admin->shortcuts->createArticle . '</h3>')?>
     </div>
     <div class="span3 shortcut article-view"> 
-      <?php echo html::a($this->createLink('article', 'browseadmin'), '<h3>' . $lang->admin->shortcuts->browseArticle . '</h3>')?>
+      <?php echo html::a($this->createLink('article', 'admin'), '<h3>' . $lang->admin->shortcuts->browseArticle . '</h3>')?>
     </div>
     <div class="span4 shortcut category"> 
       <?php echo html::a($this->createLink('tree', 'browse'), '<h3>' . $lang->admin->shortcuts->category . '</h3>')?>

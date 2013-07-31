@@ -70,9 +70,9 @@ $lang->company->wangwang = "阿里旺旺";
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin    = '首页|admin|index|';
-$lang->menu->article  = '文章|article|browseadmin|';
-$lang->menu->comment  = '评论|comment|browseadmin|';
-$lang->menu->forum    = '论坛|thread|browseadmin|';
+$lang->menu->article  = '文章|article|admin|';
+$lang->menu->comment  = '评论|comment|admin|';
+$lang->menu->forum    = '论坛|thread|admin|';
 $lang->menu->site     = '站点|site|setbasic|';
 $lang->menu->company  = '公司|company|setbasic|';
 $lang->menu->user     = '会员|user|forbid|';
@@ -81,7 +81,7 @@ $lang->menu->user     = '会员|user|forbid|';
 $lang->article = new stdclass();
 $lang->article->menu = new stdclass();
 
-$lang->article->menu->browse   = '文章列表|article|browseadmin|';
+$lang->article->menu->browse   = '文章列表|article|admin|';
 $lang->article->menu->create   = '发布文章|article|create|';
 $lang->article->menu->tree     = '类目管理|tree|browse|tree=article';
 
@@ -89,7 +89,7 @@ $lang->article->menu->tree     = '类目管理|tree|browse|tree=article';
 $lang->forum       = new stdclass();
 $lang->forum->menu = new stdclass();
 
-$lang->forum->menu->browse   = '主题列表|thread|browseadmin|';
+$lang->forum->menu->browse   = '主题列表|thread|admin|';
 $lang->forum->menu->tree     = '版块管理|tree|browse|tree=forum';
 
 //$lang->thread = $lang->forum;
@@ -105,7 +105,7 @@ $lang->site->menu->nav     = '导航设置|nav|index|';
 /* menu alias settings. */
 $lang->menuAlias = array();
 
-$lang->menuAlias['article.edit'] = ',article.browseadmin,';
+$lang->menuAlias['article.edit'] = ',article.admin,';
 
 /* The menus of company module. */
 if(!isset($lang->company)) $lang->company = new stdclass();

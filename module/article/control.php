@@ -72,7 +72,7 @@ class article extends control
      * @access public
      * @return void
      */
-    public function browseAdmin($tree = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($tree = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         /* Set the session. */
         $this->session->set('articleList', $this->app->getURI(true));
