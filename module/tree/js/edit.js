@@ -1,4 +1,7 @@
 $(document).ready(function()
 {
-    $.ajaxForm('#editForm');
+    $.ajaxForm('#editForm', function()
+    {
+        $('#treeMenuBox').parent().load(createLink('tree', 'browse', 'tree=' + v.treeType) + ' #treeMenuBox');
+    });
 });

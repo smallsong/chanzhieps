@@ -53,7 +53,8 @@ class tree extends control
         if(!empty($_POST))
         {
             $this->tree->update($categoryID);
-            if(!dao::isError()) $this->send(array('result' => 'success', 'locate' => inlink('browse', "tree=$category->tree&category=$category->id&action=edit")));
+            if(!dao::isError())
+            $this->send(array('result' => 'success'));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 
