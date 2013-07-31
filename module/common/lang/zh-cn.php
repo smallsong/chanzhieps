@@ -160,7 +160,7 @@ $lang->pager->first     = "首页";
 $lang->pager->pre       = "上页";
 $lang->pager->next      = "下页";
 $lang->pager->last      = "末页";
-$lang->pager->locate    = "GO!";
+$lang->pager->locate    = "Go!";
 
 /* The datetime settings. */
 define('DT_DATETIME1',  'Y-m-d H:i:s');

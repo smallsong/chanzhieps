@@ -205,6 +205,8 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .tree .active {color:blue; font-weight:bold}
 
 /* Other items.*/
+.page #_pageID{padding:1px; height:22px;}
+.page #_recPerPage{padding:3px; height:26px; line-height:26px; text-align:center;}
 
 /*-----------------------BOOTSTRAP CUSTOMIZE----------------------------*/
 .table{margin-bottom:10px}
