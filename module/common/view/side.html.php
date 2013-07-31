@@ -1,6 +1,6 @@
 <?php
 $contact    = json_decode($this->config->company->contact);
-$sideCategoryMenus =  $this->loadModel('tree')->getSons(0);
+$sideCategoryMenus =  $this->loadModel('tree')->getChildren(0);
 ?>
   <div class="span3">
     <div class="sidebar"> 
