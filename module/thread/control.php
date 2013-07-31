@@ -247,7 +247,7 @@ class thread extends control
         $this->dao->update(TABLE_THREAD)->set('stick')->eq($stick)->where('id')->eq($threadID)->exec();
 
         if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
-        $this->send(array('result' => 'success'));
+        $this->send(array('message' => $this->lang->thread->successStick, 'target' => '#manageBox', 'source' => inlink('view', "threaID=$threadID") . ' #manageMenu'));
     }
 
     /**

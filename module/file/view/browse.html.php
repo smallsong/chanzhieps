@@ -41,7 +41,7 @@
     }
     else
     {
-        echo html::a(inlink('allow', "id=$file->id"), $lang->file->allow, '', 'class="option');
+        echo html::a(inlink('allow', "id=$file->id"), $lang->file->allow, '', "class='option'");
     }
     echo html::a(inlink('delete', "id=$file->id"), $lang->delete, '', "class='delete'");
     if($file->isImage) echo html::a(inlink('setPrimary', "id=$file->id"), $lang->file->setPrimary, '', "class='option'");
@@ -61,23 +61,20 @@
 </form>
 <script>
 $(document).ready(function(){   
-    $.ajaxForm('#fileForm', function(data) { reloadAjaxModal(); }); 
+    $.ajaxForm('#fileForm', function(data) { $.reloadAjaxModal(); }); 
     $('a.option').click(function(data)
     {
-        $.getJSON(
-            $(this).attr('href'), 
-            function(data) 
+        $.getJSON( $(this).attr('href'), function(data) 
+        {
+            if(data.result=='success')
             {
-                if(data.result=='success')
-                {
-                    reloadAjaxModal();
-                }
-                else
-                {
-                    alert(data.message);
-                }
+               $.reloadAjaxModal();
             }
-        );
+            else
+            {
+                alert(data.message);
+            }
+        });
         return false;
     });
 });
