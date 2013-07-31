@@ -86,8 +86,7 @@ class tree extends control
         if(!empty($_POST))
         { 
             $result = $this->tree->manageChildren($tree, $this->post->parent, $this->post->children);
-            $locate = inlink('browse', "tree=$tree&category={$this->post->parent}");
-            if($result) $this->send(array('result' => 'success', 'locate' => $locate));
+            if($result) $this->send(array('result' => 'success'));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 
