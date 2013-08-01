@@ -1,6 +1,6 @@
 $.extend(
 {
-    ajaxForm: function(formID, callback)
+    setAjaxForm: function(formID, callback)
     {
         form = $(formID); 
         var options = 
@@ -103,12 +103,15 @@ $.extend(
 $.extend(
 {
     /**
-     * Load a page into a target through ajax.
+     * Set ajax loader.
+     * 
+     * Bind click event for some elements thus when click them, 
+     * use $.load to load page into target.
      *
      * @param string selector
      * @param string target
      */
-    ajaxLoad: function(selector, target)
+    setAjaxLoader: function(selector, target)
     {
         var target = $(target);
         if(!target.size()) return false;
@@ -126,13 +129,12 @@ $.extend(
     },
 
     /**
-     * Load some json data through ajax..
+     * Set ajax jsoner.
      *
-     * 
      * @param string   selector
      * @param object   callback
      */
-    ajaxJSON: function(selector, callback)
+    setAjaxJSONER: function(selector, callback)
     {
         $(document).on('click', selector, function()
         {
@@ -173,41 +175,34 @@ $.extend(
     },
 
     /**
-     * reloadAjaxModal.
-     *
-     * @access public
-     * @return void
-     */
-    reloadAjaxModal: function()
-    {
-        $('#ajaxModal').load($('#ajaxModal').attr('rel'));
-    },
-
-    /**
-     * Ajax delete.
+     * Set ajax deleter.
      * 
-     * @param  object $event 
+     * @param  string $selector 
      * @access public
      * @return void
      */
-    ajaxDelete: function (event)
+    setAjaxDeleter: function (selector)
     {
-        if(confirm(v.lang.confirmDelete))
+        $(document).on('click', selector, function()
         {
-            var target = $(event.target);
-            target.text(v.lang.deleteing);
-
-            $.getJSON(target.attr('href'), function(data) 
+            if(confirm(v.lang.confirmDelete))
             {
-                if(data.result=='success')
+                var deleter  = $(selector);
+                deleter.text(v.lang.deleteing);
+
+                $.getJSON(deleter.attr('href'), function(data) 
                 {
-                    return target.is('#ajaxModal a.delete') ? $.reloadAjaxModal() : location.reload();
-                }
-                else
-                {
-                    alert(data.message);
-                }
-            });
+                    if(data.result=='success')
+                    {
+                        if(deleter.parents('#ajaxModal').size()) return $.reloadAjaxModal();
+                        return location.reload();
+                    }
+                    else
+                    {
+                        alert(data.message);
+                    }
+                });
+            }
         }
         return false;
     },
@@ -218,7 +213,7 @@ $.extend(
      * @access public
      * @return void
      */
-    ajaxModal: function()
+    setAjaxModal: function()
     {
         if($('a[data-toggle=modal]').size() == 0) return false;
 
@@ -252,5 +247,16 @@ $.extend(
             /* Load the target url in modal. */
             $('#ajaxModal').load($(this).attr('href')); 
         });  
+    },
+
+    /**
+     * Reload ajax modal.
+     *
+     * @access public
+     * @return void
+     */
+    reloadAjaxModal: function()
+    {
+        $('#ajaxModal').load($('#ajaxModal').attr('rel'));
     }
 });
