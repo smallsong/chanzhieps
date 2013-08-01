@@ -11,7 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
-  <form method='post' target='hiddenwin' id='ajaxForm'>
+<form method='post' class='form-inline' id='ajaxForm'>
   <table class='table table-bordered table-form'>
     <caption><?php echo $lang->article->edit;?></caption>
     <tr>
@@ -29,11 +29,13 @@
     <tr>
       <th><?php echo $lang->article->original;?></th>
       <td>
-        <?php
-        echo html::select('original', $lang->article->originalList, $article->original, 'class=select-3');
-        echo $lang->article->copySite . html::input('copySite', $article->copySite, 'class=text-2');
-        echo $lang->article->copyURL . html::input('copyURL', $article->copyURL, 'class=text-3');
-        ?>
+        <?php echo html::select('original', $lang->article->originalList, $article->original, 'class=select-3');?>
+        <span id='copyBox'>
+          <?php
+          echo html::input('copySite', $article->copySite, "class='text-2' placeholder='{$lang->article->copySite }'");
+          echo html::input('copyURL', $article->copyURL, "class='text-3' placeholder='{$lang->article->copyURL}'");
+          ?>
+        </span>
       </td>
     </tr>
     <tr>
@@ -53,8 +55,9 @@
       <td><?php echo html::textarea('content', htmlspecialchars($article->content), 'rows=25 class=area-1');?></td>
     </tr>
     <tr>
-      <td colspan='2' class='a-center'><?php echo html::submitButton();?></td>
+      <th></th>
+      <td><?php echo html::submitButton();?></td>
     </tr>
   </table>
-  </form>
+</form>
 <?php include '../../common/view/footer.admin.html.php';?>
