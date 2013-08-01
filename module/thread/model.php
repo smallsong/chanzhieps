@@ -455,7 +455,7 @@ class threadModel extends model
         foreach($files as $file)
         {
             echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title . '.' . $file->extension, '_blank', "style='text-decoration: underline'");
-            if($managePriv or $this->app->user->account == $file->addedBy) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&objectID=$objectID&objectType=$type"), 'Ｘ', '', "title='{$this->lang->delete}' class='delete'");
+            if($managePriv or $this->app->user->account == $file->addedBy) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&objectID=$objectID&objectType=$type"), 'Ｘ', '', "title='{$this->lang->delete}' class='deleter'");
             echo ' ';
         }
     }
