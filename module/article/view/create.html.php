@@ -11,12 +11,12 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
-  <form method='post' class="form-inline"  id="ajaxForm"> 
+  <form method='post' class='form-inline' id='ajaxForm'> 
   <table class='table table-bordered table-form'>
     <caption><?php echo $lang->article->add;?></caption>
     <tr>
-      <th><?php echo $lang->article->category;?></th>
-      <td width="90%"><?php echo html::select("categories[]", $tree, $category ? $category->id : 0, 'class=select-3');?></td>
+      <th class='w-p10'><?php echo $lang->article->category;?></th>
+      <td><?php echo html::select("categories[]", $tree, $category ? $category->id : 0, 'class=select-3');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->author;?></th>
@@ -28,7 +28,7 @@
         <?php echo html::select('original', $lang->article->originalList, 1, 'class=select-3');?>
         <span id="copyBox">
           <?php
-          echo html::input('copySite', '', "class='text-3' placeholder='{$lang->article->copySite}'");
+          echo html::input('copySite', '', "class='text-2' placeholder='{$lang->article->copySite}'");
           echo html::input('copyURL',  '', "class='text-4' placeholder='{$lang->article->copyURL}'");
           ?>
         </span>
@@ -44,11 +44,11 @@
     </tr>
     <tr>
       <th><?php echo $lang->article->summary;?></th>
-      <td><?php echo html::textarea('summary', '', 'rows="5" class="area-1"');?></td>
+      <td><?php echo html::textarea('summary', '', "rows='2' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->content;?></th>
-      <td><?php echo html::textarea('content', '', 'rows=25 class="area-1"');?></td>
+      <td valign='middle'><?php echo html::textarea('content', '', "rows='10' class='area-1'");?></td>
     </tr>
     <tr>
       <td></td>
