@@ -187,7 +187,7 @@ $.extend(
         {
             if(confirm(v.lang.confirmDelete))
             {
-                var deleter  = $(selector);
+                var deleter  = $(this);
                 deleter.text(v.lang.deleteing);
 
                 $.getJSON(deleter.attr('href'), function(data) 
@@ -203,8 +203,8 @@ $.extend(
                     }
                 });
             }
-        }
-        return false;
+            return false;
+        });
     },
 
     /**
