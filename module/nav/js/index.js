@@ -121,7 +121,7 @@ $(document).ready(function()
         }
     );
     
-    $.ajaxForm('#navForm',function(data){ bootbox.alert(data.message); });
+    $.setAjaxForm('#navForm',function(data){ bootbox.alert(data.message); });
 
 });
 

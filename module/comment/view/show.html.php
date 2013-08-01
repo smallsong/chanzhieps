@@ -67,7 +67,7 @@ $(document).ready(function()
 
     });
 
-    $.ajaxForm('#commentForm', function(data)
+    $.setAjaxForm('#commentForm', function(data)
     {
         if(data.result=='success' && $.type(data.message) != 'object')
         {

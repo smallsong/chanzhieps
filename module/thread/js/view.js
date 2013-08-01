@@ -14,5 +14,5 @@ function checkGarbage(id)
 
 $(document).ready(function()
 {
-    $.ajaxForm('#reply');   
+    $.setAjaxForm('#reply');   
 });

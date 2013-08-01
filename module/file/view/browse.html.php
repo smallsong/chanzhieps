@@ -61,7 +61,7 @@
 </form>
 <script>
 $(document).ready(function(){   
-    $.ajaxForm('#fileForm', function(data) { $.reloadAjaxModal(); }); 
+    $.setAjaxForm('#fileForm', function(data) { $.reloadAjaxModal(); }); 
     $('a.option').click(function(data)
     {
         $.getJSON( $(this).attr('href'), function(data) 

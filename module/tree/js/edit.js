@@ -1,9 +1,12 @@
 $(document).ready(function()
 {
-    $.ajaxForm('#editForm', function()
+    $.setAjaxForm('#editForm', function()
     {
-        $('#treeMenuBox').parent().load(createLink('tree', 'browse', 'tree=' + v.treeType) + ' #treeMenuBox', function()
+        /* After the form posted, refresh the treeMenuBox content. */
+        source = createLink('tree', 'browse', 'tree=' + v.treeType) + ' #treeMenuBox';
+        $('#treeMenuBox').parent().load(source, function()
         {
+            /* Rebuild the tree menu after treeMenuBox refreshed. */
             $(".tree").treeview({collapsed: false, unique: false});    
         });
     });
