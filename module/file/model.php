@@ -95,7 +95,7 @@ class fileModel extends model
 
         foreach($files as $id => $file)
         {
-            move_uploaded_file($file['tmpname'], $this->savePath . $file['pathname']);
+            if(!move_uploaded_file($file['tmpname'], $this->savePath . $file['pathname'])) return false;
             $file['objectType'] = $objectType;
             $file['objectID']   = $objectID;
             $file['addedBy']    = $this->app->user->account;
