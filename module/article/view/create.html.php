@@ -49,7 +49,8 @@
       <td><?php echo html::textarea('content', '', 'rows=25 class="area-1"');?></td>
     </tr>
     <tr>
-      <td colspan='2' class='a-center'>
+      <td></td>
+      <td colspan='2' class='a-left'>
         <?php 
         echo html::submitButton();
         ?>
