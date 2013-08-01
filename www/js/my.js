@@ -77,9 +77,8 @@ $(document).ready(function()
 {
     setRequiredFields();
     setAdminLeftMenu();
-    $.ajaxForm('#ajaxForm');
-    $.ajaxModal();
-    $.ajaxJSON('.ajaxJSON');
 
-    $(document).on('click', 'a.delete', $.ajaxDelete);
+    $.setAjaxModal();
+    $.setAjaxForm('#ajaxForm');
+    $.setAjaxDeleter('.deleter');
 });
