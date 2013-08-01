@@ -171,7 +171,7 @@ class articleModel extends model
      */
     public function update($articleID)
     {
-        $article = fixer::input('post')->remove('category')->get();
+        $article = fixer::input('post')->remove('categories')->get();
         $this->dao->update(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->article->create->requiredFields, 'notempty')->where('id')->eq($articleID)->exec();
         if(!dao::isError()) $this->saveCategories($articleID);
         return;

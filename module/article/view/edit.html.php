@@ -16,7 +16,7 @@
     <caption><?php echo $lang->article->edit;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>
-      <td><?php echo html::select("category[]", $tree, $category ? $category->id: 0,'class=select-3');?></td> 
+      <td><?php echo html::select("categories[]", $tree, $category ? $category->id: 0,'class=select-3');?></td> 
     </tr> 
     <tr>
       <th><?php echo $lang->article->author;?></th>

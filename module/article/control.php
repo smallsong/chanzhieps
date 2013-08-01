@@ -143,7 +143,7 @@ class article extends control
 
             $this->article->update($articleID);
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError));
-            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('browseAdmin')));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin')));
         }
 
         $this->view->category = $this->loadModel('tree')->getById($this->view->article->category);
