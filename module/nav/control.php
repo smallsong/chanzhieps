@@ -40,14 +40,14 @@ class nav extends control
 
         if(empty($this->view->navs))
         {
-            $defaultNav      = array();
-            $defaultNav[1][] = array(
-                'type' => 'common',
-                'common' => 'home',
-                'title' => $this->lang->home
-            );
-            $this->view->navs = $defaultNav;
+            $originNav = array();
+            $originNav['type']   =  'common';
+            $originNav['common'] =  'home';
+            $originNav['title']  = $this->lang->home;
+
+            $this->view->navs = array(1 => array($originNav));
         }
+
         $this->display();
     }   
 }
