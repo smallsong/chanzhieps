@@ -43,7 +43,7 @@
     {
         echo html::a(inlink('allow', "id=$file->id"), $lang->file->allow, '', "class='option'");
     }
-    echo html::a(inlink('delete', "id=$file->id"), $lang->delete, '', "class='delete'");
+    echo html::a(inlink('delete', "id=$file->id"), $lang->delete, '', "class='deleter'");
     if($file->isImage) echo html::a(inlink('setPrimary', "id=$file->id"), $lang->file->setPrimary, '', "class='option'");
     ?>
     </td>

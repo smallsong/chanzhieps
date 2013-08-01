@@ -43,7 +43,7 @@
       <td>
         <?php
         echo html::a(inlink('edit',   "articleID=$article->id"), $lang->edit);
-        echo html::a(inlink('delete', "articleID=$article->id"), $lang->delete, '', 'class="delete"');
+        echo html::a(inlink('delete', "articleID=$article->id"), $lang->delete, '', 'class="deleter"');
         echo html::a($this->createLink('file', 'browse', "objectType=article&objectID=$article->id"), $lang->article->files, '', "data-toggle='modal' data-width='1000'");
 
         $category = $tree == 'article' ? 'article' : 'help';
