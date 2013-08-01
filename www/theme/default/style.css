@@ -220,6 +220,9 @@ tr.a-center th, tr.a-center td {text-align:center}
 tr.a-center .a-left {text-align:left}
 tr.a-center .a-right {text-align:right}
 
+/* resolve conflicts between kindeditor and bootstrap. */
+.ke-container td{padding:0;}
+
 /*----------------------- HTML5 ----------------------------*/
 .radius        {border-radius: 5px;         -moz-border-radius: 5px;         -webkit-border-radius: 5px;}
 .radius-top    {border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
