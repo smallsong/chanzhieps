@@ -17,18 +17,16 @@ class tree extends control
      * 
      * @param  string $treeType 
      * @param  int    $root 
-     * @param  string $action    children|edit 
      * @access public
      * @return void
      */
-    public function browse($treeType = 'article', $root = 0, $action = 'children')
+    public function browse($treeType = 'article', $root = 0)
     {
         if($treeType == 'forum') $this->lang->category = $this->lang->board;
 
         $this->view->title    = $this->lang->category->common;
         $this->view->treeType = $treeType;
         $this->view->root     = $root;
-        $this->view->action   = $action;
         $this->view->treeMenu = $this->tree->getTreeMenu($treeType, 0, array('treeModel', 'createManageLink'));
         $this->view->children = $this->tree->getChildren($root, $treeType);
 
@@ -86,7 +84,8 @@ class tree extends control
         if(!empty($_POST))
         { 
             $result = $this->tree->manageChildren($tree, $this->post->parent, $this->post->children);
-            if($result) $this->send(array('result' => 'success'));
+            $locate = $this->inLink('browse', "tree=$tree&root={$this->post->parent}");
+            if($result) $this->send(array('result' => 'success', 'locate' => $locate));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 

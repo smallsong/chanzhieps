@@ -13,7 +13,6 @@
 <?php 
 js::set('root',     $root);
 js::set('treeType', $treeType);
-js::set('action',   $action);
 ?>
 <?php if(strpos($treeMenu, '<li>') !== false):?>
 <div class='row-fluid'>
