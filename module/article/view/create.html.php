@@ -1,17 +1,17 @@
 <?php
 /**
- * The create view file of block category of xirangEPS.
+ * The create view file of article category of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     block
+ * @package     article
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
-  <form method='post' class='form-inline' id='ajaxForm'> 
+<form method='post' class='form-inline' id='ajaxForm'> 
   <table class='table table-bordered table-form'>
     <caption><?php echo $lang->article->create;?></caption>
     <tr>
@@ -52,12 +52,8 @@
     </tr>
     <tr>
       <td></td>
-      <td colspan='2' class='a-left'>
-        <?php 
-        echo html::submitButton();
-        ?>
-      </td>
+      <td><?php echo html::submitButton();?></td>
     </tr>
   </table>
-  </form>
+</form>
 <?php include '../../common/view/footer.admin.html.php';?>
