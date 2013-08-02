@@ -105,6 +105,7 @@ class articleModel extends model
         $article = fixer::input('post')
             ->join('categories', ',')
             ->add('addedDate', helper::now())
+            ->add('type', 'article')
             ->get();
 
         $this->dao->insert(TABLE_ARTICLE)
@@ -169,7 +170,7 @@ class articleModel extends model
 
        /* First delete all the records of current article from the releation table.  */
        $this->dao->delete()->from(TABLE_RELATION)
-           ->where('type')->eq($tree)
+           ->where('type')->eq($type)
            ->andWhere('id')->eq($articleID)
            ->exec();
 
@@ -179,7 +180,7 @@ class articleModel extends model
            if(!$category) continue;
 
            $data = new stdClass();
-           $data->type     = $tree; 
+           $data->type     = $type; 
            $data->id       = $articleID;
            $data->category = $category;
 

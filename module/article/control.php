@@ -83,12 +83,11 @@ class article extends control
         $families = $this->loadModel('tree')->getFamily($categoryID, $tree);
         $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();
 
-        $this->view->title      = $tree;
-        $this->view->articles   = $articles;
-        $this->view->pager      = $pager;
-        $this->view->category   = $this->tree->getById($categoryID);
-        $this->view->tree       = $tree;
-        $this->view->categories = $this->loadModel('tree')->getPairs();
+        $this->view->title    = $tree;
+        $this->view->articles = $articles;
+        $this->view->pager    = $pager;
+        $this->view->category = $this->tree->getById($categoryID);
+        $this->view->tree     = $tree;
 
         $this->display();
     }   
@@ -101,44 +100,48 @@ class article extends control
      * @access public
      * @return void
      */
-    public function create($tree = 'article', $categoryID = 0)
+    public function create($tree = 'article', $categoryID = '')
     {
         if($_POST)
         {
-            $result = $this->article->create();       
+            $this->article->create();       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
+        $categories =  $this->loadModel('tree')->getOptionMenu($tree);
+        unset($categories[0]);
+
         $this->view->title           = $this->lang->article->create;
         $this->view->currentCategory = $categoryID;
-        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($tree);
+        $this->view->categories      = $categories;
+
         $this->display();
     }
 
     /**
-     * Edit a article.
+     * Edit an article.
      * 
-     * @param string $articleID 
-     * @param string $tree 
+     * @param  int $articleID 
      * @access public
      * @return void
      */
     public function edit($articleID)
     {
-        $this->view->article = $this->article->getById($articleID);
         if($_POST)
         {
-            $error = $this->article->validate();
-            if(!empty($error)) $this->send(array('result' => 'falt', 'message' => $error));
-
             $this->article->update($articleID);
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin')));
         }
+        $article    = $this->article->getByID($articleID);
+        $categories =  $this->loadModel('tree')->getOptionMenu($article->type);
+        unset($categories[0]);
 
-        $this->view->category = $this->loadModel('tree')->getById($this->view->article->category);
-        $this->view->tree     = $this->tree->getOptionMenu('article');
+        $this->view->title      = $this->lang->article->edit;
+        $this->view->article    = $article;
+        $this->view->categories = $categories;
+
         $this->display();
     }
 

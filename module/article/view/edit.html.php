@@ -11,12 +11,15 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
+<?php include '../../common/view/chosen.html.php';?>
 <form method='post' class='form-inline' id='ajaxForm'>
   <table class='table table-bordered table-form'>
     <caption><?php echo $lang->article->edit;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>
-      <td><?php echo html::select("categories[]", $tree, $category ? $category->id: 0,'class=select-3');?></td> 
+      <td>
+        <?php echo html::select("categories[]", $categories, array_keys($article->categories), "multiple='multiple' class=select-3 ");?>
+      </td> 
     </tr> 
     <tr>
       <th><?php echo $lang->article->author;?></th>
