@@ -26,11 +26,11 @@ class article extends control
     /** 
      * Browse article in front.
      * 
-     * @param int $categoryID     the category id
-     * @param string $orderBy   the order by
-     * @param int $recTotal     record total
-     * @param int $recPerPage   record per page
-     * @param int $pageID       current page id
+     * @param int    $categoryID   the category id
+     * @param string $orderBy      the order by
+     * @param int    $recTotal     record total
+     * @param int    $recPerPage   record per page
+     * @param int    $pageID       current page id
      * @access public
      * @return void
      */
@@ -96,32 +96,23 @@ class article extends control
     /**
      * Create a article.
      * 
-     * @param mixed $categoryID   the category or the tree
-     * @param string $tree 
+     * @param  string $tree 
+     * @param  int    $categoryID
      * @access public
      * @return void
      */
-    public function create()                                                                                                                      
+    public function create($tree = 'article', $categoryID = 0)
     {
-        $categoryID = $this->get->categoryID;
-        $tree       = 'article';    
-
-        /* Set the mdoule and tree.  */ 
-        $category   = $this->loadModel('tree')->getById($categoryID);                                                                                            
-        $categoryID = 0;
-
         if($_POST)
         {
-            $error = $this->article->validate();
-            if(!empty($error)) $this->send(array('result'=> 'fail', 'message'=> $error));
-
             $result = $this->article->create();       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
-        $this->view->category    = $category;
-        $this->view->tree        = $this->loadModel('tree')->getOptionMenu($tree);
+        $this->view->title           = $this->lang->article->create;
+        $this->view->currentCategory = $categoryID;
+        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($tree);
         $this->display();
     }
 
