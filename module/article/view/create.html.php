@@ -13,10 +13,10 @@
 <?php include '../../common/view/kindeditor.html.php';?>
   <form method='post' class='form-inline' id='ajaxForm'> 
   <table class='table table-bordered table-form'>
-    <caption><?php echo $lang->article->add;?></caption>
+    <caption><?php echo $lang->article->create;?></caption>
     <tr>
-      <th class='w-p10'><?php echo $lang->article->category;?></th>
-      <td><?php echo html::select("categories[]", $tree, $category ? $category->id : 0, 'class=select-3');?></td>
+      <th class='w-100px'><?php echo $lang->article->category;?></th>
+      <td><?php echo html::select("categories[]", $categories, $currentCategory, 'class=select-3');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->author;?></th>

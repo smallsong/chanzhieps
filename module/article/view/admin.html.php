@@ -13,7 +13,7 @@
 <table class="table table-hover table-bordered table-striped">
   <caption>
     <div class='f-left'><?php echo $lang->article->list;?></div>
-    <div class='f-right'><?php echo html::a($this->inlink('create'), $lang->article->add);?></div>
+    <div class='f-right'><?php echo html::a($this->inlink('create'), $lang->article->create);?></div>
   </caption>
   <thead>
     <tr class='a-center'>
