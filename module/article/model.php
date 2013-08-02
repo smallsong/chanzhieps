@@ -22,7 +22,7 @@ class articleModel extends model
     {   
         $article = $this->dao->select('*')
             ->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')->on('t1.id = t2.article')
+            ->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
             ->where('t1.id')->eq($articleId)
             ->fetch();
 
@@ -43,16 +43,16 @@ class articleModel extends model
     public function getList($categories, $orderBy, $pager = null)
     {
         $articles = $this->dao->select('t1.*, t2.category')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')->on('t1.id = t2.article')
+            ->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
             ->where('1 = 1')
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
-            ->groupBy('t2.article')
+            ->groupBy('t2.id')
             ->page($pager)
             ->fetchAll('id');
-        $categories = $this->dao->select('*')->from(TABLE_ARTICLECATEGORY)
+        $categories = $this->dao->select('*')->from(TABLE_RELATION)
             ->where('1 = 1')
             ->beginIF($categories)->andWhere('category')->in($categories)->fi()
-            ->fetchGroup('article');
+            ->fetchGroup('id');
 
         foreach($articles as $articleID => &$article)
         {   
@@ -73,8 +73,8 @@ class articleModel extends model
     public function getPairs($categories, $orderBy, $pager = null)
     {
         return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
-            ->on('t1.id = t2.article')
+            ->leftJoin(TABLE_RELATION)->alias('t2')
+            ->on('t1.id = t2.id')
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->orderBy($orderBy)
             ->page($pager)
@@ -95,8 +95,8 @@ class articleModel extends model
         $this->loadModel('tree');
         $articles = $this->dao->select('id, title, author, addedDate, summary')
             ->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
-            ->on('t1.id = t2.article')
+            ->leftJoin(TABLE_RELATION)->alias('t2')
+            ->on('t1.id = t2.id')
             ->where('t2.site')->eq($this->app->site->id)
             ->andWhere('category')->in($this->tree->getFamily($categoryID))
             ->orderBy('id desc')->limit($count)->fetchAll('id');
@@ -118,8 +118,8 @@ class articleModel extends model
     public function getLatestArticle($categories, $count)
     {
         return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLECATEGORY)->alias('t2')
-            ->on('t1.id = t2.article')
+            ->leftJoin(TABLE_RELATION)->alias('t2')
+            ->on('t1.id = t2.id')
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->orderBy('addedDate_desc')->limit($count)
             ->fetchPairs('id', 'title');
@@ -152,13 +152,17 @@ class articleModel extends model
     public function create()
     {
         $article = fixer::input('post')
+            ->join('categories', ',')
             ->add('addedDate', helper::now())
-            ->remove('categories')
             ->get();
 
-        $this->dao->insert(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->article->create->requiredFields, 'notempty')->exec();
+        $this->dao->insert(TABLE_ARTICLE)
+            ->data($article, $skip = 'categories')
+            ->autoCheck()
+            ->batchCheck($this->config->article->create->requiredFields, 'notempty')
+            ->exec();
 
-        if(!dao::isError()) $this->saveCategories($this->dao->lastInsertId());
+        if(!dao::isError()) $this->processCategories($this->dao->lastInsertId(), 'article', $this->post->categories);
         return;
     }
 
@@ -172,32 +176,43 @@ class articleModel extends model
     public function update($articleID)
     {
         $article = fixer::input('post')->remove('categories')->get();
-        $this->dao->update(TABLE_ARTICLE)->data($article)->autoCheck()->batchCheck($this->config->article->create->requiredFields, 'notempty')->where('id')->eq($articleID)->exec();
-        if(!dao::isError()) $this->saveCategories($articleID);
+        $this->dao->update(TABLE_ARTICLE)
+            ->data($article)
+            ->autoCheck()
+            ->batchCheck($this->config->article->edit->requiredFields, 'notempty')
+            ->where('id')->eq($articleID)
+            ->exec();
+        if(!dao::isError()) $this->processCategories($articleID, 'article', $this->post->categories);
         return;
     }
         
     /**
-     * save article categories.
-     *
-     * @param int $articleID
-     *
-     * @access private
-     * @return bool
+     * Process categories for an article.
+     * 
+     * @param  int    $articleID 
+     * @param  string $tree
+     * @param  array  $categories 
+     * @access public
+     * @return void
      */
-    public function saveCategories($articleID)
+    public function processCategories($articleID, $type = 'article', $categories = array())
     {
-       if(!$articleID) return;
-       $this->dao->delete()->from(TABLE_ARTICLECATEGORY)->where('article')->eq($articleID)->exec();
+       if(!$articleID) return false;
 
-       $data = new stdClass();
-       $data->article = $articleID;
+       /* First delete all the records of current article from the releation table.  */
+       $this->dao->delete()->from(TABLE_RELATION)
+           ->where('type')->eq($tree)
+           ->andWhere('id')->eq($articleID)
+           ->exec();
 
-       foreach($this->post->categories as $category)
+       foreach($categories as $category)
        {
+           $data = new stdClass();
+           $data->type = $tree; 
+           $data->id   = $articleID;
            if(!$category) continue;
            $data->category  = $category;
-           $this->dao->insert(TABLE_ARTICLECATEGORY)->data($data)->exec();
+           $this->dao->insert(TABLE_RELATION)->data($data)->exec();
        }
     }
  
@@ -234,7 +249,7 @@ class articleModel extends model
      */
     public function delete($articleID)
     {
-        $this->dao->delete()->from(TABLE_ARTICLECATEGORY)->where('article')->eq($articleID)->exec();
+        $this->dao->delete()->from(TABLE_RELATION)->where('id')->eq($articleID)->exec();
         $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec();
         return !dao::isError();
     }
