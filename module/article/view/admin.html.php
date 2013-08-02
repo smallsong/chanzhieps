@@ -30,7 +30,7 @@
     <tr class='a-center'>
       <td><?php echo $article->id;?></td>
       <td class='a-left'><?php echo $article->title;?></td>
-      <td><?php foreach($article->categories as $category) echo $categories[$category->category] . ' ';?></td>
+      <td><?php foreach($article->categories as $category) echo $category->name . ' ';?></td>
       <td><?php echo $article->addedDate;?></td>
       <td><?php echo $article->views;?></td>
       <td>
