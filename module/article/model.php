@@ -11,37 +11,47 @@
 class articleModel extends model
 {
     /** 
-     * Get article info by id.
+     * Get an article by id.
      * 
-     * @param  int $articleId 
-     * @param  int $imgMaxWidth 
+     * @param  int      $articleID 
      * @access public
-     * @return void
+     * @return bool|object
      */
-    public function getById($articleId, $imgMaxWidth = 0)
+    public function getByID($articleID)
     {   
+        /* Get article self. */
         $article = $this->dao->select('*')
-            ->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
-            ->where('t1.id')->eq($articleId)
+            ->from(TABLE_ARTICLE)
+            ->where('id')->eq($articleID)
             ->fetch();
+        if(!$article) return false;
 
-        $article->files   = $this->loadModel('file')->getByObject('article', $articleId);
-        foreach($article->files as $file) if($file->isImage and $file->public) $article->images[] = $file;
+        /* Get it's categories. */
+        $article->categories = $this->dao->select('t2.*')
+            ->from(TABLE_RELATION)->alias('t1')
+            ->leftJoin(TABLE_CATEGORY)->alias('t2')->on('t1.category = t2.id')
+            ->where('t1.type')->eq('article')
+            ->andWhere('t1.id')->eq($articleID)
+            ->fetchAll('id');
+
+        /* Get it's files. */
+        $article->files = $this->loadModel('file')->getByObject('article', $articleID);
+
         return $article;
     }   
 
     /** 
      * Get article list.
      * 
-     * @param string $categories 
-     * @param string $orderBy 
-     * @param string $pager 
+     * @param  array   $categories 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
      * @access public
      * @return array
      */
     public function getList($categories, $orderBy, $pager = null)
     {
+        /* Get articles(use groupBy to distinct articles).  */
         $articles = $this->dao->select('t1.*, t2.category')->from(TABLE_ARTICLE)->alias('t1')
             ->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
             ->where('1 = 1')
@@ -49,105 +59,46 @@ class articleModel extends model
             ->groupBy('t2.id')
             ->page($pager)
             ->fetchAll('id');
-        $categories = $this->dao->select('*')->from(TABLE_RELATION)
+        if(!$articles) return array();
+
+        /* Get categories for these articles. */
+        $categories = $this->dao->select('t2.id, t2.name, t1.id AS article')
+            ->from(TABLE_RELATION)->alias('t1')
+            ->leftJoin(TABLE_CATEGORY)->alias('t2')->on('t1.category = t2.id')
             ->where('1 = 1')
-            ->beginIF($categories)->andWhere('category')->in($categories)->fi()
-            ->fetchGroup('id');
+            ->beginIF($categories)->andWhere('t1.category')->in($categories)->fi()
+            ->fetchGroup('article', 'id');
 
-        foreach($articles as $articleID => &$article)
-        {   
-            $article->categories = $categories[$articleID];
-        }
+        /* Assign categories to it's article. */
+        foreach($articles as $article) $article->categories = $categories[$article->id];
+
         return $articles;
     }
 
     /**
-     * Get article pairs.
-     * 
-     * @param string $categories 
-     * @param string $orderBy 
-     * @param string $pager 
-     * @access public
-     * @return array
-     */
-    public function getPairs($categories, $orderBy, $pager = null)
-    {
-        return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_RELATION)->alias('t2')
-            ->on('t1.id = t2.id')
-            ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
-            ->orderBy($orderBy)
-            ->page($pager)
-            ->fetchPairs('id', 'title');
-    }
-
-    /**
-     * Get articles of an category.
-     * 
-     * @param string $categoryID  the category id
-     * @param string $getFiles  get it's files or not
-     * @param int $count 
-     * @access public
-     * @return array
-     */
-    public function getCategoryArticle($categoryID, $getFiles = false, $count = 10)
-    {
-        $this->loadModel('tree');
-        $articles = $this->dao->select('id, title, author, addedDate, summary')
-            ->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_RELATION)->alias('t2')
-            ->on('t1.id = t2.id')
-            ->where('t2.site')->eq($this->app->site->id)
-            ->andWhere('category')->in($this->tree->getFamily($categoryID))
-            ->orderBy('id desc')->limit($count)->fetchAll('id');
-        if(!$getFiles) return $articles;
-
-        /* Fetch files. */
-        $files = $this->loadModel('file')->getByObject('article', array_keys($articles));
-        foreach($files as $file) $articles[$file->objectID]->files[] = $file;
-        return $articles;
-    }
-    /**
-     * get latest articles 
+     * get latest articles. 
      *
-     * @param string $categories
-     * @param int $count
+     * @param array      $categories
+     * @param int        $count
      * @access public
      * @return array
      */
-    public function getLatestArticle($categories, $count)
+    public function getLatest($categories, $count)
     {
-        return $this->dao->select('id, title')->from(TABLE_ARTICLE)->alias('t1')
-            ->leftJoin(TABLE_RELATION)->alias('t2')
-            ->on('t1.id = t2.id')
+        return $this->dao->select('id, title')
+            ->from(TABLE_ARTICLE)->alias('t1')
+            ->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
-            ->orderBy('addedDate_desc')->limit($count)
+            ->orderBy('id_desc')
+            ->limit($count)
             ->fetchPairs('id', 'title');
-    }
-
-    /**
-     * Get comment counts 
-     * 
-     * @param string $articles 
-     * @access public
-     * @return array
-     */
-    public function getCommentCounts($articles)
-    {
-        $comments = $this->dao->select('objectID as id, count("*") as count')->from(TABLE_COMMENT)
-            ->where('objectID')->in($articles)
-            ->andWhere('status')->eq(1)
-            ->groupBy('objectID')
-            ->fetchPairs('id', 'count');
-        foreach($articles as $article) if(!isset($comments[$article])) $comments[$article] = 0;
-        return $comments;
     }
 
     /**
      * Create an article.
      * 
      * @access public
-     * @return void
+     * @return int|bool
      */
     public function create()
     {
@@ -162,8 +113,11 @@ class articleModel extends model
             ->batchCheck($this->config->article->create->requiredFields, 'notempty')
             ->exec();
 
-        if(!dao::isError()) $this->processCategories($this->dao->lastInsertId(), 'article', $this->post->categories);
-        return;
+        if(dao::isError()) return false;
+
+        $articleID = $this->dao->lastInsertID();
+        $this->processCategories($articleID, 'article', $this->post->categories);
+        return $articleID;
     }
 
     /**
@@ -187,6 +141,20 @@ class articleModel extends model
     }
         
     /**
+     * Delete an article.
+     * 
+     * @param  int      $articleID 
+     * @access public
+     * @return void
+     */
+    public function delete($articleID)
+    {
+        $this->dao->delete()->from(TABLE_RELATION)->where('id')->eq($articleID)->andWhere('type')->eq('article')->exec();
+        $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec();
+        return !dao::isError();
+    }
+
+    /**
      * Process categories for an article.
      * 
      * @param  int    $articleID 
@@ -205,53 +173,18 @@ class articleModel extends model
            ->andWhere('id')->eq($articleID)
            ->exec();
 
+       /* Then insert the new data. */
        foreach($categories as $category)
        {
-           $data = new stdClass();
-           $data->type = $tree; 
-           $data->id   = $articleID;
            if(!$category) continue;
-           $data->category  = $category;
+
+           $data = new stdClass();
+           $data->type     = $tree; 
+           $data->id       = $articleID;
+           $data->category = $category;
+
            $this->dao->insert(TABLE_RELATION)->data($data)->exec();
        }
-    }
- 
-    /**
-     * Validate an article.
-     * 
-     * @access public
-     * @return object
-     */
-    public function validate()
-    {
-        $error = array();
-        if(array(0) == $this->post->categories) 
-        {
-            $error['categories'] = sprintf($this->lang->error->notempty, $this->lang->article->categories);
-        }
-        if(!$this->post->title)
-        {
-            $error['title'] = sprintf($this->lang->error->notempty, $this->lang->article->title);
-        }
-        if(!$this->post->content)
-        {
-            $error['content'] = sprintf($this->lang->error->notempty, $this->lang->article->content);
-        }
-        return $error;
-    }
-
-    /**
-     * Delete an article
-     * 
-     * @param  string $articleID 
-     * @access public
-     * @return void
-     */
-    public function delete($articleID)
-    {
-        $this->dao->delete()->from(TABLE_RELATION)->where('id')->eq($articleID)->exec();
-        $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec();
-        return !dao::isError();
     }
 
     /**
