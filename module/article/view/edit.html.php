@@ -1,10 +1,10 @@
 <?php
 /**
- * The create view file of block module of xirangEPS.
+ * The edit view file of article module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     block
+ * @package     article
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
@@ -21,10 +21,6 @@
     <tr>
       <th><?php echo $lang->article->author;?></th>
       <td><?php echo html::input('author', $article->author, 'class=text-3');?></td> 
-    </tr>
-    <tr>
-      <th><?php echo $lang->article->addedDate;?></th>
-      <td><?php echo html::input('addedDate', $article->addedDate, 'class=text-3');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->original;?></th>
@@ -48,7 +44,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->article->summary;?></th>
-      <td><?php echo html::textarea('summary', $article->summary, 'rows=5 class=area-1');?></td>
+      <td><?php echo html::textarea('summary', $arricle->summary, "rows='2' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->content;?></th>
