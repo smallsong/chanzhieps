@@ -53,7 +53,7 @@ $.extend(
                         var errorLabel =  key + 'Label';
 
                         /* Create the error message. */
-                        var errorMSG = '<label id="'  + errorLabel + '" class="text-error">';
+                        var errorMSG = '<label id="'  + errorLabel + '" for="' + key  + '"  class="text-error">';
                         errorMSG += $.type(value) == 'string' ? value : value.join(';');
                         errorMSG += '</label>';
 
@@ -62,12 +62,26 @@ $.extend(
                         $(errorOBJ).parent().append(errorMSG);
                         $(errorOBJ).css('margin-bottom', 0);
                         $(errorOBJ).css('border-color','#953B39')
-                        $(errorOBJ).focus(function()
+                        $(errorOBJ).change(function()
                         {
                             $(this).removeAttr('style')
                             $('#' + errorLabel).remove(); 
                         });
                     })
+
+                    /* Focus the first error field thus to nitify the user. */
+                    var firstErrorField = $('#' +$('label.text-error').first().attr('for'));
+                    topOffset = parseInt(firstErrorField.offset().top) - 20;   // 20px offset more for margin.
+
+                    /* If there's the navbar-fixed-top element, minus it's height. */
+                    if($('.navbar-fixed-top').size())
+                    {
+                        topOffset = topOffset - parseInt($('.navbar-fixed-top').height());
+                    }
+                    
+                    /* Scroll to the error field and foucus it. */
+                    $(document).scrollTop(topOffset);
+                    firstErrorField.focus();
                 }
             },
 
