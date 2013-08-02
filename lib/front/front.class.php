@@ -106,7 +106,7 @@ class html
      *
      * @param  string $name          the name of the select tag.
      * @param  array  $options       the array to create select tag from.
-     * @param  string $selectedItems the item(s) to be selected, can like item1,item2.
+     * @param  mixed  $selectedItems the item(s) to be selected, can like item1,item2 or array.
      * @param  string $attrib        other params such as multiple, size and style.
      * @return string
      */
@@ -121,10 +121,11 @@ class html
         $string = "<select name='$name' id='$id' $attrib>\n";
 
         /* The options. */
+        if(is_array($selectedItems)) $selectedItems = implode(',', $selectedItems);
         $selectedItems = ",$selectedItems,";
+
         foreach($options as $key => $value)
         {
-            $key      = str_replace('item', '', $key);
             $selected = strpos($selectedItems, ",$key,") !== false ? " selected='selected'" : '';
             $string  .= "<option value='$key'$selected>$value</option>\n";
         }
