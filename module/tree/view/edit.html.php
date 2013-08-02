@@ -28,7 +28,7 @@
       <th><?php echo $lang->category->desc;?></th>
       <td><?php echo html::textarea('desc', $category->desc, "class='area-1' rows=3'");?></td>
     </tr>  
-    <?php if($category->tree == 'forum'):?>
+    <?php if($category->type == 'forum'):?>
     <tr>
       <th><?php echo $lang->category->owners;?></th>
       <td><?php echo html::input('owners', $category->owners, "class='text-1'");?></td>
@@ -38,7 +38,7 @@
       <td><?php echo html::radio('readonly', $lang->category->readonlyList, $category->readonly);?></td>
     </tr>  
     <?php endif;?>
-    <tr><td></td><td><?php echo html::submitButton() . html::hidden('tree', $category->tree);?></td></tr>
+    <tr><td></td><td><?php echo html::submitButton() . html::hidden('type', $category->type);?></td></tr>
   </table>
 </form>
 <?php if(isset($pageJS)) js::execute($pageJS);?>

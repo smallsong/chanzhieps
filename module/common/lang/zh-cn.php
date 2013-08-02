@@ -83,14 +83,14 @@ $lang->article->menu = new stdclass();
 
 $lang->article->menu->browse   = '文章列表|article|admin|';
 $lang->article->menu->create   = '发布文章|article|create|';
-$lang->article->menu->tree     = '类目管理|tree|browse|tree=article';
+$lang->article->menu->tree     = '类目管理|tree|browse|type=article';
 
 /* The menus of forum module. */
 $lang->forum       = new stdclass();
 $lang->forum->menu = new stdclass();
 
 $lang->forum->menu->browse   = '主题列表|thread|admin|';
-$lang->forum->menu->tree     = '版块管理|tree|browse|tree=forum';
+$lang->forum->menu->tree     = '版块管理|tree|browse|type=forum';
 
 //$lang->thread = $lang->forum;
 
@@ -132,9 +132,9 @@ $lang->menuMethodGroup['nav.index'] = 'site';
 $lang->menuMethodParamGroup = array(); 
 /* tree browse method's menu group setting*/
 $lang->menuMethodParamGroup['tree.browse'] = array();
-$lang->menuMethodParamGroup['tree.browse']['tree'] = array();
-$lang->menuMethodParamGroup['tree.browse']['tree']['forum']   = 'forum'; 
-$lang->menuMethodParamGroup['tree.browse']['tree']['article'] = 'article'; 
+$lang->menuMethodParamGroup['tree.browse']['type'] = array();
+$lang->menuMethodParamGroup['tree.browse']['type']['forum']   = 'forum'; 
+$lang->menuMethodParamGroup['tree.browse']['type']['article'] = 'article'; 
 
 /* The error messages. */
 $lang->error = new stdclass();

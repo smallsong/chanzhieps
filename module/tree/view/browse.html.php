@@ -11,8 +11,8 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php 
-js::set('root',     $root);
-js::set('treeType', $treeType);
+js::set('root', $root);
+js::set('type', $type);
 ?>
 <?php if(strpos($treeMenu, '<li>') !== false):?>
 <div class='row-fluid'>

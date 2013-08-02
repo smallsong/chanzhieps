@@ -32,15 +32,15 @@ class treeModel extends model
      * Get the id => name pairs of some categories.
      * 
      * @param  string $categories   the category lists
-     * @param  string $tree         the tree
+     * @param  string $type         the type
      * @access public
      * @return array
      */
-    public function getPairs($categories = '', $tree = '')
+    public function getPairs($categories = '', $type = '')
     {
         return $this->dao->select('id, name')->from(TABLE_CATEGORY)
             ->beginIF($categories)->where('id')->in($categories)->fi()
-            ->beginIF($tree)->where('tree')->eq($tree)->fi()
+            ->beginIF($type)->where('type')->eq($type)->fi()
             ->fetchPairs();
     }
 
@@ -66,32 +66,32 @@ class treeModel extends model
      * Get id list of a family.
      * 
      * @param  int      $categoryID 
-     * @param  string   $tree 
+     * @param  string   $type 
      * @access public
      * @return array
      */
-    public function getFamily($categoryID, $tree = '')
+    public function getFamily($categoryID, $type = '')
     {
-        if($categoryID == 0 and empty($tree)) return array();
+        if($categoryID == 0 and empty($type)) return array();
         $category = $this->getById($categoryID);
 
         if($category)  return $this->dao->select('id')->from(TABLE_CATEGORY)->where('path')->like($category->path . '%')->fetchPairs();
-        if(!$category) return $this->dao->select('id')->from(TABLE_CATEGORY)->where('tree')->eq($tree)->fetchPairs();
+        if(!$category) return $this->dao->select('id')->from(TABLE_CATEGORY)->where('type')->eq($type)->fetchPairs();
     }
 
     /**
      * Get children categories of one category.
      * 
      * @param  int      $categoryID 
-     * @param  string   $tree 
+     * @param  string   $type 
      * @access public
      * @return array
      */
-    public function getChildren($categoryID, $tree = 'article')
+    public function getChildren($categoryID, $type = 'article')
     {
         return $this->dao->select('*')->from(TABLE_CATEGORY)
             ->where('parent')->eq((int)$categoryID)
-            ->andWhere('tree')->eq($tree)
+            ->andWhere('type')->eq($type)
             ->orderBy('`order`')
             ->fetchAll('id');
     }
@@ -99,12 +99,12 @@ class treeModel extends model
     /**
      * Build the sql to execute.
      * 
-     * @param string $tree              the tree type, for example, article|forum
+     * @param string $type              the tree type, for example, article|forum
      * @param int    $startCategory     the start category id
      * @access public
      * @return string
      */
-    public function buildQuery($tree, $startCategory = 0)
+    public function buildQuery($type, $startCategory = 0)
     {
         /* Get the start category path according the $startCategory. */
         $startPath = '';
@@ -115,7 +115,7 @@ class treeModel extends model
         }
 
         return $this->dao->select('*')->from(TABLE_CATEGORY)
-            ->where('tree')->eq($tree)
+            ->where('type')->eq($type)
             ->beginIF($startPath)->andWhere('path')->like($startPath)->fi()
             ->orderBy('grade desc, `order`')
             ->get();
@@ -129,11 +129,11 @@ class treeModel extends model
      * @access public
      * @return string
      */
-    public function getOptionMenu($tree = 'article', $startCategory = 0)
+    public function getOptionMenu($type = 'article', $startCategory = 0)
     {
         /* First, get all categories. */
         $treeMenu   = array();
-        $stmt       = $this->dbh->query($this->buildQuery($tree, $startCategory));
+        $stmt       = $this->dbh->query($this->buildQuery($type, $startCategory));
         $categories = array();
         while($category = $stmt->fetch()) $categories[$category->id] = $category;
 
@@ -196,16 +196,16 @@ class treeModel extends model
     /**
      * Get the tree menu in <ul><ol> type.
      * 
-     * @param string    $tree           the tree type
+     * @param string    $type           the tree type
      * @param int       $startCategoryID  the start category
      * @param string    $userFunc       which function to be called to create the link
      * @access public
      * @return string   the html code of the tree menu.
      */
-    public function getTreeMenu($tree = 'article', $startCategoryID = 0, $userFunc, $siteID = 0)
+    public function getTreeMenu($type = 'article', $startCategoryID = 0, $userFunc, $siteID = 0)
     {
         $treeMenu = array();
-        $stmt = $this->dbh->query($this->buildQuery($tree, $startCategoryID, $siteID));
+        $stmt = $this->dbh->query($this->buildQuery($type, $startCategoryID, $siteID));
         while($category = $stmt->fetch())
         {
             $linkHtml = call_user_func($userFunc, $category);
@@ -242,7 +242,7 @@ class treeModel extends model
      */
     public static function createAdminLink($category)
     {
-        if($category->tree == 'forum')
+        if($category->type == 'forum')
         {
             $categoryName = 'forum';
             $methodName   = 'boardAdmin';
@@ -254,8 +254,8 @@ class treeModel extends model
         {
             $categoryName = 'article';
             $methodName   = 'browseAdmin';
-            $orderBy      = $category->tree == 'article' ? 'id_desc' : '`order`';
-            $vars         = "tree=$category->tree&categoryID=$category->id&orderBy=$orderBy";
+            $orderBy      = $category->type == 'article' ? 'id_desc' : '`order`';
+            $vars         = "type=$category->type&categoryID=$category->id&orderBy=$orderBy";
             $linkHtml     = html::a(helper::createLink($categoryName, $methodName, $vars), $category->name, 'mainwin', "id='category($category->id)'");
             return $linkHtml;
         }
@@ -287,11 +287,11 @@ class treeModel extends model
 
         /* Set the class of children link. */
         $childrenLinkClass = '';
-        if($category->tree == 'forum' and $category->grade == 2) $childrenLinkClass = 'hidden';
+        if($category->type == 'forum' and $category->grade == 2) $childrenLinkClass = 'hidden';
 
         $linkHtml  = $category->name;
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',     "category={$category->id}&tree=$category->tree"), $lang->tree->edit, '', "class='ajax'");
-        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'children', "tree={$category->tree}&category={$category->id}"), $lang->category->children, '', "class='$childrenLinkClass ajax'");
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'edit',     "category={$category->id}&type=$category->type"), $lang->tree->edit, '', "class='ajax'");
+        $linkHtml .= ' ' . html::a(helper::createLink('tree', 'children', "type={$category->type}&category={$category->id}"), $lang->category->children, '', "class='$childrenLinkClass ajax'");
         $linkHtml .= ' ' . html::a(helper::createLink('tree', 'delete',   "category={$category->id}"), $lang->delete, '', "class='deleter'");
 
         return $linkHtml;
@@ -317,7 +317,7 @@ class treeModel extends model
             ->where('id')->eq($categoryID)
             ->exec();
 
-        $this->fixPath($category->tree);
+        $this->fixPath($category->type);
 
         return !dao::isError();
     }
@@ -337,9 +337,9 @@ class treeModel extends model
         $this->dao->update(TABLE_CATEGORY)->set('grade = grade - 1')->where('id')->in($family)->exec();                      // Update family's grade.
         $this->dao->update(TABLE_CATEGORY)->set('parent')->eq($category->parent)->where('parent')->eq($categoryID)->exec();  // Update children's parent to their grandpa.
         $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->exec();                                    // Delete my self.
-        $this->fixPath($category->tree);
+        $this->fixPath($category->type);
 
-        if($category->tree == 'article') $this->dao->update(TABLE_ARTICLECATEGORY)->set('category')->eq($category->parent)->where('category')->eq($categoryID)->exec();
+        if($category->type == 'article') $this->dao->update(TABLE_ARTICLECATEGORY)->set('category')->eq($category->parent)->where('category')->eq($categoryID)->exec();
 
         return !dao::isError();
     }
@@ -347,13 +347,13 @@ class treeModel extends model
     /**
      * Manage children of one category.
      * 
-     * @param string $tree 
+     * @param string $type 
      * @param string $parent 
      * @param string $children 
      * @access public
      * @return void
      */
-    public function manageChildren($tree, $parent, $children)
+    public function manageChildren($type, $parent, $children)
     {
         /* Get parent. */
         $parent = $this->getByID($parent);
@@ -362,7 +362,7 @@ class treeModel extends model
         $category = new stdClass();
         $category->parent  = $parent ? $parent->id : 0;
         $category->grade   = $parent ? $parent->grade + 1 : 1;
-        $category->tree    = $tree;
+        $category->type    = $type;
         $category->owners  = $this->app->user->account;
 
         $i = 1;
@@ -406,16 +406,16 @@ class treeModel extends model
     /**
      * Fix the path, grade fields according to the id and parent fields.
      *
-     * @param  string    $tree 
+     * @param  string    $type 
      * @access public
      * @return void
      */
-    public function fixPath($tree)
+    public function fixPath($type)
     {
         /* Get all categories grouped by parent. */
         $groupCategories = $this->dao
             ->select('id, parent')->from(TABLE_CATEGORY)
-            ->where('tree')->eq($tree)
+            ->where('type')->eq($type)
             ->fetchGroup('parent', 'id');
         $categories = array();
 
