@@ -14,33 +14,31 @@
     <caption><?php echo $lang->tree->edit;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->category->parent;?></th>
-      <td><?php echo html::select('parent', $optionMenu, $category->parent, "class='text-1'");?></td>
+      <td><?php echo html::select('parent', $optionMenu, $category->parent, "class='select-3'");?></td>
     </tr>  
     <tr>
       <th><?php echo $lang->category->name;?></th>
-      <td><?php echo html::input('name', $category->name, "class='text-1'");?></td>
+      <td><?php echo html::input('name', $category->name, "class='text-3'");?></td>
+    </tr>  
+    <tr>
+      <th><?php echo $lang->category->keyword;?></th>
+      <td><?php echo html::input('keyword', $category->keyword, "class='text-1'");?></td>
+    </tr>  
+    <tr>
+      <th><?php echo $lang->category->desc;?></th>
+      <td><?php echo html::textarea('desc', $category->desc, "class='area-1' rows=3'");?></td>
     </tr>  
     <?php if($category->tree == 'forum'):?>
     <tr>
       <th><?php echo $lang->category->owners;?></th>
       <td><?php echo html::input('owners', $category->owners, "class='text-1'");?></td>
     </tr>  
-    <?php endif;?>
-    <tr>
-      <th><?php echo $lang->category->desc;?></th>
-      <td><?php echo html::textarea('desc', $category->desc, "class='area-1' rows=3'");?></td>
-    </tr>  
-    <tr>
-      <th><?php echo $lang->category->keyword;?></th>
-      <td><?php echo html::input('keyword', $category->keyword, "class='text-1'");?></td>
-    </tr>  
-    <?php if($category->tree == 'forum'):?>
     <tr>
       <th><?php echo $lang->category->readonly;?></th>
       <td><?php echo html::radio('readonly', $lang->category->readonlyList, $category->readonly);?></td>
     </tr>  
     <?php endif;?>
-    <tr><td colspan='2' class='a-center'><?php echo html::submitButton() . html::hidden('tree', $category->tree);?></td </tr>
+    <tr><td></td><td><?php echo html::submitButton() . html::hidden('tree', $category->tree);?></td></tr>
   </table>
 </form>
 <?php if(isset($pageJS)) js::execute($pageJS);?>
