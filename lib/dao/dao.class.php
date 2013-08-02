@@ -379,14 +379,15 @@ class dao
     /**
      * Set the data to update or insert.
      * 
-     * @param  object $data   the data object or array
+     * @param  object $data        the data object or array
+     * @param  object $skipFields  the fields to skip.
      * @access public
      * @return object the dao object self.
      */
-    public function data($data)
+    public function data($data, $skipFields = '')
     {
         if(!is_object($data)) $data = (object)$data;
-        $this->sqlobj->data($data);
+        $this->sqlobj->data($data, $skipFields);
         return $this;
     }
 
@@ -1183,13 +1184,20 @@ class sql
      * Join the data items by key = value.
      * 
      * @param  object $data 
+     * @param  string $skipFields   the fields to skip.
      * @access public
      * @return object the sql object.
      */
-    public function data($data)
+    public function data($data, $skipFields = '')
     {
         $this->data = $data;
-        foreach($data as $field => $value) $this->sql .= "`$field` = " . $this->quote($value) . ',';
+        if($skipFields) $skipFields = ',' . str_replace(' ', '', $skipFields) . ',';
+
+        foreach($data as $field => $value)
+        {
+            if(strpos($skipFields, ",$field,") !== false) continue;
+            $this->sql .= "`$field` = " . $this->quote($value) . ',';
+        }
         $this->sql = rtrim($this->sql, ',');    // Remove the last ','.
         return $this;
     }
