@@ -29,10 +29,10 @@ $lang->article->views        = '阅读';
 $lang->article->stick        = '置顶级别';
 $lang->article->order        = '排序';
 
-$lang->article->list       = '文章列表';
-$lang->article->add        = '发布文章';
-$lang->article->edit       = '编辑文章';
-$lang->article->files      = '附件';
+$lang->article->list         = '文章列表';
+$lang->article->create       = '发布文章';
+$lang->article->edit         = '编辑文章';
+$lang->article->files        = '附件';
 
 $lang->article->originalList[1] = '本站原创';
 $lang->article->originalList[0] = '转贴';
