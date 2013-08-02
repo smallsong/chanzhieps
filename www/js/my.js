@@ -52,7 +52,7 @@ function setRequiredFields()
     requiredFields = config.requiredFields.split(',');
     for(i = 0; i < requiredFields.length; i++)
     {
-        $('#' + requiredFields[i]).after('<span class="star"> * </span>');
+        $('#' + requiredFields[i]).after('<span class="star">&nbsp;*&nbsp;</span>');
     }
 }
 
