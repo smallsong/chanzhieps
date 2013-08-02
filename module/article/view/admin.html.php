@@ -30,38 +30,20 @@
     <tr class='a-center'>
       <td><?php echo $article->id;?></td>
       <td class='a-left'><?php echo $article->title;?></td>
-      <td>
-        <?php
-        foreach($article->categories as $category)
-        {
-            echo $categories[$category->category] . ' ';
-        }
-        ?>
-      </td>
+      <td><?php foreach($article->categories as $category) echo $categories[$category->category] . ' ';?></td>
       <td><?php echo $article->addedDate;?></td>
       <td><?php echo $article->views;?></td>
       <td>
         <?php
-        echo html::a(inlink('edit',   "articleID=$article->id"), $lang->edit);
-        echo html::a(inlink('delete', "articleID=$article->id"), $lang->delete, '', 'class="deleter"');
-        echo html::a($this->createLink('file', 'browse', "objectType=article&objectID=$article->id"), $lang->article->files, '', "data-toggle='modal' data-width='1000'");
-
-        $category = $tree == 'article' ? 'article' : 'help';
-        $method = $tree == 'article' ? 'view' : 'read';
-        echo html::a($this->createLink($category, $method, "articleID=$article->id"), $lang->preview, '_blank');
+        echo html::a($this->createLink('article', 'edit', "articleID=$article->id"), $lang->edit);
+        echo html::a($this->article->createPreviewLink($article->id, $tree), $lang->preview, '_blank');
+        echo html::a($this->createLink('file',    'browse', "objectType=article&objectID=$article->id"), $lang->article->files, '', "data-toggle='modal' data-width='1000'");
+        echo html::a($this->createLink('article', 'delete', "articleID=$article->id"), $lang->delete, '', 'class="deleter"');
         ?>
-       </td>
-     </tr>
-     <?php endforeach;?>
-   </tbody>
-   <tfoot>
-     <tr>
-       <?php $colspan = $tree == 'article' ? 7 : 8;?>
-       <td colspan='<?php echo $colspan;?>'>
-       <?php if($tree != 'article'):?><div class='f-left'><?php echo html::submitButton();?></div><?php endif;?>
-       <div class='f-right'><?php $pager->show();?></div>
-       </td>
-     </tr>
-   </tfoot>
- </table>
- <?php include '../../common/view/footer.admin.html.php';?>
+      </td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+  <tfoot><tr><td colspan='6'><?php $pager->show();?></td></tr></tfoot>
+</table>
+<?php include '../../common/view/footer.admin.html.php';?>

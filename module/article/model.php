@@ -238,4 +238,25 @@ class articleModel extends model
         $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec();
         return !dao::isError();
     }
+
+    /**
+     * Create preview link. 
+     * 
+     * @param  int    $articleID 
+     * @param  string $tree        article|help
+     * @access public
+     * @return string
+     */
+    public function createPreviewLink($articleID, $tree = 'article')
+    {
+        $module = $tree == 'article' ? 'article' : 'help';
+        $method = $tree == 'article' ? 'view'    : 'read';
+
+        $this->config->requestType = $this->config->frontRequestType;
+        $link = helper::createLink($module, $method, "articleID=$articleID");
+        $link = str_replace('admin.php', 'index.php', $link);
+        $this->config->requestType = 'GET';
+
+        return $link;
+    }
 }
