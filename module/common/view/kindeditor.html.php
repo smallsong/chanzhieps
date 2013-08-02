@@ -1,60 +1,66 @@
 <?php if($extView = $this->getExtViewFile(__FILE__)){include $extView; return helper::cd();}?>
 <?php
-$moduleName = $this->moduleName;
-$methodName = $this->methodName;
-if(!isset($config->$moduleName->editor->$methodName)) return;
-$editors = $config->$moduleName->editor->$methodName;
+/* Get current module and method. */
+$module = $this->moduleName;
+$method = $this->methodName;
+if(!isset($config->$module->editor->$method)) return;
+
+/* Export $jsRoot var. */
+js::set('jsRoot', $jsRoot);
+
+/* Get editor settings for current page. */
+$editors = $config->$module->editor->$method;
 $editors['id'] = explode(',', $editors['id']);
+js::set('editors', $editors);
+
+/* Get current lang. */
+$editorLangs = array('en' => 'en', 'zh-cn' => 'zh_CN', 'zh-tw' => 'zh_TW');
+$editorLang  = isset($editorLangs[$app->getClientLang()]) ? $editorLangs[$app->getClientLang()] : 'en';
+js::set('editorLang', $editorLang);
+
+/* Import css and js for kindeditor. */
+css::import($jsRoot . 'kindeditor/themes/default/default.css');
+js::import($jsRoot  . 'kindeditor/kindeditor-min.js');
+js::import($jsRoot  . 'kindeditor/lang/' . $editorLang . '.js');
 ?>
-<script src='<?php echo $jsRoot;?>kindeditor/kindeditor-min.js' type='text/javascript'></script>
-<script language='javascript' type='text/javascript'>
-var editor = <?php echo json_encode($editors);?>;
 
+<script language='javascript'>
 var simpleTools = 
-[ 'title', 'fontname', 'fontsize', 'textcolor', 'bgcolor', 'bold', 'italic','underline', 
+[ 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic','underline', '|', 
 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|',
-'emoticons', 'image', 'link', '|', 'removeformat','undo', 'redo', 'fullscreen', 'about'];
-
-var codeTools = 
-[ 'title', 'fontname', 'fontsize', 'textcolor', 'bgcolor', 'bold', 'italic','underline', 
-'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|',
-'emoticons', 'image', 'code', 'link', '|', 'removeformat','undo', 'redo', 'fullscreen', 'about'];
-var forumTools = 
-['textcolor', 'bgcolor', 'bold', 'italic','underline', 'justifyleft', 'justifycenter', 'justifyright', '|',
-'insertorderedlist', 'insertunorderedlist', '|',
-'emoticons', 'image', 'flash', 'code', '|', 
-'link', 'unlink', '|',
-'cut', 'copy', 'paste', 'plainpaste', 'wordpaste', 'removeformat', 'undo', 'redo', '|',
-'fullscreen', 'about'];
+'emoticons', 'image', 'code', 'link', '|', 'removeformat','undo', 'redo', 'fullscreen', 'source', 'about'];
 
 var fullTools = 
-[ 'title', 'fontname', 'fontsize','textcolor', '|',
-'bgcolor', 'bold', 'italic','underline', '|',
+[ 'formatblock', 'fontname', 'fontsize', 'lineheight', '|', 'forecolor', 'hilitecolor', '|', 'bold', 'italic','underline', 'strikethrough', '|',
 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', '|',
 'insertorderedlist', 'insertunorderedlist', '|',
-'emoticons', 'image', 'code', 'link', 'unlink', '|',
-'removeformat','undo', 'redo',  'fullscreen', 'source', 'about', '-',
-'cut', 'copy', 'paste', 'plainpaste', 'wordpaste', '|',
+'emoticons', 'image', 'insertfile', 'hr', '|', 'link', 'unlink', '/',
+'undo', 'redo', '|', 'selectall', 'cut', 'copy', 'paste', '|', 'plainpaste', 'wordpaste', '|', 'removeformat', 'clearhtml','quickformat', '|',
 'indent', 'outdent', 'subscript', 'superscript', '|',
-'selectall', 'strikethrough', 'removeformat', '|',
-'flash', 'media', 'advtable', 'hr', 'print'];
+'table', 'code', '|', 'pagebreak', 'anchor', '|', 
+'fullscreen', 'source', 'preview', 'about'];
 
 $(document).ready(function() 
 {
-    $.each(editor.id, function(key, editorID)
+    $.each(v.editors.id, function(key, editorID)
     {
-        $('form').submit(function() 
-        {
-            KE.util.setData(editorID);
-        })
-    })
-})  
+        editorTool = eval(v.editors.tools);
 
-<?php
-$editorTool=$editors['tools'];
-foreach($editors['id'] as $editorID)
-{
-   echo "KE.show({id:'" . $editorID . "', items:" . $editorTool.", filterMode:true, urlType:'relative', imageUploadJson: createLink('file', 'ajaxUpload'), afterChange : function(){this.sync();} });\n";
-}
-?>
+        KindEditor.ready(function(K)
+        {
+            keEditor = K.create('#' + editorID,
+            {
+                items:editorTool,
+                filterMode:true, 
+                cssPath:[v.jsRoot + 'kindeditor/plugins/code/prettify.css'],
+                urlType:'relative', 
+                uploadJson: createLink('file', 'ajaxUpload'),
+                allowFileManager:true,
+                langType:v.editorLang,
+                afterBlur: function(){this.sync(); },
+                afterChange: function(){$('#' + editorID ).change().hide();},
+            });
+        });
+    });
+})
 </script>
