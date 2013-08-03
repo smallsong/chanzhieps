@@ -41,15 +41,15 @@ EOT;
       </td>
     </tr>
     <tr>
-      <td><?php echo html::textarea('', $comment->content, "rows='2'cols='110' class='area-1'");?></td>
+      <td><?php echo html::textarea('', $comment->content, "rows='2' cols='110' readonly='readonly' class='area-1'");?></td>
       <td class='textcenter'>
         <?php 
         echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, '', "class='deleter'");
-        if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass, '', "class='pass' confirminfo='{$lang->comment->confirmPassSingle}'");
+        if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass,   '', "class='pass'");
         echo html::a($objectViewLink . '#comment', $lang->comment->reply, '_blank');
         echo '<br />';
-        if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, '', 'class="deletepre"');
-        if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pass' confirminfo='{$lang->comment->confirmPassPre}'");
+        if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, '', "class='pre' data-confirm='{$lang->comment->confirmDeletePre}'");
+        if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pre' data-confirm='{$lang->comment->confirmPassPre}'");
         ?>
       </td>
     </tr>
