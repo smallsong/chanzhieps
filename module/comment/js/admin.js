@@ -1,5 +1,8 @@
 $(document).ready(function()
 {
+    $('.leftmenu li.active').removeClass('active');
+    $('.leftmenu a').eq(v.currentMenuIndex).parent().addClass('active');
+
     $('.pre').click(function()
     {
         var that = $(this);

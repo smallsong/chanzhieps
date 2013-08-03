@@ -11,6 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php js::set('lang.comment', $lang->comment);?>
+<?php js::set('currentMenuIndex', $status == 0 ? 0 : 1);?>
   <table class="table table-hover table-bordered table-striped">
     <caption>
       <div class='f-left'><?php echo $lang->comment->manage;?></div>
