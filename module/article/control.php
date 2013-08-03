@@ -63,16 +63,16 @@ class article extends control
     /**
      * Browse article in admin.
      * 
-     * @param string $tree      the article tree
+     * @param string $type        the article type
      * @param int    $categoryID  the category id
-     * @param string $orderBy   the order by
+     * @param string $orderBy     the order by
      * @param int    $recTotal 
      * @param int    $recPerPage 
      * @param int    $pageID 
      * @access public
      * @return void
      */
-    public function admin($tree = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($type = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         /* Set the session. */
         $this->session->set('articleList', $this->app->getURI(true));
@@ -80,14 +80,14 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $families = $this->loadModel('tree')->getFamily($categoryID, $tree);
+        $families = $this->loadModel('tree')->getFamily($categoryID, $type);
         $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();
 
-        $this->view->title    = $tree;
+        $this->view->title    = $this->lang->article->admin;
         $this->view->articles = $articles;
         $this->view->pager    = $pager;
         $this->view->category = $this->tree->getById($categoryID);
-        $this->view->tree     = $tree;
+        $this->view->type     = $type;
 
         $this->display();
     }   
@@ -95,12 +95,12 @@ class article extends control
     /**
      * Create a article.
      * 
-     * @param  string $tree 
+     * @param  string $type 
      * @param  int    $categoryID
      * @access public
      * @return void
      */
-    public function create($tree = 'article', $categoryID = '')
+    public function create($type = 'article', $categoryID = '')
     {
         if($_POST)
         {
@@ -109,12 +109,13 @@ class article extends control
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
-        $categories =  $this->loadModel('tree')->getOptionMenu($tree);
+        $categories =  $this->loadModel('tree')->getOptionMenu($type);
         unset($categories[0]);
 
         $this->view->title           = $this->lang->article->create;
         $this->view->currentCategory = $categoryID;
         $this->view->categories      = $categories;
+        $this->view->type            = $type;
 
         $this->display();
     }

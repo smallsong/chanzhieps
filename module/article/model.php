@@ -30,7 +30,7 @@ class articleModel extends model
         $article->categories = $this->dao->select('t2.*')
             ->from(TABLE_RELATION)->alias('t1')
             ->leftJoin(TABLE_CATEGORY)->alias('t2')->on('t1.category = t2.id')
-            ->where('t1.type')->eq('article')
+            ->where('t1.type')->eq($article->type)
             ->andWhere('t1.id')->eq($articleID)
             ->fetchAll('id');
 
@@ -150,8 +150,12 @@ class articleModel extends model
      */
     public function delete($articleID)
     {
-        $this->dao->delete()->from(TABLE_RELATION)->where('id')->eq($articleID)->andWhere('type')->eq('article')->exec();
+        $article = $this->getByID($articleID);
+        if(!$article) return false;
+
+        $this->dao->delete()->from(TABLE_RELATION)->where('id')->eq($articleID)->andWhere('type')->eq($article->type)->exec();
         $this->dao->delete()->from(TABLE_ARTICLE)->where('id')->eq($articleID)->exec();
+
         return !dao::isError();
     }
 

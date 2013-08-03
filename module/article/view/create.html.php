@@ -53,7 +53,7 @@
     </tr>
     <tr>
       <td></td>
-      <td><?php echo html::submitButton();?></td>
+      <td><?php echo html::submitButton() . html::hidden('type', $type);?></td>
     </tr>
   </table>
 </form>
