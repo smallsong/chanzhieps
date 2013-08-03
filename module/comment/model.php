@@ -13,8 +13,8 @@ class commentModel extends model
     /**
      * Get comments of one object.
      * 
-     * @param string $objectType    the object type
-     * @param string $objectID      the object id
+     * @param  string $objectType    the object type
+     * @param  int    $objectID      the object id
      * @access public
      * @return array
      */
@@ -36,7 +36,7 @@ class commentModel extends model
      * Get comment list.
      * 
      * @param string $status    the comment status
-     * @param string $pager 
+     * @param object $pager 
      * @access public
      * @return void
      */
@@ -204,7 +204,6 @@ class commentModel extends model
         if($lineCount > 1) $isGarbage = true;
         if($lineCount > 5) die();
         if(preg_match('/\[url=.*\].*\[\/url\]/U', $content))die();
-        if($isGarbage and (!isset($_POST['yzm']) or $_SESSION['yzm'] != $_POST['yzm'])) return true; 
         return false;
     }
 
@@ -232,7 +231,13 @@ class commentModel extends model
         echo '<input type="text" name="captcha" id="captcha" class="w-20px" />' . $this->lang->captcha->notice . '</td>';
     }
 
-    public function getValidateErrors()
+    /**
+     * validate post comment.
+     *
+     * @access public
+     * @return array $errors.
+     */
+    public function validate()
     {
        $errors = array();
        if($this->post->author  == false) $errors['author'] = sprintf($this->lang->error->notempty, $this->lang->comment->author);

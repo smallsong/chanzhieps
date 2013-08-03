@@ -41,7 +41,7 @@ class comment extends control
     {
         if($_POST)
         {
-            $errors = $this->comment->getValidateErrors();
+            $errors = $this->comment->validate();
             if(!empty($errors)) $this->send(array('result' => 'fail', 'message' => $errors));
 
             if(!isset($_POST['captcha']) && $this->comment->isGarbage($_POST['content'])) $this->send(array('result' => 'success', 'message' => array('notice' => $this->lang->captcha)) );

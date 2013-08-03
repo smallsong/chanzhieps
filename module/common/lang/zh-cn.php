@@ -85,6 +85,14 @@ $lang->article->menu->browse   = '文章列表|article|admin|';
 $lang->article->menu->create   = '发布文章|article|create|';
 $lang->article->menu->tree     = '类目管理|tree|browse|type=article';
 
+/* The menus of comment module. */
+$lang->comment       = new stdclass();
+$lang->comment->menu = new stdclass();
+
+$lang->comment->menu->browse   = '未审核|comment|admin|status=0';
+$lang->comment->menu->tree     = '已审核|comment|admin|status=1';
+
+
 /* The menus of forum module. */
 $lang->forum       = new stdclass();
 $lang->forum->menu = new stdclass();
