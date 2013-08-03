@@ -8,14 +8,13 @@
  * @version     $Id$
  * @link        http://www.zentao.net
  */
-$lang->xirangEPS      = 'xirangEPS';
-$lang->poweredBy      = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
+/* Lang items for xirang. */
+$lang->xirangEPS = 'xirangEPS';
+$lang->poweredBy = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
-$lang->colon          = '::';
-$lang->arrow          = '>'; 
-
+/* Global lang items. */
 $lang->home           = '首页';
-$lang->welcome        = "欢迎您, <strong>%s</strong> ";
+$lang->welcome        = '欢迎您, <strong>%s</strong> ';
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
 $lang->frontHome      = '前台首页';
@@ -26,149 +25,127 @@ $lang->login          = '登录';
 $lang->account        = '帐号';
 $lang->password       = '密码';
 $lang->forgotPassword = '忘记密码?';
-
 $lang->currentPos     = '当前位置';
 $lang->categoryMenu   = '分类导航';
-$lang->reset          = '重填';
-$lang->edit           = '编辑';
-$lang->copy           = '复制';
-$lang->hide           = '隐藏';
-$lang->delete         = '删除';
-$lang->close          = '关闭';
-$lang->save           = '保存';
-$lang->confirm        = '确认';
-$lang->preview        = '预览';
-$lang->goback         = '返回';
-$lang->search         = '搜索';
-$lang->more           = '更多';
-$lang->actions        = '操作';
-$lang->feature        = '未来';
-$lang->year           = '年';
-$lang->loading        = '稍候...';
-$lang->saveSuccess    = '保存成功';
-$lang->setSuccess     = '设置成功';
-$lang->fail           = '失败';
 
-/* for javascript */
+/* Global action items. */
+$lang->reset       = '重填';
+$lang->edit        = '编辑';
+$lang->copy        = '复制';
+$lang->hide        = '隐藏';
+$lang->delete      = '删除';
+$lang->close       = '关闭';
+$lang->save        = '保存';
+$lang->confirm     = '确认';
+$lang->preview     = '预览';
+$lang->goback      = '返回';
+$lang->search      = '搜索';
+$lang->more        = '更多';
+$lang->actions     = '操作';
+$lang->feature     = '未来';
+$lang->year        = '年';
+$lang->loading     = '稍候...';
+$lang->saveSuccess = '保存成功';
+$lang->setSuccess  = '设置成功';
+$lang->fail        = '失败';
+
+/* Items for javascript. */
 $lang->js = new stdClass();
 $lang->js->confirmDelete = '您确定要执行删除操作吗？';
 $lang->js->deleteing     = '删除中';
 $lang->js->doing         = '处理中';
 
-/* contact fields*/
+/* Contact fields*/
 $lang->company = new stdClass();
-$lang->company->contactUs   = "联系我们";
-$lang->company->address = "地址";
-$lang->company->phone   = "电话";
-$lang->company->email   = "Email";
-$lang->company->fax     = "传真";
-$lang->company->qq       = "QQ";
-$lang->company->weibo    = "微博";
-$lang->company->weixin   = "微信";
-$lang->company->wangwang = "阿里旺旺";
+$lang->company->contactUs = '联系我们';
+$lang->company->address   = '地址';
+$lang->company->phone     = '电话';
+$lang->company->email     = 'Email';
+$lang->company->fax       = '传真';
+$lang->company->qq        = 'QQ';
+$lang->company->weibo     = '微博';
+$lang->company->weixin    = '微信';
+$lang->company->wangwang  = '阿里旺旺';
 
 /* The main menus. */
 $lang->menu = new stdclass();
-$lang->menu->admin    = '首页|admin|index|';
-$lang->menu->article  = '文章|article|admin|';
-$lang->menu->comment  = '评论|comment|admin|';
-$lang->menu->forum    = '论坛|thread|admin|';
-$lang->menu->site     = '站点|site|setbasic|';
-$lang->menu->company  = '公司|company|setbasic|';
-$lang->menu->user     = '会员|user|forbid|';
+$lang->menu->admin   = '首页|admin|index|';
+$lang->menu->article = '文章|article|admin|';
+$lang->menu->comment = '评论|comment|admin|';
+$lang->menu->forum   = '论坛|forum|admin|';
+$lang->menu->site    = '站点|site|setbasic|';
+$lang->menu->company = '公司|company|setbasic|';
+$lang->menu->user    = '会员|user|forbid|';
 
-/* The menus of article module. */
+/* Menu of article module. */
 $lang->article = new stdclass();
 $lang->article->menu = new stdclass();
+$lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'alias' => 'edit');
+$lang->article->menu->create = '发布文章|article|create|';
+$lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
-$lang->article->menu->browse   = '文章列表|article|admin|';
-$lang->article->menu->create   = '发布文章|article|create|';
-$lang->article->menu->tree     = '类目管理|tree|browse|type=article';
+/* Menu of tree module. */
+$lang->tree = new stdclass();
+$lang->tree->menu = $lang->article->menu;
 
-/* The menus of comment module. */
-$lang->comment       = new stdclass();
+/* Menu of comment module. */
+$lang->comment = new stdclass();
 $lang->comment->menu = new stdclass();
+$lang->comment->menu->browse = '未审核|comment|admin|status=0';
+$lang->comment->menu->tree   = '已审核|comment|admin|status=1';
 
-$lang->comment->menu->browse   = '未审核|comment|admin|status=0';
-$lang->comment->menu->tree     = '已审核|comment|admin|status=1';
-
-
-/* The menus of forum module. */
-$lang->forum       = new stdclass();
+/* Menu of forum module. */
+$lang->forum = new stdclass();
 $lang->forum->menu = new stdclass();
+$lang->forum->menu->browse = '主题列表|forum|admin|';
+$lang->forum->menu->tree   = '版块管理|tree|browse|type=forum';
 
-$lang->forum->menu->browse   = '主题列表|thread|admin|';
-$lang->forum->menu->tree     = '版块管理|tree|browse|type=forum';
-
-//$lang->thread = $lang->forum;
-
-/* The menus of site module. */
+/* Menu of site module. */
 $lang->site = new stdclass();
 $lang->site->menu = new stdclass();
+$lang->site->menu->basic = '站点设置|site|setbasic|';
+$lang->site->menu->logo  = 'LOGO设置|site|setlogo|';
+$lang->site->menu->nav   = '导航设置|nav|index|';
 
-$lang->site->menu->basic   = '站点设置|site|setbasic|';
-$lang->site->menu->logo    = 'LOGO设置|site|setlogo|';
-$lang->site->menu->nav     = '导航设置|nav|index|';
-
-/* menu alias settings. */
-$lang->menuAlias = array();
-
-$lang->menuAlias['article.edit'] = ',article.admin,';
-
-/* The menus of company module. */
-if(!isset($lang->company)) $lang->company = new stdclass();
+/* Menu of company module. */
 $lang->company->menu = new stdclass();
+$lang->company->menu->basic   = '公司信息|company|setbasic|';
+$lang->company->menu->contact = '联系方式|company|setcontact|';
 
-$lang->company->menu->basic    = '公司信息|company|setbasic|';
-$lang->company->menu->contact  = '联系方式|company|setcontact|';
-
-/* The menus of user module. */
+/* Menu of user module. */
 $lang->user->menu = new stdClass();
-
-$lang->user->menu->forbid         = '会员列表|user|forbid|';
+$lang->user->menu->forbid = '会员列表|user|forbid|';
 $lang->user->menu->changepassword = '修改密码|user|changepassword|';
 
-/* menu module group settings. */
-$lang->menuModuleGroup = array();
-$lang->menuModuleGroup['thread'] = 'forum';
-
-/* menu method group settings. */
-$lang->menuMethodGroup = array();
-$lang->menuMethodGroup['nav.index'] = 'site';
-
-/* menu method param group settings. */
-$lang->menuMethodParamGroup = array(); 
-/* tree browse method's menu group setting*/
-$lang->menuMethodParamGroup['tree.browse'] = array();
-$lang->menuMethodParamGroup['tree.browse']['type'] = array();
-$lang->menuMethodParamGroup['tree.browse']['type']['forum']   = 'forum'; 
-$lang->menuMethodParamGroup['tree.browse']['type']['article'] = 'article'; 
+/* Menu groups setting. */
+$lang->menuGroups = new stdclass();
+$lang->menuGroups->tree = 'article';
 
 /* The error messages. */
 $lang->error = new stdclass();
-$lang->error->length       = array("『%s』长度错误，应当为『%s』", "『%s』长度应当不超过『%s』，且不小于『%s』。");
-$lang->error->reg          = "『%s』不符合格式，应当为:『%s』。";
-$lang->error->unique       = "『%s』已经有『%s』这条记录了。";
-$lang->error->notempty     = "『%s』不能为空。";
-$lang->error->equal        = "『%s』必须为『%s』。";
-$lang->error->int          = array("『%s』应当是数字。", "『%s』最小值为%s",  "『%s』应当介于『%s-%s』之间。");
-$lang->error->float        = "『%s』应当是数字，可以是小数。";
-$lang->error->email        = "『%s』应当为合法的EMAIL。";
-$lang->error->date         = "『%s』应当为合法的日期。";
-$lang->error->account      = "『%s』应当为字母和数字的组合，至少三位";
-$lang->error->passwordsame = "两次密码应当相等。";
-$lang->error->passwordrule = "密码应该符合规则，长度至少为六位。";
-$lang->error->captcha      = "请输入正确的验证码";
+$lang->error->length       = array('『%s』长度错误，应当为『%s』', '『%s』长度应当不超过『%s』，且不小于『%s』。');
+$lang->error->reg          = '『%s』不符合格式，应当为:『%s』。';
+$lang->error->unique       = '『%s』已经有『%s』这条记录了。';
+$lang->error->notempty     = '『%s』不能为空。';
+$lang->error->equal        = '『%s』必须为『%s』。';
+$lang->error->int          = array('『%s』应当是数字。', '『%s』最小值为%s',  '『%s』应当介于『%s-%s』之间。');
+$lang->error->float        = '『%s』应当是数字，可以是小数。';
+$lang->error->email        = '『%s』应当为合法的EMAIL。';
+$lang->error->date         = '『%s』应当为合法的日期。';
+$lang->error->account      = '『%s』应当为字母和数字的组合，至少三位';
+$lang->error->passwordsame = '两次密码应当相等。';
+$lang->error->passwordrule = '密码应该符合规则，长度至少为六位。';
+$lang->error->captcha      = '请输入正确的验证码';
 
 /* The pager items. */
 $lang->pager = new stdclass();
-$lang->pager->noRecord  = "暂时没有记录";
-$lang->pager->digest    = "共<strong>%s</strong>条记录,每页 <strong>%s</strong>条，页面：<strong>%s/%s</strong> ";
-$lang->pager->first     = "首页";
-$lang->pager->pre       = "上页";
-$lang->pager->next      = "下页";
-$lang->pager->last      = "末页";
-$lang->pager->locate    = "Go!";
+$lang->pager->noRecord  = '暂时没有记录';
+$lang->pager->digest    = '共<strong>%s</strong>条记录,每页 <strong>%s</strong>条，页面：<strong>%s/%s</strong> ';
+$lang->pager->first     = '首页';
+$lang->pager->pre       = '上页';
+$lang->pager->next      = '下页';
+$lang->pager->last      = '末页';
+$lang->pager->locate    = 'Go!';
 
 /* The datetime settings. */
 define('DT_DATETIME1',  'Y-m-d H:i:s');

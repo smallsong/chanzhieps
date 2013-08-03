@@ -166,24 +166,25 @@ class commonModel extends model
     /**
      * Create the main menu.
      * 
-     * @param  string $moduleName 
+     * @param  string $currentModule 
      * @static
      * @access public
      * @return string
      */
-    public static function createMainMenu($moduleName)
+    public static function createMainMenu($currentModule)
     {
         global $app, $lang;
+
+        /* Set current module. */
+        if(isset($lang->menuGroups->$currentModule)) $currentModule = $lang->menuGroups->$currentModule;
+
         $string = "<ul class='nav'>\n";
 
-        /* Get current menu. */
-        $currentMenu = commonModel::getCurrentMenu($moduleName);
         /* Print all main menus. */
-        foreach($lang->menu as $key => $menu)
+        foreach($lang->menu as $moduleName => $moduleMenu)
         {
-            $class = $key == $currentMenu ? " class='active'" : '';
-            list($label, $module, $method, $vars) = explode('|', $menu);
-
+            $class = $moduleName == $currentModule ? " class='active'" : '';
+            list($label, $module, $method, $vars) = explode('|', $moduleMenu);
             if(commonModel::hasPriv($module, $method))
             {
                 $link  = helper::createLink($module, $method, $vars);
@@ -196,66 +197,48 @@ class commonModel extends model
     }
 
     /**
-     * get current menu module for mainmenu and moduleMenu
-     *
-     * @param  string $moduleName 
-     * @static
-     * @access public
-     * @return string
-     */
-    public static function getCurrentMenu($moduleName)
-    {
-        global $app, $lang;
-        $methodName = $app->getMethodName(); 
-        if(isset($lang->menuMethodParamGroup["{$moduleName}.{$methodName}"]))
-        {
-            $paramSetting = $lang->menuMethodParamGroup["{$moduleName}.{$methodName}"];
-            foreach($paramSetting as $paramKey => $paramGroups)
-            {
-                if(isset($_REQUEST[$paramKey])) return $paramGroups[$_REQUEST[$paramKey]];
-            }
-        }
-
-        if(isset($lang->menuMethodGroup["{$moduleName}.{$methodName}"])) return $lang->menuMethodGroup["{$moduleName}.{$methodName}"];
-
-        if(isset($lang->menuModuleGroup[$moduleName])) return $lang->menuModuleGroup[$moduleName];
-
-        return $moduleName;
-    }
-
-    /**
      * Create the module menu.
      * 
-     * @param  string $moduleName 
+     * @param  string $currentModule 
      * @static
      * @access public
      * @return void
      */
-    public static function createModuleMenu($moduleName)
+    public static function createModuleMenu($currentModule)
     {
         global $lang, $app;
         
-        $currentMenuModule = commonModel::getCurrentMenu($moduleName);
-        if(!isset($lang->$currentMenuModule->menu)) return false;
+        if(!isset($lang->$currentModule->menu)) return false;
+
         $string = "<ul class='nav nav-list leftmenu affix'>\n";
 
-        /* Get the sub menus of the module, and get current module and method. */
-        $submenus      = $lang->$currentMenuModule->menu;  
+        /* Get menus of current module and current method. */
+        $moduleMenus   = $lang->$currentModule->menu;  
         $currentMethod = $app->getMethodName();
-        /* Cycling to print every sub menus. */
-        foreach($submenus as $key => $menu)
+
+        /* Cycling to print every menus of current module. */
+        foreach($moduleMenus as $methodName => $methodMenu)
         {
-            list($label, $module, $method, $vars) = explode('|', $menu);
+            if(is_array($methodMenu)) 
+            {
+                $methodAlias = $methodMenu['alias'];
+                $methodLink  = $methodMenu['link'];
+            }
+            else
+            {
+                $methodAlias = '';
+                $methodLink  = $methodMenu;
+            }
+
+            /* Split the methodLink to label, module, method, vars. */
+            list($label, $module, $method, $vars) = explode('|', $methodLink);
             $label .= '<i class="icon-chevron-right"></i>';
 
             if(commonModel::hasPriv($module, $method))
             {
                 $class = '';
-                if($module == $app->getModuleName() && $method == $currentMethod) $class = " class='active'";
-                if( isset($lang->menuAlias["{$moduleName}.{$currentMethod}"]) 
-                    && strpos($lang->menuAlias["{$moduleName}.{$currentMethod}"], "{$module}.{$method}") !== false 
-                ) 
-                $class = " class='active'";
+                if($module == $currentModule && $method == $currentMethod) $class = " class='active'";
+                if($module == $currentModule && strpos($methodAlias, $currentMethod) !== false) $class = " class='active'";
                 $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label, '', "id='submenu$key'") . "</li>\n";
             }
         }
