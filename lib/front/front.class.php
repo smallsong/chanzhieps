@@ -316,11 +316,10 @@ class html
      */
     public static function submitButton($label = '', $class = 'btn btn-primary', $misc = '')
     {
-        if(empty($label))
-        {
-            global $lang;
-            $label = $lang->save;
-        }
+        global $lang;
+
+        $label = empty($label) ? $lang->save : $label;
+        $misc .= strpos($misc, 'data-loading') === false ? "data-loading='$lang->loading'" : '';
 
         return " <input type='submit' id='submit' class='$class' value='$label' $misc /> ";
     }

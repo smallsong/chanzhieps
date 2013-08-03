@@ -3,12 +3,13 @@ $.extend(
     setAjaxForm: function(formID, callback)
     {
         form = $(formID); 
+
         var options = 
         {
             target  : null,
             timeout : 30000,
             dataType:'json',
-
+            
             success: function(response)
             {
                 $.enableForm(formID);
@@ -96,21 +97,36 @@ $.extend(
         /* Call ajaxSubmit to sumit the form. */
         form.submit(function()
         { 
-             $(this).ajaxSubmit(options);
-             return false;    // Prevent the submitting event of the browser.
+            $.disableForm(formID);
+            $(this).ajaxSubmit(options);
+            return false;    // Prevent the submitting event of the browser.
         });
+    },
+
+    /* Switch the label and disabled attribute for the submit button in a form. */
+    setSubmitButton: function(formID, action)
+    {
+        var submitButton = $(formID).find(':submit');
+
+        label    = submitButton.val();
+        loading  = submitButton.data('loading');
+        disabled = action == 'disable';
+
+        submitButton.attr('disabled', disabled);
+        submitButton.val(loading);
+        submitButton.data('loading', label);
     },
 
     /* Disable a form. */
     disableForm: function(formID)
     {
-        $(formID).find(':submit').attr('disabled', true);
+        $.setSubmitButton(formID, 'disable');
     },
     
     /* Enable a form. */
     enableForm: function(formID)
     {
-        $(formID).find(':submit').attr('disabled', false);
+        $.setSubmitButton(formID, 'enable');
     }
 });
 
