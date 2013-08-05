@@ -48,7 +48,7 @@ EOT;
       </tr>
       <tr>
         <td class='content-box'><?php echo html::textarea('', $comment->content, "rows='2' class='area-1' spellcheck='false'");?></td>
-        <td class='a-center'>
+        <td class='a-center v-middle'>
           <?php 
           echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, '', "class='deleter'");
           if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass,   '', "class='pass'");

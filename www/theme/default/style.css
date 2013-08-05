@@ -216,6 +216,7 @@ caption{border-radius:6px 6px 0 0; border-bottom:none}
 th.a-left,   td.a-left  {text-align:left}
 th.a-center, td.a-center{text-align:center}
 th.a-right,  td.a-right {text-align:right}
+th.v-middle, td.v-middle{vertical-align: middle;}
 
 tr.a-center th, tr.a-center td {text-align:center}
 tr.a-center .a-left {text-align:left}
