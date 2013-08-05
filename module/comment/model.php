@@ -35,7 +35,7 @@ class commentModel extends model
     /**
      * Get comment list.
      * 
-     * @param string $status    the comment status
+     * @param int    $status    the comment status
      * @param object $pager 
      * @access public
      * @return void
@@ -45,15 +45,19 @@ class commentModel extends model
         $comments = $this->dao->select('*')->from(TABLE_COMMENT)
             ->where('status')->eq($status)
             ->orderBy('id_desc')
-            ->page($pager, false)
-            ->fetchAll('id', false);
+            ->page($pager)
+            ->fetchAll('id');
+
+        /* Get article titls and id. */
         $articles = array();
         foreach($comments as $comment) $articles[] = $comment->objectID;
-        $articleTitles = $this->dao->select('id, title')->from(TABLE_ARTICLE)->where('id')->in($articles)->fetchPairs('', '', false);
+        $articleTitles = $this->dao->select('id, title')->from(TABLE_ARTICLE)->where('id')->in($articles)->fetchPairs('id', 'title');
+
         foreach($comments as $comment)
         {
             $comment->objectTitle = isset($articleTitles[$comment->objectID]) ? $articleTitles[$comment->objectID] : '';
         }
+
         return $comments;
     }
 
