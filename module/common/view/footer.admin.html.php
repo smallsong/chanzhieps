@@ -5,7 +5,7 @@
 <div class="navbar navbar-fixed-bottom">
   <div class='navbar-inner'>
     <div class='container-fluid'>
-      <div class='navbar-text pull-right'><?php printf($lang->poweredBy, $config->version);?></div>
+      <div class='navbar-text pull-right'><?php printf($lang->poweredBy, $config->version, $config->version);?></div>
     </div>
   </div>
 </div>

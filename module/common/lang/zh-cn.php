@@ -10,7 +10,7 @@
  */
 /* Lang items for xirang. */
 $lang->xirangEPS = 'xirangEPS';
-$lang->poweredBy = "由 <a href='http://www.xirang.biz' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
+$lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
 /* Global lang items. */
 $lang->home           = '首页';
@@ -19,7 +19,7 @@ $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
 $lang->frontHome      = '前台首页';
 $lang->dashboard      = '用户中心';
-$lang->register       = '免费注册';
+$lang->register       = '注册';
 $lang->logout         = '退出';
 $lang->login          = '登录';
 $lang->account        = '帐号';
