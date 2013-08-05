@@ -2,52 +2,49 @@
 <div class='row-fluid'>
   <?php include 'side.html.php';?>
   <div class='span9'>
-    <form method='post' target='hiddenwin' class='cont bd-none'>
     <table class='table table-form' id='profile'>
       <caption><?php echo $lang->user->profile;?></caption>
-        <tr>
-          <td align='right' class='w-60px'><?php echo $lang->user->realname;?></td>
-          <td><?php echo $user->realname;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->email;?></td>
-          <td><?php echo $user->email;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->company;?></td>
-          <td><?php echo $user->company;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->address;?></td>
-          <td><?php echo $user->address;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->zipcode;?></td>
-          <td><?php echo $user->zipcode;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->mobile;?></td>
-          <td><?php echo $user->mobile;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->phone;?></td>
-          <td><?php echo $user->phone;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->qq;?></td>
-          <td><?php echo $user->qq;?></td>
-        </tr>  
-        <tr>
-          <td align='right'><?php echo $lang->user->gtalk;?></td>
-          <td><?php echo $user->gtalk;?></td>
-        </tr>  
-        <tr>
-          <td colspan='2' class="a-center">
-            <?php echo html::a(inlink('edit'), $lang->user->editProfile, '', 'class="btn btn-primary"');?>
-          </td>
-        </tr>
-      </table>
-    </form>
+      <tr>
+        <th class='w-100px'><?php echo $lang->user->realname;?></th>
+        <td><?php echo $user->realname;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->email;?></th>
+        <td><?php echo $user->email;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->company;?></th>
+        <td><?php echo $user->company;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->address;?></th>
+        <td><?php echo $user->address;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->zipcode;?></th>
+        <td><?php echo $user->zipcode;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->mobile;?></th>
+        <td><?php echo $user->mobile;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->phone;?></th>
+        <td><?php echo $user->phone;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->qq;?></th>
+        <td><?php echo $user->qq;?></td>
+      </tr>  
+      <tr>
+        <th><?php echo $lang->user->gtalk;?></th>
+        <td><?php echo $user->gtalk;?></td>
+      </tr>  
+      <tr>
+        <th></th>
+        <td><?php echo html::a(inlink('edit'), $lang->user->editProfile, '', 'class="btn btn-primary"');?></td>
+      </tr>
+    </table>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php';?>

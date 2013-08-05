@@ -1,55 +1,55 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row-fluid'>
-<?php include './side.html.php';?>
+  <?php include './side.html.php';?>
   <div class='span9'>
-    <form method='post' id="ajaxForm" class="form form-inline" >
-      <table class='table table-form'>
+    <form method='post' id='ajaxForm' class='form form-inline'>
+      <table class='table table-form table-bordered'>
         <caption><?php echo $lang->user->editProfile;?></caption>
         <tr>
-          <td><?php echo $lang->user->realname;?></td>
+          <th class='w-100px'><?php echo $lang->user->realname;?></th>
           <td><?php echo html::input('realname', $user->realname, "class='text-3'");?></td>
         </tr>  
         <tr>
-          <td><?php echo $lang->user->email;?></td>
+          <th><?php echo $lang->user->email;?></th>
           <td><?php echo html::input('email', $user->email, "class='text-3'");?></td>
         </tr>  
         <tr>
-          <td><?php echo $lang->user->company;?></td>
+          <th><?php echo $lang->user->password;?></th>
+          <td><?php echo html::password('password1', '', "class='text-3' autocomplete='off'") . $lang->user->control->lblPassword;?></td>
+        </tr>  
+        <tr>
+          <th><?php echo $lang->user->password2;?></th>
+          <td><?php echo html::password('password2', '', "class='text-3'");?></td>
+        </tr>  
+        <tr>
+          <th><?php echo $lang->user->company;?></th>
           <td><?php echo html::input('company', $user->company, "class='text-3'");?></td>
         </tr>  
         <tr>
-          <td><?php echo $lang->user->mobile;?></td>
-          <td><?php echo html::input('mobile', $user->mobile, "class='text-3'");?></td>
-        </tr>  
-        <tr>
-          <td><?php echo $lang->user->phone;?></td>
-          <td><?php echo html::input('phone', $user->phone, "class='text-3'");?></td>
-        </tr>  
-        <tr>
-          <td><?php echo $lang->user->address;?></td>
+          <th><?php echo $lang->user->address;?></th>
           <td><?php echo html::input('address', $user->address, "class='text-3'");?></td>
         </tr>  
         <tr>
-          <td><?php echo $lang->user->zipcode;?></td>
+          <th><?php echo $lang->user->zipcode;?></th>
           <td><?php echo html::input('zipcode', $user->zipcode, "class='text-3'");?></td>
         </tr>  
         <tr>
-          <td><?php echo $lang->user->qq;?></td>
+          <th><?php echo $lang->user->mobile;?></th>
+          <td><?php echo html::input('mobile', $user->mobile, "class='text-3'");?></td>
+        </tr>  
+        <tr>
+          <th><?php echo $lang->user->phone;?></th>
+          <td><?php echo html::input('phone', $user->phone, "class='text-3'");?></td>
+        </tr>  
+        <tr>
+          <th><?php echo $lang->user->qq;?></th>
           <td><?php echo html::input('qq', $user->qq, "class='text-3'");?></td>
         </tr>  
         <tr>
-          <td><?php echo $lang->user->gtalk;?></td>
+          <th><?php echo $lang->user->gtalk;?></th>
           <td><?php echo html::input('gtalk', $user->gtalk, "class='text-3'");?></td>
         </tr>  
-        <tr>
-          <td><?php echo $lang->user->password;?></td>
-          <td><?php echo html::password('password1', '', "class='text-3'") . $lang->user->control->lblPassword;?></td>
-        </tr>  
-        <tr>
-          <td><?php echo $lang->user->password2;?></td>
-          <td><?php echo html::password('password2', '', "class='text-3'");?></td>
-        </tr>  
-        <tr><td colspan='2' class='a-center'><?php echo html::submitButton() . html::resetButton();?></td></tr>
+        <tr><td></td><td><?php echo html::submitButton();?></td></tr>
       </table>
     </form>
   </div>

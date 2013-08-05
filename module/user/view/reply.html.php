@@ -2,20 +2,24 @@
 <div class='row-fluid'>
   <?php include 'side.html.php';?>
   <div class='span9'>
-      <table class='table'>
-      <caption><?php echo $lang->user->reply;?></caption>
-        <tr>
-          <th><?php echo $lang->reply->addedDate;?></th>
-          <th><?php echo $lang->thread->common;?></th>
-        </tr>  
-        <?php foreach($replies as $reply):?>
+    <table class='table table-bordered'>
+      <thead>
+        <caption><?php echo $lang->user->reply;?></caption>
         <tr class='a-center'>
-          <td class='w-230px'><?php echo $reply->addedDate;?></td>
-          <td class='a-left'><?php echo html::a($this->createLink('thread', 'view', "id=$reply->thread") . "#$reply->id", $reply->title . " <i>(#$reply->id)</i>", '_blank');?></td>
+          <th><?php echo $lang->thread->common;?></th>
+          <th><?php echo $lang->reply->addedDate;?></th>
+        </tr>  
+      </thead>
+      <tbody>
+        <?php foreach($replies as $reply):?>
+        <tr>
+          <td><?php echo html::a($this->createLink('thread', 'view', "id=$reply->thread") . "#$reply->id", $reply->title . " <i>(#$reply->id)</i>", '_blank');?></td>
+          <td class='w-150px'><?php echo $reply->addedDate;?></td>
         </tr>  
         <?php endforeach;?>
-        <tr><td colspan='8'><?php $pager->show();?></td></tr>
-      </table>
+      </tbody>
+      <tfoot><tr><td colspan='2'><?php $pager->show();?></td></tr></tfoot>
+    </table>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php';?>

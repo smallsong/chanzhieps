@@ -51,6 +51,7 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .table-form {border:1px solid #DDDDDD;}
 .table-form tr th, .table-form tr td {border:none;}
 .table-form tr th:first-child, .table-form tr td:first-child {text-align:right;}
+.table-form tr td.a-center{text-align:center;}
 
 .nobr  {overflow:hidden; white-space:nowrap;}
 .fixed {table-layout:fixed}

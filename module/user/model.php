@@ -83,34 +83,36 @@ class userModel extends model
     /**
      * Update an account.
      * 
-     * @param mixed $account 
+     * @param  string $account 
      * @access public
      * @return void
      */
     public function update($account)
     {
-        if($_POST['password1'] != '') $this->checkPassword();
-        if(dao::isError()) return false;
+        /* If the user want to change his password. */
+        if($this->post->password1 != false)
+        {
+            $this->checkPassword();
+            if(dao::isError()) return false;
+
+            $addedDate = $this->dao->select('addedDate')->from(TABLE_USER)->where('account')->eq($account)->fetch('addedDate');
+            $password  = $this->createPassword($this->post->password1, $account, $addedDate);
+            $this->post->set('password', $password);
+        }
+
         $user = fixer::input('post')
-            ->setIF(isset($_POST['addedDate']) and $this->post->addedDate == '', 'addedDate', '0000-00-00')
-            ->setIF($this->post->password1 != false, 'password', md5($this->post->password1))
-            ->cleanInt('imobile,qq,zipcode')
-            ->specialChars('company,address,phone,')
+            ->cleanInt('imobile, qq, zipcode')
+            ->specialChars('company, address, phone,')
             ->remove('password1, password2')
             ->get();
-        $addedDate = $this->dao->select('*')
-            ->from(TABLE_USER)
-            ->where('account')->eq($account)
-            ->fetch('addedDate');
-        $user->password = $this->createPassword($this->post->password1, $account, $addedDate); 
+
         return $this->dao->update(TABLE_USER)->data($user)
             ->autoCheck()
             ->batchCheck($this->config->user->edit->requiredFields, 'notempty')
             ->checkIF($this->post->email != false, 'email', 'email')
-            ->checkIF($this->post->msn != false, 'msn', 'email')
             ->checkIF($this->post->gtalk != false, 'gtalk', 'email')
             ->where('account')->eq($account)
-            ->exec(false);
+            ->exec();
     }
 
     /**
