@@ -5,7 +5,7 @@
     <table class='table table-bordered table-hover'>
       <thead>
         <caption><?php echo $lang->user->thread;?></caption>
-        <tr>
+        <tr class='a-center'>
           <th><?php echo $lang->thread->title;?></th>
           <th><?php echo $lang->thread->postedDate;?></th>
           <th><?php echo $lang->thread->views;?></th>
