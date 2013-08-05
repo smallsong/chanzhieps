@@ -11,6 +11,7 @@
 $lang->forum->common      = '论坛';
 $lang->forum->board       = '版块';
 $lang->forum->owners      = '版主';
+$lang->forum->threadList  = '主题列表';
 $lang->forum->threadCount = '主题数';
 $lang->forum->postCount   = '帖子数';
 $lang->forum->lastPost    = '最后发表';
