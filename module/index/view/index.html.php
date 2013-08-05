@@ -1,6 +1,6 @@
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/treeview.html.php'; ?>
-<?php $LatestArticles =  articleModel::getLatestArticle(0,8);
+<?php $LatestArticles =  articleModel::getLatest(0,8);
       $contact        = json_decode($this->config->company->contact);
 ?>
 <div id="myCarousel" class="carousel slide">
