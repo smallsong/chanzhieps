@@ -1,12 +1,8 @@
-body {padding-top: 60px; padding-bottom: 40px; background-color: #f6f5f5;}
-.adminContainer{margin-top:30px;}
+body {background-color: #f6f5f5;}
 
-.login-form {width: 300px; margin: 0 auto 20px; padding: 19px 29px 29px; background-color: #fff; border: 1px solid #e5e5e5;}
-
-
+.admin{width: 300px; margin: 0 auto 20px; padding: 19px 29px 29px; background-color: #fff; border: 1px solid #e5e5e5;}
 #logo{display:block; margin:0 auto; text-align:center;}
 #logo img{width:200px; padding:0 0 10px 0;}
-
 #account, #password {font-size: 16px; height: auto; margin-bottom: 15px; padding: 7px 9px;}
 
 .front{width: 300px; margin: 30px auto 40px; padding: 19px 29px 29px; border: 1px solid #e5e5e5;  background-color: #fff;}
