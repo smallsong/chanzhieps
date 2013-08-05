@@ -244,12 +244,14 @@ class user extends control
     public function edit()
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
+
         if(!empty($_POST))
         {
             $this->user->update($this->app->user->account);
-            if(dao::isError()) $this->send( array( 'result' => 'fail', 'message' => dao::getError() ) );
+            if(dao::isError()) $this->send( array( 'result' => 'fail', 'message' => dao::getError()));
             $this->send(array('result' => 'success', 'locate' => inlink('profile')));
         }
+
         $this->view->user = $this->user->getByAccount($this->app->user->account);
         $this->display();
     }
