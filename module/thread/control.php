@@ -10,21 +10,6 @@
  */
 class thread extends control
 {
-    public function admin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
-    {
-        /* init pager. */ 
-        $this->app->loadClass('pager', $static = true);
-        $pager = new pager($recTotal, $recPerPage, $pageID);
-
-        $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
-        $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
-
-        $this->view->threads = $threads;
-        $this->view->board   = $this->loadModel('tree')->getById($boardID);
-        $this->view->pager   = $pager;
-        $this->view->title   = $this->lang->thread->browse;
-        $this->display();
-    }
     /** 
      * Post a thread.
      * 

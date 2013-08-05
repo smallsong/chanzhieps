@@ -1,6 +1,6 @@
 <?php
 /**
- * The browse view file of block module of xirangEPS.
+ * The browse view file of company module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Xiying Guan <guanxiying@xirangit.com>
@@ -14,7 +14,7 @@
   <table class="table table-bordered table-form">
     <caption><?php echo $lang->company->setContact;?></caption> 
     <tr>
-      <th class="w-150px"><?php echo $lang->company->address?></th> 
+      <th class="w-100px"><?php echo $lang->company->address?></th> 
       <td><?php echo html::input('address', isset($contact->address) ? $contact->address : '', 'class="text-1"');?></td> 
     </tr>
     <tr>
@@ -46,7 +46,8 @@
       <td><?php echo html::input('wangwang', isset($contact->wangwang) ? $contact->wangwang : '', 'class="text-1"');?></td>
     </tr>
     <tr>
-      <td colspan="2" class="a-center">
+      <th></th>
+      <td>
         <?php echo html::submitButton();?>
         <span id="responser"></span>
       </td>

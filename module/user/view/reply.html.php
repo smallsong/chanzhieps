@@ -1,5 +1,5 @@
 <?php include '../../common/view/header.html.php';?>
-<div class='row'>
+<div class='row-fluid'>
   <?php include 'side.html.php';?>
   <div class='span9'>
       <table class='table'>
