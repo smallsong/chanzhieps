@@ -58,7 +58,7 @@ $lang->user->gendarList->m = '男';
 $lang->user->gendarList->f = '女';
 $lang->user->gendarList->u = '';
 
-$lang->user->id        = '用户编号';
+$lang->user->id        = '编号';
 $lang->user->account   = '用户名';
 $lang->user->password  = '密码';
 $lang->user->password2 = '请重复密码';
