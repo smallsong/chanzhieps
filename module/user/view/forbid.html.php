@@ -11,32 +11,30 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <form method='post' class='form-inline mb-10px'>
-  <tr>
-    <td>
-      <?php echo $lang->user->inputUserName; ?>
-      <?php echo html::input('userName', '', 'class=text-3'); ?>
-      <?php echo html::submitButton($lang->user->searchUser); ?>
-    </td>
-  </tr>
+  <?php echo $lang->user->inputUserName; ?>
+  <?php echo html::input('userName', '', 'class=text-3'); ?>
+  <?php echo html::submitButton($lang->user->searchUser); ?>
 </form>
-<table align='center' class='table table-hover table-list table-striped'>
+<table class='table table-form table-hover table-striped'>
   <caption><?php echo $lang->user->forbidUser;?></caption>
-<tr>
-    <th class='w-40px'><?php echo $lang->user->id;?></th>
-    <th class='w-60px'><?php echo $lang->user->realname;?></th>
-    <th class='w-60px'><?php echo $lang->user->nickname;?></th>
-    <th class='w-80px'><?php echo $lang->user->account;?></th>
-    <th class='w-30px'><?php echo $lang->user->gendar;?></th>
-    <th class='w-120px'><?php echo $lang->user->company;?></th>
-    <th class='w-100px'><?php echo $lang->user->addedDate;?></th>
-    <th class='w-50px'><?php echo $lang->user->visits;?></th>
-    <th class='w-100px'><?php echo $lang->user->last;?></th>
-    <th class='w-150px'><?php echo $lang->user->forbid;?></th>
-  </tr>
+  <thead>
+    <tr class='a-center'>
+      <th class='w-60px'><?php echo $lang->user->id;?></th>
+      <th class='w-80px'><?php echo $lang->user->realname;?></th>
+      <th class='w-80px'><?php echo $lang->user->nickname;?></th>
+      <th class='w-80px'><?php echo $lang->user->account;?></th>
+      <th class='w-60px'><?php echo $lang->user->gendar;?></th>
+      <th class='w-200px'><?php echo $lang->user->company;?></th>
+      <th class='w-150px'><?php echo $lang->user->addedDate;?></th>
+      <th class='w-80px'><?php echo $lang->user->visits;?></th>
+      <th class='w-150px'><?php echo $lang->user->last;?></th>
+      <th><?php echo $lang->user->forbid;?></th>
+    </tr>
+  </thead>
   <tbody>
   <?php foreach($users as $user):?>
-  <tr>
-    <td><?php echo $user->id;?></td>
+  <tr class='a-center'>
+    <td class='a-center'><?php echo $user->id;?></td>
     <td><?php echo $user->realname; ?> </td>
     <td><?php echo $user->nickname; ?> </td>
     <td><?php echo $user->account; ?> </td>
@@ -58,6 +56,6 @@
   </tr>
   <?php endforeach;?>
   </tbody>
-  <tr><td colspan='10' class='a-right'><?php $pager->show();?></td></tr>
+  <tfoot><tr><td colspan='10' class='a-right'><?php $pager->show();?></td></tr></tfoot>
 </table>
 <?php include '../../common/view/footer.admin.html.php';?>
