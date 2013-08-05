@@ -4,7 +4,6 @@ include 'header.lite.html.php';
 if(isset($config->site->logo)) $logo = json_decode($this->config->site->logo);
 js::set('lang', $lang->js);
 $navs = json_decode($this->config->nav->mainNav, true);
-$current = commonModel::getCurrentMenu($moduleName);
 ?>
 <div class="container">
   <div class="masthead">
