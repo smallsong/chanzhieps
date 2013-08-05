@@ -1,18 +1,18 @@
 $(document).ready(function()
 {
+    /* Set active menu. */
     $('.leftmenu li.active').removeClass('active');
     $('.leftmenu a').eq(v.currentMenuIndex).parent().addClass('active');
 
     $('.pre').click(function()
     {
-        var that = $(this);
-        bootbox.confirm($(this).data('confirm'),function(result)
+        var selector = $(this);
+        bootbox.confirm($(this).data('confirm'), function(result)
         {
             if(result)
             {
-                delUrl = that.attr('href');
-                that.text(v.lang.deleteing);
-                $.getJSON(delUrl,function(data) 
+                selector.text(v.lang.deleteing);
+                $.getJSON(selector.attr('href'), function(data) 
                 {
                     if(data.result=='success')
                     {
@@ -30,22 +30,19 @@ $(document).ready(function()
     
     $('.pass').click(function()
     {
-        var that = $(this);
-        passurl = that.attr('href');
-        that.text(v.lang.doing);
-        $.getJSON(passurl,function(data) 
+        var selector = $(this);
+        selector.text(v.lang.doing);
+        $.getJSON(selector.attr('href'), function(data) 
         {
-             if(data.result=='success')
-             {
-                 location.reload();
-             }
-             else
-             {
-                 alert(data.message);
-             }
+            if(data.result=='success')
+            {
+                location.reload();
+            }
+            else
+            {
+                alert(data.message);
+            }
         });
-      return false;
+        return false;
     });
-
-
 });
