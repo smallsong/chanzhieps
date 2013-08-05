@@ -11,16 +11,16 @@
 class company extends control
 {
     /**
-     * company profile about us.
+     * company profile.
      * 
      * @access public
      * @return void
      */
     public function index()
     {
-        $this->view->company  = $this->config->company;
         $this->view->title    = $this->config->company->name;
         $this->view->keywords = $this->config->company->name;
+        $this->view->company  = $this->config->company;
 
         $this->display();
     }
@@ -37,13 +37,13 @@ class company extends control
         {
             $result = $this->loadModel('setting')->setItems('system.common.company', (object)$_POST);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
-            $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
+            $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
         }
         $this->display();
     }
 
     /**
-     * set company basic info.
+     * set contact information.
      * 
      * @access public
      * @return void
@@ -53,7 +53,7 @@ class company extends control
         if(!empty($_POST))
         {
             $contact = array('contact' => json_encode($_POST));
-            $result = $this->loadModel('setting')->setItems('system.common.company', $contact);
+            $result  = $this->loadModel('setting')->setItems('system.common.company', $contact);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
         }
