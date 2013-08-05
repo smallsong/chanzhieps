@@ -23,6 +23,10 @@
       <td><?php echo html::input('copyrightStart', $this->config->site->copyrightStart, 'class="text-2"');?></td> 
     </tr>
     <tr>
+      <th><?php echo $lang->site->keywords;?></th> 
+      <td><?php echo html::input('keywords', $this->config->site->keywords, 'class="text-1"');?></td> 
+    </tr>
+    <tr>
       <th><?php echo $lang->site->slogan;?></th> 
       <td><?php echo html::input('slogan', $this->config->site->slogan, 'class="text-1"');?></td> 
     </tr>
