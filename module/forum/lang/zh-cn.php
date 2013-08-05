@@ -16,7 +16,5 @@ $lang->forum->threadCount = '主题数';
 $lang->forum->postCount   = '帖子数';
 $lang->forum->lastPost    = '最后发表';
 $lang->forum->readonly    = '只读版块。';
-
-$lang->forum->post = '发贴';
-
+$lang->forum->post        = '发贴';
 $lang->forum->lblOwner    = "(斑竹：%s)";

@@ -41,7 +41,7 @@
                 {
                     echo html::a('#reply', $lang->reply->common);
                     if($this->thread->hasEditPriv($this->app->user->account, $board->owners, $thread->author)) echo html::a(inlink('editThread', "threadID=$thread->id"), $lang->edit);
-                    if($this->thread->hasManagePriv($this->app->user->account, $board->owners)) echo html::a(inlink('deleteThread', "threadID=$thread->id"), $lang->delete, '', 'class="deleter"');
+                    if($this->thread->hasManagePriv($this->app->user->account, $board->owners)) echo html::a(inlink('delete', "threadID=$thread->id"), $lang->delete, '', 'class="deleter"');
                 }    
                 else
                 {

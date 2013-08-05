@@ -156,7 +156,7 @@ class thread extends control
      * @access public
      * @return void
      */
-    public function deleteThread($threadID)
+    public function delete($threadID)
     {
         $owners = $this->thread->getBoardOwners($threadID);
         if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) $this->send(array('result' => 'fail'));

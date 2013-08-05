@@ -196,20 +196,15 @@ class articleModel extends model
      * Create preview link. 
      * 
      * @param  int    $articleID 
-     * @param  string $tree        article|help
+     * @param  string $type         article|help
      * @access public
      * @return string
      */
-    public function createPreviewLink($articleID, $tree = 'article')
+    public function createPreviewLink($articleID, $type = 'article')
     {
-        $module = $tree == 'article' ? 'article' : 'help';
-        $method = $tree == 'article' ? 'view'    : 'read';
+        $module = $type == 'article' ? 'article' : 'help';
+        $method = $type == 'article' ? 'view'    : 'read';
 
-        $this->config->requestType = $this->config->frontRequestType;
-        $link = helper::createLink($module, $method, "articleID=$articleID");
-        $link = str_replace('admin.php', 'index.php', $link);
-        $this->config->requestType = 'GET';
-
-        return $link;
+        return commonModel::createFrontLink($module, $method, "articleID=$articleID");
     }
 }

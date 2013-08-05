@@ -522,4 +522,26 @@ class commonModel extends model
     {
         echo " > {$this->lang->position['search']} > " . html::a(inlink('xunSearch', "module=$module") . "?key=$keywords", $keywords);
     }
+
+    /**
+     * Create front link for admin MODEL.
+     *
+     * @param string       $module
+     * @param string       $method
+     * @param string|array $vars
+     * return string 
+     */
+    public static function createFrontLink($module, $method, $vars)
+    {
+        if(RUN_MODE == 'front') return helper::createLink($module, $method, $vars);
+
+        global $config;
+
+        $config->requestType = $config->frontRequestType;
+        $link = helper::createLink($module, $method, $vars);
+        $link = str_replace('admin.php', 'index.php', $link);
+        $config->requestType = 'GET';
+
+        return $link;
+    }
 }
