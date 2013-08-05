@@ -1,8 +1,11 @@
 <?php include '../../common/view/header.html.php';?>
-<div class='row'>
-    <?php include './side.html.php';?>
+<div class='row-fluid'>
+  <?php include './side.html.php';?>
   <div class='span9'>
-    <p><?php printf($lang->user->control->welcome, $this->app->user->account);?></p>
+    <table class='table table-bordered'>
+      <caption><?php printf($lang->user->control->welcome, $this->app->user->account);?></caption>
+      <tr><td></td></tr>
+    </table>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php';?>
