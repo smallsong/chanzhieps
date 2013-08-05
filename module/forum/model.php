@@ -19,7 +19,7 @@ class forumModel extends model
     public function getBoards()
     {
         $boards    = array();
-        $rawBoards = $this->dao->select('*')->from(TABLE_CATEGORY)->where('tree')->eq('forum')->orderBy('grade, `order`')->fetchGroup('parent');
+        $rawBoards = $this->dao->select('*')->from(TABLE_CATEGORY)->where('type')->eq('forum')->orderBy('grade, `order`')->fetchGroup('parent');
         if(!isset($rawBoards[0])) return $boards;
 
         foreach($rawBoards[0] as $parentBoard)
