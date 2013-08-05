@@ -260,7 +260,7 @@ class commonModel extends model
         $string  = '<ul class="nav pull-right">';
         $string .= sprintf('<li>%s</li>', html::a(getWebroot(), '<i class="icon-home icon-large"></i> ' . $lang->frontHome, '_blank', 'class="navbar-link"'));
         $string .= sprintf('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large"></i> %s <b class="caret"></b></a>', $app->user->account);
-        $string .= sprintf('<ul class="dropdown-menu"><li>%s</li></ul>', html::a(helper::createLink('user','logout'), $lang->logout, ''));
+        $string .= sprintf('<ul class="dropdown-menu"><li>%s</li><li>%s</li></ul>', html::a(helper::createLink('user', 'changePassword'), $lang->changePassword, '', "data-toggle='modal' data-width='1000'"), html::a(helper::createLink('user','logout'), $lang->logout, ''));
         $string .= '</li></ul>';
 
         return $string;
