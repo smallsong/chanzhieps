@@ -76,10 +76,10 @@ class forum extends control
         $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
         $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
 
-        $this->view->threads       = $threads;
-        $this->view->pager         = $pager;
-        $this->view->board         = $this->loadModel('tree')->getById($boardID);
-        $this->view->title = $this->view->board ? $this->view->board->name : '';
+        $this->view->threads = $threads;
+        $this->view->pager   = $pager;
+        $this->view->board   = $this->loadModel('tree')->getById($boardID);
+        $this->view->title   = $this->view->board ? $this->view->board->name : '';
 
         $this->display();
     }
@@ -108,7 +108,7 @@ class forum extends control
         }
         unset($data);
 
-        $boards = $this->dao->select('id, name')->from(TABLE_CATEGORY)->where('tree')->eq('forum')->andWhere('grade')->eq(2)->fetchPairs('id', 'name', false);
+        $boards = $this->dao->select('id, name')->from(TABLE_CATEGORY)->where('type')->eq('forum')->andWhere('grade')->eq(2)->fetchPairs('id', 'name', false);
         foreach($boards as $boardID => $boardName)
         {
             $newestPost = $this->dao->select('t1.id as threadID, t1.author, t1.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
