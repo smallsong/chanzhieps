@@ -14,7 +14,7 @@
     <?php foreach($parentBoard->childs as $childBoard):?>
     <tr valign='middle' class='a-center'>
       <td class='w-20px'><?php echo $this->forum->isNew($childBoard) ? "<span class='new-board'>&nbsp;</span>" : "<span class='common-board'>&nbsp;</span>"; ?></td>
-      <td align='left'>
+      <td class='a-left'>
         <strong><?php echo html::a(inlink('board', "id=$childBoard->id"), $childBoard->name);?></strong><br />
         <i><?php echo $childBoard->desc;?></i>
       </td>
