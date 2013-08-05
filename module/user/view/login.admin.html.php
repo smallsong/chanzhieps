@@ -1,4 +1,5 @@
 <?php include '../../common/view/header.lite.html.php';?>
+<?php css::internal('body{background-color:#f6f5f5}');?> 
 <form method="post" id='ajaxForm' class='radius shadow admin'>
   <div id='logo'><?php echo html::image("$themeRoot/default/images/main/logo.login.png");?></div>
   <div id='responser' class='text-center'></div>
