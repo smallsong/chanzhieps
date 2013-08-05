@@ -1,10 +1,10 @@
 <?php
 /**
- * The browse view file of block module of xirangEPS.
+ * The logo view file of site module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     block
+ * @package     site
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
@@ -17,10 +17,8 @@
       <th class="w-150px">
         <?php if(isset($this->config->site->logo)) echo html::image($logo->webPath, "width='150px'");?>
       </th> 
-      <td><?php echo html::file('files');?></td> 
-    </tr>
-    <tr>
-      <td colspan="2" class="a-center">
+      <td>
+        <?php echo html::file('files');?>
         <?php echo html::submitButton();?>
       </td>
     </tr>

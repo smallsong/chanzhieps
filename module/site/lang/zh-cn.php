@@ -19,7 +19,7 @@ $lang->site->desc           = '站点描述';
 $lang->site->icp            = '备案编号';
 $lang->site->slogan         = '站点口号';
 $lang->site->mission        = '站点使命';
-$lang->site->copyrightStart = '版权起始年';
+$lang->site->copyrightStart = '创建年份';
 $lang->site->admins         = '管理员';
 $lang->site->type           = '站点类型';
 $lang->site->theme          = '模板类型';
@@ -28,7 +28,7 @@ $lang->site->indexModules   = '首页显示分类列表';
 
 
 $lang->site->setBasic       = "设置基本信息";
-$lang->site->setLogo        = "设置Logo";
+$lang->site->setLogo        = "Logo设置";
 $lang->site->setLogoFaild   = "设置Logo失败";
 $lang->site->setMenu        = "设置导航";
 

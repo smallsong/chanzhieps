@@ -38,47 +38,46 @@ class site extends control
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            if(!empty($_FILES))
+            if(!empty($_FILES)) $this->send(array('result' => 'fail', 'message' => $this->lang->error->notSelectedLogo));
+
+            $fileModel =  $this->loadModel('file');
+
+            /*upload new logo*/
+            $logo = $fileModel->saveUpload('logo');
+            if(!$logo) $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
+
+            $fileID   = array_keys($logo);
+            $logoFile = $fileModel->getById($fileID[0]); 
+
+            /*delete old logo*/
+            $oldLogos  = $fileModel->getByObject('logo');
+            foreach($oldLogos as $oldLogo)
             {
-                $fileModel =  $this->loadModel('file');
-                
-                /*upload new logo*/
-                $logo = $fileModel->saveUpload('logo');
-                if(!$logo) $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
+                if($oldLogo->id != $logoFile->id) $fileModel->delete($oldLogo->id);
+            }
+            
+            /* save new logo data. */
+            $setting  = new stdclass();
 
-                $fileID   = array_keys($logo);
-                $logoFile = $fileModel->getById($fileID[0]); 
+            $setting->fileID    = $logoFile->id;
+            $setting->pathname  = $logoFile->pathname;
+            $setting->webPath   = $logoFile->webPath;
+            $setting->addedBy   = $logoFile->addedBy;
+            $setting->addedDate = $logoFile->addedDate;
 
-                /*delete old logo*/
-                $oldLogos  = $fileModel->getByObject('logo');
-                foreach($oldLogos as $oldLogo)
-                {
-                    if($oldLogo->id != $logoFile->id) $fileModel->delete($oldLogo->id);
-                }
-
-                $setting  = new stdclass();
-                $setting->fileID    = $logoFile->id;
-                $setting->pathname  = $logoFile->pathname;
-                $setting->webPath   = $logoFile->webPath;
-                $setting->addedBy   = $logoFile->addedBy;
-                $setting->addedDate = $logoFile->addedDate;
-
-                $config['logo'] = json_encode($setting);
-                $result = $this->loadModel('setting')->setItems('system.common.site', $config);
-                if($result)
-                {
-                    $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess, 'locate'=>inlink('setLogo')));
-                }
-
-                $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
+            $result = $this->loadModel('setting')->setItems('system.common.site', array('logo' => $json_encode($setting)) );
+            if($result)
+            {
+                $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess, 'locate'=>inlink('setLogo')));
             }
             else
             {
-                $this->send(array('result' => 'fail', 'message' => $this->lang->error->notSelectedLogo));
+                $this->send(array('result'=>'fail', 'message'=>$this->lang->fail, inlink('setLogo')));
             }
         }
+            
+        $this->view->logo = isset($this->config->site->logo) ? json_decode($this->config->site->logo) : false;
 
-        if(isset($this->config->site->logo)) $this->view->logo = json_decode($this->config->site->logo);
         $this->display();
     }
 }

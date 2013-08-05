@@ -2,7 +2,7 @@ $(document).ready(function()
 {
     /* Set active menu. */
     $('.leftmenu li.active').removeClass('active');
-    $('.leftmenu a').eq(v.currentMenuIndex).parent().addClass('active');
+    $('.leftmenu a').eq(v.currentMenu).parent().addClass('active');
 
     $('.pre').click(function()
     {
@@ -25,6 +25,7 @@ $(document).ready(function()
                 });
             }
         });
+
         return false;
     });
     
@@ -32,6 +33,7 @@ $(document).ready(function()
     {
         var selector = $(this);
         selector.text(v.lang.doing);
+
         $.getJSON(selector.attr('href'), function(data) 
         {
             if(data.result=='success')
@@ -43,6 +45,7 @@ $(document).ready(function()
                 alert(data.message);
             }
         });
+
         return false;
     });
 });
