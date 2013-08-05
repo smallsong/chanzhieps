@@ -86,7 +86,6 @@ $lang->user->last      = '最后登录时间';
 $lang->user->allowTime = '开放时间';
 $lang->user->status    = '状态';
 $lang->user->alert     = '您的帐号已被禁用';
-$lang->user->love      = '爱心用户';
 
 $lang->user->register  = new stdclass();
 $lang->user->register->welcome    = '欢迎注册成为会员';
@@ -110,14 +109,12 @@ $lang->user->control->common      = '用户中心';
 $lang->user->control->welcome     = '欢迎您，<strong>%s</strong>';
 $lang->user->control->lblPassword = "留空，则保持不变。";
 
-global $config;
-$lang->user->control->menus[10]  = '个人资料|user|profile';
-$lang->user->control->menus[20]  = '编辑资料|user|edit';
-$lang->user->control->menus[28]  = '我的消息|user|message';
-$lang->user->control->menus[30]  = '我的主题|user|thread';
-$lang->user->control->menus[40]  = '我的回帖|user|reply';
-
-$lang->user->control->menus[50]  = '退出登录|user|logout';
+$lang->user->control->menus[10] = '个人资料|user|profile';
+$lang->user->control->menus[20] = '编辑资料|user|edit';
+$lang->user->control->menus[28] = '我的消息|user|message';
+$lang->user->control->menus[30] = '我的主题|user|thread';
+$lang->user->control->menus[40] = '我的回帖|user|reply';
+$lang->user->control->menus[50] = '退出登录|user|logout';
 
 $lang->user->resetPassword = new stdclass();
 $lang->user->resetPassword->caption    = "找回密码";

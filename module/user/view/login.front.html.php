@@ -2,7 +2,7 @@
 <div class='row-fluid'>
   <div class='span12'>
     <form method="post" id='ajaxForm' class='form-inline'>
-      <table class='table table-1 table-bordered table-form'>
+      <table class='table table-bordered table-form'>
         <caption><?php echo $lang->user->login->welcome;?></caption>
         <tr>
           <th class='w-100px'><?php echo $lang->user->account;?></th>
