@@ -10,9 +10,9 @@
  */
 $lang->company->common  = "公司";
 
-$lang->company->name    = "公司名";
-$lang->company->desc    = "公司介绍";
-$lang->company->content = "详细说明";
+$lang->company->name    = "公司名称";
+$lang->company->desc    = "公司简介";
+$lang->company->content = "公司介绍";
 
 $lang->company->setBasic   = "设置基本信息";
 $lang->company->setContact = "设置联系方式";
