@@ -207,7 +207,7 @@ class commonModel extends model
     public static function createModuleMenu($currentModule)
     {
         global $lang, $app;
-        
+
         if(!isset($lang->$currentModule->menu)) return false;
 
         $string = "<ul class='nav nav-list leftmenu affix'>\n";

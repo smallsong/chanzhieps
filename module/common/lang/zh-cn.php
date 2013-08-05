@@ -84,9 +84,6 @@ $lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'a
 $lang->article->menu->create = '发布文章|article|create|';
 $lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
-/* Menu of tree module. */
-$lang->tree = new stdclass();
-$lang->tree->menu = $lang->article->menu;
 
 /* Menu of comment module. */
 $lang->comment = new stdclass();
@@ -119,7 +116,16 @@ $lang->user->menu->changepassword = '修改密码|user|changepassword|';
 
 /* Menu groups setting. */
 $lang->menuGroups = new stdclass();
+
+/* Menu of tree module. */
+$lang->tree = new stdclass();
+$lang->tree->menu = $lang->article->menu;
 $lang->menuGroups->tree = 'article';
+
+/* Menu of nav module. */
+$lang->nav = new stdclass();
+$lang->nav->menu = $lang->site->menu;
+$lang->menuGroups->nav  = 'site';
 
 /* The error messages. */
 $lang->error = new stdclass();
