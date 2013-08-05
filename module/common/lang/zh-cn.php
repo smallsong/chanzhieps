@@ -24,6 +24,7 @@ $lang->logout         = '退出';
 $lang->login          = '登录';
 $lang->account        = '帐号';
 $lang->password       = '密码';
+$lang->changePassword = '修改密码';
 $lang->forgotPassword = '忘记密码?';
 $lang->currentPos     = '当前位置';
 $lang->categoryMenu   = '分类导航';
@@ -111,11 +112,6 @@ $lang->site->menu->nav   = '导航设置|nav|index|';
 $lang->company->menu = new stdclass();
 $lang->company->menu->basic   = '公司信息|company|setbasic|';
 $lang->company->menu->contact = '联系方式|company|setcontact|';
-
-/* Menu of user module. */
-$lang->user->menu = new stdClass();
-$lang->user->menu->forbid = '会员列表|user|forbid|';
-$lang->user->menu->changepassword = '修改密码|user|changepassword|';
 
 /* Menu groups setting. */
 $lang->menuGroups = new stdclass();
