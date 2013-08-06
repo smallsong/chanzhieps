@@ -110,7 +110,7 @@
     echo $this->fetch('file', 'buildForm');
     echo '<div id="yz"></div>';
     echo '<br />';
-    echo html::submitButton('', '', 'onclick="return checkGarbage(\'content\')" tabindex=2 '). html::hidden('recTotal', $pager->recTotal). html::hidden('recPerPage', $pager->recPerPage). html::hidden('pageID', $pager->pageTotal);
+    echo html::submitButton('', 'btn', 'onclick="return checkGarbage(\'content\')" tabindex=2 '). html::hidden('recTotal', $pager->recTotal). html::hidden('recPerPage', $pager->recPerPage). html::hidden('pageID', $pager->pageTotal);
     ?>
   </form>
 <?php endif;?>
