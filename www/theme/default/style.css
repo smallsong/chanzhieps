@@ -233,3 +233,48 @@ tr.a-center .a-right {text-align:right}
 .radius-bottom {border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; -webkit-border-radius: 0 0 5px 5px;}
 
 .shadow{box-shadow:0 1px 2px rgba(0,0,0,.05); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+
+/*---------------------- FRONT ---------------------------*/
+/* global settings.*/
+.row{width: 100%; margin-left: 0;}
+.span9{margin-left: 0;}
+.span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
+.navbar .navbar-inner {padding: 0;}
+.navbar .nav li.cat-item a {border-left: 1px solid rgba(255, 255, 255, 0.75);border-right: 1px solid rgba(0, 0, 0, 0.1);font-weight: bold;text-align: center;}
+.navbar .nav li.cat-item:first-child a {border-left: 0 none;border-radius: 3px 0 0 3px;}
+.navbar .nav li.cat-item:last-child a {border-radius: 0 3px 3px 0;border-right: 0 none;}
+.navbar-inner .container ul.sf-menu li.cat-item{position:relative;float:left;text-align:center}
+.navbar-inner .container ul.sf-menu li.cat-item a{color:#333;display:block;position:relative;float:left;text-decoration:none;width:107px;cursor:pointer}
+.navbar-inner .container ul.sf-menu li.cat-item a:hover{text-decoration:none;background:#FEFEFE}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children{background:#F2F2F2;}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children li a{color:#333;width:168px;padding:8px 0;text-decoration:none;border-left:none;display:block}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children li a:hover{text-decoration:none;background:#666;color:#fff;border-radius:0;}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children li ul.children{border-left:none;background:#F2F2F2;}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children li ul.children a{color:#333;text-decoration:none;}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children li ul.children a:hover{color:#fff;background:#666;text-decoration:none;border-radius:0;}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children{margin:5px 0 0 0}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children ul.children{margin:-1px 0 0 27px}
+.sf-menu,.sf-menu *{list-style:none;margin:0;padding:0}
+.sf-menu{line-height:1.0}
+.sf-menu ul{position:absolute;top:-999em;width:12em}
+.sf-menu ul li{width:100%}
+.sf-menu li:hover{visibility:inherit}
+.sf-menu li{float:left;position:relative}
+.sf-menu a{display:block;position:relative}
+.sf-menu li:hover ul,.sf-menu li.sfHover ul{left:0;top:2.5em;z-index:99}
+ul.sf-menu li:hover li ul,ul.sf-menu li.sfHover li ul,ul.sf-menu li li:hover li ul,ul.sf-menu li li.sfHover li ul{top:-999em}
+ul.sf-menu li li:hover ul,ul.sf-menu li li.sfHover ul,ul.sf-menu li li li:hover ul,ul.sf-menu li li li.sfHover ul{left:10em;top:0}
+
+/* breadcrumb setting*/
+ul.breadcrumb {background:none; margin: 0; padding: 0;}
+
+/*side widget*/
+.widget {margin-bottom:30px; color:#5A5A5A; font-size:13px; }
+.widget h4 {background: #F3F3F3; color:#333; padding: 8px 0 8px 10px; margin:10px 0; }
+
+.widget ul {margin:0 2px; }
+.widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
+.widget ul li span { font-weight:bold; margin-right:5px; }
+
+.widget-category ul {width:100%; padding:0; margin-left:0; }
+.widget-category ul li a {line-height:30px; height:25px; color:#5A5A5A; display:block; font-size:14px; font-weight:700;  margin-bottom:5px; border-radius:0px;}
