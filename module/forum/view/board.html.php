@@ -43,7 +43,7 @@
       <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
       <td class='w-30px'><?php echo $thread->views;?></td>
       <td class='w-30px'><?php echo $thread->replies;?></td>
-      <td class='w-150px a-left'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
+      <td class='w-150px'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
     </tr>  
     <?php endforeach;?>
   </tbody>
