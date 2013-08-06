@@ -8,14 +8,15 @@
  * @version     $Id: zh-cn.php 824 2010-05-02 15:32:06Z wwccss $
  * @link        http://www.xirang.biz
  */
-$lang->user->common        = '用户';
-$lang->user->view          = "用户详情";
-$lang->user->create        = "添加用户";
-$lang->user->edit          = "编辑用户";
-$lang->user->update        = "编辑用户";
-$lang->user->delete        = "删除用户";
-$lang->user->browse        = "浏览用户";
-$lang->user->deny          = "访问受限";
+$lang->user->common          = '用户';
+$lang->user->userList        = '会员列表';
+$lang->user->view            = "用户详情";
+$lang->user->create          = "添加用户";
+$lang->user->edit            = "编辑用户";
+$lang->user->update          = "编辑用户";
+$lang->user->delete          = "删除用户";
+$lang->user->browse          = "浏览用户";
+$lang->user->deny            = "访问受限";
 $lang->user->confirmDelete   = "您确认删除该用户吗？";
 $lang->user->confirmActivate = "您确认激活该用户吗？";
 $lang->user->relogin         = "重新登录";
