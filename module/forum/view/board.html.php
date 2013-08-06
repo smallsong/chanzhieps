@@ -1,25 +1,27 @@
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/treeview.html.php'; ?>
 <?php $common->printPositionBar($board);?>
-<div class='row-fluid'>
-  <table class='table-1'>
-    <caption class='caption-bold'>
-      <div class='f-left'>
-        <?php 
-        echo $board->name; 
-        if($board->owners) printf($lang->forum->lblOwner, trim($board->owners, ','));
-        ?>
-      </div>
-      <div class='f-right'><?php if(!$board->readonly) echo html::a($this->createLink('thread', 'post', "boardID=$board->id"), $lang->forum->post);?></div>
-    </caption>
-    <tr>
-      <th colspan='2'><?php echo $lang->thread->title;?></th>
+<table class='table table-form table-hover table-striped'>
+  <caption>
+    <div class='f-left'>
+      <?php 
+      echo $board->name; 
+      if($board->owners) printf($lang->forum->lblOwner, trim($board->owners, ','));
+      ?>
+    </div>
+    <div class='f-right'><?php if(!$board->readonly) echo html::a($this->createLink('thread', 'post', "boardID=$board->id"), $lang->forum->post);?></div>
+  </caption>
+  <thead>
+    <tr class='a-center'>
+      <th class='a-center' colspan='2'><?php echo $lang->thread->title;?></th>
       <th><?php echo $lang->thread->author;?></th>
       <th><?php echo $lang->thread->postedDate;?></th>
       <th><?php echo $lang->thread->views;?></th>
       <th><?php echo $lang->thread->replies;?></th>
       <th colspan='2'><?php echo $lang->thread->lastReply;?></th>
     </tr>  
+  </thead>
+  <tbody>
     <?php foreach($stickThreads as $thread):?>
     <tr class='a-center'>
       <td class='w-10px red'><span class='sticky-thread'>&nbsp;</span></td>
@@ -28,7 +30,7 @@
       <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
       <td class='w-30px'><?php echo $thread->views;?></td>
       <td class='w-30px'><?php echo $thread->replies;?></td>
-      <td class='w-150px a-left'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
+      <td class='w-150px'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
     </tr>  
     <?php unset($threads[$thread->id]);?>
     <?php endforeach;?>
@@ -44,7 +46,8 @@
       <td class='w-150px a-left'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
     </tr>  
     <?php endforeach;?>
-    <tr><td colspan='8'><?php $pager->show();?></td></tr>
-  </table>
-</div>
+  </tbody>
+  
+  <tfoot><tr><td colspan='8'><?php $pager->show();?></td></tr></tfoot>
+</table>
 <?php include '../../common/view/footer.html.php'; ?>
