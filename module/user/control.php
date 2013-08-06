@@ -344,7 +344,7 @@ class user extends control
         if(!empty($_POST))
         {
             $this->user->updatePassword($this->app->user->account);
-            if(dao::isError()) $this->send( array( 'result' => 'fail', 'message' => dao::getError() ) );
+            if(dao::isError()) $this->send(array( 'result' => 'fail', 'message' => dao::getError() ) );
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess));
         }
         $this->view->user = $this->user->getByAccount($this->app->user->account);
