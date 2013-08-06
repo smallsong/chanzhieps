@@ -10,12 +10,12 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<form method='post' class='form-inline mb-10px'>
-  <?php echo html::input('userName', '', "class='text-2' placeholder='{$lang->user->inputUserName}'"); ?>
-  <?php echo html::submitButton($lang->user->searchUser); ?>
+<form method='post' class='form-inline mb-10px form-search pull-right'>
+  <?php echo html::input('userName', '', "class='text-2 input-medium search-query' placeholder='{$lang->user->inputUserName}'"); ?>
+  <?php echo html::submitButton($lang->user->searchUser, 'btn'); ?>
 </form>
 <table class='table table-form table-hover table-striped'>
-  <caption><?php echo $lang->user->forbidUser;?></caption>
+  <caption><?php echo $lang->user->userList;?></caption>
   <thead>
     <tr class='a-center'>
       <th class='w-id'><?php echo $lang->user->id;?></th>
