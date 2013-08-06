@@ -34,7 +34,6 @@ $themeRoot = $webRoot . "theme/";
 
   if(isset($pageCSS)) css::internal($pageCSS);
   if(RUN_MODE == 'admin') css::import($themeRoot . 'default/admin.css', $config->version);
-  if(RUN_MODE == 'front') css::import($themeRoot . 'default/front.css', $config->version);
 
   echo html::icon($webRoot . 'favicon.ico');
   echo html::rss($config->webRoot .'rss.xml', $config->site->name);
