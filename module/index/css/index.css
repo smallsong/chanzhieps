@@ -8,11 +8,10 @@
 .carousel-caption .btn {margin-top: 10px;}
 
 .row-fluid{margin-bottom: 20px;}
-.span4 h2{color: #5A5552;}
-.row-fluid .span3{background: linear-gradient(to bottom, #ECE8E0 0%, #E8E4DB 51%, #E2DDD2 100%) repeat scroll 0 0 transparent;
-       font-size: 13px; color: #83868A; border-radius: 6px 6px 6px 6px; padding: 20px 20px 17px; text-align: center;transition: all 0.5s ease 0s;}
-.span3 h2{color: #373A3F;}
-a.latest-news{color: #5A5A5A; }
+.row-fluid .span4{background: linear-gradient(to bottom, #ECE8E0 0%, #E8E4DB 51%, #E2DDD2 100%) repeat scroll 0 0 transparent;
+                  height: 320px; overflow: hidden; font-size: 13px; color: #83868A; border-radius: 6px 6px 6px 6px; padding: 20px 20px 17px; transition: all 0.5s ease 0s;}
+.span4 h4{color: #373A3F; border-bottom: 1px solid #EEEEEE; margin-top: 0; padding-bottom: 5px;}
+a.latest-news{color: #5A5A5A; padding-left: 5px;}
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
 
 

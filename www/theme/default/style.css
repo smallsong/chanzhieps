@@ -247,7 +247,7 @@ tr.a-center .a-right {text-align:right}
 .navbar-inner .container ul.sf-menu li.cat-item a{color:#333;display:block;position:relative;float:left;text-decoration:none;width:107px;cursor:pointer}
 .navbar-inner .container ul.sf-menu li.cat-item a:hover{text-decoration:none;background:#FEFEFE}
 .navbar-inner .container ul.sf-menu li.cat-item ul.children{background:#F2F2F2;}
-.navbar-inner .container ul.sf-menu li.cat-item ul.children li a{color:#333;width:168px;padding:8px 0;text-decoration:none;border-left:none;display:block}
+.navbar-inner .container ul.sf-menu li.cat-item ul.children li a{color:#333;width:138px;padding:8px 0;text-decoration:none;border-left:none;display:block}
 .navbar-inner .container ul.sf-menu li.cat-item ul.children li a:hover{text-decoration:none;background:#666;color:#fff;border-radius:0;}
 .navbar-inner .container ul.sf-menu li.cat-item ul.children li ul.children{border-left:none;background:#F2F2F2;}
 .navbar-inner .container ul.sf-menu li.cat-item ul.children li ul.children a{color:#333;text-decoration:none;}
@@ -256,7 +256,7 @@ tr.a-center .a-right {text-align:right}
 .navbar-inner .container ul.sf-menu li.cat-item ul.children ul.children{margin:-1px 0 0 27px}
 .sf-menu,.sf-menu *{list-style:none;margin:0;padding:0}
 .sf-menu{line-height:1.0}
-.sf-menu ul{position:absolute;top:-999em;width:12em}
+.sf-menu ul{position:absolute;top:-999em;width:138px;}
 .sf-menu ul li{width:100%}
 .sf-menu li:hover{visibility:inherit}
 .sf-menu li{float:left;position:relative}
