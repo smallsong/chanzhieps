@@ -11,16 +11,16 @@
 class article extends control
 {
     /** 
-     * The index page, locate to the browse page.
+     * The index page, locate to the first category or home page if no category.
      * 
      * @access public
      * @return void
      */
     public function index()
     {   
-        $indexCategories = explode(',', $this->config->site->indexCategories);
-        $defaultCategory = $indexCategories[0];
-        $this->locate(inlink('browse', "category=$defaultCategory"));
+        $category = $this->loadModel('tree')->getFirst('article');
+        if($category) $this->locate(inlink('browse', "category=$category->id"));
+        $this->locate($this->createLink('index'));
     }   
 
     /** 
@@ -109,7 +109,7 @@ class article extends control
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
-        $categories =  $this->loadModel('tree')->getOptionMenu($type);
+        $categories = $this->loadModel('tree')->getOptionMenu($type);
         unset($categories[0]);
 
         $this->view->title           = $this->lang->article->create;
@@ -135,6 +135,7 @@ class article extends control
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin')));
         }
+
         $article    = $this->article->getByID($articleID);
         $categories =  $this->loadModel('tree')->getOptionMenu($article->type);
         unset($categories[0]);
@@ -147,28 +148,6 @@ class article extends control
     }
 
     /**
-     * Update order fields.
-     * 
-     * @access public
-     * @return void
-     */
-    public function updateOrder()
-    {
-        if($this->post->orders)
-        {
-            foreach($this->post->orders as $articleID => $order)
-            {
-                $this->dao->update(TABLE_ARTICLE)
-                     ->set('`order`')->eq($order)
-                     ->where('id')->eq($articleID)
-                     ->limit(1)
-                     ->exec(false);
-            }
-            die(js::reload('parent'));
-        }
-    }
-
-    /**
      * View an article.
      * 
      * @param int $articleID 
@@ -177,17 +156,21 @@ class article extends control
      */
     public function view($articleID)
     {
-        $article = $this->article->getById($articleID);
+        $article    = $this->article->getById($articleID);
+        $category   = $this->loadModel('tree')->getById($article->category);
+        $categories = $this->tree->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
+        $title      = $article->title . '-' . $category->name;
+        $keywords   = $article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
 
-        $this->view->articleTree = $this->loadModel('tree')->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
-        $this->view->category    = $this->tree->getById($article->category);
-        $this->view->title    = $article->title . (isset($this->view->category->name) ? '|' . $this->view->category->name : '');
-        $this->view->keywords = trim($article->keywords . ' ' . $this->view->category->keyword . ' ' . $this->config->site->keywords);
-        $this->view->desc     = trim($article->summary . ' ' .preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->category->desc));
-        //$this->view->layouts          = $this->loadModel('block')->getLayouts('article.view');
+        $this->view->title      = $title;
+        $this->view->keywords   = $keywords;
+        $this->view->desc       = $article->desc;
+        $this->view->article    = $article;
+        $this->view->category   = $category;
+        $this->view->categories = $categories;
+        //$this->view->layouts  = $this->loadModel('block')->getLayouts('article.view');
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
-        $this->view->article = $article;
 
         $this->display();
     }
