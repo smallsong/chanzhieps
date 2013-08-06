@@ -29,6 +29,18 @@ class treeModel extends model
     }
 
     /**
+     * Get the first category.
+     * 
+     * @param  string $type 
+     * @access public
+     * @return object|bool
+     */
+    public function getFirst($type = 'article')
+    {
+        return $this->dao->select('*')->from(TABLE_CATEGORY)->where('type')->eq($type)->orderBy('id')->limit(1)->fetch();
+    }
+
+    /**
      * Get the id => name pairs of some categories.
      * 
      * @param  string $categories   the category lists

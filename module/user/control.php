@@ -288,7 +288,7 @@ class user extends control
      * @access public
      * @return void
      */
-    public function forbid($date = '0', $userID = 0, $recTotal = 0, $recPerPage = 10, $pageID = 1)
+    public function admin($date = '0', $userID = 0, $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
         if ($date != '0')
         {

@@ -76,7 +76,7 @@ $lang->menu->comment = '评论|comment|admin|';
 $lang->menu->forum   = '论坛|forum|admin|';
 $lang->menu->site    = '站点|site|setbasic|';
 $lang->menu->company = '公司|company|setbasic|';
-$lang->menu->user    = '会员|user|forbid|';
+$lang->menu->user    = '会员|user|admin|';
 
 /* Menu of article module. */
 $lang->article = new stdclass();

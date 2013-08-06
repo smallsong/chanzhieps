@@ -29,11 +29,11 @@ class siteModel extends model
         if(!isset($this->config->site->desc))           $this->config->site->desc           = '';
         if(!isset($this->config->site->menu))           $this->config->site->menu           = json_encode(array());
 
-        if(!isset($this->config->company))        $this->config->company              = new stdclass();
-        if(!isset($this->config->company->name))  $this->config->company->name        = '';
-        if(!isset($this->config->company->desc))  $this->config->company->desc        = '';
-        if(!isset($this->config->company->content))  $this->config->company->content  = '';
-        if(!isset($this->config->company->contact))  $this->config->company->contact  = json_encode(array());
+        if(!isset($this->config->company))              $this->config->company              = new stdclass();
+        if(!isset($this->config->company->name))        $this->config->company->name        = '';
+        if(!isset($this->config->company->desc))        $this->config->company->desc        = '';
+        if(!isset($this->config->company->content))     $this->config->company->content     = '';
+        if(!isset($this->config->company->contact))     $this->config->company->contact     = json_encode(array());
     }
 
     /**
