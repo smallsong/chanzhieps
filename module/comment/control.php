@@ -18,11 +18,10 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function show($objectType, $objectID, $recTotal = 0, $recPerPage = 15, $pageID = 1)
+    public function show($objectType, $objectID, $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
-        $this->view->thisUri = inlink('show',array('objectType' => $objectType, 'objectID'=>$objectID));
 
         $this->view->objectType = $objectType;
         $this->view->objectID   = $objectID;
