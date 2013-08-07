@@ -30,25 +30,26 @@ $lang->currentPos     = '当前位置';
 $lang->categoryMenu   = '分类导航';
 
 /* Global action items. */
-$lang->reset       = '重填';
-$lang->edit        = '编辑';
-$lang->copy        = '复制';
-$lang->hide        = '隐藏';
-$lang->delete      = '删除';
-$lang->close       = '关闭';
-$lang->save        = '保存';
-$lang->confirm     = '确认';
-$lang->preview     = '预览';
-$lang->goback      = '返回';
-$lang->search      = '搜索';
-$lang->more        = '更多';
-$lang->actions     = '操作';
-$lang->feature     = '未来';
-$lang->year        = '年';
-$lang->loading     = '稍候...';
-$lang->saveSuccess = '保存成功';
-$lang->setSuccess  = '设置成功';
-$lang->fail        = '失败';
+$lang->reset          = '重填';
+$lang->edit           = '编辑';
+$lang->copy           = '复制';
+$lang->hide           = '隐藏';
+$lang->delete         = '删除';
+$lang->close          = '关闭';
+$lang->save           = '保存';
+$lang->confirm        = '确认';
+$lang->preview        = '预览';
+$lang->goback         = '返回';
+$lang->search         = '搜索';
+$lang->more           = '更多';
+$lang->actions        = '操作';
+$lang->feature        = '未来';
+$lang->year           = '年';
+$lang->loading        = '稍候...';
+$lang->saveSuccess    = '保存成功';
+$lang->setSuccess     = '设置成功';
+$lang->fail           = '失败';
+$lang->noResultsMatch = '没有匹配的选项';
 
 /* Items for javascript. */
 $lang->js = new stdClass();
@@ -101,9 +102,10 @@ $lang->forum->menu->tree   = '版块管理|tree|browse|type=forum';
 /* Menu of site module. */
 $lang->site = new stdclass();
 $lang->site->menu = new stdclass();
-$lang->site->menu->basic = '站点设置|site|setbasic|';
-$lang->site->menu->logo  = 'LOGO设置|site|setlogo|';
-$lang->site->menu->nav   = '导航设置|nav|admin|';
+$lang->site->menu->basic    = '站点设置|site|setbasic|';
+$lang->site->menu->logo     = 'LOGO设置|site|setlogo|';
+$lang->site->menu->nav      = '导航设置|nav|admin|';
+$lang->site->menu->carousel = '幻灯片|site|setcarousel|';
 
 /* Menu of company module. */
 $lang->company->menu = new stdclass();
