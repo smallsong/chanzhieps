@@ -8,7 +8,7 @@ $(document).ready(function()
     });
     
     /* Set current active mainNav. */
-    if(v.categoryPath.length)
+    if(v.categoryPath && v.categoryPath.length)
     {
         $.each(eval(v.categoryPath), function(index, category) 
         { 
