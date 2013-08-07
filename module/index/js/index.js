@@ -1,6 +1,6 @@
 $(document).ready(function()
 {          
-    // carousel demo     
+    // carousel pictures start.     
     $('#myCarousel').carousel();
     $('#mainNav .common_home').addClass('active');
 })                     
