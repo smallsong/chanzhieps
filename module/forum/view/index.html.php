@@ -24,7 +24,7 @@
         <td class='w-50px strong'><nobr><?php echo trim($childBoard->owners, ',');?></nobr></td>
         <td class='w-70px'><?php echo $childBoard->threads;?></td>
         <td class='w-70px'><?php echo $childBoard->posts;?></td>
-        <td class='w-150px a-center'>
+        <td class='w-150px a-left'>
           <?php
           $recTotal   = $childBoard->lastPostReplies;
           $recPerPage = 20;

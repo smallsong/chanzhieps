@@ -268,13 +268,9 @@ ul.sf-menu li li:hover ul,ul.sf-menu li li.sfHover ul,ul.sf-menu li li li:hover 
 /* breadcrumb setting*/
 ul.breadcrumb {background:none; margin: 0; padding: 0;}
 
-/*side widget*/
-.widget {margin-bottom:30px; color:#5A5A5A; font-size:13px; }
-.widget h4 {background: #F3F3F3; color:#333; padding: 8px 0 8px 10px; margin:10px 0; }
+/* Widget settings. */
+.widget {margin-bottom:15px; padding:0; border:1px solid #ddd;}
+.widget h4 {margin:0; padding:0; padding-left:10px; border-bottom:1px solid #ddd; height:40px; line-height:40px; font-size:14px; font-weight:700; background: #EFEFEF; color:#333; }
 
-.widget ul {margin:0 2px; }
+.widget ul {margin:10px 20px}
 .widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
-.widget ul li span { font-weight:bold; margin-right:5px; }
-
-.widget-category ul {width:100%; padding:0; margin-left:0; }
-.widget-category ul li a {line-height:30px; height:25px; color:#5A5A5A; display:block; font-size:14px; font-weight:700;  margin-bottom:5px; border-radius:0px;}

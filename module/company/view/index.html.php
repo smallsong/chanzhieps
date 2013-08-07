@@ -2,10 +2,10 @@
 include '../../common/view/header.html.php';
 $contact    = json_decode($this->config->company->contact);
 ?>
-<div class="row">
-  <?php $common->printPositionBar($this->app->getModuleName());?>
-  <div class="span9">
-    <h4><?php echo $company->name;?></h4>
+<?php $common->printPositionBar($this->app->getModuleName());?>
+<div class="company">
+  <h4><?php echo $company->name;?></h4>
+  <div class='content'>
     <p><?php echo $company->content;?></p>
     <br/>
     <address>
@@ -15,6 +15,5 @@ $contact    = json_decode($this->config->company->contact);
       <?php endforeach;?>
     </address>
   </div>
-<?php include '../../common/view/side.html.php';?>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
