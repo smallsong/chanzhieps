@@ -1,4 +1,3 @@
-<?php if($this->thread->hasManagePriv($this->app->user->account, $board->owners)){$config->thread->editor->view['tools'] = 'fullTools';} ?>
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/kindeditor.html.php'; ?>
 <?php $common->printPositionBar($board, $thread);?>
@@ -63,7 +62,7 @@
     <div class='f-left'><?php echo $reply->addedDate;?></div>
     <div class='f-right'>#<?php echo $i++;?></div>
   </caption>
-  <tr valign='top'>
+  <tr>
     <td class='user'>
       <?php
       $user = $users[$reply->author];
@@ -101,14 +100,13 @@
   </tr>
 </table>
 <?php endforeach;?>
-<div class='f-right mb-10px'><?php $pager->show();?></div>
+<div class='f-right mb-10px mt-10px'><?php $pager->show();?></div>
 <div style="clear: both"></div>
 <?php if($this->session->user->account != 'guest' and !$board->readonly):?>
   <form method='post' enctype='multipart/form-data' id='reply' action='<?php echo inlink('reply', "thread=$thread->id");?>'>
     <?php 
-    echo html::textarea('content', '', "rows=10 class='area-1' tabindex=1");
+    echo html::textarea('content', '', "rows=10 class='threadEditor'");
     echo $this->fetch('file', 'buildForm');
-    echo '<div id="yz"></div>';
     echo '<br />';
     echo html::submitButton('', 'btn', 'onclick="return checkGarbage(\'content\')" tabindex=2 '). html::hidden('recTotal', $pager->recTotal). html::hidden('recPerPage', $pager->recPerPage). html::hidden('pageID', $pager->pageTotal);
     ?>
