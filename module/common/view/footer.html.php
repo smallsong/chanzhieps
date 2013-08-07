@@ -1,7 +1,7 @@
   <hr/>
   <footer class='a-center'>
    <?php 
-   echo "&copy; {$config->company->name} {$config->site->copyrightStart}-" . date('Y');
+   echo "&copy; {$config->company->name} {$config->site->copyrightStart}-" . date('Y') . '&nbsp;';
    echo $config->site->icp;
    printf($lang->poweredBy, $config->version, $config->version);
    ?>
