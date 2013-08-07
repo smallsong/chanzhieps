@@ -103,7 +103,7 @@ $lang->site = new stdclass();
 $lang->site->menu = new stdclass();
 $lang->site->menu->basic = '站点设置|site|setbasic|';
 $lang->site->menu->logo  = 'LOGO设置|site|setlogo|';
-$lang->site->menu->nav   = '导航设置|nav|index|';
+$lang->site->menu->nav   = '导航设置|nav|admin|';
 
 /* Menu of company module. */
 $lang->company->menu = new stdclass();

@@ -31,7 +31,7 @@ $mainNavs = navModel::getNavs('mainNav');
               <?php if(isset($mainNavs[2][$nav['key']])):?>
               <ul class="grade2 children">
                 <?php foreach($mainNavs[2][$nav['key']] as $nav2):?>
-                <li class="cat-item">
+                <li class="cat-item <?php echo $nav['class']?>">
                   <a href="<?php echo $nav2['url'];?>"><?php echo $nav2['title'];?></a>
                   <?php if(isset($mainNavs[3][$nav2['key']])):?>
                   <ul class="grade3 children">
