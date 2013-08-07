@@ -131,7 +131,12 @@ class articleModel extends model
      */
     public function update($articleID)
     {
-        $article = fixer::input('post')->remove('categories')->get();
+        $article = fixer::input('post')
+            ->remove('categories')
+            ->add('editor', $this->app->user->account)
+            ->add('editedDate', helper::now())
+            ->get();
+
         $this->dao->update(TABLE_ARTICLE)
             ->data($article)
             ->autoCheck()

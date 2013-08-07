@@ -18,11 +18,10 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function show($objectType, $objectID, $recTotal = 0, $recPerPage = 15, $pageID = 1)
+    public function show($objectType, $objectID, $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
-        $this->view->thisUri = inlink('show',array('objectType' => $objectType, 'objectID'=>$objectID));
 
         $this->view->objectType = $objectType;
         $this->view->objectID   = $objectID;
@@ -41,16 +40,21 @@ class comment extends control
     {
         if($_POST)
         {
-            $errors = $this->comment->validate();
-            if(!empty($errors)) $this->send(array('result' => 'fail', 'message' => $errors));
+            /* If no captcha but is garbage, return the error info. */
+            if($this->post->captcha == false and $this->comment->isGarbage($this->post->content))
+            {
+                $this->send(array('result' => 'fail', 'reason' => 'needChecking'));
+            }
 
-            if(!isset($_POST['captcha']) && $this->comment->isGarbage($_POST['content'])) $this->send(array('result' => 'success', 'message' => array('notice' => $this->lang->captcha)) );
-
+            /* Try to save to database. */
             $commentID = $this->comment->post();
-            if(!$commentID) $this->send( array('result' => 'fail', 'message' => dao::getError() ) );
-            if(dao::isError()) $this->send( array('result' => 'fail', 'message' => dao::getError() ) );
+
+            /* If save fail, return the error info. */
+            if(!$commentID) $this->send(array('result' => 'fail', 'reason' => 'error', 'message' => dao::getError()));
+
+            /* If save successfully, save the cookie and send success info. */
             $this->comment->setCookie($commentID);
-            $this->send( array('result' => 'success', 'message' => $this->lang->comment->thanks) );
+            $this->send(array('result' => 'success', 'message' => $this->lang->comment->thanks));
         }
     }
 
@@ -105,60 +109,13 @@ class comment extends control
     }
 
     /**
-     * Print the latests comments in block.
-     * 
-     * @param string $count     the total number of comments 
-     * @param string $words     the words of every comment to show.
-     * @access public
-     * @return void
-     */
-    public function printBlock($count, $words)
-    {
-        echo "<div id='commentbox'>";
-        $comments = $this->comment->getLatest($count);
-        foreach($comments as $id => $comment)
-        {
-            $number = $id + 1;
-            $comment->content = nl2br(trim(mb_strimwidth($comment->content, 0, $words, '...')));
-            $objectLink = $this->comment->getObjectLink($comment);
-            echo "<div class='comment'><strong>#$number $comment->author</strong> at <i>$comment->date</i>: $comment->content";
-            echo '<i>(';
-            echo html::a($objectLink, $this->lang->comment->viewArticle);
-            echo html::a($objectLink . "#$comment->id", $this->lang->comment->viewComment);
-            echo ')</i></div>';
-        }
-        echo '</div>';
-    }
-
-    public function ajaxGetComment($objectType, $objectID, $recTotal = 0, $recPerPage = 15, $pageID = 1)
-    {
-        $this->app->loadClass('pager', $static = true);
-        $pager = new pager($recTotal, $recPerPage, $pageID);
-        $comments    = $this->comment->getByObject($objectType, $objectID, $pager);
-        $commentCont = '';
-        foreach($comments as $number => $comment)
-        {
-            $commentCont .= "<div id='$comment->id'  class='comment'>";
-            $commentCont .= "<strong>#" . ($number + 1) . $comment->author . "</strong> at $comment->date<br />";
-            $commentCont .= nl2br($comment->content);
-            $commentCont .= "</div>";
-        }
-        $commentCont .= "<div id='pager'>" . preg_replace("/<a href='(.*)'.*>(.*)<\/a>/U", "<a href='javascript:ajaxGetComment(\"\$1\")'>\$2</a>", $pager->get('right', 'sort')) . "</div>";
-        $commentCont .= "<div class='c-right'></div>";
-        
-        echo $commentCont;
-    }
-
-     /**
      * Check a comemnt is garbage and show captcha if necessary.
      * 
      * @access public
      * @return void
-     *
      */    
-    public function captcha()
+    public function createCaptcha()
     {
-        if($this->comment->isGarbage($this->post->content)) echo $this->comment->captcha();
-        die();
+        die($this->comment->createCaptcha());
     }
 }

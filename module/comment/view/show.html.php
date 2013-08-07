@@ -1,5 +1,9 @@
 <?php
-js::set('thisUri',$thisUri);
+js::set('objectType', $objectType);
+js::set('objectID',   $objectID);
+css::internal($pageCSS);
+?>
+<?php
 if(isset($comments) and $comments):?>
 <div id="commentList" class='commentList radius-top'> 
   <div class="box-title"><?php echo $lang->comment->list;?></div>
@@ -11,7 +15,7 @@ if(isset($comments) and $comments):?>
       <?php echo nl2br($comment->content);?>
     </div>
     <?php endforeach;?>
-    <div id='pager'><?php $pager->show('right', 'sort');?></div>
+    <div id='pager'><?php $pager->show('right', 'shortest');?></div>
     <div class='c-right'></div>
   </div>
 </div>  
@@ -38,57 +42,15 @@ if(isset($comments) and $comments):?>
         <td><?php echo $lang->comment->content;?></td>
         <td>
           <?php 
-          echo html::textarea('content', '', "rows=5 class='area-1'");
+          echo html::textarea('content', '', "rows='3' class='area-1'");
           echo html::hidden('objectType', $objectType);
           echo html::hidden('objectID', $objectID);
           ?>
         </td>
       </tr>
-      <tr id="checkCode" style="display:none;"></tr>  
-      <tr><td colspan="2"><?php echo html::submitButton();?></td></tr>
+      <tr id='captchaBox' style="display:none;"></tr>  
+      <tr><td></td><td><?php echo html::submitButton();?></td></tr>
     </table>
   </form>
 </div>
-<style>
-.commentList {border:1px solid #DDDDDD; padding: 0; margin-bottom:20px; }
-.comment { border: 1px solid #DDDDDD; margin: 10px 5px 5px; padding: 5px;}
-.box-title {margin:0;padding:0 0 0 8px; line-height:34px; height:34px; font-weight:bold; border: 0; }
-.page {margin-right:10px;padding:8px; font-size:13px;}
-</style>
-<script type='text/javascript'>
-$(document).ready(function()
-{
-    $('#content').change(function()
-    {
-        $.post(createLink('comment', 'captcha'), {content:$(this).val()}, function(data)
-        {
-            $('#checkCode').html(data).fadeIn();
-        });
-
-    });
-
-    $.setAjaxForm('#commentForm', function(data)
-    {
-        if(data.result=='success' && $.type(data.message) != 'object')
-        {
-            bootbox.alert(data.message, function()
-            {
-                    $('#commentForm').parent().parent().load(v.thisUri,location.href="#first");
-            });   
-        }
-        else
-        {
-            bootbox.alert(data.message.notice, function()
-            {
-                $('#checkCode').load(createLink('comment', 'checkCode')).show();
-            });
-        }
-    });
-    
-    $('#pager').find('a').click(function()
-    {
-        $('#commentList').parent().load($(this).attr('href'));
-        return false;
-    });
-});
-</script>
+<?php js::execute($pageJS);?>

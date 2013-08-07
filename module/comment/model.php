@@ -62,24 +62,6 @@ class commentModel extends model
     }
 
     /**
-     * Get latest comments, the status if ok.
-     * 
-     * @param int $count 
-     * @access public
-     * @return void
-     */
-    public function getLatest($count = 10)
-    {
-        $commentIdList = $this->dao->select('comment as id')->from(TABLE_COMMENTSITE)->where('status')->eq(1)->orderBy('id_desc')->limit($count)->fetchPairs();
-        $comments = $this->dao->select('t1.*,t2.title')->from(TABLE_COMMENT)->alias('t1')
-            ->leftJoin(TABLE_ARTICLE)->alias('t2')->on('t1.objectID=t2.id')
-            ->where('t1.id')->in($commentIdList)
-            ->orderBy('id desc')
-            ->fetchAll('', false);
-        return $comments;
-    }
-
-    /**
      * Post a comment.
      * 
      * @access public
@@ -91,14 +73,16 @@ class commentModel extends model
             ->specialChars('content')
             ->add('date', helper::now())
             ->add('ip', $this->server->REMOTE_ADDR)
-            ->remove('captcha')
             ->get();
+
         $this->dao->insert(TABLE_COMMENT)
-            ->data($comment, false)
+            ->data($comment, $skip = 'captcha')
             ->autoCheck()
+            ->checkIF($this->post->captcha != false, 'captcha', 'equal', $this->session->captcha)
             ->checkIF($comment->email, 'email', 'email')
             ->batchCheck('author, content', 'notempty')
             ->exec();
+
         $commentID = $this->dao->lastInsertId();
         return $commentID;
     }
@@ -217,7 +201,7 @@ class commentModel extends model
      * @access public
      * @return void
      */
-    public function captcha()
+    public function createCaptcha()
     {
         $numberLang   = $this->lang->captcha->numbers;
         $actionLang   = $this->lang->captcha->actions;
@@ -233,22 +217,5 @@ class commentModel extends model
         echo '<td>' . $this->lang->comment->captcha . '</td>';
         echo '<td> <span class="label label-important" style="line-height:20px;">' . $numberLang[$before] . " $actionLang[$action] " . $numberLang[$after] . "</span>&nbsp;&nbsp;" . $this->lang->captcha->equal . "&nbsp;&nbsp;";
         echo '<input type="text" name="captcha" id="captcha" class="w-20px" />' . $this->lang->captcha->notice . '</td>';
-    }
-
-    /**
-     * validate post comment.
-     *
-     * @access public
-     * @return array $errors.
-     */
-    public function validate()
-    {
-       $errors = array();
-       if($this->post->author  == false) $errors['author'] = sprintf($this->lang->error->notempty, $this->lang->comment->author);
-       if($this->post->content == false) $errors['content'] = sprintf($this->lang->error->notempty, $this->lang->comment->content);
-       if($this->post->email   != '' && !validater::checkEmail($this->post->email)) $errors['email'] = sprintf($this->lang->error->email, $this->lang->comment->email);
-       if($this->post->captcha !== false && $this->post->captcha != $this->session->captcha) $errors['captcha'] = $this->lang->error->captcha;
-
-       return $errors;
     }
 }

@@ -29,8 +29,7 @@ $config->front->groups->guest['thread'][]  = 'view';
 
 $config->front->groups->guest['comment'][] = 'show';
 $config->front->groups->guest['comment'][] = 'post';
-$config->front->groups->guest['comment'][] = 'captcha';
-$config->front->groups->guest['comment'][] = 'ajaxgetcomment';
+$config->front->groups->guest['comment'][] = 'createcaptcha';
 
 $config->front->groups->guest['rss'][]     = 'index';
 $config->front->groups->guest['file'][]    = 'download';

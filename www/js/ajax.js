@@ -31,6 +31,8 @@ $.extend(
                     }
 
                     if(response.locate) return location.href = response.locate;
+
+                    return true;
                 }
 
                 /**
@@ -84,6 +86,8 @@ $.extend(
                     $(document).scrollTop(topOffset);
                     firstErrorField.focus();
                 }
+
+                if($.isFunction(callback)) return callback(response);
             },
 
             /* When error occers, alert the response text, status and error. */
