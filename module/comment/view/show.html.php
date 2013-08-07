@@ -48,7 +48,7 @@ if(isset($comments) and $comments):?>
           ?>
         </td>
       </tr>
-      <tr id='checkCode' style="display:none;"></tr>  
+      <tr id='captchaBox' style="display:none;"></tr>  
       <tr><td></td><td><?php echo html::submitButton();?></td></tr>
     </table>
   </form>
