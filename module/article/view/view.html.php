@@ -1,8 +1,11 @@
 <?php 
 include '../../common/view/header.html.php'; 
 include '../../common/view/treeview.html.php'; 
-js::set('currentMenu', "#category" . $category->id);
+
 js::set('articleID', $article->id);
+
+/* set categoryPath for mainNav highlight. */
+js::set('categoryPath',  json_encode($categoryPath));
 ?>
 <?php $common->printPositionBar($category, $article);?>
 <div class='row'>
