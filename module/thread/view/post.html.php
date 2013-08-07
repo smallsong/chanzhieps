@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <th></th>
-    <td colspan='2' align='center'><?php echo html::submitButton('', 'btn', 'tabindex=2');?></td>
+    <td colspan='2' align='center'><?php echo html::submitButton('', 'btn btn-primary');?></td>
   </tr>
 </table>
 </form>
