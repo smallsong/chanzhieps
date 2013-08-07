@@ -57,6 +57,7 @@ class articleModel extends model
             ->where('1 = 1')
             ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
             ->groupBy('t2.id')
+            ->orderBy($orderBy)
             ->page($pager)
             ->fetchAll('id');
         if(!$articles) return array();
@@ -176,6 +177,8 @@ class articleModel extends model
        $this->dao->delete()->from(TABLE_RELATION)
            ->where('type')->eq($type)
            ->andWhere('id')->eq($articleID)
+           ->autoCheck()
+           ->batchCheck('type,id', 'notempty')
            ->exec();
 
        /* Then insert the new data. */

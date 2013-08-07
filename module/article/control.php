@@ -88,7 +88,6 @@ class article extends control
         $this->view->pager    = $pager;
         $this->view->category = $this->tree->getById($categoryID);
         $this->view->type     = $type;
-
         $this->display();
     }   
 
@@ -157,18 +156,25 @@ class article extends control
     public function view($articleID)
     {
         $article    = $this->article->getById($articleID);
-        $category   = $this->loadModel('tree')->getById($article->category);
-        $categories = $this->tree->getTreeMenu('article', 0, array('treeModel', 'createBrowseLink'));
+
         $title      = $article->title . '-' . $category->name;
         $keywords   = $article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
-
+        
         $this->view->title      = $title;
         $this->view->keywords   = $keywords;
         $this->view->desc       = $article->desc;
         $this->view->article    = $article;
         $this->view->category   = $category;
-        $this->view->categories = $categories;
-        //$this->view->layouts  = $this->loadModel('block')->getLayouts('article.view');
+
+        /* Get  category paths to highlight main nav. */
+        $categoryPath = '';
+        foreach($article->categories as $category)
+        {
+            $categoryPath .= $category->path;
+        }
+        $categoryPath = explode(',', trim($categoryPath, ','));
+
+        $this->view->categoryPath =  array_unique($categoryPath);
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 

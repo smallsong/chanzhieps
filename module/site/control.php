@@ -80,4 +80,11 @@ class site extends control
 
         $this->display();
     }
+        
+    public function setCarousel()
+    {
+        $this->view->carousel = isset($this->config->site->carousel) ? $this->config->site->carousel : '';
+        $this->display();
+        
+    }
 }

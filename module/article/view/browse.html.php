@@ -1,7 +1,7 @@
 <?php 
 include '../../common/view/header.html.php';
-js::set('currentMenu', "#category" . $category->id);
 
+/* set categoryPath for mainNav highlight. */
 $categoryPath = array_keys($category->pathNames);
 js::set('categoryPath',  json_encode($categoryPath));
 
