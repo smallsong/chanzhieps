@@ -1,6 +1,7 @@
 <?php 
 include '../../common/view/header.html.php';
 js::set('currentMenu', "#category" . $category->id);
+<<<<<<< HEAD
 ?>
 <?php echo $common->printPositionBar($category);?>
 <div class='row'>
@@ -26,3 +27,12 @@ js::set('currentMenu', "#category" . $category->id);
   <?php include '../../common/view/side.html.php';?>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
+=======
+
+$categoryPath = array_keys($category->pathNames);
+js::set('categoryPath',  json_encode($categoryPath));
+
+include '../../common/view/treeview.html.php';
+include 'portal.html.php';
+include '../../common/view/footer.html.php'; 
+>>>>>>> b17b4965730484ba5d6e65c704f3cd516b4a9ae3

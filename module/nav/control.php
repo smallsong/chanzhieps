@@ -11,12 +11,12 @@
 class nav extends control
 {
     /**
-     * nav setting function
+     * nav admin function
      *
      * @access public
      * @return void
      */
-    public function index()
+    public function admin()
     {   
         if($_POST)
         {

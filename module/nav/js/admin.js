@@ -110,18 +110,19 @@ $(document).ready(function()
         }
     );
 
-    $('a[class*=plus]').click(function(){ $('.navType').change();});  
 
     /* set default nav title when selector changed. */
     $(document).on('change', '.navSelector',
         function()
-        {
+        { 
+            if($(this).hasClass('hide')) return false;
             categories = $(this).find(':selected').text().split('/');
             $(this).parent().children('.titleInput').val( categories[categories.length-1] );
         }
     );
     
     $.setAjaxForm('#navForm',function(data){ bootbox.alert(data.message); });
+    $('.navSelector').change();
 
 });
 

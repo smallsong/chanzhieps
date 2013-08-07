@@ -278,25 +278,16 @@ class user extends control
     }
 
     /**
-     *  Forbid users
+     *  admin users list.
      *
-     * @param string $date
-     * @param int    $userID
      * @param int    $recTotal
      * @param int    $recPerPage
      * @param int    $pagerID
      * @access public
      * @return void
      */
-    public function admin($date = '0', $userID = 0, $recTotal = 0, $recPerPage = 10, $pageID = 1)
+    public function admin($recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
-        if ($date != '0')
-        {
-            $result = $this->user->forbid($date, $userID);
-            if($result === true) $this->send(array('result'=>'success', 'message' => $this->lang->user->forbidSuccess));
-            $this->send(array('message' => $result ));
-        }
-
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
@@ -311,6 +302,28 @@ class user extends control
         $this->view->users    = $users;
         $this->view->pager    = $pager;
         $this->display();
+    }
+    
+    /**
+     * forbid a user.
+     *
+     * @param string $date
+     * @param int    $userID
+     * @return viod
+     */
+    public function forbid($date, $userID)
+    {
+        if(!isset($this->lang->user->forbidDate->$date) or !$userID) $this->send(array('message' => $this->lang->user->forbidFail));       
+
+        $result = $this->user->forbid($date, $userID);
+        if($result)
+        {
+            $this->send(array('result'=>'success', 'message' => $this->lang->user->forbidSuccess));
+        }
+        else
+        {
+            $this->send(array('message' => dao::getError()));
+        }
     }
 
     /**

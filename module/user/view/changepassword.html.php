@@ -1,5 +1,5 @@
 <?php include '../../common/view/header.admin.html.php';?>
-<form method='post' id="ajaxForm" class="form form-inline" >
+<form method='post' action='<?php echo inlink('changepassword');?>' id="passwordForm" class="form form-inline" >
   <table class='table table-form'>
     <caption><?php echo $lang->user->modifyPassword;?></caption>
     <tr>

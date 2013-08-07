@@ -1,8 +1,6 @@
-!function ($)
+$(document).ready(function()
 {          
-    $(function()
-    {          
-        // carousel demo     
-        $('#myCarousel').carousel();
-    })                     
-}(window.jQuery)
+    // carousel pictures start.     
+    $('#myCarousel').carousel();
+    $('#mainNav .common_home').addClass('active');
+})                     

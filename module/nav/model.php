@@ -11,6 +11,66 @@
 class navModel extends model
 {
     /**
+     * get all navs 
+     *
+     * @param string type
+     * @return array
+     */
+    public static function getNavs($type = 'mainNav')
+    {
+        global $config;
+
+        if(!isset($config->nav->$type)) return false;
+
+        $navs = json_decode($config->nav->mainNav, true);
+        foreach($navs[1] as &$nav) $nav = navModel::buildNav($nav); 
+
+        foreach($navs[2] as $parent => &$children)
+        {
+           foreach($children as &$nav) $nav['url'] = navModel::getUrl($nav);
+        }
+
+        foreach($navs[3] as $parent => &$children)
+        {
+           foreach($children as &$nav) $nav['url'] = navModel::getUrl($nav);
+        }
+
+        return $navs;
+    }
+
+    /**
+     * build url and class of nav.
+     *
+     * @param array $nav
+     * return array
+     */
+    public static function buildNav($nav)
+    {
+        $nav['url']    = navModel::getUrl($nav);
+
+        /* Add class attribue to highlight current menu. */
+        $nav['class']  = $nav['type'] . '_' . $nav[$nav['type']]; 
+
+        return $nav;
+    }
+
+    /**
+     * get url of a nav.
+     *
+     * @param  array $nav
+     * @return string
+     */
+    public static function getUrl($nav)
+    {
+        global $config;
+
+        if($nav['type'] == 'common')  return $config->nav->common->$nav['common'];   
+        if($nav['type'] == 'article') return helper::createLink('article', 'browse', "categoryID={$nav['article']}");
+
+        return $nav['url'];
+    }
+
+    /**
      * create form input tags of backend.
      *
      * @param int $grade
@@ -34,7 +94,7 @@ class navModel extends model
         {
             $hideArticle = '';
         }
-        elseif($nav['type'] == 'common')
+        elseif(empty($nav) or $nav['type'] == 'common')
         {
             $hideCommon = '';
         }
@@ -47,13 +107,13 @@ class navModel extends model
         /* url input tag. */
         $hideUrl    = '';
         $disableUrl = '';
-        if(isset($nav['type']) && $nav['type'] != 'input')
+        if(!isset($nav['type']) or $nav['type'] != 'input')
         {
             $hideUrl    = 'hide'; 
             $disableUrl = 'disabled';
         }
         $url   = isset($nav['url']) ? $nav['url'] : "";
-        $html .= html::input("nav[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$hideUrl}' {$disableUrl}");
+        $html .= html::input("nav[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$hideUrl}'");
         
         /* hidden tags. */
         if($grade >1 ) $html .= html::hidden("nav[{$grade}][parent][]", '', "class='grade{$grade}parent'" );

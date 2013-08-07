@@ -43,15 +43,17 @@ $lang->user->loginFailed   = "登录失败，请检查您的用户名或密码�
 $lang->user->lblZenTaoID   = '提示：可以用禅道社区帐号登录';
 $lang->user->lblRegistered = '恭喜您，已经成功注册。';
 $lang->user->forbidSuccess = '禁用成功';
+$lang->user->forbidFail    = '禁用失败';
 
 $lang->user->forbidUser          = '禁用管理';
 $lang->user->forbid              = '禁用';
-$lang->user->forbidoneday        = '一天';
-$lang->user->forbidtwodays       = '两天';
-$lang->user->forbidthreedays     = '三天';
-$lang->user->forbidoneweek       = '一周';
-$lang->user->forbidonemonth      = '一个月';
-$lang->user->forbidforever       = '永久';
+$lang->user->forbidDate = new stdClass();
+$lang->user->forbidDate->oneday      = '一天';
+$lang->user->forbidDate->twodays     = '两天';
+$lang->user->forbidDate->threedays   = '三天';
+$lang->user->forbidDate->oneweek     = '一周';
+$lang->user->forbidDate->onemonth    = '一个月';
+$lang->user->forbidDate->forever     = '永久';
 $lang->user->operate             = '操作';
 
 $lang->user->gendarList = new stdclass();
