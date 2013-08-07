@@ -3,7 +3,6 @@ include '../../common/view/header.html.php';
 include '../../common/view/treeview.html.php'; 
 
 js::set('articleID', $article->id);
-
 /* set categoryPath for mainNav highlight. */
 js::set('categoryPath',  json_encode($categoryPath));
 ?>

@@ -155,10 +155,15 @@ class article extends control
      */
     public function view($articleID)
     {
-        $article    = $this->article->getById($articleID);
+        $article  = $this->article->getById($articleID);
 
-        $title      = $article->title . '-' . $category->name;
-        $keywords   = $article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
+        /* fetch first category for display. */
+        $category = array_slice($article->categories, 0, 1);
+        $category = $category[0];
+        $category = $this->loadModel('tree')->getById($category->id);
+
+        $title    = $article->title . ' - ' . $category->name;
+        $keywords = $article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
         
         $this->view->title      = $title;
         $this->view->keywords   = $keywords;
@@ -172,9 +177,7 @@ class article extends control
         {
             $categoryPath .= $category->path;
         }
-        $categoryPath = explode(',', trim($categoryPath, ','));
-
-        $this->view->categoryPath =  array_unique($categoryPath);
+        $this->view->categoryPath = explode(',', trim($categoryPath, ','));
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
