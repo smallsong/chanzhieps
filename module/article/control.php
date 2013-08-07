@@ -36,7 +36,6 @@ class article extends control
      */
     public function browse($categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
-        $this->app->loadLang('user');
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
@@ -45,17 +44,18 @@ class article extends control
 
         if($category)
         {
-            $this->view->keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
-            if($category->desc) $this->view->desc = strip_tags($category->desc);
+            $title    = $category->name;
+            $keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
+            $desc     = strip_tags($category->desc);
         }
 
-        $this->view->title = $category->name;
-        $this->view->category      = $category;
-        $this->view->articles      = $articles;
-        $this->view->pager         = $pager;
-        $this->view->site          = $this->config->site;
-        //$this->view->layouts     = $this->loadModel('block')->getLayouts('article.list');
-        $this->view->articleTree   = $this->loadModel('tree')->getTreeMenu($this->view->category->tree, 0, array('treeModel', 'createBrowseLink'));
+        $this->view->title    = $title;
+        $this->view->keywords = $keywords;
+        $this->view->desc     = $desc;
+        $this->view->category = $category;
+        $this->view->articles = $articles;
+        $this->view->pager    = $pager;
+        //$this->view->layouts= $this->loadModel('block')->getLayouts('article.list');
 
         $this->display();
     }
