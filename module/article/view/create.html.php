@@ -17,7 +17,7 @@
     <caption><?php echo $lang->article->create;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>
-      <td><?php echo html::select("categories[]", $categories, $currentCategory, "multiple='multiple' class=select-3");?></td>
+      <td><?php echo html::select("categories[]", $categories, $currentCategory, "multiple='multiple' class='select-3 chosen'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->author;?></th>

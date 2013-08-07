@@ -7,9 +7,8 @@ if($config->debug)
 }
 ?>
 <script language='javascript'> 
-noResultsMatch = '<?php echo 'No matched results.';?>';
 $(document).ready(function()
 {
-    $("#categories").chosen({no_results_text: noResultsMatch, placeholder_text:' '});
+    $(".chosen").chosen({no_results_text: '<?php echo $lang->noResultsMatch;?>', placeholder_text:' '});
 });
 </script>

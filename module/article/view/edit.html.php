@@ -18,7 +18,7 @@
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>
       <td>
-        <?php echo html::select("categories[]", $categories, array_keys($article->categories), "multiple='multiple' class=select-3 ");?>
+        <?php echo html::select("categories[]", $categories, array_keys($article->categories), "multiple='multiple' class='select-3 chosen'");?>
       </td> 
     </tr> 
     <tr>
