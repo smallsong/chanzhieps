@@ -42,14 +42,14 @@ if(isset($comments) and $comments):?>
         <td><?php echo $lang->comment->content;?></td>
         <td>
           <?php 
-          echo html::textarea('content', '', "rows=5 class='area-1'");
+          echo html::textarea('content', '', "rows='3' class='area-1'");
           echo html::hidden('objectType', $objectType);
           echo html::hidden('objectID', $objectID);
           ?>
         </td>
       </tr>
       <tr id='checkCode' style="display:none;"></tr>  
-      <tr><td colspan="2"><?php echo html::submitButton();?></td></tr>
+      <tr><td></td><td><?php echo html::submitButton();?></td></tr>
     </table>
   </form>
 </div>
