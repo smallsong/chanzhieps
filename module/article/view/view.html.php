@@ -7,28 +7,30 @@ js::set('articleID', $article->id);
 /* set categoryPath for mainNav highlight. */
 js::set('categoryPath',  json_encode($categoryPath));
 ?>
+<?php $common->printPositionBar($category, $article);?>
 <div class='row'>
   <div class='span9'>
-    <?php $common->printPositionBar($category, $article);?>
-    <h2><?php echo $article->title;?></h2>
-      <div class='f-12px'>
-        <?php
-        printf($lang->article->lblAddedDate, $article->addedDate);
-        printf($lang->article->lblAuthor,    $article->author);
-        printf($lang->article->lblSource);
-        if($article->original)
-        {
-            echo "<strong>{$lang->article->original}</strong> &nbsp;&nbsp;";
-        }
-        else
-        {
-            $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite);
-        }
-        printf($lang->article->lblViews, $article->views);
-        ?>
+    <div class='widget widget-category radius'>
+      <h4><?php echo $article->title;?></h4>
+      <div class='content'>
+        <div class='f-12px mb-10px'>
+          <?php
+          printf($lang->article->lblAddedDate, $article->addedDate);
+          printf($lang->article->lblAuthor,    $article->author);
+          printf($lang->article->lblSource);
+          if($article->original)
+          {
+              echo "<strong>{$lang->article->original}</strong> &nbsp;&nbsp;";
+          }
+          else
+          {
+              $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite);
+          }
+          printf($lang->article->lblViews, $article->views);
+          ?>
+        </div>
+        <p><?php echo $article->content;?></p>
       </div>
-    <div>
-    <?php echo $article->content;?>
     </div>
     <div id="commentBox"> 
     </div>
