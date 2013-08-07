@@ -39,5 +39,4 @@
     <td colspan='2' align='center'><?php echo html::submitButton('', 'btn btn-primary', 'onclick="return checkGarbage(\'content\')" tabindex=2' ) . html::backButton();?></td></tr>
 </table>
 </form>
-<div id='zbyz' class='hidden'><?php $this->loadModel('comment')->setVerify();?></div>
 <?php include '../../common/view/footer.html.php';?>
