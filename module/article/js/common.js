@@ -10,9 +10,12 @@ $(document).ready(function()
 
     $('#original').change();
 
-    $.each(eval(v.categoryPath), function(i,category) 
-    { 
-        $('#mainNav .article_' + category).addClass('active');
-    })
- 
+    /* set  */
+    if(v.categoryPath.length)
+    {
+        $.each(eval(v.categoryPath), function(index, category) 
+        { 
+            $('#mainNav .article_' + category).addClass('active');
+        })
+    }
 });
