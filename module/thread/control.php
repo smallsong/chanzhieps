@@ -47,20 +47,25 @@ class thread extends control
     /**
      * Reply a thread.
      * 
-     * @param string $threadID 
+     * @param int $threadID 
      * @access public
      * @return void
      */
-    public function reply($threadID, $repliedUser = '')
+    public function reply($threadID)
     {
         if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
         if($_POST)
         {
             $replyID = $this->thread->reply($threadID);
-            if(!dao::isError()) $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
+            $thread = $this->thread->getById($threadID);
+
+            if(!dao::isError())
+            {
+                $this->thread->setCookie($replyID);
+                $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
+            }
+
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
-            $thread     = $this->thread->getById($threadID);
-            $this->thread->setCookie($replyID);
         }
     }
 

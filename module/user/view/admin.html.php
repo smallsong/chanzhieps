@@ -44,12 +44,10 @@
     <td><?php echo $user->last; ?> </td>
     <td class="operate">
       <?php 
-        echo html::a($this->createLink('user' ,'forbid' ,"date=oneday&userID=$user->id"),$lang->user->forbidoneday); 
-        echo html::a($this->createLink('user' ,'forbid' ,"date=twodays&userID=$user->id" ),$lang->user->forbidtwodays); 
-        echo html::a($this->createLink('user' ,'forbid' ,"date=threedays&userID=$user->id" ),$lang->user->forbidthreedays); 
-        echo html::a($this->createLink('user' ,'forbid' ,"date=oneweek&userID=$user->id" ),$lang->user->forbidoneweek); 
-        echo html::a($this->createLink('user' ,'forbid' ,"date=onemonth&userID=$user->id" ),$lang->user->forbidonemonth); 
-        echo html::a($this->createLink('user' ,'forbid' ,"date=forever&userID=$user->id" ),$lang->user->forbidforever); 
+      foreach($lang->user->forbidDate as $date => $title)
+      {
+          echo html::a($this->createLink('user' ,'forbid' ,"date=$date&userID=$user->id"), $title);
+      }
       ?>
     </td>
   </tr>

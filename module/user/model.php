@@ -144,7 +144,7 @@ class userModel extends model
      */     
     public function updatePassword($account)
     { 
-        if($_POST['password1'] != '') $this->checkPassword();
+        $this->checkPassword();
         if(dao::isError()) return false;
 
         $user = fixer::input('post')
@@ -267,12 +267,13 @@ class userModel extends model
             case "onemonth" : $intdate = strtotime("+1 month");break;
             case "forever"  : $intdate = strtotime("+10 years");break;
         }
+
         $format = 'Y-m-d H:i:s';
 
         $date = date($format,$intdate);
         $this->dao->update(TABLE_USER)->set('allowTime')->eq($date)->where('id')->eq($userID)->exec();
-        if(dao::isError()) return dao::getError();
-        return true;
+
+        return !dao::isError();
     }
 
     /**
