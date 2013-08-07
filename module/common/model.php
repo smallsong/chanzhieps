@@ -288,7 +288,7 @@ class commonModel extends model
         }    
         else
         {
-            echo html::a(helper::createLink('user', 'login'),    $app->lang->login);
+            echo html::a(helper::createLink('user', 'login'), $app->lang->login);
             echo $divider;
             echo html::a(helper::createLink('user', 'register'), $app->lang->register);
         }    
@@ -322,7 +322,7 @@ class commonModel extends model
     public function printPositionBar($module = '', $object = '', $misc = '')
     {
         echo '<ul class="breadcrumb">';
-        echo '<li>' . html::a($this->config->webRoot, '<i class="icon-home"></i>'.$this->lang->home) . '</li>';
+        echo '<li>' . html::a($this->config->webRoot, '<i class="icon-home"></i>' . $this->lang->home) . '</li>';
         $funcName = 'print' . $this->app->getModuleName();
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
