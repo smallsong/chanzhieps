@@ -3,8 +3,8 @@ include '../../common/view/header.html.php';
 $contact    = json_decode($this->config->company->contact);
 ?>
 <?php $common->printPositionBar($this->app->getModuleName());?>
-<div class="company">
-  <h4><?php echo $company->name;?></h4>
+<div class='widget widget-category radius'>
+  <h4 class='radius-top'><?php echo $company->name;?></h4>
   <div class='content'>
     <p><?php echo $company->content;?></p>
     <br/>
