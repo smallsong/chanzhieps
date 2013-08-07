@@ -51,7 +51,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->article->content;?></th>
-      <td><?php echo html::textarea('content', htmlspecialchars($article->content), 'rows=25 class=area-1');?></td>
+      <td><?php echo html::textarea('content', htmlspecialchars($article->content), "rows='10' class='area-1'");?></td>
     </tr>
     <tr>
       <th></th>
