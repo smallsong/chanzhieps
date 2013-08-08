@@ -11,10 +11,8 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php js::set('currentMenu', $status == 0 ? 0 : 1);?>
-<table class="table table-hover table-bordered table-striped">
-  <caption>
-    <div class='f-left'><?php echo $lang->comment->statusList[$status] . $lang->comment->common;?></div>
-  </caption>
+<table class='table table-bordered'>
+  <caption><?php echo $lang->comment->statusList[$status] . $lang->comment->common;?></caption>
   <tbody>
     <tr>
       <th class='w-id'><?php echo $lang->comment->id;?></th>
@@ -27,15 +25,16 @@
       <td colspan='2'>
         <?php 
         $config->requestType = $config->frontRequestType;
-        $objectViewUrl = $this->createLink($comment->objectType, 'view', "id=$comment->objectID");
+        $objectViewURL = $this->createLink($comment->objectType, 'view', "id=$comment->objectID");
         if($comment->objectTitle != '')
         {
-            $objectViewLink = html::a($objectViewUrl, $comment->objectTitle, '_blank');
+            $objectViewLink = html::a($objectViewURL, $comment->objectTitle, '_blank');
         }
         else
         {
             $objectViewLink = "<span  class='alert-error'>{$lang->comment->deletedObject}</span>";
         }
+
         $config->requestType = 'GET';
         echo <<<EOT
         <strong>$comment->author</strong> <i class='blue'>$comment->email</i> 
@@ -51,7 +50,7 @@ EOT;
         <?php 
         echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, '', "class='deleter'");
         if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass,   '', "class='pass'");
-        echo html::a($objectViewUrl . '#comment', $lang->comment->reply, '_blank');
+        echo html::a($objectViewURL . '#comment', $lang->comment->reply, '_blank');
         echo '<br />';
         if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, '', "class='pre' data-confirm='{$lang->comment->confirmDeletePre}'");
         if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pre' data-confirm='{$lang->comment->confirmPassPre}'");
@@ -60,8 +59,6 @@ EOT;
     </tr>
     <?php endforeach;?>
   </tbody>
-  <tfoot>
-    <tr><td colspan='3' class='a-right'><?php $pager->show();?></td></tr>
-  </tfoot>
+  <tfoot><tr><td colspan='3' class='a-right'><?php $pager->show();?></td></tr></tfoot>
 </table>
 <?php include '../../common/view/footer.admin.html.php';?>
