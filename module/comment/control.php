@@ -52,10 +52,7 @@ class comment extends control
             /* If save fail, return the error info. */
             if(!$commentID)
             {
-                /* Change the error info for captcha field for security reason. */
-                $errors = dao::getError();
-                if(isset($errors['captcha'])) $errors['captcha'][0] = $this->lang->error->captcha;
-                $this->send(array('result' => 'fail', 'reason' => 'error', 'message' => $errors));
+                $this->send(array('result' => 'fail', 'reason' => 'error', 'message' => dao::getError()));
             }
 
             /* If save successfully, save the cookie and send success info. */

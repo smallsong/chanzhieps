@@ -78,7 +78,7 @@ class commentModel extends model
         $this->dao->insert(TABLE_COMMENT)
             ->data($comment, $skip = 'captcha')
             ->autoCheck()
-            ->checkIF($this->post->captcha != false, 'captcha', 'equal', $this->session->captcha)
+            ->check('captcha', 'captcha')
             ->checkIF($comment->email, 'email', 'email')
             ->batchCheck('author, content', 'notempty')
             ->exec();

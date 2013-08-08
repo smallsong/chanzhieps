@@ -216,6 +216,20 @@ class validater
     }
 
     /**
+     * Check captcha.
+     * 
+     * @param  mixed    $var 
+     * @static
+     * @access public
+     * @return bool
+     */
+    public static function checkCaptcha($var)
+    {
+        if(!isset($_SESSION['captcha'])) return false;
+        return $var == $_SESSION['captcha'];
+    }
+
+    /**
      * Must equal a value.
      * 
      * @param  mixed  $var 
