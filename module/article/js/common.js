@@ -1,5 +1,7 @@
 $(document).ready(function()
 {
+    $(".article-pic img").LoadImage(true,true,120,120,"/theme/default/main/images/loading.gif",false);
+
     /* Set the orginal and copySite, copyURL fields. */
     $('#original').change(function()
     {
