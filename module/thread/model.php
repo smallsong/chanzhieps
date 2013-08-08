@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of thread category of xirangEPS.
+ * The model file of thread module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -40,17 +40,17 @@ class threadModel extends model
     /**
      * Get threads list.
      * 
-     * @param int    $category      the category
+     * @param int    $board      the board
      * @param string $orderBy       the order by 
      * @param string $pager         the pager object
      * @access public
      * @return array
      */
-    public function getList($category, $orderBy, $pager = null)
+    public function getList($board, $orderBy, $pager = null)
     {
         $userThreads = $this->cookie->threads;
         $threads = $this->dao->select('*')->from(TABLE_THREAD)
-            ->where('category')->in($category)
+            ->where('board')->in($board)
             ->andWhere("(INSTR('$userThreads', CONCAT('_',id,'_')) != 0 or hidden != 1 or author = '{$this->app->user->account}')") //exclude hide.
             ->orderBy($orderBy)->page($pager, false)->fetchAll('id', false);
         $this->processThreads($threads);
@@ -60,14 +60,14 @@ class threadModel extends model
     /**
      * Get stick threads.
      * 
-     * @param  int    $category 
+     * @param  int    $board 
      * @access public
      * @return array
      */
-    public function getSticks($category)
+    public function getSticks($board)
     {
         $globalSticks = $this->dao->select('*')->from(TABLE_THREAD)->where('stick')->eq(2)->orderBy('id desc')->fetchAll();
-        $boardSticks  = $this->dao->select('*')->from(TABLE_THREAD)->where('stick')->eq(1)->andWhere('category')->eq($category)->orderBy('id desc')->fetchAll();
+        $boardSticks  = $this->dao->select('*')->from(TABLE_THREAD)->where('stick')->eq(1)->andWhere('board')->eq($board)->orderBy('id desc')->fetchAll();
 
         return array_merge($globalSticks, $boardSticks);
     }
@@ -116,7 +116,7 @@ class threadModel extends model
     public function getBoardOwners($thread)
     {
         $owners = $this->dao->select('owners')
-            ->from(TABLE_CATEGORY)->alias('t1')->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.id = t2.category')
+            ->from(TABLE_CATEGORY)->alias('t1')->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.id = t2.board')
             ->where('t2.id')->eq($thread)
             ->fetch('owners');
         return $owners;
@@ -125,19 +125,18 @@ class threadModel extends model
     /**
      * Post a thread.
      * 
-     * @param string $category 
+     * @param  int      $board 
      * @access public
      * @return void
      */
-    public function post($category)
+    public function post($board)
     {
         $thread = fixer::input('post')
             ->specialChars('title')
+            ->stripTags('content', $this->config->thread->editor->allowTags)
+            ->add('board', $board)
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
-            ->add('lastRepliedDate', helper::now())
-            ->add('category', $category)
-            ->stripTags('content', $this->config->thread->editor->allowTags)
             ->remove('files,labels')
             ->get();
 
@@ -154,7 +153,7 @@ class threadModel extends model
 
             $thread->threadID = $threadID;
             $thread->replyID  = 0;
-            $this->loadModel('forum')->updateBoardStats($category, 'thread', $thread);
+            $this->loadModel('forum')->updateBoardStats($board, 'thread', $thread);
         }
         return;
     }
@@ -375,7 +374,7 @@ class threadModel extends model
             $replyID = $this->dao->lastInsertID();
             /* Upload file.*/
             $this->uploadFile('reply', $replyID);
-            $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, category')->fetch();
+            $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, board')->fetch();
 
             $thread->replies += 1;
             $thread->lastRepliedDate = helper::now();
@@ -385,7 +384,7 @@ class threadModel extends model
 
             $reply->threadID = $threadID;
             $reply->replyID  = $replyID;
-            $this->loadModel('forum')->updateBoardStats($thread->category, 'reply', $reply);
+            $this->loadModel('forum')->updateBoardStats($thread->board, 'reply', $reply);
         }
 
         return;
@@ -406,6 +405,21 @@ class threadModel extends model
             echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title . '.' . $file->extension, '_blank', "style='text-decoration: underline'");
             if($managePriv or $this->app->user->account == $file->addedBy) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&objectID=$objectID&objectType=$type"), 'Ｘ', '', "title='{$this->lang->delete}' class='deleter'");
             echo ' ';
+        }
+    }
+
+    /**
+     * Set editor tools for current user. 
+     * 
+     * @param  string    $owners 
+     * @access public
+     * @return void
+     */
+    public function setEditor($owners, $page)
+    {
+        if($this->hasManagePriv($this->app->user->account, $owners))
+        {
+            $this->config->thread->editor->{$page}['tools'] = 'fullTools';
         }
     }
 }

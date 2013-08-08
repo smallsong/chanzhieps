@@ -20,6 +20,7 @@ $lang->thread->replies    = '回帖';
 $lang->thread->views      = '阅读';
 $lang->thread->lastReply  = '最后回帖';
 
+$lang->thread->post       = '发贴';
 $lang->thread->browse     = '主题列表';
 $lang->thread->stick      = '置顶';
 $lang->thread->editReply  = '编辑回复';
@@ -46,4 +47,3 @@ $lang->reply->common    = '回复 ';
 $lang->reply->content   = '内容 ';
 $lang->reply->author    = '作者';
 $lang->reply->addedDate = '回复时间 ';
-$lang->reply->toAsk     = '该帖子已经转为问题，<a href="/ask-view-%s">查看问题</a>';

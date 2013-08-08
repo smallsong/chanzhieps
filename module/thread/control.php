@@ -13,34 +13,39 @@ class thread extends control
     /** 
      * Post a thread.
      * 
-     * @param int $categoryID 
+     * @param  int      $boardID 
      * @access public
      * @return void
      */
-    public function post($categoryID = 0)
+    public function post($boardID = 0)
     {
         if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
 
-        $board = $this->loadModel('tree')->getById($categoryID);
+        /* Get the board. */
+        $board = $this->loadModel('tree')->getById($boardID);
+
+        /* Checking the board is readonly or not. */
         if($board->readonly)
         {
             $this->app->loadLang('forum');
-            echo js::error($this->lang->forum->readonly);
-            die(js::locate('back'));
+            die(js::error($this->lang->forum->readonly) . js::locate('back'));
         }
 
+        /* Set editor for current user. */
+        $this->thread->setEditor($board->owners, 'post');
+
+        /* User posted a thread, try to save it to database. */
         if($_POST)
         {
-            $result = $this->thread->post($categoryID);
+            $result = $this->thread->post($boardID);
             if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
-            $locate = $this->createLink('forum', 'board', "categoryID=$categoryID");
-            $this->send(array(
-            'result' => 'success', 
-            'message' => $this->lang->saveSuccess, 
-            'locate' =>$locate));
+
+            $locate = $this->createLink('forum', 'board', "boardID=$boardID");
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' =>$locate));
         }
+
+        $this->view->title = $board->name . $this->lang->thread->post;
         $this->view->board = $board;
-        $this->view->tree  = $this->tree->getOptionMenu('thread');
         $this->display();
     }
 
