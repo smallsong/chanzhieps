@@ -14,3 +14,9 @@ RENAME TABLE `xirang`.`xr_articleCategory` TO `xirang`.`xr_relation` ;
 
 -- change tree to type.
 ALTER TABLE `xr_category` CHANGE `tree` `type` CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+-- remove site field.
+ALTER TABLE `xr_thread` DROP `site`;
+
+-- change category to board for thread table.
+ALTER TABLE `xr_thread` CHANGE `category` `board` MEDIUMINT( 9 ) NOT NULL;
