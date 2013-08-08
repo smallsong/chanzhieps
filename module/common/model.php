@@ -322,10 +322,22 @@ class commonModel extends model
     public function printPositionBar($module = '', $object = '', $misc = '')
     {
         echo '<ul class="breadcrumb">';
-        echo '<li>' . html::a($this->config->webRoot, '<i class="icon-home"></i>' . $this->lang->home) . '</li>';
+        echo '<li>' . $this->lang->currentPos . html::a($this->config->webRoot, $this->lang->home) . '</li>';
         $funcName = 'print' . $this->app->getModuleName();
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
+    }
+    
+
+    /**
+     * get positionbar divider.
+     *
+     * @access public
+     * @return string
+     */
+    public function getPositionDivder()
+    {
+        return " <span class='divider'>&raquo;</span> ";
     }
 
     /**
@@ -462,7 +474,7 @@ class commonModel extends model
      */
     public function printcompany($module)
     {
-        echo ' <span class="divider">/</span></li> ' . $this->lang->aboutUs; 
+        echo $this->getPositionDivder() . $this->lang->aboutUs; 
     }
 
     /**
@@ -475,8 +487,10 @@ class commonModel extends model
      */
     public function printArticle($module, $article)
     {
-        foreach($module->pathNames as $moduleID => $moduleName) echo ' <span class="divider">/</span> ' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName);
-        if($article) echo '<span class="divider">/</span>' . html::a(inlink('view', "id=$article->id"), $article->title);
+        $divider = $this->getPositionDivder();
+
+        foreach($module->pathNames as $moduleID => $moduleName) echo $divider . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName);
+        if($article) echo $divider . html::a(inlink('view', "id=$article->id"), $article->title);
     }
 
     /**
@@ -488,11 +502,12 @@ class commonModel extends model
      */
     public function printForum($board = '')
     {
-        echo ' > ' . html::a(helper::createLink('forum', 'index'), $this->lang->position['forum']);
+        $divider = $this->getPositionDivder();
+        echo $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forum->common);
         if(!$board) return false;
 
         unset($board->pathNames[key($board->pathNames)]);
-        foreach($board->pathNames as $boardID => $boardName) echo ' > ' . html::a(helper::createLink('forum', 'board', "boardID=$boardID"), $boardName);
+        foreach($board->pathNames as $boardID => $boardName) echo $divider . html::a(helper::createLink('forum', 'board', "boardID=$boardID"), $boardName);
     }
 
     /**
