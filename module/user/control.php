@@ -30,6 +30,7 @@ class user extends control
         {
             $this->user->create();
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
+
             $user = $this->user->identify($this->post->account, $this->post->password1);
             if($user)
             {
@@ -39,6 +40,7 @@ class user extends control
                 $this->send( array('result' => 'success', 'locate'=>$url) );
             }
         }
+
         /* Set the referer. */
         if(!isset($_SERVER['HTTP_REFERER']) or strpos($_SERVER['HTTP_REFERER'], 'login.php') != false)
         {
@@ -48,8 +50,8 @@ class user extends control
         {
             $referer = urlencode($_SERVER['HTTP_REFERER']);
         }
-
         $this->view->referer = $referer;
+
         $this->display();
     }
 
@@ -110,8 +112,9 @@ class user extends control
             }
         }
 
-        $this->view->title = $this->lang->user->login->common;
-        $this->view->referer       = $this->referer;
+        $this->view->title   = $this->lang->user->login->common;
+        $this->view->referer = $this->referer;
+
         $this->display();
     }
 
@@ -188,12 +191,15 @@ class user extends control
     public function thread($recTotal = 0, $recPerPage = 20, $pageID = 1)
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
+
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
         $threads = $this->loadModel('thread')->getByUser($this->app->user->account, $pager);
+        
         $this->view->threads = $threads;
         $this->view->pager   = $pager;
+
         $this->display();
     }
 
@@ -206,12 +212,14 @@ class user extends control
     public function reply($recTotal = 0, $recPerPage = 20, $pageID = 1)
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
+
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
         $replies = $this->loadModel('thread')->getReplyByUser($this->app->user->account, $pager);
         $this->view->replies = $replies;
         $this->view->pager   = $pager;
+
         $this->display();
     }
 
@@ -230,8 +238,10 @@ class user extends control
 
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
+
         $this->view->messages = $this->loadModel('message')->getByAccount($this->app->user->account, $pager);
         $this->view->pager    = $pager;
+
         $this->display();
     }
 
@@ -296,11 +306,11 @@ class user extends control
         if(!empty($_POST))
         {
             $userName = fixer::input('post')->get();
-            $users = $this->user->getUsers($pager, $userName->userName);
+            $users    = $this->user->getUsers($pager, $userName->userName);
         }
  
-        $this->view->users    = $users;
-        $this->view->pager    = $pager;
+        $this->view->users = $users;
+        $this->view->pager = $pager;
         $this->display();
     }
     
@@ -354,12 +364,14 @@ class user extends control
     public function changePassword()
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
+
         if(!empty($_POST))
         {
             $this->user->updatePassword($this->app->user->account);
             if(dao::isError()) $this->send(array( 'result' => 'fail', 'message' => dao::getError() ) );
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess));
         }
+
         $this->view->user = $this->user->getByAccount($this->app->user->account);
         $this->display();
     }

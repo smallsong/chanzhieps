@@ -10,7 +10,6 @@
  */
 $lang->thread->common    = '主题';
 
-$lang->thread->browse     = '主题列表';
 $lang->thread->id         = '编号';
 $lang->thread->title      = '标题';
 $lang->thread->author     = '作者';
@@ -20,14 +19,15 @@ $lang->thread->postedDate = '发表于';
 $lang->thread->replies    = '回帖';
 $lang->thread->views      = '阅读';
 $lang->thread->lastReply  = '最后回帖';
+
+$lang->thread->browse     = '主题列表';
 $lang->thread->stick      = '置顶';
+$lang->thread->editReply  = '编辑回复';
+$lang->thread->editThread = '编辑主题';
 
 $lang->thread->sticks[0] = '不置顶';
 $lang->thread->sticks[1] = '版块置顶';
 $lang->thread->sticks[2] = '全局置顶';
-
-$lang->thread->editReply  = '编辑回复';
-$lang->thread->editThread = '编辑主题';
 
 $lang->thread->confirmDeleteThread = "您确定删除该主题吗？";
 $lang->thread->confirmHideReply    = "您确定隐藏回帖吗？";

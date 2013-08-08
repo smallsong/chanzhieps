@@ -14,6 +14,7 @@ $lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{
 
 /* Global lang items. */
 $lang->home           = '首页';
+$lang->forum->common      = '论坛';
 $lang->welcome        = '欢迎您, <strong>%s</strong> ';
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
@@ -94,7 +95,6 @@ $lang->comment->menu->browse = '未审核|comment|admin|status=0';
 $lang->comment->menu->tree   = '已审核|comment|admin|status=1';
 
 /* Menu of forum module. */
-$lang->forum = new stdclass();
 $lang->forum->menu = new stdclass();
 $lang->forum->menu->browse = '主题列表|forum|admin|';
 $lang->forum->menu->tree   = '版块管理|tree|browse|type=forum';
@@ -105,7 +105,7 @@ $lang->site->menu = new stdclass();
 $lang->site->menu->basic    = '站点设置|site|setbasic|';
 $lang->site->menu->logo     = 'LOGO设置|site|setlogo|';
 $lang->site->menu->nav      = '导航设置|nav|admin|';
-$lang->site->menu->carousel = '幻灯片|site|setcarousel|';
+$lang->site->menu->slide    = '幻灯片|site|setslide|';
 
 /* Menu of company module. */
 $lang->company->menu = new stdclass();

@@ -3,6 +3,7 @@
 /* Get current module and method. */
 $module = $this->moduleName;
 $method = $this->methodName;
+
 if(!isset($config->$module->editor->$method)) return;
 
 /* Export $jsRoot var. */
@@ -10,6 +11,7 @@ js::set('jsRoot', $jsRoot);
 
 /* Get editor settings for current page. */
 $editors = $config->$module->editor->$method;
+
 $editors['id'] = explode(',', $editors['id']);
 js::set('editors', $editors);
 

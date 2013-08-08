@@ -14,7 +14,7 @@
   <?php echo html::input('userName', '', "class='text-2 input-medium search-query' placeholder='{$lang->user->inputUserName}'"); ?>
   <?php echo html::submitButton($lang->user->searchUser, 'btn'); ?>
 </form>
-<table class='table table-form table-hover table-striped'>
+<table class='table table-hover table-striped'>
   <caption><?php echo $lang->user->userList;?></caption>
   <thead>
     <tr class='a-center'>
@@ -23,7 +23,7 @@
       <th class='w-80px'><?php echo $lang->user->nickname;?></th>
       <th class='w-80px'><?php echo $lang->user->account;?></th>
       <th class='w-60px'><?php echo $lang->user->gendar;?></th>
-      <th class='w-200px a-left'><?php echo $lang->user->company;?></th>
+      <th class='a-left'><?php echo $lang->user->company;?></th>
       <th class='w-150px'><?php echo $lang->user->addedDate;?></th>
       <th class='w-80px'><?php echo $lang->user->visits;?></th>
       <th class='w-150px'><?php echo $lang->user->last;?></th>
@@ -46,7 +46,7 @@
       <?php 
       foreach($lang->user->forbidDate as $date => $title)
       {
-          echo html::a($this->createLink('user' ,'forbid' ,"date=$date&userID=$user->id"), $title);
+          echo html::a($this->createLink('user', 'forbid', "date=$date&userID=$user->id"), $title);
       }
       ?>
     </td>

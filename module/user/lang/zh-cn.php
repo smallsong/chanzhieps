@@ -23,7 +23,7 @@ $lang->user->relogin         = "重新登录";
 $lang->user->asGuest         = "游客访问";
 $lang->user->goback          = "返回前一页";
 $lang->user->allUsers        = '全部用户';
-$lang->user->modifyPassword  = "更改密码";
+$lang->user->changePassword  = "更改密码";
 $lang->user->newPassword     = "新密码";
 $lang->user->submit          = "提交";
 

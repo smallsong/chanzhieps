@@ -34,6 +34,7 @@ class userModel extends model
     {
         $users = $this->dao->select('account, realname, `addedDate`, last, visits')->from(TABLE_USER)->where('account')->in($users)->fetchAll('account', false);
         if(!$users) return array();
+
         foreach($users as $account => $user) if($user->realname == '') $user->realname = $account;
         return $users;
     }
@@ -215,6 +216,7 @@ class userModel extends model
         }
         $stmt = $sql->query();
         if(!$stmt) return $rights;
+
         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
         {
             $rights[strtolower($row['module'])][strtolower($row['method'])] = true;
@@ -245,7 +247,9 @@ class userModel extends model
     {
         return $this->dao->select('*')->from(TABLE_USER)
             ->beginIF($userName != '')->where('account')->like("%$userName%")->fi()
-            ->orderBy('id_asc')->page($pager)->fetchAll();
+            ->orderBy('id_asc')
+            ->page($pager)
+            ->fetchAll();
     }
 
     /**
