@@ -3,7 +3,6 @@ include '../../common/view/header.html.php';
 include '../../common/view/treeview.html.php'; 
 
 js::set('articleID', $article->id);
-
 /* set categoryPath for mainNav highlight. */
 js::set('categoryPath',  json_encode($categoryPath));
 ?>
@@ -29,7 +28,18 @@ js::set('categoryPath',  json_encode($categoryPath));
           printf($lang->article->lblViews, $article->views);
           ?>
         </div>
-        <p><?php echo $article->content;?></p>
+        <div><?php echo $article->content;?></div>
+        <?php foreach($article->files as $file):?>
+        <?php if($file->isImage)
+              { 
+                echo html::image($file->smallURL, "title='{$file->title}' class='w-p45'");
+              }
+              else
+              {
+                echo html::a(inlink('download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank');
+              }
+        ?> 
+        <?php endforeach;?>
       </div>
     </div>
     <div id="commentBox"> 
