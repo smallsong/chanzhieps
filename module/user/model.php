@@ -32,10 +32,15 @@ class userModel extends model
      */
     public function getBasicInfo($users)
     {
-        $users = $this->dao->select('account, realname, `addedDate`, last, visits')->from(TABLE_USER)->where('account')->in($users)->fetchAll('account', false);
+        $users = $this->dao->select('account, realname, `join`, last, visits')->from(TABLE_USER)->where('account')->in($users)->fetchAll('account', false);
         if(!$users) return array();
 
-        foreach($users as $account => $user) if($user->realname == '') $user->realname = $account;
+        foreach($users as $account => $user)
+        {
+            $user->realname  = empty($user->realname) ? $account : $user->realname;
+            $user->shortLast = substr($user->last, 5, -3);
+            $user->short = substr($speaker->join, 5, -3);
+        }
         return $users;
     }
 
@@ -62,7 +67,7 @@ class userModel extends model
         $this->checkPassword();
 
         $user = fixer::input('post')
-            ->setDefault('addedDate', date('Y-m-d H:i:s'))
+            ->setDefault('join', date('Y-m-d H:i:s'))
             ->setDefault('last', helper::now())
             ->setDefault('visits', 1)
             ->setIF($this->post->password1 == false, 'password', '')
@@ -70,7 +75,7 @@ class userModel extends model
             ->setIF($this->cookie->r == '', 'referer', '')
             ->remove('password1, password2')
             ->get();
-        $user->password = $this->createPassword($this->post->password1, $user->account, $user->addedDate); 
+        $user->password = $this->createPassword($this->post->password1, $user->account, $user->join); 
 
         $this->dao->insert(TABLE_USER)->data($user)
             ->autoCheck()
@@ -96,8 +101,8 @@ class userModel extends model
             $this->checkPassword();
             if(dao::isError()) return false;
 
-            $addedDate = $this->dao->select('addedDate')->from(TABLE_USER)->where('account')->eq($account)->fetch('addedDate');
-            $password  = $this->createPassword($this->post->password1, $account, $addedDate);
+            $join = $this->dao->select('join')->from(TABLE_USER)->where('account')->eq($account)->fetch('join');
+            $password  = $this->createPassword($this->post->password1, $account, $join);
             $this->post->set('password', $password);
         }
 
@@ -153,8 +158,8 @@ class userModel extends model
             ->remove('account, password1, password2')
             ->get();
 
-        $addedDate = $this->dao->select('*')->from(TABLE_USER)->where('account')->eq($account)->fetch('addedDate');
-        $user->password  = $this->createPassword($this->post->password1, $account, $addedDate);
+        $join = $this->dao->select('*')->from(TABLE_USER)->where('account')->eq($account)->fetch('join');
+        $user->password  = $this->createPassword($this->post->password1, $account, $join);
         $this->dao->update(TABLE_USER)->data($user)->autoCheck()->where('account')->eq($account)->exec();
     }   
 
@@ -178,7 +183,7 @@ class userModel extends model
 
         /* Then check the password hash. */
         if(!$user) return false;
-        if($this->createPassword($password, $user->account, $user->addedDate) != $user->password) return false;
+        if($this->createPassword($password, $user->account, $user->join) != $user->password) return false;
 
         /* Update user data. */
         $user->ip = $this->server->remote_addr;
@@ -357,12 +362,12 @@ class userModel extends model
      * 
      * @param  string    $password 
      * @param  string    $account 
-     * @param  string    $addedTime 
+     * @param  string    $join 
      * @access public
      * @return string
      */
-    public function createPassword($password, $account, $addedDate)
+    public function createPassword($password, $account, $join)
     {
-        return md5(md5($password) . $account . $addedDate);
+        return md5(md5($password) . $account . $join);
     }
 }
