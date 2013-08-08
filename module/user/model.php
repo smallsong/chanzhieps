@@ -39,8 +39,9 @@ class userModel extends model
         {
             $user->realname  = empty($user->realname) ? $account : $user->realname;
             $user->shortLast = substr($user->last, 5, -3);
-            $user->short = substr($speaker->join, 5, -3);
+            $user->shortJoin = substr($user->join, 5, -3);
         }
+
         return $users;
     }
 
