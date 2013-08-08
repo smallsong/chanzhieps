@@ -5,3 +5,4 @@
 .article-title a{color: #5A5A5A;}
 .article-title a:hover, .article-title a:active{color: #4691EF; text-decoration: none;}
 .summary{margin-bottom:10px;}
+a.article-pic{display: block; border: 1px solid #dddddd; width: 128px; height: 128px; padding: 3px;}
