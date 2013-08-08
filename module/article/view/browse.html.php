@@ -19,7 +19,7 @@ include 'portal.html.php';
           <?php if($files) foreach($files as $file):?>
           <?php if($file->isImage && $file->primary)
                 { 
-                  echo html::a(inlink('view', "id=$article->id"), html::image($file->smallURL, "title='{$file->title}'"), '', "class='f-left article-pic'");
+                  echo html::a(inlink('view', "id=$article->id"), html::image($file->smallURL, "title='{$file->title}'"), '', "class='f-left article-img'");
                 }
           ?>
           <?php endforeach;?>
@@ -36,7 +36,7 @@ include 'portal.html.php';
         </li>
       <?php endforeach;?>
       </ul>
-      <div class='w-p95 pd-10px' style= 'display:table'><?php $pager->show();?></div>
+      <div class='w-p95 pd-10px'><?php $pager->show('right', 'short');?></div>
       <div class='c-both'></div>
     </div>
   </div>
