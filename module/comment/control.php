@@ -41,9 +41,9 @@ class comment extends control
         if($_POST)
         {
             /* If no captcha but is garbage, return the error info. */
-            if($this->post->captcha == false and $this->comment->isGarbage($this->post->content))
+            if($this->post->captcha == false and $this->loadModel('captcha')->isEvil($this->post->content))
             {
-                $this->send(array('result' => 'fail', 'reason' => 'needChecking', 'captcha' => $this->comment->createCaptcha()));
+                $this->send(array('result' => 'fail', 'reason' => 'needChecking', 'captcha' => $this->captcha->create4Comment()));
             }
 
             /* Try to save to database. */
