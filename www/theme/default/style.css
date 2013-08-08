@@ -268,6 +268,7 @@ ul.sf-menu li li:hover ul,ul.sf-menu li li.sfHover ul,ul.sf-menu li li li:hover 
 
 /* breadcrumb setting*/
 ul.breadcrumb {background:none; margin: 0; padding: 0;}
+ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 
 /* Widget settings. */
 .widget {margin: 20px 0 15px; padding:0; border:1px solid #ddd;}
