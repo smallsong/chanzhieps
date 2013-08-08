@@ -43,4 +43,3 @@ include 'portal.html.php';
   <?php include '../../common/view/side.html.php';?>
 </div>
 <?php include '../../common/view/footer.html.php';?>
-<?php include '../../common/view/footer.html.php';?>
