@@ -30,8 +30,8 @@
     </tr>  
     <?php if($category->type == 'forum'):?>
     <tr>
-      <th><?php echo $lang->category->owners;?></th>
-      <td><?php echo html::input('owners', $category->owners, "class='text-1'");?></td>
+      <th><?php echo $lang->category->moderators;?></th>
+      <td><?php echo html::input('moderators', $category->moderators, "class='text-1'");?></td>
     </tr>  
     <tr>
       <th><?php echo $lang->category->readonly;?></th>

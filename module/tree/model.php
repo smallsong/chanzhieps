@@ -375,7 +375,6 @@ class treeModel extends model
         $category->parent  = $parent ? $parent->id : 0;
         $category->grade   = $parent ? $parent->grade + 1 : 1;
         $category->type    = $type;
-        $category->owners  = $this->app->user->account;
 
         $i = 1;
         foreach($children as $key => $categoryName)

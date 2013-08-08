@@ -31,14 +31,14 @@ $lang->category->children = "子类目";
 
 /* Lang items for forum. */
 $lang->board = new stdclass();
-$lang->board->common   = '版块';
-$lang->board->name     = '版块';
-$lang->board->parent   = '上级版块';
-$lang->board->desc     = '描述';
-$lang->board->keyword  = '关键词';
-$lang->board->children = "子版块";
-$lang->board->readonly = '访问权限';
-$lang->board->owners   = '版主';
+$lang->board->common     = '版块';
+$lang->board->name       = '版块';
+$lang->board->parent     = '上级版块';
+$lang->board->desc       = '描述';
+$lang->board->keyword    = '关键词';
+$lang->board->children   = "子版块";
+$lang->board->readonly   = '访问权限';
+$lang->board->moderators = '版主';
 
 $lang->board->readonlyList[0] = '开放';
 $lang->board->readonlyList[1] = '只读';
