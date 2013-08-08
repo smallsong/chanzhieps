@@ -8,6 +8,8 @@
  * @version     $Id$
  * @link        http://www.zentao.net
  */
+$lang->colon = ' : ';
+
 /* Lang items for xirang. */
 $lang->xirangEPS = 'xirangEPS';
 $lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
