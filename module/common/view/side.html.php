@@ -25,7 +25,15 @@ $topCategories = $this->loadModel('tree')->getChildren(0);
       foreach($contact as $item => $value)
       {
           if($value == "") continue;
-          echo "<li><span>{$lang->company->$item}</span>$value</li>";
+          $link = $this->loadModel('common')->getContactLink($item, $value);
+          if($link)
+          {
+            echo "<li><strong>{$lang->company->$item}{$this->lang->colon}</strong><a href='$link'>{$value}</a></li>";
+          }
+          else
+          {
+            echo "<li><strong>{$lang->company->$item}{$this->lang->colon}</strong>$value</li>";     
+          } 
       }
       ?>
     </ul>
