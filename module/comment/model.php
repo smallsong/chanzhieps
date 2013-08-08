@@ -199,7 +199,7 @@ class commentModel extends model
      * create captcha.
      * 
      * @access public
-     * @return void
+     * @return string
      */
     public function createCaptcha()
     {
@@ -214,8 +214,12 @@ class commentModel extends model
         $captcha   = $before . $action . $after;
         eval("\$result = $captcha;");
         $this->session->set('captcha', $result);
-        echo '<td>' . $this->lang->comment->captcha . '</td>';
-        echo '<td> <span class="label label-important" style="line-height:20px;">' . $numberLang[$before] . " $actionLang[$action] " . $numberLang[$after] . "</span>&nbsp;&nbsp;" . $this->lang->captcha->equal . "&nbsp;&nbsp;";
-        echo '<input type="text" name="captcha" id="captcha" class="w-20px" />' . $this->lang->captcha->notice . '</td>';
+
+        $captcha  = '';
+        $captcha .= '<td>' . $this->lang->comment->captcha . '</td>';
+        $captcha .= '<td> <span class="label label-important" style="line-height:20px;">' . $numberLang[$before] . " $actionLang[$action] " . $numberLang[$after] . "</span>&nbsp;&nbsp;" . $this->lang->captcha->equal . "&nbsp;&nbsp;";
+        $captcha .= '<input type="text" name="captcha" id="captcha" class="w-20px" />' . $this->lang->captcha->notice . '</td>';
+
+        return $captcha;
     }
 }

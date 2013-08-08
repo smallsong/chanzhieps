@@ -43,7 +43,7 @@ class comment extends control
             /* If no captcha but is garbage, return the error info. */
             if($this->post->captcha == false and $this->comment->isGarbage($this->post->content))
             {
-                $this->send(array('result' => 'fail', 'reason' => 'needChecking'));
+                $this->send(array('result' => 'fail', 'reason' => 'needChecking', 'captcha' => $this->comment->createCaptcha()));
             }
 
             /* Try to save to database. */
@@ -112,16 +112,5 @@ class comment extends control
         $this->comment->pass($commentID, $type);
         if(!dao::isError()) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
-    }
-
-    /**
-     * Check a comemnt is garbage and show captcha if necessary.
-     * 
-     * @access public
-     * @return void
-     */    
-    public function createCaptcha()
-    {
-        die($this->comment->createCaptcha());
     }
 }
