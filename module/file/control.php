@@ -179,8 +179,18 @@ class file extends control
      */
     public function setPrimary($fileID)
     {
-        $this->dao->update(TABLE_FILE)->set('primary')->eq(0)->where('id')->ne($fileID)->exec(false);
-        $this->dao->update(TABLE_FILE)->set('primary')->eq(1)->where('id')->eq($fileID)->exec(false);
+        $file = $this->file->getByID($fileID);
+        if(!$file) $this->send(array( 'result' => 'fail', 'message' => $this->lang->fail));
+
+        $this->dao->update(TABLE_FILE)
+            ->set('primary')->eq(0)
+            ->where('id')->ne($fileID)
+            ->andWhere('objectType')->eq($file->objectType)
+            ->andWhere('objectID')->eq($file->objectID)
+            ->exec(false);
+
+        $this->dao->update(TABLE_FILE)->set('primary')->eq(1)->where('id')->eq($fileID)->exec();
+
         $this->send(array( 'result' => 'success', 'message' => $this->lang->setSuccess));
     }
 

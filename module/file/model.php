@@ -70,7 +70,7 @@ class fileModel extends model
      * @access public
      * @return void
      */
-    public function getById($fileID)
+    public function getByID($fileID)
     {
         $file = $this->dao->findById($fileID)->from(TABLE_FILE)->fetch('', false);
         $file->realPath = $this->app->getAppRoot() . "www/data/upload/" . $file->pathname;
@@ -270,7 +270,7 @@ class fileModel extends model
      */
     public function delete($fileID)
     {
-        $file = $this->getById($fileID);
+        $file = $this->getByID($fileID);
         if(file_exists($file->realPath)) unlink($file->realPath);
         $this->dao->delete()->from(TABLE_FILE)->where('id')->eq($file->id)->exec(false);
         return !dao::isError();
