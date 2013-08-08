@@ -26,7 +26,7 @@ class tree extends control
         {
             $this->lang->category   = $this->lang->board;
             $this->lang->tree->menu = $this->lang->forum->menu;
-            $this->lang->menu->groups->tree = 'forum';
+            $this->lang->menuGroups->tree = 'forum';
         }
 
         $this->view->title    = $this->lang->category->common;
