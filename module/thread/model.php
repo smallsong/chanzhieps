@@ -122,30 +122,6 @@ class threadModel extends model
         return $owners;
     }
 
-    public function checkBlacklist($thread)
-    {
-        $blacklists = $this->config->thread->blacklist;
-        $ip         = $this->loadModel('common')->getIP();
-
-        if(in_array($ip, $blacklists['ip'])) return true;
-
-        foreach($blacklists['keyword'] as $keywordBlacklist)
-        {
-            if(isset($thread->title) and strpos($thread->title, $keywordBlacklist) !== false) return true;
-            if(strpos($thread->content, $keywordBlacklist) !== false) return true;
-        }
-
-        unset($blacklists['ip']);
-        unset($blacklists['keyword']);
-
-        foreach($blacklists as $key => $blacklist)
-        {
-            if(in_array($this->app->user->$key,$blacklist)) return true;
-        }
-
-        return false;
-    }
-
     /**
      * Post a thread.
      * 
@@ -161,11 +137,9 @@ class threadModel extends model
             ->add('addedDate', helper::now())
             ->add('lastRepliedDate', helper::now())
             ->add('category', $category)
-            ->stripTags('content', $this->config->thread->editor->allowableTags)
+            ->stripTags('content', $this->config->thread->editor->allowTags)
             ->remove('files,labels')
             ->get();
-        /* Stop for blacklist. */
-        if($this->checkBlacklist($thread)) die();
 
         if(trim(strip_tags($thread->content) == '')) $thread->content = '';
         $this->dao->insert(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
@@ -198,7 +172,7 @@ class threadModel extends model
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
             ->add('thread', $threadID)
-            ->stripTags('content', $this->config->thread->editor->allowableTags)
+            ->stripTags('content', $this->config->thread->editor->allowTags)
             ->remove('yzm')
             ->remove('recTotal')
             ->remove('recPerPage')
@@ -207,8 +181,6 @@ class threadModel extends model
             ->get();
 
         if($this->loadModel('comment')->isGarbage($reply->content)) die();
-        /* Stop for blacklist. */
-        if($this->checkBlacklist($reply)) die();
         
         if(trim(strip_tags($reply->content)) == '') $reply->content = '';
         return $this->saveReply($threadID, $reply);
@@ -249,12 +221,9 @@ class threadModel extends model
         $thread = fixer::input('post')
             ->add('editor', $this->session->user->account)
             ->add('editedDate', helper::now())
-            ->stripTags('content', $this->config->thread->editor->allowableTags)
+            ->stripTags('content', $this->config->thread->editor->allowTags)
             ->remove('files,labels')
             ->get();
-
-        /* Stop for blacklist. */
-        if($this->checkBlacklist($thread)) die();
 
         $this->dao->update(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->where('id')->eq($threadId)->exec();
         /* Upload file.*/
@@ -274,7 +243,7 @@ class threadModel extends model
         $reply = fixer::input('post')
             ->add('editor', $this->session->user->account)
             ->add('editedDate', helper::now())
-            ->stripTags('content', $this->config->thread->editor->allowableTags)
+            ->stripTags('content', $this->config->thread->editor->allowTags)
             ->remove('yzm,files,labels')
             ->get();
         $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyId)->exec();
@@ -371,26 +340,6 @@ class threadModel extends model
             foreach($thread->replies as $reply) $users[$reply->author] = $reply->author;
         }
         return $users;
-    }
-
-    /**
-     * Thread to ask 
-     * 
-     * @param int $threadID 
-     * @param int $questionID 
-     * @access public
-     * @return void
-     */
-    public function toAsk($threadID, $questionID)
-    {
-        $thread = $this->getById($threadID);
-        $reply->author = $this->app->user->account;
-        $reply->addedDate = helper::now();
-        $reply->thread = $threadID;
-        $reply->content = sprintf($this->lang->reply->toAsk, $questionID);
-        $this->saveReply($threadID, $reply);
-        $this->dao->update(TABLE_THREAD)->set('readonly')->eq(1)->where('id')->eq($threadID)->exec(false);
-        $this->loadModel('score')->punish($thread->author,'threadtoask', $this->config->score->counts->thread, 'thread', $threadID);
     }
 
     /**
