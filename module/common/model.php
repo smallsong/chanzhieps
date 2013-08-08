@@ -322,7 +322,7 @@ class commonModel extends model
     public function printPositionBar($module = '', $object = '', $misc = '')
     {
         echo '<ul class="breadcrumb">';
-        echo '<li>' . $this->lang->currentPos . html::a($this->config->webRoot, $this->lang->home) . '</li>';
+        echo '<li>' . $this->lang->currentPos . $this->lang->colon . html::a($this->config->webRoot, $this->lang->home) . '</li>';
         $funcName = 'print' . $this->app->getModuleName();
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
@@ -559,4 +559,16 @@ class commonModel extends model
 
         return $link;
     }
+   public static function getContactLink($contactItem, $contactValue)
+   {
+       $link = '';        
+       switch ($contactItem)
+       {    
+           case 'qq' : $link = "tencent://message/?uin={$contactValue}&amp;Site=描述&amp;Menu=yes";
+           break;
+           case 'email' : $link = "mailto:{$contactValue}";
+           break;
+       }
+       return $link;
+   } 
 }
