@@ -41,16 +41,22 @@ class comment extends control
         if($_POST)
         {
             /* If no captcha but is garbage, return the error info. */
-            if($this->post->captcha == false and $this->comment->isGarbage($this->post->content))
+            if($this->post->captcha == false and $this->loadModel('captcha')->isEvil($this->post->content))
             {
-                $this->send(array('result' => 'fail', 'reason' => 'needChecking'));
+                $this->send(array('result' => 'fail', 'reason' => 'needChecking', 'captcha' => $this->captcha->create4Comment()));
             }
 
             /* Try to save to database. */
             $commentID = $this->comment->post();
 
             /* If save fail, return the error info. */
-            if(!$commentID) $this->send(array('result' => 'fail', 'reason' => 'error', 'message' => dao::getError()));
+            if(!$commentID)
+            {
+                /* Change the error info for captcha field for security reason. */
+                $errors = dao::getError();
+                if(isset($errors['captcha'])) $errors['captcha'][0] = $this->lang->error->captcha;
+                $this->send(array('result' => 'fail', 'reason' => 'error', 'message' => $errors));
+            }
 
             /* If save successfully, save the cookie and send success info. */
             $this->comment->setCookie($commentID);
@@ -72,6 +78,7 @@ class comment extends control
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
+
         $this->view->comments = $this->comment->getList($status, $pager);
         $this->view->pager    = $pager;
         $this->view->status   = $status;
@@ -106,16 +113,5 @@ class comment extends control
         $this->comment->pass($commentID, $type);
         if(!dao::isError()) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
-    }
-
-    /**
-     * Check a comemnt is garbage and show captcha if necessary.
-     * 
-     * @access public
-     * @return void
-     */    
-    public function createCaptcha()
-    {
-        die($this->comment->createCaptcha());
     }
 }

@@ -8,6 +8,8 @@
  * @version     $Id$
  * @link        http://www.zentao.net
  */
+$lang->colon = ' : ';
+
 /* Lang items for xirang. */
 $lang->xirangEPS = 'xirangEPS';
 $lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
@@ -139,7 +141,7 @@ $lang->error->date         = '『%s』应当为合法的日期。';
 $lang->error->account      = '『%s』应当为字母和数字的组合，至少三位';
 $lang->error->passwordsame = '两次密码应当相等。';
 $lang->error->passwordrule = '密码应该符合规则，长度至少为六位。';
-$lang->error->captcha      = '请输入正确的验证码';
+$lang->error->captcha      = '请输入正确的验证码。';
 
 /* The pager items. */
 $lang->pager = new stdclass();

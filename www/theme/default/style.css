@@ -238,6 +238,8 @@ tr.a-center .a-right {text-align:right}
 /*---------------------- FRONT ---------------------------*/
 /* global settings.*/
 .row{width: 100%; margin-left: 0;}
+.span4{margin-left: 0;}
+.span8{margin: 20px 0 0;}
 .span9{margin-left: 0;}
 .span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
 .navbar .navbar-inner {padding: 0;}

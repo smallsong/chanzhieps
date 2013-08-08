@@ -11,8 +11,9 @@ $mainNavs = navModel::getNavs('mainNav');
   <div class="masthead">
     <div class="row">
       <div id="topnav-menu" class="a-right"> <?php echo commonModel::printTopBar();?> </div>
+      <?php if(isset($logo)):?>
       <div class="span3">
-        <?php if(isset($logo)):?><img class="logo" src="<?php echo $logo->webPath?>"/><?php endif;?>
+        <img class="logo" src="<?php echo $logo->webPath?>"/>
       </div>
       <div class="span9 a-right">
         <div class="slogan">
@@ -20,6 +21,10 @@ $mainNavs = navModel::getNavs('mainNav');
           <span><?php echo $this->config->site->slogan;?> </span>
         </div>
       </div>
+      <?php else:?>
+      <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
+      <div class='span8 f-right'><?php echo $this->config->site->slogan;?></div>
+      <?php endif;?>
     </div>
     <div class="navbar">
       <div class="navbar-inner">

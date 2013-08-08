@@ -176,46 +176,4 @@ class commentModel extends model
 
         return $link;
     }
-    
-    /**
-     * Is garbage comment.
-     * 
-     * @param  string $content 
-     * @access public
-     * @return bool
-     */
-    public function isGarbage($content = '')
-    {
-        $isGarbage = false;
-        if(strpos($content, 'http://') !== false) return true;
-        $lineCount = preg_match_all('/(?<=href=)([^\>]*)(?=\>)/ ',$content, $out);
-        if($lineCount > 1) $isGarbage = true;
-        if($lineCount > 5) die();
-        if(preg_match('/\[url=.*\].*\[\/url\]/U', $content))die();
-        return false;
-    }
-
-    /**
-     * create captcha.
-     * 
-     * @access public
-     * @return void
-     */
-    public function createCaptcha()
-    {
-        $numberLang   = $this->lang->captcha->numbers;
-        $actionLang   = $this->lang->captcha->actions;
-        $action    = mt_rand(0, 2);
-        $actionKey = array_keys($actionLang);
-        $randMax   = 10;
-        $before    = mt_rand(0, $randMax);
-        $after     = mt_rand(0, $randMax);
-        $action    = $actionKey[$action];
-        $captcha   = $before . $action . $after;
-        eval("\$result = $captcha;");
-        $this->session->set('captcha', $result);
-        echo '<td>' . $this->lang->comment->captcha . '</td>';
-        echo '<td> <span class="label label-important" style="line-height:20px;">' . $numberLang[$before] . " $actionLang[$action] " . $numberLang[$after] . "</span>&nbsp;&nbsp;" . $this->lang->captcha->equal . "&nbsp;&nbsp;";
-        echo '<input type="text" name="captcha" id="captcha" class="w-20px" />' . $this->lang->captcha->notice . '</td>';
-    }
 }

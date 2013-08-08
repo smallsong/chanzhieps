@@ -14,7 +14,7 @@ $(document).ready(function()
         {
             if(response.reason == 'needChecking')
             {
-                $('#captchaBox').load(createLink('comment', 'createCaptcha')).show();
+                $('#captchaBox').html(response.captcha).show();
             }
         }
     });
