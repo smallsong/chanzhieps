@@ -20,3 +20,6 @@ ALTER TABLE `xr_thread` DROP `site`;
 
 -- change category to board for thread table.
 ALTER TABLE `xr_thread` CHANGE `category` `board` MEDIUMINT( 9 ) NOT NULL;
+
+-- change addedDate to join.
+ALTER TABLE `xr_user` CHANGE `addedDate` `join` DATETIME NOT NULL; 
