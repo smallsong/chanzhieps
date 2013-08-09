@@ -81,4 +81,27 @@ class forumModel extends model
     {
          return (time() - strtotime($board->lastPostedDate)) < 24 * 60 * 60 * $this->config->forum->newDays;
     }
+
+    /**
+     * Judge a user can post thread to a board or not.
+     * 
+     * @param  object    $board 
+     * @access public
+     * @return void
+     */
+    public function canPost($board)
+    {
+        /* If the board is an open one, return true. */
+        if($board->readonly == false) return true;
+
+        /* Then check the user is admin or not. */
+        if($this->app->user->admin == 'super') return true; 
+
+        /* Then check the user is a moderator or not. */
+        $user = ",{$this->app->user->account},";
+        $moderators = ',' . str_replace(' ', '', $board->moderators) . ',';
+        if(strpos($moderators, $user) !== false) return true;
+
+        return false;
+    }
 }
