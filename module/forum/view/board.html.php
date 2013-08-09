@@ -22,15 +22,18 @@
     </tr>  
   </thead>
   <tbody>
-    <?php foreach($stickThreads as $thread):?>
+    <?php foreach($sticks as $thread):?>
     <tr class='a-center'>
       <td class='w-10px red'><span class='sticky-thread'>&nbsp;</span></td>
-      <td class='a-left'><?php echo "<span class=red>{$lang->thread->stick}</span>" . $lang->arrow . html::a($this->createLink('thread', 'view', "id=$thread->id"), $thread->title);?></td>
+      <td class='a-left'>
+        <?php echo "<span class=red>{$lang->thread->stick}</span> "?>
+        <?php echo html::a($this->createLink('thread', 'view', "id=$thread->id"), $thread->title);?>
+      </td>
       <td class='a-left w-50px'><?php echo $thread->author;?></td>
       <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
       <td class='w-30px'><?php echo $thread->views;?></td>
       <td class='w-30px'><?php echo $thread->replies;?></td>
-      <td class='w-150px'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
+      <td class='a-left w-150px'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
     </tr>  
     <?php unset($threads[$thread->id]);?>
     <?php endforeach;?>
@@ -43,11 +46,11 @@
       <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
       <td class='w-30px'><?php echo $thread->views;?></td>
       <td class='w-30px'><?php echo $thread->replies;?></td>
-      <td class='w-150px'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
+      <td class='a-left w-150px'><?php if($thread->replies) echo substr($thread->lastRepliedDate, 5, -3) . ' ' . $thread->lastRepliedBy;?></td>  
     </tr>  
     <?php endforeach;?>
   </tbody>
   
-  <tfoot><tr><td colspan='8'><?php $pager->show('right', 'short');?></td></tr></tfoot>
+  <tfoot><tr><td colspan='7'><?php $pager->show('right', 'short');?></td></tr></tfoot>
 </table>
 <?php include '../../common/view/footer.html.php'; ?>

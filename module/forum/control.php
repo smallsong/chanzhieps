@@ -36,22 +36,31 @@ class forum extends control
      * @access public
      * @return void
      */
-    public function board($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function board($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
+        $board = $this->loadModel('tree')->getById($boardID);
+        if(!$board) die(js::locate('back'));
+
+        /* Set keywords and desc. */
+        $keywords = $this->view->board->keyword . '' . $this->config->site->keywords;
+        $desc     = strip_tags($this->view->board->desc);
+
+        /* Get stick threads. */
+        $sticks = $this->loadModel('thread')->getSticks($boardID);
+
+        /* Get common threads. */
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
+        $threads = $this->thread->getList($boardID, $orderBy, $pager);
 
-        $this->view->stickThreads  = $this->loadModel('thread')->getSticks($boardID);
-        $this->view->threads       = $this->thread->getList($boardID, $orderBy, $pager);
-        $this->view->pager         = $pager;
-        $this->view->board         = $this->loadModel('tree')->getById($boardID);
-        //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.board');
-        $this->view->title = $this->view->board->name;
-        if($this->view->board)
-        {
-            $this->view->keywords = trim($this->view->board->keyword . ' ' . $this->config->site->keywords);
-            if($this->view->board->desc) $this->view->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->board->desc));
-        }
+        $this->view->title     = $board->name;
+        $this->view->keyword   = $keywords;
+        $this->view->desc      = $desc;
+        $this->view->board     = $board;
+        $this->view->sticks    = $sticks;
+        $this->view->threads   = $threads;
+        $this->view->pager     = $pager;
+        //$this->view->layouts = $this->loadModel('block')->getLayouts('forum.board');
 
         $this->display();
     }
