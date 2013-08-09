@@ -46,20 +46,66 @@ class fileModel extends model
             ->orderBy('id')
             ->fetchAll('id');
 
-        /* Process urls. */
-        foreach($files as $file)
+        return $this->batchProcessFile($files);
+    }
+
+    /**
+     * Get files of an object list.
+     * 
+     * @param string $objectType 
+     * @param string $objects 
+     * @access public
+     * @return void
+     */
+    public function getByObjectList($objectType, $objects, $isImage = false)
+    {
+        $files = $this->dao->select('t1.*')
+            ->from(TABLE_FILE)->alias('t1')
+            ->leftJoin(TABLE_ARTICLE)->alias('t2')->on('t1.objectID = t2.id')
+            ->where('t1.objectType')->eq('article')
+            ->andWhere('t2.id')->in($objects)
+            ->beginIf($isImage)->andWhere('t1.extension')->in($this->config->file->imageExtensions)->fi()
+            ->fetchGroup('objectID');
+
+        foreach($files as $objectID => &$fileList)
         {
-            $file->fullURL   = $this->webPath . $file->pathname;
-            $file->middleURL = '';
-            $file->smallURL  = '';
-            $file->isImage   = false;
-            if(strpos('jpeg, jpg, gif, png ', strtolower($file->extension)) !== false)
-            {
-                $file->middleURL = $this->webPath . str_replace('f_', 'm_', $file->pathname);
-                $file->smallURL  = $this->webPath . str_replace('f_', 's_', $file->pathname);
-                $file->isImage   = true;
-            }
+            $fileList = $this->batchProcessFile($fileList);
         }
+        return $files;
+    }
+
+    /**
+     * processFile just is image and add smallURL and middleURL if necessary.
+     *
+     * @param  object $file
+     * @return object
+     */    
+    public function processFile($file)
+    {
+        $file->fullURL   = $this->webPath . $file->pathname;
+        $file->middleURL = '';
+        $file->smallURL  = '';
+
+        $file->isImage   = false;
+        if(in_array($this->config->file->imageExtensions, strtolower($file->extension)) !== false)
+        {
+            $file->middleURL = $this->webPath . str_replace('f_', 'm_', $file->pathname);
+            $file->smallURL  = $this->webPath . str_replace('f_', 's_', $file->pathname);
+            $file->isImage   = true;
+        }
+
+        return $file;
+    }
+    
+    /**
+     * batch run processFile function.
+     * 
+     * @param array $files
+     * @return array
+     */
+    public function batchProcessFile($files)
+    {
+        foreach($files as &$file) $file = $this->processFile($file);
         return $files;
     }
 

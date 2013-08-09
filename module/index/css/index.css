@@ -14,4 +14,7 @@
 a.latest-news{color: #5A5A5A; padding-left: 5px;}
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
 
+.span4 ul{margin: 0;}
+.span4 li{list-style: none; line-height: 27px;}
+
 

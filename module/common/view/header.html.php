@@ -4,8 +4,7 @@ include 'header.lite.html.php';
 if(isset($config->site->logo)) $logo = json_decode($this->config->site->logo);
 js::set('lang', $lang->js);
 
-$this->loadModel('nav');
-$mainNavs = navModel::getNavs('mainNav');
+$topNavs = $this->loadModel('nav')->getNavs('mainNav');
 ?>
 <div class="container">
   <div class="masthead">
@@ -23,27 +22,25 @@ $mainNavs = navModel::getNavs('mainNav');
       </div>
       <?php else:?>
       <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
-      <div class='span8 f-right'><?php echo $this->config->site->slogan;?></div>
+      <div class='span8 ml-zero mt-20px f-right'><?php echo $this->config->site->slogan;?></div>
       <?php endif;?>
     </div>
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
-          <ul id="mainNav" class="nav sf-menu sf-js-enabled">
-            <?php foreach($mainNavs[1] as $nav):?>
-            <li class="cat-item <?php echo $nav['class']?>"> 
-              <a href="<?php echo $nav['url'];?>"><?php echo $nav['title'];?></a>
-              <?php if(isset($mainNavs[2][$nav['key']])):?>
+          <ul id="topNav" class="nav sf-menu sf-js-enabled">
+            <?php foreach($topNavs as $nav1):?>
+            <li class="cat-item <?php echo $nav1->class?>"> 
+              <?php echo html::a($nav1->url, $nav1->title);?>
+              <?php if(!empty($nav1->children)):?>
               <ul class="grade2 children">
-                <?php foreach($mainNavs[2][$nav['key']] as $nav2):?>
-                <li class="cat-item <?php echo $nav['class']?>">
-                  <a href="<?php echo $nav2['url'];?>"><?php echo $nav2['title'];?></a>
-                  <?php if(isset($mainNavs[3][$nav2['key']])):?>
+                <?php foreach($nav1->children as $nav2):?>
+                <li class="cat-item <?php echo $nav2->class?>">
+                  <?php echo html::a($nav2->url, $nav2->title);?>
+                  <?php if(!empty($nav2->children)):?>
                   <ul class="grade3 children">
-                    <?php foreach($mainNavs[3][$nav2['key']] as $nav3):?>
-                    <li class="cat-item">
-                      <a href="<?php echo $nav3['url'];?>"><?php echo $nav3['title'];?></a>
-                    </li>
+                    <?php foreach($nav2->children as $nav3):?>
+                    <li class="cat-item"> <?php echo html::a($nav3->url, $nav3->title);?> </li>
                     <?php endforeach;?>
                   </ul>
                   <?php endif;?>

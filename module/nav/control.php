@@ -28,13 +28,25 @@ class nav extends control
             //a($navs);exit;
             if(isset($navs['2'])) $navs['2'] = $this->nav->group($navs['2']);
             if(isset($navs['3'])) $navs['3'] = $this->nav->group($navs['3']);
-            $settings =  array('mainNav' => json_encode($navs));
+            
+            foreach($navs[2] as &$navList)
+            {
+                foreach($navList as &$nav)
+                $nav['children'] = isset($navs[3][$nav['key']]) ?  $navs[3][$nav['key']] : array();
+            }
+            foreach($navs[1] as &$nav)
+            {
+                $nav['children'] = isset($navs[2][$nav['key']]) ?  $navs[2][$nav['key']] : array();
+            }
+
+            $settings =  array('topNav' => json_encode($navs[1]));
             $result   = $this->loadModel('setting')->setItems('system.common.nav', $settings);
             if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
 
-        $this->view->navs = $navs = json_decode($this->config->nav->mainNav,true);
+        $this->view->navs = json_decode($this->config->nav->mainNav,true);
+
         $this->view->types = $this->lang->nav->types; 
         $this->view->articleTree  = $this->loadModel('tree')->getOptionMenu('article');
 

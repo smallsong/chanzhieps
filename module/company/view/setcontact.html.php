@@ -11,7 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <form method="post" id="ajaxForm">
-  <table class="table table-bordered table-form">
+  <table class="table table-form">
     <caption><?php echo $lang->company->setContact;?></caption> 
     <tr>
       <th class="w-100px"><?php echo $lang->company->address?></th> 

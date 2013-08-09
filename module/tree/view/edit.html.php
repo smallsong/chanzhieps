@@ -10,7 +10,7 @@
  */
 ?>
 <form method='post' id='editForm' action='<?php echo inlink('edit', 'categoryID='.$category->id);?>' class='form-inline'>
-  <table class='table table-bordered table-form'> 
+  <table class='table table-form'> 
     <caption><?php echo $lang->tree->edit;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->category->parent;?></th>

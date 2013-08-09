@@ -1,10 +1,10 @@
 <?php
 /**
- * The model file of article category of xirangEPS.
+ * The model file of nav of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Xiying Guan
- * @package     xirangEPS
+ * @package     nav
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
@@ -13,61 +13,15 @@ class navModel extends model
     /**
      * get all navs 
      *
-     * @param string type
+     * @param  string $type
      * @return array
      */
-    public static function getNavs($type = 'mainNav')
+    public function getNavs($type = 'mainNav')
     {
         global $config;
 
         if(!isset($config->nav->$type)) return false;
-
-        $navs = json_decode($config->nav->mainNav, true);
-        foreach($navs[1] as &$nav) $nav = navModel::buildNav($nav); 
-
-        foreach($navs[2] as $parent => &$children)
-        {
-           foreach($children as &$nav) $nav['url'] = navModel::getUrl($nav);
-        }
-
-        foreach($navs[3] as $parent => &$children)
-        {
-           foreach($children as &$nav) $nav['url'] = navModel::getUrl($nav);
-        }
-
-        return $navs;
-    }
-
-    /**
-     * build url and class of nav.
-     *
-     * @param array $nav
-     * return array
-     */
-    public static function buildNav($nav)
-    {
-        $nav['url']    = navModel::getUrl($nav);
-
-        /* Add class attribue to highlight current menu. */
-        $nav['class']  = $nav['type'] . '_' . $nav[$nav['type']]; 
-
-        return $nav;
-    }
-
-    /**
-     * get url of a nav.
-     *
-     * @param  array $nav
-     * @return string
-     */
-    public static function getUrl($nav)
-    {
-        global $config;
-
-        if($nav['type'] == 'common')  return $config->nav->common->$nav['common'];   
-        if($nav['type'] == 'article') return helper::createLink('article', 'browse', "categoryID={$nav['article']}");
-
-        return $nav['url'];
+        return json_decode($config->nav->$type);
     }
 
     /**
@@ -79,7 +33,7 @@ class navModel extends model
      */
     public function createEntry($grade = 1, $nav = array())
     {
-       $childGrade    = $grade + 1;
+        $childGrade    = $grade + 1;
         $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
 
         $html .= '<i class="icon-folder-open shut"></i>';
@@ -143,6 +97,9 @@ class navModel extends model
         {
             foreach($navs as $field => $values) $organizeNavs[$i][$field] = $values[$i];
         }
+        
+        foreach($organizeNavs as &$nav) $nav = $this->buildNav($nav);
+
         return $organizeNavs;
     }
 
@@ -161,5 +118,37 @@ class navModel extends model
             $groupedNavs[$nav['parent']][] = $nav;
         }
         return $groupedNavs;
+    }
+
+    /**
+     * build url and class of nav.
+     *
+     * @param array $nav
+     * return array
+     */
+    public function buildNav($nav)
+    {
+        $nav['url'] = $this->getUrl($nav);
+
+        /* Add class attribue to highlight current menu. */
+        $nav['class']  = $nav['type'] . '_' . $nav[$nav['type']]; 
+
+        return $nav;
+    }
+
+    /**
+     * get url of a nav.
+     *
+     * @param  array $nav
+     * @return string
+     */
+    public function getUrl($nav)
+    {
+        global $config;
+
+        if($nav['type'] == 'common')  return $config->nav->common->$nav['common'];   
+        if($nav['type'] == 'article') return helper::createLink('article', 'browse', "categoryID={$nav['article']}");
+
+        return $nav['url'];
     }
 }

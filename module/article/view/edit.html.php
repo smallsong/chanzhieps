@@ -13,7 +13,7 @@
 <?php include '../../common/view/kindeditor.html.php';?>
 <?php include '../../common/view/chosen.html.php';?>
 <form method='post' class='form-inline' id='ajaxForm'>
-  <table class='table table-bordered table-form'>
+  <table class='table table-form'>
     <caption><?php echo $lang->article->edit;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>

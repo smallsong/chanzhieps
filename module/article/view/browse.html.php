@@ -14,15 +14,14 @@ include 'portal.html.php';
       <h4><?php echo $category->name;?></h4>
       <ul class='article-list'>
       <?php foreach($articles as $article):?>
-      <?php $files = $this->loadModel('file')->getByObject('article', $article->id);?>
         <li>
-          <?php if($files) foreach($files as $file):?>
-          <?php if($file->isImage && $file->primary)
-                { 
-                  echo html::a(inlink('view', "id=$article->id"), html::image($file->smallURL, "title='{$file->title}'"), '', "class='f-left article-img'");
-                }
+          <?php 
+          if(empty($article->images)) $firstImage = false;
+
+          $firstImage = $article->images[0];
+          $imageURL   = $firstImage ? $firstImage->smallURL : $themeRoot . 'default/images/main/noimage.jpg';
+          echo html::a(inlink('view', "id=$article->id"), html::image($imageURL, "title='{$file->title}'"), '', "class='f-left article-img'");
           ?>
-          <?php endforeach;?>
           <div class='f-right w-p75'>
             <h5 class='article-title'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
             <div class='meta'>

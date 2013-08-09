@@ -70,8 +70,13 @@ class articleModel extends model
             ->beginIF($categories)->andWhere('t1.category')->in($categories)->fi()
             ->fetchGroup('article', 'id');
 
+        $images = $this->loadModel('file')->getByObjectList('article', array_keys($articles), $isImage = true);
+
         /* Assign categories to it's article. */
         foreach($articles as $article) $article->categories = $categories[$article->id];
+
+        /* Assign images to it's article. */
+        foreach($articles as $article) $article->images = $images[$article->id];
 
         return $articles;
     }
