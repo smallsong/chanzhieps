@@ -68,7 +68,6 @@ class forum extends control
     /**
      * The admin page of board.
      * 
-     * @param string    $tree 
      * @param int       $boardID 
      * @param string    $orderBy 
      * @param int       $recTotal 
@@ -80,15 +79,15 @@ class forum extends control
     public function admin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
-        $this->loadModel('thread');
         $pager   = new pager($recTotal, $recPerPage, $pageID);
-        $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
-        $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
 
+        $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
+        $threads = $boards ? $this->loadModel('thread')->getList($boards, $orderBy, $pager) : array();
+
+        $this->view->title   = $this->view->board ? $this->view->board->name : $this->lang->forum->admin;
+        $this->view->board   = $this->loadModel('tree')->getById($boardID);
         $this->view->threads = $threads;
         $this->view->pager   = $pager;
-        $this->view->board   = $this->loadModel('tree')->getById($boardID);
-        $this->view->title   = $this->view->board ? $this->view->board->name : '';
 
         $this->display();
     }

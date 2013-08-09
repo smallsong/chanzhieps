@@ -1,8 +1,6 @@
 <?php include '../../common/view/header.admin.html.php'; ?>
 <table class='table table-hover table-bordered table-striped'>
-  <caption>
-    <div class='f-left'><?php echo $lang->forum->threadList;?></div>
-  </caption>
+  <caption><?php echo $lang->forum->threadList;?></caption>
   <thead>
     <tr class='a-center'>
       <th class='w-id'><?php echo $lang->thread->id;?></th>
@@ -22,9 +20,9 @@
       <td class='a-left'>
         <?php
         $iconRoot = $themeRoot . 'default/images/forum/';
-        $thread->isNew ? print(html::image($iconRoot . 'threadnew.gif')) : print(html::image($iconRoot . 'threadcommon.gif'));
+        echo $thread->isNew ? "<span class='new-board'>&nbsp;</span>" : "<span class='common-board'>&nbsp;</span>";
+        echo html::a(commonModel::createFrontLink('thread', 'view', "threadID=$thread->id"), $thread->title, '_blank');
         ?>
-        <?php echo html::a(commonModel::createFrontLink('thread', 'view', "threadID=$thread->id"), $thread->title, '_blank');?>
       </td>
       <td class='w-50px'><?php echo $thread->author;?></td>
       <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
