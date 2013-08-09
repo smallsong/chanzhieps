@@ -23,3 +23,6 @@ ALTER TABLE `xr_thread` CHANGE `category` `board` MEDIUMINT( 9 ) NOT NULL;
 
 -- change addedDate to join.
 ALTER TABLE `xr_user` CHANGE `addedDate` `join` DATETIME NOT NULL; 
+
+-- change the owners to moderators.
+ALTER TABLE `xr_category` CHANGE `owners` `moderators` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL; 
