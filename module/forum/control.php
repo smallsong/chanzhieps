@@ -119,14 +119,27 @@ class forum extends control
         $boards = $this->dao->select('id, name')->from(TABLE_CATEGORY)->where('type')->eq('forum')->andWhere('grade')->eq(2)->fetchPairs('id', 'name', false);
         foreach($boards as $boardID => $boardName)
         {
-            $newestPost = $this->dao->select('t1.id as threadID, t1.author, t1.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
+            $newestPost = $this->dao->select('t1.id as threadID, t1.author, t1.addedDate, t2.id as replyID')
+                ->from(TABLE_THREAD)->alias('t1')
                 ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
-                ->where('t1.category')->eq($boardID)->orderBy('t1.id desc, t2.id desc')->limit(1)->fetch('', false);
-            $newestReply = $this->dao->select('t2.thread as threadID, t2.author, t2.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
-                ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
-                ->where('t1.category')->eq($boardID)->orderBy('t2.id desc')->limit(1)->fetch('', false);
+                ->where('t1.category')->eq($boardID)
+                ->orderBy('t1.id desc, t2.id desc')
+                ->limit(1)
+                ->fetch();
 
-            $threadsAndReplies = $this->dao->select('COUNT(id) as threads, SUM(replies) as replies')->from(TABLE_THREAD)->where('category')->eq($boardID)->fetch('', false);
+            $newestReply = $this->dao->select('t2.thread as threadID, t2.author, t2.addedDate, t2.id as replyID')
+                ->from(TABLE_THREAD)->alias('t1')
+                ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
+                ->where('t1.category')->eq($boardID)
+                ->orderBy('t2.id desc')
+                ->limit(1)
+                ->fetch();
+
+            $threadsAndReplies = $this->dao->select('COUNT(id) as threads, SUM(replies) as replies')
+                ->from(TABLE_THREAD)
+                ->where('category')->eq($boardID)
+                ->fetch();
+
             $this->dao->update(TABLE_CATEGORY)
                 ->set('threads')->eq($threadsAndReplies->threads)
                 ->set('posts')->eq($threadsAndReplies->threads + $threadsAndReplies->replies)
