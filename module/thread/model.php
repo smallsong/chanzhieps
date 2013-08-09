@@ -101,16 +101,18 @@ class threadModel extends model
         if(!dao::isError())
         {
             $threadID = $this->dao->lastInsertID();
-            /* set cookie in thread author.*/
-            $this->setCookie($threadID, 'thread');
-            /* Upload file.*/
-            $this->uploadFile('thread', $threadID);
+            $this->setCookie($threadID, 'thread');    // Save the thread id to cookie.
+            $this->uploadFile('thread', $threadID);   // Upload files.
 
+            /* Update board stats. */
             $thread->threadID = $threadID;
             $thread->replyID  = 0;
             $this->loadModel('forum')->updateBoardStats($board, 'thread', $thread);
+
+            return true;
         }
-        return;
+
+        return false;
     }
 
     /**
