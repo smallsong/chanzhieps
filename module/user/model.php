@@ -13,14 +13,20 @@
 class userModel extends model
 {
     /**
-     * Get the user list of an site.
-     * 
+     * Get users List.
+     *
+     * @param object  $pager
+     * @param string  $userName
      * @access public
-     * @return array     the users.
+     * @return object 
      */
-    public function getList()
+    public function getList($pager, $userName = '')
     {
-        return $this->dao->select('*')->from(TABLE_USER)->orderBy('account')->fetchAll();
+        return $this->dao->select('*')->from(TABLE_USER)
+            ->beginIF($userName != '')->where('account')->like("%$userName%")->fi()
+            ->orderBy('id_asc')
+            ->page($pager)
+            ->fetchAll();
     }
 
     /**
@@ -236,23 +242,6 @@ class userModel extends model
     }
 
     /**
-     * Get users List 
-     *
-     * @param object  $pager
-     * @param string  $userName
-     * @access public
-     * @return object 
-     */
-    public function getUsers($pager, $userName = '')
-    {
-        return $this->dao->select('*')->from(TABLE_USER)
-            ->beginIF($userName != '')->where('account')->like("%$userName%")->fi()
-            ->orderBy('id_asc')
-            ->page($pager)
-            ->fetchAll();
-    }
-
-    /**
      * Forbid the user
      *
      * @param string $date
@@ -260,7 +249,7 @@ class userModel extends model
      * @access public
      * @return void
      */
-    public function forbid($date, $userID)
+    public function forbid($userID, $date)
     {
         switch($date)
         {
@@ -275,7 +264,7 @@ class userModel extends model
         $format = 'Y-m-d H:i:s';
 
         $date = date($format,$intdate);
-        $this->dao->update(TABLE_USER)->set('allowTime')->eq($date)->where('id')->eq($userID)->exec();
+        $this->dao->update(TABLE_USER)->where('id')->eq($userID)->set('allowTime')->eq($date)->exec();
 
         return !dao::isError();
     }
