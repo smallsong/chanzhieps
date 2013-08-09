@@ -25,6 +25,7 @@
       <td colspan='2'>
         <?php 
         $config->requestType = $config->frontRequestType;
+
         $objectViewURL = $this->createLink($comment->objectType, 'view', "id=$comment->objectID");
         if($comment->objectTitle != '')
         {
