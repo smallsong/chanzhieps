@@ -2,5 +2,5 @@ $(document).ready(function()
 {          
     // carousel pictures start.     
     $('#myCarousel').carousel();
-    $('#mainNav .common_home').addClass('active');
+    $('#topNav .common_home').addClass('active');
 })                     

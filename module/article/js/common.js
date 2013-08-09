@@ -14,7 +14,7 @@ $(document).ready(function()
     {
         $.each(eval(v.categoryPath), function(index, category) 
         { 
-            $('#mainNav .article_' + category).addClass('active');
+            $('#topNav .article_' + category).addClass('active');
         })
     }
 });
