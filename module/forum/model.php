@@ -18,8 +18,12 @@ class forumModel extends model
      */
     public function getBoards()
     {
-        $boards    = array();
-        $rawBoards = $this->dao->select('*')->from(TABLE_CATEGORY)->where('type')->eq('forum')->orderBy('grade, `order`')->fetchGroup('parent');
+        $boards = array();
+        $rawBoards = $this->dao->select('*')
+            ->from(TABLE_CATEGORY)
+            ->where('type')->eq('forum')
+            ->orderBy('grade, `order`')
+            ->fetchGroup('parent');
         if(!isset($rawBoards[0])) return $boards;
 
         foreach($rawBoards[0] as $parentBoard)
@@ -37,9 +41,9 @@ class forumModel extends model
     /**
      * Update status of boards.
      * 
-     * @param string $boardID 
-     * @param string $mode 
-     * @param string $post 
+     * @param  int    $boardID 
+     * @param  string $mode 
+     * @param  object $post 
      * @access public
      * @return void
      */
