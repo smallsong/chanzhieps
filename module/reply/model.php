@@ -82,9 +82,9 @@ class replyModel extends model
             /* Update the thread info. */
             $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, board')->fetch();
             $thread->replies += 1;
-            $thread->lastRepliedDate = helper::now();
-            $thread->lastRepliedBy   = $this->app->user->account;
-            $thread->lastReplyID     = $replyID;
+            $thread->repliedDate = helper::now();
+            $thread->repliedBy   = $this->app->user->account;
+            $thread->replyID     = $replyID;
             $this->dao->update(TABLE_THREAD)->data($thread)->where('id')->eq($threadID)->exec();
 
             /* Update board stats. */

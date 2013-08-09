@@ -31,7 +31,7 @@ class forumModel extends model
             if(isset($rawBoards[$parentBoard->id]))
             {
                 $parentBoard->childs = $rawBoards[$parentBoard->id];
-                foreach($parentBoard->childs as $childBoard) $childBoard->lastPostReplies = $this->dao->select('COUNT(id) as id')->from(TABLE_REPLY)->where('thread')->eq($childBoard->lastPostID)->fetch('id');
+                foreach($parentBoard->childs as $childBoard) $childBoard->lastPostReplies = $this->dao->select('COUNT(id) as id')->from(TABLE_REPLY)->where('thread')->eq($childBoard->postID)->fetch('id');
                 $boards[] = $parentBoard;
             }
         }
@@ -54,10 +54,10 @@ class forumModel extends model
             $this->dao->update(TABLE_CATEGORY)
                 ->set('threads = threads + 1')
                 ->set('posts = posts + 1')
-                ->set('lastPostedBy')->eq($post->author)
-                ->set('lastPostedDate')->eq($post->addedDate)
-                ->set('lastPostID')->eq($post->threadID)
-                ->set('lastReplyID')->eq(0)
+                ->set('postedBy')->eq($post->author)
+                ->set('postedDate')->eq($post->addedDate)
+                ->set('postID')->eq($post->threadID)
+                ->set('replyID')->eq(0)
                 ->where('id')->eq($boardID)
                 ->exec();
         }
@@ -65,10 +65,10 @@ class forumModel extends model
         {
             $this->dao->update(TABLE_CATEGORY)
                 ->set('posts = posts + 1')
-                ->set('lastPostedBy')->eq($post->author)
-                ->set('lastPostedDate')->eq($post->addedDate)
-                ->set('lastPostID')->eq($post->threadID)
-                ->set('lastReplyID')->eq($post->replyID)
+                ->set('postedBy')->eq($post->author)
+                ->set('postedDate')->eq($post->addedDate)
+                ->set('postID')->eq($post->threadID)
+                ->set('replyID')->eq($post->replyID)
                 ->where('id')->eq($boardID)
                 ->exec();
         }
@@ -83,7 +83,7 @@ class forumModel extends model
      */
     public function isNew($board)
     {
-         return (time() - strtotime($board->lastPostedDate)) < 24 * 60 * 60 * $this->config->forum->newDays;
+         return (time() - strtotime($board->postedDate)) < 24 * 60 * 60 * $this->config->forum->newDays;
     }
 
     /**
