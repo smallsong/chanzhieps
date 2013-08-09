@@ -20,20 +20,10 @@ class threadModel extends model
      */
     public function getById($threadID, $pager = null)
     {
-        $userReplies  = $this->cookie->rps;
-        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fetch('', false);
-        $thread->replies = $this->dao->select('*')->from(TABLE_REPLY)
-            ->where('thread')->eq($threadID)
-            ->andWhere("(INSTR('$userReplies', CONCAT('_',id,'_')) != 0 or hidden != '1' or author = '{$this->app->user->account}')") //exclude hide.
-            ->orderBy('id')->page($pager, false)->fetchAll('id', false);
-        $thread->files   = $this->loadModel('file')->getByObject('thread', $thread->id);
+        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fetch();
+        if(!$thread) return false;
 
-        if($thread->replies == true)
-        {
-            $replyFiles = $this->file->getByObject('reply', array_keys($thread->replies));
-
-            foreach($replyFiles as $fileID => $replyFile) $thread->replies[$replyFile->objectID]->files[$fileID] = $replyFile;
-        }
+        $thread->files = $this->loadModel('file')->getByObject('thread', $thread->id);
         return $thread;
     }
 
@@ -88,41 +78,6 @@ class threadModel extends model
     }
 
     /**
-     * Get replies of a user.
-     * 
-     * @param string $account       the account
-     * @param string $pager         the pager object
-     * @access public
-     * @return array
-     */
-    public function getReplyByUser($account, $pager)
-    {
-        $replies = $this->dao->select('t1.*, t2.title')->from(TABLE_REPLY)->alias('t1')
-            ->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.thread = t2.id')
-            ->where('t1.author')->eq($account)
-            ->orderBy('t1.id desc')
-            ->page($pager)
-            ->fetchAll('id');
-        return $replies;
-    }
-
-    /**
-     * Get the owners of one board.
-     * 
-     * @param string $thread 
-     * @access public
-     * @return string
-     */
-    public function getBoardOwners($thread)
-    {
-        $owners = $this->dao->select('owners')
-            ->from(TABLE_CATEGORY)->alias('t1')->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.id = t2.board')
-            ->where('t2.id')->eq($thread)
-            ->fetch('owners');
-        return $owners;
-    }
-
-    /**
      * Post a thread.
      * 
      * @param  int      $board 
@@ -159,33 +114,6 @@ class threadModel extends model
     }
 
     /**
-     * Reply a thread.
-     * 
-     * @param string $threadID 
-     * @access public
-     * @return void
-     */
-    public function reply($threadID)
-    {
-        $reply = fixer::input('post')
-            ->add('author', $this->app->user->account)
-            ->add('addedDate', helper::now())
-            ->add('thread', $threadID)
-            ->stripTags('content', $this->config->thread->editor->allowTags)
-            ->remove('yzm')
-            ->remove('recTotal')
-            ->remove('recPerPage')
-            ->remove('pageID')
-            ->remove('files,labels')
-            ->get();
-
-        if($this->loadModel('comment')->isGarbage($reply->content)) die();
-        
-        if(trim(strip_tags($reply->content)) == '') $reply->content = '';
-        return $this->saveReply($threadID, $reply);
-    }
-
-    /**
      * Set user reply Cookie. 
      * 
      * @param  int $replyID 
@@ -215,7 +143,7 @@ class threadModel extends model
      * @access public
      * @return void
      */
-    public function updateThread($threadId)
+    public function update($threadId)
     {
         $thread = fixer::input('post')
             ->add('editor', $this->session->user->account)
@@ -231,114 +159,22 @@ class threadModel extends model
     }
 
     /**
-     * Update reply.
-     * 
-     * @param string $replyId 
-     * @access public
-     * @return void
-     */
-    public function updateReply($replyId)
-    {
-        $reply = fixer::input('post')
-            ->add('editor', $this->session->user->account)
-            ->add('editedDate', helper::now())
-            ->stripTags('content', $this->config->thread->editor->allowTags)
-            ->remove('yzm,files,labels')
-            ->get();
-        $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyId)->exec();
-        /* Upload file.*/
-        $this->uploadFile('reply', $replyId);
-        return;
-    }
-
-    /**
      * Delete a thread.
      * 
      * @param string $threadID 
      * @access public
      * @return void
      */
-    public function deleteThread($threadID)
+    public function delete($threadID)
     {
         $this->dao->delete()->from(TABLE_THREAD)->where('id')->eq($threadID)->exec(false);
         $this->dao->delete()->from(TABLE_REPLY)->where('thread')->eq($threadID)->exec(false);
         return !dao::isError();
     }
 
-    public function hideThread($threadID)
+    public function hide($threadID)
     {
         $this->dao->update(TABLE_THREAD)->set('hidden')->eq(1)->where('id')->eq($threadID)->exec();
-    }
-    /**
-     * Hide a reply. 
-     * 
-     * @param  string $replyID 
-     * @access public
-     * @return void
-     */
-    public function hideReply($replyID)
-    {
-        $this->dao->update(TABLE_REPLY)->set('hidden')->eq(1)->where('id')->eq($replyID)->exec();
-    }
-
-    /**
-     * Delete a reply.
-     * 
-     * @param string $replyID 
-     * @access public
-     * @return void
-     */
-    public function deleteReply($replyID)
-    {
-        $this->dao->delete()->from(TABLE_REPLY)->where('id')->eq($replyID)->exec(false);
-        return !dao::isError();
-    }
-
-    /**
-     * Judge wether has edit priviledge or not.
-     * 
-     * @param string $user          the user to judge
-     * @param string $boardOwner    the owners of the board
-     * @param string $author        the author of the thread
-     * @access public
-     * @return void
-     */
-    public function hasEditPriv($user, $boardOwner, $author)
-    {
-        if($this->app->user->admin == 'super' or strpos($boardOwner, $user) !== false) return true;
-        return false;
-    }
-
-    /**
-     * Judge wether has Manage priviledge or not.
-     * 
-     * @param  string $user 
-     * @param  string $boardOwner 
-     * @access public
-     * @return array
-     */
-    public function hasManagePriv($user, $boardOwner)
-    {
-        if($this->app->user->admin == 'super' or strpos($boardOwner, $user) !== false) return true;
-        return false;
-    }
-
-    /**
-     * Extract users from thread.
-     * 
-     * @param  string $thread 
-     * @access public
-     * @return array
-     */
-    public function extractUsers($thread)
-    {
-        $users = array();
-        $users[$thread->author] = $thread->author;
-        if($thread->replies)
-        {
-            foreach($thread->replies as $reply) $users[$reply->author] = $reply->author;
-        }
-        return $users;
     }
 
     /**
@@ -357,38 +193,6 @@ class threadModel extends model
         }
     }
 
-    /**
-     * Save reply 
-     * 
-     * @param int    $threadID 
-     * @param string $reply 
-     * @access private
-     * @return int
-     */
-    private function saveReply($threadID, $reply)
-    {
-        $this->dao->insert(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->exec();
-
-        if(!dao::isError())
-        {
-            $replyID = $this->dao->lastInsertID();
-            /* Upload file.*/
-            $this->uploadFile('reply', $replyID);
-            $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, board')->fetch();
-
-            $thread->replies += 1;
-            $thread->lastRepliedDate = helper::now();
-            $thread->lastRepliedBy   = $this->app->user->account;
-            $thread->lastReplyID     = $replyID;
-            $this->dao->update(TABLE_THREAD)->data($thread)->where('id')->eq($threadID)->exec();
-
-            $reply->threadID = $threadID;
-            $reply->replyID  = $replyID;
-            $this->loadModel('forum')->updateBoardStats($thread->board, 'reply', $reply);
-        }
-
-        return;
-    }
 
     private function uploadFile($objectType, $objectID)
     {
@@ -396,30 +200,127 @@ class threadModel extends model
         if($files) $this->file->saveUpload($objectType, $objectID);
     }
 
-    public function printFiles($objectID, $files, $type= 'reply', $managePriv = false)
+    /**
+     * Print files of for a thread.
+     * 
+     * @param  object $thread 
+     * @param  bool   $canManage 
+     * @access public
+     * @return void
+     */
+    public function printFiles($thread, $canManage)
     {
-        if(empty($files)) return;
-        echo '<br /><br />' . $this->lang->thread->file . ":";
-        foreach($files as $file)
+        if(empty($thread->files)) return false;
+
+        echo $this->lang->thread->file;
+        foreach($thread->files as $file)
         {
-            echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title . '.' . $file->extension, '_blank', "style='text-decoration: underline'");
-            if($managePriv or $this->app->user->account == $file->addedBy) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&objectID=$objectID&objectType=$type"), 'Ｘ', '', "title='{$this->lang->delete}' class='deleter'");
+            $file->title .= ".$file->extension";
+            echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title, '_blank'); 
+            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "fileID=$file->id&threadID=$thread->id"), '[x]', '', "class='deleter'") . '</sub>';
             echo ' ';
         }
     }
 
     /**
-     * Set editor tools for current user. 
+     * Set the views counter + 1;
      * 
-     * @param  string    $owners 
+     * @param  int    $thread 
      * @access public
      * @return void
      */
-    public function setEditor($owners, $page)
+    public function plusCounter($thread)
     {
-        if($this->hasManagePriv($this->app->user->account, $owners))
+        $this->dao->update(TABLE_THREAD)->set('views = views + 1')->where('id')->eq($thread)->exec();
+    }
+
+    /**
+     * Get all speakers of one thread.
+     * 
+     * @param  object   $thread 
+     * @param  array    $replies 
+     * @access public
+     * @return array
+     */
+    public function getSpeakers($thread, $replies)
+    {
+        $speakers = array();
+        $speakers[$thread->author] = $thread->author;
+        if(!$replies) return $speakers;
+
+        foreach($replies as $reply) $speakers[$reply->author] = $reply->author;
+        return $speakers;
+    }
+
+    /**
+     * Can the user edit a thread or not.
+     * 
+     * @param boject $board    the board.
+     * @param string $author   the author of the thread
+     * @access public
+     * @return void
+     */
+    public function canEdit($board, $author)
+    {
+        /* If the board is readonly, only managers can edit it. */
+        if($board->readonly) return $this->canManage($board);
+
+        /* If the board is an open one, the author or managers can edit it. */
+        $user = $this->app->user->account;
+        if($user == $author) return true;
+        if($this->canManage($board->moderators)) return true;
+
+        return false;
+    }
+
+    /**
+     * Judge the user can manage current thread nor not.
+     * 
+     * @param  string $moderators 
+     * @access public
+     * @return array
+     */
+    public function canManage($moderators)
+    {
+        /* First check the user is admin or not. */
+        if($this->app->user->admin == 'super') return true; 
+
+        /* Then check the user is a moderator or not. */
+        $user = ",{$this->app->user->account},";
+        $moderators = ',' . str_replace(' ', '', $moderators) . ',';
+        if(strpos($moderators, $user) !== false) return true;
+
+        return false;
+    }
+
+    /**
+     * Set editor tools for current user. 
+     * 
+     * @param  string    $moderators 
+     * @access public
+     * @return void
+     */
+    public function setEditor($moderators, $page)
+    {
+        if($this->canManage($moderators))
         {
             $this->config->thread->editor->{$page}['tools'] = 'fullTools';
         }
+    }
+
+    /**
+     * Get the moderators of one board.
+     * 
+     * @param string $thread 
+     * @access public
+     * @return string
+     */
+    public function getModerators($thread)
+    {
+        return $this->dao->select('moderators')
+            ->from(TABLE_CATEGORY)->alias('t1')
+            ->leftJoin(TABLE_THREAD)->alias('t2')->on('t1.id = t2.board')
+            ->where('t2.id')->eq($thread)
+            ->fetch('moderators');
     }
 }
