@@ -13,12 +13,12 @@ $mainNavs = navModel::getNavs('mainNav');
       <div id="topnav-menu" class="a-right"> <?php echo commonModel::printTopBar();?> </div>
       <?php if(isset($logo)):?>
       <div class="span3">
-        <img class="logo" src="<?php echo $logo->webPath?>"/>
+        <img class="logo" src="<?php echo $logo->webPath?>" />
       </div>
-      <div class="span9 a-right">
+      <div class='span9 a-right'>
         <div class="slogan">
           <h3><?php echo $config->company->name;?></h3>
-          <span><?php echo $this->config->site->slogan;?> </span>
+          <span><?php echo $this->config->site->slogan;?></span>
         </div>
       </div>
       <?php else:?>
