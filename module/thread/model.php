@@ -45,17 +45,7 @@ class threadModel extends model
             ->fetchAll('id');
         if(!$threads) return array();
 
-        $now = time();
-        foreach($threads as $thread)
-        {
-            /* Hide the thread or not. */
-            if($thread->hidden and strpos($this->cookie->t, ",$thread->id,") === false) unset($threads[$thread->id]);
-
-            /* Judge the thread is new or not.*/
-            $thread->isNew = ($now - strtotime($thread->repliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
-        }
-
-        return $threads;
+        return $this->process($threads);
     }
 
     /**
@@ -83,8 +73,34 @@ class threadModel extends model
      */
     public function getByUser($account, $pager)
     {
-        $threads = $this->dao->select('*')->from(TABLE_THREAD)->where('author')->eq($account)->orderBy('repliedDate desc')->page($pager)->fetchAll('id');
-        $this->processThreads($threads);
+        $threads = $this->dao->select('*')
+            ->from(TABLE_THREAD)
+            ->where('author')->eq($account)
+            ->orderBy('repliedDate desc')
+            ->page($pager)
+            ->fetchAll('id');
+        return $this->process($threads);
+    }
+
+    /**
+     * Process threads.
+     * 
+     * @param  array    $threads 
+     * @access public
+     * @return array
+     */
+    public function process($threads)
+    {
+        $now = time();
+        foreach($threads as $thread)
+        {
+            /* Hide the thread or not. */
+            if($thread->hidden and strpos($this->cookie->t, ",$thread->id,") === false) unset($threads[$thread->id]);
+
+            /* Judge the thread is new or not.*/
+            $thread->isNew = ($now - strtotime($thread->repliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
+        }
+
         return $threads;
     }
 
