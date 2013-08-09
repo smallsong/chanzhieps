@@ -16,7 +16,8 @@
           <td></td>
           <td>
             <?php echo html::submitButton($lang->user->login->common, 'btn btn-primary');?>
-            <span id='responser' class='text-center'></span>
+            <?php echo html::hidden('referer', $referer);?>
+            <span id='responser' class='a-center'></span>
           </td>
         </tr>
       </table>
