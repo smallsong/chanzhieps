@@ -139,11 +139,11 @@ class threadModel extends model
     /**
      * Update thread.
      * 
-     * @param string $threadId 
+     * @param  int    $threadID 
      * @access public
      * @return void
      */
-    public function update($threadId)
+    public function update($threadID)
     {
         $thread = fixer::input('post')
             ->add('editor', $this->session->user->account)
@@ -152,10 +152,19 @@ class threadModel extends model
             ->remove('files,labels')
             ->get();
 
-        $this->dao->update(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->where('id')->eq($threadId)->exec();
+        $this->dao->update(TABLE_THREAD)
+            ->data($thread)
+            ->autoCheck()
+            ->batchCheck('title, content', 'notempty')
+            ->where('id')->eq($threadID)
+            ->exec();
+
+        if(dao::isError()) return false;
+
         /* Upload file.*/
-        $this->uploadFile('thread', $threadId);
-        return;
+        $this->uploadFile('thread', $threadID);
+
+        return true;
     }
 
     /**

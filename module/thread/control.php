@@ -58,22 +58,24 @@ class thread extends control
      */
     public function edit($threadID)
     {
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) die(js::locate('back'));
+
         /* Judge current user has priviledge to edit the thread or not. */
-        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('author, category')->fetch();
-        if(!$thread) exit;
-        $moderators = $this->dao->findById($thread->category)->from(TABLE_CATEGORY)->fields('moderators')->fetch('moderators');
-        if(!$this->thread->hasEditPriv($this->session->user->account, $moderators, $thread->author)) exit;
-        $thread->files = $this->loadModel('file')->getByObject('thread', $threadID);
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canEdit($moderators, $thread->author)) die(js::locate('back'));
 
         if($_POST)
         {
-            $this->thread->updateThread($threadID);
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate(inlink('view', "threaID=$threadID"), 'parent'));
+            $this->thread->update($threadID);
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
         }
-        $this->view->thread = $this->thread->getById($threadID);
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
+
+        $this->view->title  = $this->lang->thread->edit . $this->view->thread->title;
+        $this->view->thread = $thread;
+        $this->view->board  = $this->loadModel('tree')->getById($thread->board);
+
         $this->display();
     }
 
