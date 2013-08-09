@@ -20,8 +20,8 @@ class forum extends control
     {
         $this->view->title  = $this->lang->forum->common;
         $this->view->boards = $this->forum->getBoards();
-        //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.index');
-
+        //$this->view->layouts= $this->loadModel('block')->getLayouts('forum.index');
+        //
         $this->display();
     }
 
