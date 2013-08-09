@@ -22,7 +22,7 @@ $topNavs = $this->loadModel('nav')->getNavs('mainNav');
       </div>
       <?php else:?>
       <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
-      <div class='span8 f-right'><?php echo $this->config->site->slogan;?></div>
+      <div class='span8 ml-zero mt-20px f-right'><?php echo $this->config->site->slogan;?></div>
       <?php endif;?>
     </div>
     <div class="navbar">
