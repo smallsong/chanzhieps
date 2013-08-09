@@ -128,6 +128,11 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .pd-10px {padding: 10px}
 .pd-5px  {padding: 5px}
 
+.mt-20px {margin-top:    20px}
+.mr-20px {margin-right:  20px}
+.mb-20px {margin-bottom: 20px}
+.ml-20px {margin-left:   20px}
+
 .mt-10px {margin-top:    10px}
 .mr-10px {margin-right:  10px}
 .mb-10px {margin-bottom: 10px}
@@ -239,7 +244,6 @@ tr.a-center .a-right {text-align:right}
 /* global settings.*/
 .row{width: 100%; margin-left: 0;}
 .span4{margin-left: 0;}
-.span8{margin: 20px 0 0;}
 .span9{margin-left: 0;}
 .span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
 .navbar .navbar-inner {padding: 0;}

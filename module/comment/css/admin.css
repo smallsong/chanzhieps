@@ -1,3 +1,3 @@
 td.content-box{padding:8px 0;}
-.content-box textarea{width:95%; margin:0; border:none; resize:none;}
+.content-box textarea{width:95%; margin:0; border:none; resize:none; box-shadow: none;}
 .content-box textarea:focus{margin:0; border:none; box-shadow:none;}
