@@ -18,21 +18,21 @@
       <td>  
         <ul class="navList ulGrade1">
           <?php 
-          foreach($navs[1] as $nav)
+          foreach($navs as $nav)
           {
               echo '<li class="liGrade1">';
               echo $this->nav->createEntry(1, $nav);
-              if(isset($navs[2][$nav['key']]))
+              if(isset($nav['children']))
               {
                   echo '<ul class="ulGrade2">';
-                  foreach($navs[2][$nav['key']] as $nav2)
+                  foreach($nav['children'] as $nav2)
                   {
                       echo '<li class="liGrade2">';
                       echo $this->nav->createEntry(2, $nav2);
-                      if(isset($navs[3][$nav2['key']]))
+                      if(isset($nav2['children']))
                       {
                           echo '<ul class="ulGrade3">';
-                          foreach($navs[3][$nav2['key']] as $nav3)
+                          foreach($nav2['children'] as $nav3)
                           {
                               echo  '<li class="liGrade3">'. $this->nav->createEntry(3, $nav3) .'</li>';
                           }
