@@ -113,7 +113,7 @@ class threadModel extends model
         if(!dao::isError())
         {
             $threadID = $this->dao->lastInsertID();
-            $this->setCookie($threadID, 'thread');    // Save the thread id to cookie.
+            $this->saveCookie($threadID);             // Save the thread id to cookie.
             $this->uploadFile('thread', $threadID);   // Upload files.
 
             /* Update board stats. */
@@ -128,26 +128,18 @@ class threadModel extends model
     }
 
     /**
-     * Set user reply Cookie. 
+     * Save the thread id to cookie.
      * 
-     * @param  int $replyID 
+     * @param  int     $thread 
      * @access public
      * @return void
      */
-    public function setCookie($objectID, $objectType = 'reply')
+    public function saveCookie($thread)
     {
-        $objectID   = '_' . $objectID . '_';
-        $cookieName = $objectType == 'reply' ? 'rps' : 'threads';
-        $objectIDs  =  $this->cookie->$cookieName;
-        if(!$objectIDs)
-        {
-            $objectIDs = $objectID;
-        }
-        elseif(strpos($objectIDs, $objectID) === false)
-        {
-            $objectIDs .= $objectID;
-        }
-        setcookie($cookieName, $objectIDs, time() + 31104000);
+        $thread = ",$thread,";
+        $cookie = $this->cookie->t != false ? $this->cookie->t : '';
+        if(strpos($cookie, $thread) === false) $cookie .= $thread;
+        setcookie('t', $cookie , time() + 60 * 60 * 24 * 30);
     }
 
     /**
