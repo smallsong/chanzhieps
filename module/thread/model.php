@@ -38,12 +38,24 @@ class threadModel extends model
      */
     public function getList($board, $orderBy, $pager = null)
     {
-        $userThreads = $this->cookie->threads;
         $threads = $this->dao->select('*')->from(TABLE_THREAD)
-            ->where('board')->in($board)
-            ->andWhere("(INSTR('$userThreads', CONCAT('_',id,'_')) != 0 or hidden != 1 or author = '{$this->app->user->account}')") //exclude hide.
-            ->orderBy($orderBy)->page($pager, false)->fetchAll('id', false);
-        $this->processThreads($threads);
+            ->where('board')->eq($board)
+            ->orderBy($orderBy)
+            ->page($pager)
+            ->fetchAll('id');
+        if(!$threads) return array();
+
+        $now = time();
+        foreach($threads as $thread)
+        {
+            /* Hide the thread or not. */
+            if($thread->hidden and strpos($this->cookie->t, ",$thread->id,") === false) unset($threads[$thread->id]);
+
+            /* Judge the thread is new or not.*/
+            $date = substr($thread->lastRepliedDate, 0, 1) > 0 ? $thread->lastRepliedDate : $thread->addedDate;
+            $thread->isNew = ($now - strtotime($date)) < 24 * 60 * 60 * $this->config->thread->newDays;
+        }
+
         return $threads;
     }
 
@@ -187,23 +199,6 @@ class threadModel extends model
     {
         $this->dao->update(TABLE_THREAD)->set('hidden')->eq(1)->where('id')->eq($threadID)->exec();
     }
-
-    /**
-     * Process threads 
-     * 
-     * @param  array $threads 
-     * @access private
-     * @return void
-     */
-    private function processThreads($threads)
-    {
-        $now = time();
-        foreach($threads as $threadID => $thread)
-        {
-            $thread->isNew = ($now - strtotime($thread->lastRepliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
-        }
-    }
-
 
     private function uploadFile($objectType, $objectID)
     {
