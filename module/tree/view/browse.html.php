@@ -17,7 +17,7 @@ js::set('type', $type);
 <?php if(strpos($treeMenu, '<li>') !== false):?>
 <div class='row-fluid'>
   <div class='span4'>
-    <table class='table table-bordered'>
+    <table class='table'>
       <caption><?php echo $title;?></caption>
       <tr>
         <td><div id='treeMenuBox'><?php echo $treeMenu;?></div></td>

@@ -22,7 +22,7 @@
     <?php foreach($comments as $comment):?>
     <tr>
       <td rowspan='2' class='a-center'><strong><?php echo $comment->id;?></strong></td>
-      <td colspan='2'>
+      <td>
         <?php 
         $config->requestType = $config->frontRequestType;
 
@@ -44,10 +44,7 @@
 EOT;
         ?>
       </td>
-    </tr>
-    <tr>
-      <td class='content-box'><?php echo html::textarea('', $comment->content, "rows='2' class='area-1' spellcheck='false'");?></td>
-      <td class='a-center v-middle'>
+      <td rowspan='2' class='a-center v-middle'>
         <?php 
         echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, '', "class='deleter'");
         if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass,   '', "class='pass'");
@@ -57,6 +54,9 @@ EOT;
         if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pre' data-confirm='{$lang->comment->confirmPassPre}'");
         ?>
       </td>
+    </tr>
+    <tr>
+      <td class='content-box'><?php echo html::textarea('', $comment->content, "rows='2' class='area-1' spellcheck='false'");?></td>
     </tr>
     <?php endforeach;?>
   </tbody>

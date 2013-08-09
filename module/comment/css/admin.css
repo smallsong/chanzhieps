@@ -1,3 +1,4 @@
-td.content-box{padding:8px 0;}
-.content-box textarea{width:95%; margin:0; border:none; resize:none; box-shadow: none;}
-.content-box textarea:focus{margin:0; border:none; box-shadow:none;}
+.table-bordered tr td.content-box{border-left: 1px solid #DDD; border-bottom: 1px solid #DDD;}
+td.content-box{padding: 8px 0;}
+.content-box textarea{width: 95%; margin: 0; border: none; resize: none; box-shadow: none;}
+.content-box textarea:focus{margin: 0; border: none; box-shadow: none;}
