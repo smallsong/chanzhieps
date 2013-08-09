@@ -6,10 +6,10 @@
     <div class='f-left'>
       <?php 
       echo $board->name; 
-      if($board->owners) printf($lang->forum->lblOwner, trim($board->owners, ','));
+      if($board->moderators) printf($lang->forum->lblOwner, trim($board->moderators, ','));
       ?>
     </div>
-    <div class='f-right'><?php if(!$board->readonly) echo html::a($this->createLink('thread', 'post', "boardID=$board->id"), $lang->forum->post);?></div>
+    <div class='f-right'><?php if($this->forum->canPost($board)) echo html::a($this->createLink('thread', 'post', "boardID=$board->id"), $lang->forum->post);?></div>
   </caption>
   <thead>
     <tr class='a-center'>
@@ -48,6 +48,6 @@
     <?php endforeach;?>
   </tbody>
   
-  <tfoot><tr><td colspan='8'><?php $pager->show();?></td></tr></tfoot>
+  <tfoot><tr><td colspan='8'><?php $pager->show('right', 'short');?></td></tr></tfoot>
 </table>
 <?php include '../../common/view/footer.html.php'; ?>
