@@ -39,13 +39,15 @@ $config->front->groups->guest['user'][]    = 'register';
 /* For logged users. */
 $config->front->groups->user['thread'][]   = 'post';
 $config->front->groups->user['thread'][]   = 'reply';
-$config->front->groups->user['thread'][]   = 'editthread';
-$config->front->groups->user['thread'][]   = 'editreply';
+$config->front->groups->user['thread'][]   = 'edit';
 $config->front->groups->user['thread'][]   = 'post';
 $config->front->groups->user['thread'][]   = 'stick';
-$config->front->groups->user['thread'][]   = 'deletethread';
-$config->front->groups->user['thread'][]   = 'deletereply';
+$config->front->groups->user['thread'][]   = 'delete';
 $config->front->groups->user['thread'][]   = 'deletefile';
+
+$config->front->groups->user['reply'][]    = 'post';
+$config->front->groups->user['reply'][]    = 'edit';
+$config->front->groups->user['reply'][]    = 'delete';
 
 $config->front->groups->user['user'][]     = 'control';
 $config->front->groups->user['user'][]     = 'profile';
