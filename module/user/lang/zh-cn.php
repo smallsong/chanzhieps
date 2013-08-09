@@ -13,6 +13,8 @@ $lang->user->userList        = '会员列表';
 $lang->user->view            = "用户详情";
 $lang->user->create          = "添加用户";
 $lang->user->edit            = "编辑用户";
+$lang->user->changePassword  = "更改密码";
+$lang->user->newPassword     = "新密码";
 $lang->user->update          = "编辑用户";
 $lang->user->delete          = "删除用户";
 $lang->user->browse          = "浏览用户";
@@ -23,8 +25,6 @@ $lang->user->relogin         = "重新登录";
 $lang->user->asGuest         = "游客访问";
 $lang->user->goback          = "返回前一页";
 $lang->user->allUsers        = '全部用户';
-$lang->user->changePassword  = "更改密码";
-$lang->user->newPassword     = "新密码";
 $lang->user->submit          = "提交";
 
 $lang->user->profile     = '个人信息';
@@ -33,10 +33,10 @@ $lang->user->thread      = '我的主题';
 $lang->user->reply       = '我的回复';
 $lang->user->message     = '我的消息';
 
-$lang->user->inputUserName = '请输入用户名';
+$lang->user->inputUserName       = '请输入用户名';
 $lang->user->inputAccountOrEmail = '请输入用户名或Email';
-$lang->user->inputPassword = '请输入密码';
-$lang->user->searchUser    = '搜索';
+$lang->user->inputPassword       = '请输入密码';
+$lang->user->searchUser          = '搜索';
 
 $lang->user->errorDeny     = "抱歉，您无权访问『<b>%s</b>』模块的『<b>%s</b>』功能。请联系管理员获取权限。点击后退返回上页。";
 $lang->user->loginFailed   = "登录失败，请检查您的用户名或密码是否填写正确。";
@@ -54,7 +54,7 @@ $lang->user->forbidDate->threedays   = '三天';
 $lang->user->forbidDate->oneweek     = '一周';
 $lang->user->forbidDate->onemonth    = '一个月';
 $lang->user->forbidDate->forever     = '永久';
-$lang->user->operate             = '操作';
+$lang->user->operate                 = '操作';
 
 $lang->user->gendarList = new stdclass();
 $lang->user->gendarList->m = '男';
@@ -91,11 +91,11 @@ $lang->user->status    = '状态';
 $lang->user->alert     = '您的帐号已被禁用';
 
 $lang->user->register  = new stdclass();
-$lang->user->register->welcome    = '欢迎注册成为会员';
-$lang->user->register->why        = '欢迎注册成为我们的会员，您可以享受更多的服务。';
-$lang->user->register->lblUserInfo= '用户信息';
-$lang->user->register->lblAccount = '必须是三位以上的英文字母或数字';
-$lang->user->register->lblPassword= '数字和字母组成，六位以上';
+$lang->user->register->welcome     = '欢迎注册成为会员';
+$lang->user->register->why         = '欢迎注册成为我们的会员，您可以享受更多的服务。';
+$lang->user->register->lblUserInfo = '用户信息';
+$lang->user->register->lblAccount  = '必须是三位以上的英文字母或数字';
+$lang->user->register->lblPassword = '数字和字母组成，六位以上';
 
 $lang->user->notice = new stdclass();
 $lang->user->notice->password = '字母和数字组合，最少六位';
