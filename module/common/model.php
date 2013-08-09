@@ -559,16 +559,38 @@ class commonModel extends model
 
         return $link;
     }
-   public static function getContactLink($contactItem, $contactValue)
-   {
-       $link = '';        
-       switch ($contactItem)
-       {    
-           case 'qq' : $link = "tencent://message/?uin={$contactValue}&amp;Site=描述&amp;Menu=yes";
-           break;
-           case 'email' : $link = "mailto:{$contactValue}";
-           break;
-       }
-       return $link;
-   } 
+    /**
+     * get contact information.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getContact()
+    {
+        $contact = json_decode($this->config->company->contact);
+        foreach($contact as $item => $value)
+        switch($item)
+        {
+            case 'qq' : 
+                echo "<li>
+                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
+                        <a href='tencent://message/?uin={$value}&amp;Site={$this->config->company->name}&amp;Menu=yes'>{$value}</a>
+                      </li>";
+            break;
+            case 'email' : 
+                echo "<li>
+                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
+                        <a href='mailto:{$value}'>{$value}</a>
+                      </li>";
+            break;
+            case 'wangwang' :
+                echo "<li>
+                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
+                        <a href='http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8'>{$value}</a>
+                      </li>";
+            break;
+            default :
+                echo "<li><strong>{$this->lang->company->$item}{$this->lang->colon}</strong>$value</li>";     
+        }
+    }
 }

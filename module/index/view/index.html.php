@@ -1,8 +1,6 @@
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/treeview.html.php'; ?>
-<?php $LatestArticles =  articleModel::getLatest(0,8);
-      $contact        = json_decode($this->config->company->contact);
-?>
+<?php $LatestArticles =  articleModel::getLatest(0,8);?>
 <div id="myCarousel" class="carousel slide">
   <div class="carousel-inner">
     <div class="item active">
@@ -47,10 +45,7 @@
   </div>
   <div class="span4">
     <h4><?php echo $lang->index->contact;?></h4>
-    <?php foreach($contact as $item => $value):?>
-    <?php if($value == "") continue;?>
-    <p><strong><?php echo $lang->company->$item;?>:</strong><?php echo $value;?></p>
-    <?php endforeach;?>
+    <ul><?php $this->loadModel('common')->getContact();?></ul>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
