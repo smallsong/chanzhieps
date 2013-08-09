@@ -32,7 +32,7 @@
           {
               echo html::a('#reply', $lang->reply->common);
               if($this->thread->canEdit($board->moderators, $thread->author)) echo html::a(inlink('edit', "threadID=$thread->id"), $lang->edit);
-              if($this->thread->canManage($board->moderators)) echo html::a(inlink('delete', "threadID=$thread->id"), $lang->delete, '', 'class="deleter"');
+              if($this->thread->canManage($board->moderators)) echo html::a(inlink('delete', "threadID=$thread->id"), $lang->delete, '', "class='deleter'");
           }    
           else
           {
