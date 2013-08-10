@@ -316,7 +316,11 @@ class commonModel extends model
     {
         echo '<ul class="breadcrumb">';
         echo '<li>' . $this->lang->currentPos . $this->lang->colon . html::a($this->config->webRoot, $this->lang->home) . '</li>';
-        $funcName = 'print' . $this->app->getModuleName();
+
+        $moduleName = $this->app->getModuleName();
+        $moduleName = $moduleName == 'reply' ? 'thread' : $moduleName;
+        $funcName = "print$moduleName";
+
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
     }
