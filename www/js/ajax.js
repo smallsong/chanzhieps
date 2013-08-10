@@ -197,6 +197,9 @@ $.extend(
                     }
                 }
 
+                /* If the response has locate param, locate the browse. */
+                if(response.locate) return location.href = response.locate;
+
                 /* If target and source returned in reponse, update target with the source. */
                 if(response.target && response.source)
                 {
