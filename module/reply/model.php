@@ -172,8 +172,8 @@ class replyModel extends model
      */
     public function saveCookie($reply)
     {
-        $reply = ",$reply,";
-        $cookie = $this->cookie->r != false ? $this->cookie->r : '';
+        $reply = "$reply,";
+        $cookie = $this->cookie->r != false ? $this->cookie->r : ',';
         if(strpos($cookie, $reply) === false) $cookie .= $reply;
         setcookie('r', $cookie , time() + 60 * 60 * 24 * 30);
     }
