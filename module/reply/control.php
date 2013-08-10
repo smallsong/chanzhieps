@@ -1,6 +1,6 @@
 <?php
 /**
- * The control file of reply category of xirangEPS.
+ * The control file of reply module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -13,7 +13,7 @@ class reply extends control
     /**
      * Reply a thread.
      * 
-     * @param int $threadID 
+     * @param  int      $threadID 
      * @access public
      * @return void
      */
@@ -23,9 +23,9 @@ class reply extends control
 
         if($_POST)
         {
-            $replyID = $this->reply->reply($threadID);
-            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            $replyID = $this->reply->post($threadID);
 
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
             $this->send(array('result' => 'success', 'locate' => $this->createLink('thread', 'view', "threadID=$threadID")));
         }
     }

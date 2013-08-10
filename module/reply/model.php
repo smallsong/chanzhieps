@@ -57,18 +57,18 @@ class replyModel extends model
     /**
      * Reply a thread.
      * 
-     * @param string $threadID 
+     * @param  int      $threadID 
      * @access public
      * @return void
      */
-    public function reply($threadID)
+    public function post($threadID)
     {
         $reply = fixer::input('post')
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
             ->add('thread', $threadID)
             ->stripTags('content', $this->config->thread->editor->allowTags)
-            ->remove('captcha, recTotal, recPerPage, pageID, files, labels')
+            ->remove('recTotal, recPerPage, pageID, files, labels')
             ->get();
 
         $this->dao->insert(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->exec();
@@ -91,18 +91,20 @@ class replyModel extends model
             $reply->threadID = $threadID;
             $reply->replyID  = $replyID;
             $this->loadModel('forum')->updateBoardStats($thread->board, 'reply', $reply);
+
+            return $replyID;
         }
-        return;
+        return false;
     }
 
     /**
      * Update reply.
      * 
-     * @param string $replyId 
+     * @param string $replyID 
      * @access public
      * @return void
      */
-    public function update($replyId)
+    public function update($replyID)
     {
         $reply = fixer::input('post')
             ->add('editor', $this->session->user->account)
@@ -110,9 +112,9 @@ class replyModel extends model
             ->stripTags('content', $this->config->thread->editor->allowTags)
             ->remove('yzm,files,labels')
             ->get();
-        $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyId)->exec();
+        $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyID)->exec();
         /* Upload file.*/
-        $this->uploadFile('reply', $replyId);
+        $this->uploadFile('reply', $replyID);
         return;
     }
 
@@ -153,12 +155,12 @@ class replyModel extends model
     {
         if(empty($reply->files)) return false;
 
-        echo '<br /><br />' . $this->lang->reply->file . ":";
+        echo $this->lang->reply->files; 
         foreach($reply->files as $file)
         {
-            $file->title .= ".$file->extension";
-            echo html::a(helper::createLink('file', 'download', "fileID=$file->id", $file->title)); 
-            if($canManage) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&replyID=$reply->id"), 'Ｘ', '', "class='deleter'");
+            $file->title = $file->title . ".$file->extension";
+            echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title, '_blank'); 
+            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "fileID=$file->id&replyID=$reply->id"), '[x]', '', "class='deleter'") . '</sub>';
             echo ' ';
         }
     }
