@@ -30,16 +30,16 @@ class threadModel extends model
     /**
      * Get threads list.
      * 
-     * @param int    $board      the board
-     * @param string $orderBy       the order by 
-     * @param string $pager         the pager object
+     * @param string $board      the boards
+     * @param string $orderBy    the order by 
+     * @param string $pager      the pager object
      * @access public
      * @return array
      */
     public function getList($board, $orderBy, $pager = null)
     {
         $threads = $this->dao->select('*')->from(TABLE_THREAD)
-            ->where('board')->eq($board)
+            ->where('board')->in($board)
             ->orderBy($orderBy)
             ->page($pager)
             ->fetchAll('id');
@@ -91,7 +91,6 @@ class threadModel extends model
      */
     public function process($threads)
     {
-        $now = time();
         foreach($threads as $thread)
         {
             /* Hide the thread or not. */
@@ -153,8 +152,8 @@ class threadModel extends model
      */
     public function saveCookie($thread)
     {
-        $thread = ",$thread,";
-        $cookie = $this->cookie->t != false ? $this->cookie->t : '';
+        $thread = "$thread,";
+        $cookie = $this->cookie->t != false ? $this->cookie->t : ',';
         if(strpos($cookie, $thread) === false) $cookie .= $thread;
         setcookie('t', $cookie , time() + 60 * 60 * 24 * 30);
     }
@@ -204,9 +203,17 @@ class threadModel extends model
         return !dao::isError();
     }
 
+    /**
+     * Hide a thread.
+     * 
+     * @param  int    $threadID 
+     * @access public
+     * @return void
+     */
     public function hide($threadID)
     {
         $this->dao->update(TABLE_THREAD)->set('hidden')->eq(1)->where('id')->eq($threadID)->exec();
+        return !dao::isError();
     }
 
     /**

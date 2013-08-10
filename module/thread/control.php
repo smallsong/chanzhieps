@@ -124,42 +124,40 @@ class thread extends control
      */
     public function delete($threadID)
     {
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) $this->send(array('result' => 'fail', 'message' => 'Not found'));
+
         $moderators = $this->thread->getModerators($threadID);
         if(!$this->thread->canManage($moderators)) $this->send(array('result' => 'fail'));
 
-        $thread = $this->thread->getByID($threadID);
-        $locate = helper::createLink('forum', 'board', $thread->board);
+        $locate = helper::createLink('forum', 'board', "board=$thread->board");
         if($this->thread->delete($threadID)) $this->send(array('result' => 'success', 'locate' => $locate));
 
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
    
     /**
-     * Hide a reply.
+     * Hide a thread.
      * 
-     * @param  string $replyID 
-     * @param  string $confirm 
+     * @param  int    $threadID 
      * @access public
      * @return void
      */
-    public function hide($objectType, $objectID, $confirm = 'no')
+    public function hide($threadID)
     {
-        $thread = $objectType == 'reply' ? $this->dao->findById($objectID)->from(TABLE_REPLY)->fields('thread')->fetch('thread') : $objectID;
-        $moderators = $this->thread->getBoardOwners($thread);
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) $this->send(array('result' => 'fail', 'message' => 'Not found'));
 
-        if(!$this->thread->hasManagePriv($this->session->user->account, $moderators)) die();
-        if($confirm == 'no')
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canManage($moderators)) $this->send(array('result' => 'fail'));
+
+        if($this->thread->hide($threadID))
         {
-            $hideType = "confirmHide" . ucfirst($objectType);
-            echo js::confirm($this->lang->thread->$hideType, inlink('hidePost', "objectType=$objectType&objectID=$objectID&confirm=yes"));
-            exit;
+            $locate = helper::createLink('forum', 'board', "board=$thread->board");
+            $this->send(array('result' => 'success', 'locate' => $locate));
         }
-        else
-        {
-            $funcName = 'hide' . ucfirst($objectType);
-            $this->thread->$funcName($objectID);
-            die(js::reload('parent'));
-        }
+
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 
     /**

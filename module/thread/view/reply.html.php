@@ -27,8 +27,8 @@
       if($this->app->user->account != 'guest')
       {
           echo html::a('#reply', $lang->reply->common);
-          if($this->thread->canEdit($board, $reply->author)) echo html::a(inlink('editReply', "replyID=$reply->id"), $lang->edit);
-          if($this->thread->canManage($board->moderators)) echo html::a(inlink('deleteReply', "replyID=$reply->id"), $lang->delete, '', 'class="deleter"');
+          if($this->thread->canEdit($board, $reply->author)) echo html::a(inlink('edit', "replyID=$reply->id"), $lang->edit);
+          if($this->thread->canManage($board->moderators)) echo html::a(inlink('delete', "replyID=$reply->id"), $lang->delete, '', 'class="deleter"');
       }
       else
       {

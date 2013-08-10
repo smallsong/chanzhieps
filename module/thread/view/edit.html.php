@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->thread->content;?></th>
-      <td><?php echo html::textarea('content', htmlspecialchars($thread->content), "rows=20 class='area-1' tabindex=1");?></td>
+      <td><?php echo html::textarea('content', htmlspecialchars($thread->content), "rows='15' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->thread->file;?></th>
