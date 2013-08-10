@@ -123,7 +123,6 @@ class threadModel extends model
             ->remove('files, labels')
             ->get();
 
-        if(trim(strip_tags($thread->content) == '')) $thread->content = '';
         $this->dao->insert(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
 
         if(!dao::isError())
@@ -137,7 +136,7 @@ class threadModel extends model
             $thread->replyID  = 0;
             $this->loadModel('forum')->updateBoardStats($board, 'thread', $thread);
 
-            return true;
+            return $threadID;
         }
 
         return false;

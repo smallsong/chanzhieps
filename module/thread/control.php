@@ -37,10 +37,10 @@ class thread extends control
         /* User posted a thread, try to save it to database. */
         if($_POST)
         {
-            $result = $this->thread->post($boardID);
+            $threadID = $this->thread->post($boardID);
             if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
 
-            $locate = $this->createLink('forum', 'board', "boardID=$boardID");
+            $locate = inlink('view', "threadID=$threadID");
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' =>$locate));
         }
 
