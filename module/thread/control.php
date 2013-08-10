@@ -58,6 +58,8 @@ class thread extends control
      */
     public function edit($threadID)
     {
+        if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
+
         $thread = $this->thread->getByID($threadID);
         if(!$thread) die(js::locate('back'));
 
