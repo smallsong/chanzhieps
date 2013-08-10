@@ -39,26 +39,30 @@ class reply extends control
      */
     public function edit($replyID)
     {
-        /* Judge current user has priviledge to edit the reply or not. */
-        $reply = $this->dao->findById($replyID)->from(TABLE_REPLY)->fetch();
-        if(!$reply) exit;
-        $owners = $this->thread->getBoardOwners($reply->thread);
-        
-        if(!$this->thread->hasEditPriv($this->session->user->account, $owners, $reply->author)) exit;
+        if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
 
+        /* Judge current user has priviledge to edit the reply or not. */
+        $reply = $this->reply->getByID($replyID);
+        if(!$reply) die(js::locate('back'));
+
+        $moderators = $this->loadModel('thread')->getModerators($reply->thread);
+        if(!$this->thread->canEdit($moderators, $reply->author)) die(js::locate('back'));
+
+        $thread = $this->thread->getByID($reply->thread);
+        
         if($_POST)
         {
-            if($this->loadModel('comment')->isGarbage($_POST['content'])) die();
-            $this->thread->updateReply($replyID);
-            $threadID = $this->dao->findById($replyID)->from(TABLE_REPLY)->fields('thread')->fetch('thread');
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate(inlink('view', "threaID=$threadID"), 'parent'));
+            $this->reply->update($replyID);
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
+
+            $this->send(array('result' => 'success', 'locate' => $this->createLink('thread', 'view', "threaID=$thread->id")));
         }
-        $reply->files       = $this->loadModel('file')->getByObject('reply', $replyID);
+
+        $this->view->title  = $this->lang->reply->edit . $this->lang->colon . $thread->title;
         $this->view->reply  = $reply;
-        $this->view->thread = $this->thread->getByID($this->view->reply->thread);
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
+        $this->view->thread = $thread;
+        $this->view->board  = $this->loadModel('tree')->getById($thread->board);
+
         $this->display();
     }
 

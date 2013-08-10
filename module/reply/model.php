@@ -11,6 +11,22 @@
 class replyModel extends model
 {
     /**
+     * Get a reply by it's id.
+     * 
+     * @param  int    $replyID 
+     * @access public
+     * @return object
+     */
+    public function getByID($replyID)
+    {
+        $reply = $this->dao->findById($replyID)->from(TABLE_REPLY)->fetch();
+        if(!$reply) return false;
+
+        $reply->files = $this->loadModel('file')->getByObject('reply', $replyID);
+        return $reply;
+    }
+
+    /**
      * Get replies of a thread.
      * 
      * @param  int    $thread 
@@ -98,9 +114,9 @@ class replyModel extends model
     }
 
     /**
-     * Update reply.
+     * Update a reply.
      * 
-     * @param string $replyID 
+     * @param  int      $replyID 
      * @access public
      * @return void
      */
@@ -110,18 +126,24 @@ class replyModel extends model
             ->add('editor', $this->session->user->account)
             ->add('editedDate', helper::now())
             ->stripTags('content', $this->config->thread->editor->allowTags)
-            ->remove('yzm,files,labels')
+            ->remove('files,labels')
             ->get();
+
         $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyID)->exec();
-        /* Upload file.*/
-        $this->uploadFile('reply', $replyID);
-        return;
+
+        if(!dao::isError())
+        {
+            $this->loadModel('file')->saveUpload('reply', $replyID);
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Hide a reply. 
      * 
-     * @param  string $replyID 
+     * @param  int      $replyID 
      * @access public
      * @return void
      */
