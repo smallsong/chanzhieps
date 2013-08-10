@@ -182,7 +182,7 @@ class replyModel extends model
         {
             $file->title = $file->title . ".$file->extension";
             echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title, '_blank'); 
-            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "fileID=$file->id&replyID=$reply->id"), '[x]', '', "class='deleter'") . '</sub>';
+            if($canManage) echo '<sub>' . html::a(helper::createLink('thread', 'deleteFile', "threadID=$reply->thread&fileID=$file->id"), '[x]', '', "class='deleter'") . '</sub>';
             echo ' ';
         }
     }

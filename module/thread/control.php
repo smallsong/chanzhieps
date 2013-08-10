@@ -183,6 +183,7 @@ class thread extends control
     /**
      * Delete a file.
      * 
+     * @param  int    $threadID 
      * @param  int    $fileID 
      * @access public
      * @return void
