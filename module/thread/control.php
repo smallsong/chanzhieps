@@ -124,7 +124,7 @@ class thread extends control
      * @access public
      * @return void
      */
-    public function delete($threadID)
+    public function delete($threadID, $fileID)
     {
         $thread = $this->thread->getByID($threadID);
         if(!$thread) $this->send(array('result' => 'fail', 'message' => 'Not found'));
@@ -181,18 +181,22 @@ class thread extends control
     }
 
     /**
-     * delete a file from object.
-     *
-     * @param int    $fileID
-     * @param int    $objectID
-     * @param string $objectType
-     *
+     * Delete a file.
+     * 
+     * @param  int    $fileID 
+     * @access public
+     * @return void
      */
-    public function deleteFile($fileID)
+    public function deleteFile($threadID, $fileID)
     {
-        $table  = $objectType == 'thread' ? TABLE_THREAD : TABLE_REPLY;
-        $object = $this->dao->findByID($objectID)->from($table)->fetch();
-        if($this->session->user->account != $object->author) exit;
+        if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
+
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) die(js::locate('back'));
+
+        /* Judge current user has priviledge to edit the thread or not. */
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canEdit($moderators, $thread->author)) die(js::locate('back'));
 
         if($this->loadModel('file')->delete($fileID)) $this->send(array('result'=>'success'));
         $this->send(array('result'=>'fail', 'message'=> dao::getError()));

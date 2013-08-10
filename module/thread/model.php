@@ -232,7 +232,7 @@ class threadModel extends model
         {
             $file->title .= ".$file->extension";
             echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title, '_blank'); 
-            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "fileID=$file->id&threadID=$thread->id"), '[x]', '', "class='deleter'") . '</sub>';
+            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "threadID=$thread->id&fileID=$file->id"), '[x]', '', "class='deleter'") . '</sub>';
             echo ' ';
         }
     }
