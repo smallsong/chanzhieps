@@ -106,18 +106,11 @@ class commonModel extends model
     public static function hasPriv($module, $method)
     {
         global $app, $config;
+
         if(RUN_MODE == 'admin')
         {
             if($app->user->admin == 'no')    return false;
             if($app->user->admin == 'super') return true;
-        }
-        if(RUN_MODE == 'front')
-        {
-            if(
-                isset($config->front->groups->guest[$module]) 
-                && in_array($method, $config->front->groups->guest[$module])
-              ) return true;
-              return isset($config->front->groups->user[$module]) && in_array($method, $config->front->groups->user[$module]);
         }
 
         $rights  = $app->user->rights;
@@ -402,6 +395,7 @@ class commonModel extends model
         $user->account  = 'guest';
         $user->realname = 'guest';
         $user->admin    = RUN_MODE == 'cli' ? 'super' : 'no';
+        $user->rights   = $this->config->rights->guest;
 
         $this->session->set('user', $user);
         $this->app->user = $this->session->user;

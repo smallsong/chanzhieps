@@ -91,6 +91,9 @@ class user extends control
             $user = $this->user->identify($this->post->account, $this->post->password);
             if($user)
             {
+                /* Authorize the user. */
+                $user->rights = $this->user->authorize($user);
+
                 /* Register the session. */
                 $this->session->set('user', $user);
                 $this->app->user = $this->session->user;
