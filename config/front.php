@@ -36,12 +36,19 @@ $config->rights->guest['rss']['index']     = 'index';
 $config->rights->guest['file']['download'] = 'download';
 
 /* For logged member. */
-$config->rights->member['thread']['post']  = 'post';
-$config->rights->member['thread']['reply'] = 'reply';
-$config->rights->member['thread']['edit']  = 'edit';
+$config->rights->member['thread']['post']       = 'post';
+$config->rights->member['thread']['reply']      = 'reply';
+$config->rights->member['thread']['edit']       = 'edit';
+$config->rights->member['thread']['hide']       = 'hide';
+$config->rights->member['thread']['stick']      = 'stick';
+$config->rights->member['thread']['delete']     = 'delete';
+$config->rights->member['thread']['deletefile'] = 'deletefile';
 
-$config->rights->member['reply']['post'] = 'post';
-$config->rights->member['reply']['eidt'] = 'edit';
+$config->rights->member['reply']['post']       = 'post';
+$config->rights->member['reply']['eidt']       = 'edit';
+$config->rights->member['reply']['hide']       = 'hide';
+$config->rights->member['reply']['delete']     = 'delete';
+$config->rights->member['reply']['deletefile'] = 'deletefile';
 
 $config->rights->member['user']['control'] = 'control';
 $config->rights->member['user']['profile'] = 'profile';
