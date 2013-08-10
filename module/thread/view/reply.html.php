@@ -25,7 +25,7 @@
         {
             echo html::a('#reply', $lang->reply->common);
             if($this->thread->canEdit($board, $reply->author)) echo html::a($this->createLink('reply', 'edit',   "replyID=$reply->id"), $lang->edit);
-            if($this->thread->canManage($board->moderators))   echo html::a($this->createLink('reply', 'delete', "replyID=$reply->id"), $lang->delete, '', "class='deleter'");
+            //if($this->thread->canManage($board->moderators)) echo html::a($this->createLink('reply', 'delete', "replyID=$reply->id"), $lang->delete, '', "class='deleter'");
         }
         else
         {

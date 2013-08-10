@@ -320,7 +320,6 @@ class commonModel extends model
         $moduleName = $this->app->getModuleName();
         $moduleName = $moduleName == 'reply' ? 'thread' : $moduleName;
         $funcName = "print$moduleName";
-
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
     }

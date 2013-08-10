@@ -124,7 +124,7 @@ class thread extends control
      * @access public
      * @return void
      */
-    public function delete($threadID, $fileID)
+    public function delete($threadID)
     {
         $thread = $this->thread->getByID($threadID);
         if(!$thread) $this->send(array('result' => 'fail', 'message' => 'Not found'));
