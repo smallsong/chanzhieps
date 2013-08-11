@@ -43,11 +43,11 @@ class commonModel extends model
         if(isset($this->config->system->common))
         {
             foreach($this->config->system->common as $record)
-            {
+            {   
                 if($record->section)
                 {
                     if(!isset($this->config->{$record->section})) $this->config->{$record->section} = new stdclass();
-                    $this->config->{$record->section}->{$record->key} = $record->value;
+                    if($record->key) $this->config->{$record->section}->{$record->key} = $record->value;
                 }
                 else
                 {
