@@ -503,7 +503,7 @@ class commonModel extends model
     public function printForum($board = '')
     {
         $divider = $this->getPositionDivder();
-        echo $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forum->common);
+        echo $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome);
         if(!$board) return false;
 
         unset($board->pathNames[key($board->pathNames)]);
