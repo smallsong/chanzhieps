@@ -301,14 +301,14 @@ class user extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $users = $this->user->getUsers($pager);
-
-        if(!empty($_POST))
-        {
-            $userName = fixer::input('post')->get();
-            $users    = $this->user->getUsers($pager, $userName->userName);
-        }
+        $users = $this->user->getList($pager);
  
+        if(!empty($_GET))
+        {
+            $userName = fixer::input('get')->get();
+            $users    = $this->user->getList($pager, $userName->userName);
+        }
+
         $this->view->users = $users;
         $this->view->pager = $pager;
         $this->display();
@@ -321,11 +321,11 @@ class user extends control
      * @param int    $userID
      * @return viod
      */
-    public function forbid($date, $userID)
+    public function forbid($userID, $date)
     {
-        if(!isset($this->lang->user->forbidDate->$date) or !$userID) $this->send(array('message' => $this->lang->user->forbidFail));       
+        if(!$userID or !isset($this->lang->user->forbidDate->$date)) $this->send(array('message' => $this->lang->user->forbidFail));       
 
-        $result = $this->user->forbid($date, $userID);
+        $result = $this->user->forbid($userID, $date);
         if($result)
         {
             $this->send(array('result'=>'success', 'message' => $this->lang->user->forbidSuccess));
