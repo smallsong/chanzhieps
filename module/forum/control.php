@@ -20,8 +20,8 @@ class forum extends control
     {
         $this->view->title  = $this->lang->forumHome;
         $this->view->boards = $this->forum->getBoards();
-        //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.index');
-
+        //$this->view->layouts= $this->loadModel('block')->getLayouts('forum.index');
+        //
         $this->display();
     }
 
@@ -36,22 +36,31 @@ class forum extends control
      * @access public
      * @return void
      */
-    public function board($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function board($boardID = 0, $orderBy = 'repliedDate_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
+        $board = $this->loadModel('tree')->getById($boardID);
+        if(!$board) die(js::locate('back'));
+
+        /* Set keywords and desc. */
+        $keywords = $this->view->board->keyword . '' . $this->config->site->keywords;
+        $desc     = strip_tags($this->view->board->desc);
+
+        /* Get stick threads. */
+        $sticks = $this->loadModel('thread')->getSticks($boardID);
+
+        /* Get common threads. */
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
+        $threads = $this->thread->getList($boardID, $orderBy, $pager);
 
-        $this->view->stickThreads  = $this->loadModel('thread')->getSticks($boardID);
-        $this->view->threads       = $this->thread->getList($boardID, $orderBy, $pager);
-        $this->view->pager         = $pager;
-        $this->view->board         = $this->loadModel('tree')->getById($boardID);
-        //$this->view->layouts       = $this->loadModel('block')->getLayouts('forum.board');
-        $this->view->title = $this->view->board->name;
-        if($this->view->board)
-        {
-            $this->view->keywords = trim($this->view->board->keyword . ' ' . $this->config->site->keywords);
-            if($this->view->board->desc) $this->view->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $this->view->board->desc));
-        }
+        $this->view->title     = $board->name;
+        $this->view->keyword   = $keywords;
+        $this->view->desc      = $desc;
+        $this->view->board     = $board;
+        $this->view->sticks    = $sticks;
+        $this->view->threads   = $threads;
+        $this->view->pager     = $pager;
+        //$this->view->layouts = $this->loadModel('block')->getLayouts('forum.board');
 
         $this->display();
     }
@@ -59,7 +68,6 @@ class forum extends control
     /**
      * The admin page of board.
      * 
-     * @param string    $tree 
      * @param int       $boardID 
      * @param string    $orderBy 
      * @param int       $recTotal 
@@ -68,18 +76,18 @@ class forum extends control
      * @access public
      * @return void
      */
-    public function admin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($boardID = 0, $orderBy = 'repliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
-        $this->loadModel('thread');
         $pager   = new pager($recTotal, $recPerPage, $pageID);
-        $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
-        $threads = $boards ? $this->thread->getList($boards, $orderBy, $pager) : array();
 
+        $boards  = $this->loadModel('tree')->getFamily($boardID, 'forum');
+        $threads = $boards ? $this->loadModel('thread')->getList($boards, $orderBy, $pager) : array();
+
+        $this->view->title   = $this->view->board ? $this->view->board->name : $this->lang->forum->admin;
+        $this->view->board   = $this->loadModel('tree')->getById($boardID);
         $this->view->threads = $threads;
         $this->view->pager   = $pager;
-        $this->view->board   = $this->loadModel('tree')->getById($boardID);
-        $this->view->title   = $this->view->board ? $this->view->board->name : '';
 
         $this->display();
     }
@@ -99,10 +107,10 @@ class forum extends control
             if($lastReply)
             {
                 $replies   = $this->dao->select('count(*) as count')->from(TABLE_REPLY)->where('thread')->eq($threadID)->fetch('count', false);
-                $data->replies         = $replies;
-                $data->lastRepliedBy   = $lastReply->author;
-                $data->lastRepliedDate = $lastReply->addedDate;
-                $data->lastReplyID     = $lastReply->id;
+                $data->replies     = $replies;
+                $data->repliedBy   = $lastReply->author;
+                $data->repliedDate = $lastReply->addedDate;
+                $data->replyID     = $lastReply->id;
                 $this->dao->update(TABLE_THREAD)->data($data, false)->where('id')->eq($threadID)->exec(false);
             }
         }
@@ -111,14 +119,27 @@ class forum extends control
         $boards = $this->dao->select('id, name')->from(TABLE_CATEGORY)->where('type')->eq('forum')->andWhere('grade')->eq(2)->fetchPairs('id', 'name', false);
         foreach($boards as $boardID => $boardName)
         {
-            $newestPost = $this->dao->select('t1.id as threadID, t1.author, t1.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
+            $newestPost = $this->dao->select('t1.id as threadID, t1.author, t1.addedDate, t2.id as replyID')
+                ->from(TABLE_THREAD)->alias('t1')
                 ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
-                ->where('t1.category')->eq($boardID)->orderBy('t1.id desc, t2.id desc')->limit(1)->fetch('', false);
-            $newestReply = $this->dao->select('t2.thread as threadID, t2.author, t2.addedDate, t2.id as replyID')->from(TABLE_THREAD)->alias('t1')
-                ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
-                ->where('t1.category')->eq($boardID)->orderBy('t2.id desc')->limit(1)->fetch('', false);
+                ->where('t1.category')->eq($boardID)
+                ->orderBy('t1.id desc, t2.id desc')
+                ->limit(1)
+                ->fetch();
 
-            $threadsAndReplies = $this->dao->select('COUNT(id) as threads, SUM(replies) as replies')->from(TABLE_THREAD)->where('category')->eq($boardID)->fetch('', false);
+            $newestReply = $this->dao->select('t2.thread as threadID, t2.author, t2.addedDate, t2.id as replyID')
+                ->from(TABLE_THREAD)->alias('t1')
+                ->leftJoin(TABLE_REPLY)->alias('t2')->on('t1.id = t2.thread')
+                ->where('t1.category')->eq($boardID)
+                ->orderBy('t2.id desc')
+                ->limit(1)
+                ->fetch();
+
+            $threadsAndReplies = $this->dao->select('COUNT(id) as threads, SUM(replies) as replies')
+                ->from(TABLE_THREAD)
+                ->where('category')->eq($boardID)
+                ->fetch();
+
             $this->dao->update(TABLE_CATEGORY)
                 ->set('threads')->eq($threadsAndReplies->threads)
                 ->set('posts')->eq($threadsAndReplies->threads + $threadsAndReplies->replies)
@@ -128,10 +149,10 @@ class forum extends control
             if($newestPost)
             {
                 $lastThread = ($newestPost->addedDate > $newestReply->addedDate) ? $newestPost : $newestReply;
-                $data->lastPostedBy   = $lastThread->author;
-                $data->lastPostedDate = $lastThread->addedDate;
-                $data->lastPostID     = $lastThread->threadID;
-                $data->lastReplyID    = $lastThread->replyID;
+                $data->postedBy   = $lastThread->author;
+                $data->postedDate = $lastThread->addedDate;
+                $data->postID     = $lastThread->threadID;
+                $data->replyID    = $lastThread->replyID;
                 $this->dao->update(TABLE_CATEGORY)->data($data, false)->where('id')->eq($boardID)->exec(false);
             }
         }

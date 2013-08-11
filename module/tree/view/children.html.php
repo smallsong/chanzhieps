@@ -1,5 +1,5 @@
 <form method='post' id="childForm" action='<?php echo $this->inlink('children', "type=$type");?>'>
-  <table class='table table-bordered table-form'>
+  <table class='table table-form'>
     <caption><?php echo $parent ? $lang->category->children : $lang->category->common;?></caption>
     <tr>
       <td class="w-p10">

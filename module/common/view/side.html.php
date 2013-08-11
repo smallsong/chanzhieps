@@ -1,5 +1,4 @@
 <?php
-$contact= json_decode($this->config->company->contact);
 $topCategories = $this->loadModel('tree')->getChildren(0);
 ?>
 <div class='span3'>
@@ -21,21 +20,7 @@ $topCategories = $this->loadModel('tree')->getChildren(0);
   <div class='widget radius'>  
     <h4><?php echo $lang->company->contactUs;?></h4>
     <ul>
-      <?php 
-      foreach($contact as $item => $value)
-      {
-          if($value == "") continue;
-          $link = $this->loadModel('common')->getContactLink($item, $value);
-          if($link)
-          {
-            echo "<li><strong>{$lang->company->$item}{$this->lang->colon}</strong><a href='$link'>{$value}</a></li>";
-          }
-          else
-          {
-            echo "<li><strong>{$lang->company->$item}{$this->lang->colon}</strong>$value</li>";     
-          } 
-      }
-      ?>
+      <?php $this->loadModel('common')->getContact();?>
     </ul>
   </div>
 </div>

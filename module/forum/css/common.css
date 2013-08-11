@@ -1,6 +1,7 @@
-.table{margin-top:20px;}
-.common-board {background:url(/theme/default/images/forum/forum-icons.png) 0px   -2px; display:block; width:22px; height:25px}
-.new-board    {background:url(/theme/default/images/forum/forum-icons.png) -24px -2px; display:block; width:22px; height:25px}
+.common-board {background:url(/theme/default/images/forum/forum-icons.png) 0px   -2px; display:block; width:22px; height:25px; float:left}
+.new-board    {background:url(/theme/default/images/forum/forum-icons.png) -24px -2px; display:block; width:22px; height:25px; float:left}
+
 .sticky-thread{background:url(/theme/default/images/forum/forum-icons.png) -48px -2px; display:block; width:22px; height:25px}
+
 .post-thread input{background:url(/theme/default/images/forum/forum-icons.png) -71px -0px; width:71px; height:26px; border:none; cursor:pointer}
 .en-post-thread input{background:url(/theme/default/images/forum/forum-icons.png) -160px -0px; width:71px; height:26px; border:none; cursor:pointer}

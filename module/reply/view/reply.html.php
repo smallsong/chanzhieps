@@ -1,10 +1,10 @@
 <?php
 /**
- * The edit reply view file of block module of xirangEPS.
+ * The edit view file of reply module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     block
+ * @package     reply
  * @version     $Id$
  * @link        http://www.xirang.biz
  */

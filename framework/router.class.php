@@ -1376,7 +1376,7 @@ class router
         /* Set the files to include. */
         if(!is_file($mainConfigFile))
         {
-            if($exitIfNone) self::error("config file $mainConfigFile not found", __FILE__, __LINE__, true);
+            if($exitIfNone) self::triggerError("config file $mainConfigFile not found", __FILE__, __LINE__, true);
             if(empty($extConfigFiles)) $configFiles = array();    // No main and extension config files, set $configFiles as an empty array.
         }
         else
@@ -1511,7 +1511,7 @@ class router
      */
     private function connectByPDO($params)
     {
-        if(!isset($params->driver)) self::error('no pdo driver defined, it should be mysql or sqlite', __FILE__, __LINE__, $exit = true);
+        if(!isset($params->driver)) self::triggerError('no pdo driver defined, it should be mysql or sqlite', __FILE__, __LINE__, $exit = true);
         if(!isset($params->user)) return false;
         if($params->driver == 'mysql')
         {
@@ -1533,7 +1533,7 @@ class router
         }
         catch (PDOException $exception)
         {
-            self::error($exception->getMessage(), __FILE__, __LINE__, $exit = true);
+            self::triggerError($exception->getMessage(), __FILE__, __LINE__, $exit = true);
         }
     }
 

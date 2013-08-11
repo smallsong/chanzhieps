@@ -12,7 +12,7 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include './navcode.html.php'; ?>
 <form class="form-inline" id="navForm" method="post">
-  <table class="table table-bordered table-inline">
+  <table class="table table-inline">
     <caption><?php echo $lang->setNav;?></caption>
     <tr>
       <td>  

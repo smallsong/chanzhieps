@@ -106,18 +106,11 @@ class commonModel extends model
     public static function hasPriv($module, $method)
     {
         global $app, $config;
+
         if(RUN_MODE == 'admin')
         {
             if($app->user->admin == 'no')    return false;
             if($app->user->admin == 'super') return true;
-        }
-        if(RUN_MODE == 'front')
-        {
-            if(
-                isset($config->front->groups->guest[$module]) 
-                && in_array($method, $config->front->groups->guest[$module])
-              ) return true;
-              return isset($config->front->groups->user[$module]) && in_array($method, $config->front->groups->user[$module]);
         }
 
         $rights  = $app->user->rights;
@@ -323,7 +316,10 @@ class commonModel extends model
     {
         echo '<ul class="breadcrumb">';
         echo '<li>' . $this->lang->currentPos . $this->lang->colon . html::a($this->config->webRoot, $this->lang->home) . '</li>';
-        $funcName = 'print' . $this->app->getModuleName();
+
+        $moduleName = $this->app->getModuleName();
+        $moduleName = $moduleName == 'reply' ? 'thread' : $moduleName;
+        $funcName = "print$moduleName";
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
     }
@@ -402,6 +398,7 @@ class commonModel extends model
         $user->account  = 'guest';
         $user->realname = 'guest';
         $user->admin    = RUN_MODE == 'cli' ? 'super' : 'no';
+        $user->rights   = $this->config->rights->guest;
 
         $this->session->set('user', $user);
         $this->app->user = $this->session->user;
@@ -559,16 +556,38 @@ class commonModel extends model
 
         return $link;
     }
-   public static function getContactLink($contactItem, $contactValue)
-   {
-       $link = '';        
-       switch ($contactItem)
-       {    
-           case 'qq' : $link = "tencent://message/?uin={$contactValue}&amp;Site=描述&amp;Menu=yes";
-           break;
-           case 'email' : $link = "mailto:{$contactValue}";
-           break;
-       }
-       return $link;
-   } 
+    /**
+     * get contact information.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getContact()
+    {
+        $contact = json_decode($this->config->company->contact);
+        foreach($contact as $item => $value)
+        switch($item)
+        {
+            case 'qq' : 
+                echo "<li>
+                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
+                        <a href='tencent://message/?uin={$value}&amp;Site={$this->config->company->name}&amp;Menu=yes'>{$value}</a>
+                      </li>";
+            break;
+            case 'email' : 
+                echo "<li>
+                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
+                        <a href='mailto:{$value}'>{$value}</a>
+                      </li>";
+            break;
+            case 'wangwang' :
+                echo "<li>
+                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
+                        <a href='http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8'>{$value}</a>
+                      </li>";
+            break;
+            default :
+                echo "<li><strong>{$this->lang->company->$item}{$this->lang->colon}</strong>$value</li>";     
+        }
+    }
 }

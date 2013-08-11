@@ -18,8 +18,12 @@ class forumModel extends model
      */
     public function getBoards()
     {
-        $boards    = array();
-        $rawBoards = $this->dao->select('*')->from(TABLE_CATEGORY)->where('type')->eq('forum')->orderBy('grade, `order`')->fetchGroup('parent');
+        $boards = array();
+        $rawBoards = $this->dao->select('*')
+            ->from(TABLE_CATEGORY)
+            ->where('type')->eq('forum')
+            ->orderBy('grade, `order`')
+            ->fetchGroup('parent');
         if(!isset($rawBoards[0])) return $boards;
 
         foreach($rawBoards[0] as $parentBoard)
@@ -27,7 +31,7 @@ class forumModel extends model
             if(isset($rawBoards[$parentBoard->id]))
             {
                 $parentBoard->childs = $rawBoards[$parentBoard->id];
-                foreach($parentBoard->childs as $childBoard) $childBoard->lastPostReplies = $this->dao->select('COUNT(id) as id')->from(TABLE_REPLY)->where('thread')->eq($childBoard->lastPostID)->fetch('id');
+                foreach($parentBoard->childs as $childBoard) $childBoard->lastPostReplies = $this->dao->select('COUNT(id) as id')->from(TABLE_REPLY)->where('thread')->eq($childBoard->postID)->fetch('id');
                 $boards[] = $parentBoard;
             }
         }
@@ -37,9 +41,9 @@ class forumModel extends model
     /**
      * Update status of boards.
      * 
-     * @param string $boardID 
-     * @param string $mode 
-     * @param string $post 
+     * @param  int    $boardID 
+     * @param  string $mode 
+     * @param  object $post 
      * @access public
      * @return void
      */
@@ -50,10 +54,10 @@ class forumModel extends model
             $this->dao->update(TABLE_CATEGORY)
                 ->set('threads = threads + 1')
                 ->set('posts = posts + 1')
-                ->set('lastPostedBy')->eq($post->author)
-                ->set('lastPostedDate')->eq($post->addedDate)
-                ->set('lastPostID')->eq($post->threadID)
-                ->set('lastReplyID')->eq(0)
+                ->set('postedBy')->eq($post->author)
+                ->set('postedDate')->eq($post->addedDate)
+                ->set('postID')->eq($post->threadID)
+                ->set('replyID')->eq(0)
                 ->where('id')->eq($boardID)
                 ->exec();
         }
@@ -61,10 +65,10 @@ class forumModel extends model
         {
             $this->dao->update(TABLE_CATEGORY)
                 ->set('posts = posts + 1')
-                ->set('lastPostedBy')->eq($post->author)
-                ->set('lastPostedDate')->eq($post->addedDate)
-                ->set('lastPostID')->eq($post->threadID)
-                ->set('lastReplyID')->eq($post->replyID)
+                ->set('postedBy')->eq($post->author)
+                ->set('postedDate')->eq($post->addedDate)
+                ->set('postID')->eq($post->threadID)
+                ->set('replyID')->eq($post->replyID)
                 ->where('id')->eq($boardID)
                 ->exec();
         }
@@ -79,6 +83,29 @@ class forumModel extends model
      */
     public function isNew($board)
     {
-         return (time() - strtotime($board->lastPostedDate)) < 24 * 60 * 60 * $this->config->forum->newDays;
+         return (time() - strtotime($board->postedDate)) < 24 * 60 * 60 * $this->config->forum->newDays;
+    }
+
+    /**
+     * Judge a user can post thread to a board or not.
+     * 
+     * @param  object    $board 
+     * @access public
+     * @return void
+     */
+    public function canPost($board)
+    {
+        /* If the board is an open one, return true. */
+        if($board->readonly == false) return true;
+
+        /* Then check the user is admin or not. */
+        if($this->app->user->admin == 'super') return true; 
+
+        /* Then check the user is a moderator or not. */
+        $user = ",{$this->app->user->account},";
+        $moderators = ',' . str_replace(' ', '', $board->moderators) . ',';
+        if(strpos($moderators, $user) !== false) return true;
+
+        return false;
     }
 }

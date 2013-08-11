@@ -11,7 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <form method="post" id="ajaxForm" enctype="multipart/form-data">
-  <table class="table table-bordered table-form">
+  <table class="table table-form">
     <caption><?php echo $lang->site->setLogo;?></caption> 
     <tr>
       <th class="w-150px">

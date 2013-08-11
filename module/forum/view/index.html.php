@@ -29,9 +29,9 @@
           $recTotal   = $childBoard->lastPostReplies;
           $recPerPage = 20;
           $pageID     = (int)($recTotal / $recPerPage) + 1;
-          $threadLink = $this->createLink('thread', 'view', "threadID=$childBoard->lastPostID&recTotal=$recTotal&recPerPage=$recPerPage&pageID=$pageID") . "#$childBoard->lastReplyID";
+          $threadLink = $this->createLink('thread', 'view', "threadID=$childBoard->postID&recTotal=$recTotal&recPerPage=$recPerPage&pageID=$pageID") . "#$childBoard->replyID";
 
-          echo substr($childBoard->lastPostedDate, 5, -3) . ' ' . $childBoard->lastPostedBy;
+          echo substr($childBoard->postedDate, 5, -3) . ' ' . $childBoard->postedBy;
           ?>
         </td>
       </tr>  

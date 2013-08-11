@@ -150,8 +150,8 @@ $lang->error->captcha      = '请输入正确的验证码。';
 
 /* The pager items. */
 $lang->pager = new stdclass();
-$lang->pager->noRecord  = '暂时没有记录';
-$lang->pager->digest    = '共<strong>%s</strong>条记录,每页 <strong>%s</strong>条，页面：<strong>%s/%s</strong> ';
+$lang->pager->noRecord  = '暂时没有记录。';
+$lang->pager->digest    = '共 <strong>%s</strong> 条记录，每页 <strong>%s</strong> 条，页面：<strong>%s/%s</strong> ';
 $lang->pager->first     = '首页';
 $lang->pager->pre       = '上页';
 $lang->pager->next      = '下页';

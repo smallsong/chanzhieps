@@ -24,23 +24,23 @@ class thread extends control
         /* Get the board. */
         $board = $this->loadModel('tree')->getById($boardID);
 
-        /* Checking the board is readonly or not. */
-        if($board->readonly)
+        /* Checking current user can post to the board or not. */
+        if(!$this->loadModel('forum')->canPost($board))
         {
             $this->app->loadLang('forum');
             die(js::error($this->lang->forum->readonly) . js::locate('back'));
         }
 
         /* Set editor for current user. */
-        $this->thread->setEditor($board->owners, 'post');
+        $this->thread->setEditor($board->moderators, 'post');
 
         /* User posted a thread, try to save it to database. */
         if($_POST)
         {
-            $result = $this->thread->post($boardID);
+            $threadID = $this->thread->post($boardID);
             if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
 
-            $locate = $this->createLink('forum', 'board', "boardID=$boardID");
+            $locate = inlink('view', "threadID=$threadID");
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' =>$locate));
         }
 
@@ -50,87 +50,34 @@ class thread extends control
     }
 
     /**
-     * Reply a thread.
-     * 
-     * @param int $threadID 
-     * @access public
-     * @return void
-     */
-    public function reply($threadID)
-    {
-        if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
-        if($_POST)
-        {
-            $replyID = $this->thread->reply($threadID);
-            $thread = $this->thread->getById($threadID);
-
-            if(!dao::isError())
-            {
-                $this->thread->setCookie($replyID);
-                $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
-            }
-
-            $this->send(array('result' => 'fail', 'message' => dao::getError()));
-        }
-    }
-
-    /**
      * Edit a thread.
      * 
      * @param string $threadID 
      * @access public
      * @return void
      */
-    public function editThread($threadID)
+    public function edit($threadID)
     {
+        if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
+
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) die(js::locate('back'));
+
         /* Judge current user has priviledge to edit the thread or not. */
-        $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('author, category')->fetch();
-        if(!$thread) exit;
-        $owners = $this->dao->findById($thread->category)->from(TABLE_CATEGORY)->fields('owners')->fetch('owners');
-        if(!$this->thread->hasEditPriv($this->session->user->account, $owners, $thread->author)) exit;
-        $thread->files = $this->loadModel('file')->getByObject('thread', $threadID);
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canEdit($moderators, $thread->author)) die(js::locate('back'));
 
         if($_POST)
         {
-            $this->thread->updateThread($threadID);
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate(inlink('view', "threaID=$threadID"), 'parent'));
+            $this->thread->update($threadID);
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
         }
-        $this->view->thread = $this->thread->getById($threadID);
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
-        $this->display();
-    }
 
-    /**
-     * Edit a reply.
-     * 
-     * @param string $replyID 
-     * @access public
-     * @return void
-     */
-    public function editReply($replyID)
-    {
-        /* Judge current user has priviledge to edit the reply or not. */
-        $reply = $this->dao->findById($replyID)->from(TABLE_REPLY)->fetch();
-        if(!$reply) exit;
-        $owners = $this->thread->getBoardOwners($reply->thread);
-        
-        if(!$this->thread->hasEditPriv($this->session->user->account, $owners, $reply->author)) exit;
+        $this->view->title  = $this->lang->thread->edit . $this->view->thread->title;
+        $this->view->thread = $thread;
+        $this->view->board  = $this->loadModel('tree')->getById($thread->board);
 
-        if($_POST)
-        {
-            if($this->loadModel('comment')->isGarbage($_POST['content'])) die();
-            $this->thread->updateReply($replyID);
-            $threadID = $this->dao->findById($replyID)->from(TABLE_REPLY)->fields('thread')->fetch('thread');
-            if(dao::isError()) die(js::error(dao::getError()));
-            die(js::locate(inlink('view', "threaID=$threadID"), 'parent'));
-        }
-        $reply->files       = $this->loadModel('file')->getByObject('reply', $replyID);
-        $this->view->reply  = $reply;
-        $this->view->thread = $this->thread->getByID($this->view->reply->thread);
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
         $this->display();
     }
 
@@ -144,85 +91,74 @@ class thread extends control
      * @access public
      * @return void
      */
-    public function view($threadID, $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function view($threadID, $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
-        $this->app->loadClass('pager', $static = true);
-        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) die(js::locate('back'));
 
-        $this->view->thread = $this->thread->getByID($threadID, $pager);
-        $this->view->pager  = $pager;
-        $this->view->users  = $this->loadModel('user')->getBasicInfo($this->thread->extractUsers($this->view->thread));
-        $this->view->board  = $this->loadModel('tree')->getById($this->view->thread->category);
-        $this->view->layouts= $this->loadModel('block')->getLayouts('thread.view');
-        $this->view->title = $this->view->thread->title . '|' . $this->view->board->name;
-        $this->dao->update(TABLE_THREAD)->set('views = views + 1')->where('id')->eq($threadID)->exec();
+        /* Get thread board. */
+        $board = $this->loadModel('tree')->getById($thread->board);
+
+        /* Get replies. */
+        $this->app->loadClass('pager', $static = true);
+        $pager   = new pager($recTotal, $recPerPage, $pageID);
+        $replies = $this->loadModel('reply')->getByThread($threadID, $pager);
+
+        /* Get all speakers. */
+        $speakers = $this->thread->getSpeakers($thread, $replies);
+
+        $this->view->title    = $thread->title . '-' . $board->name;
+        $this->view->board    = $board;
+        $this->view->thread   = $thread;
+        $this->view->replies  = $replies;
+        $this->view->pager    = $pager;
+        $this->view->speakers = $this->loadModel('user')->getBasicInfo($speakers);
+        //$this->view->layouts= $this->loadModel('block')->getLayouts('thread.view');
         $this->display();
     }
 
     /**
      * Delete a thread.
      * 
-     * @param string $threadID 
+     * @param  int      $threadID 
      * @access public
      * @return void
      */
     public function delete($threadID)
     {
-        $owners = $this->thread->getBoardOwners($threadID);
-        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) $this->send(array('result' => 'fail'));
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) $this->send(array('result' => 'fail', 'message' => 'Not found'));
 
-        $category = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('category')->fetch('category', false);
-        $result   = $this->thread->deleteThread($threadID);
-        
-        if($result) $this->send(array('result' => 'success'));
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canManage($moderators)) $this->send(array('result' => 'fail'));
+
+        $locate = helper::createLink('forum', 'board', "board=$thread->board");
+        if($this->thread->delete($threadID)) $this->send(array('result' => 'success', 'locate' => $locate));
+
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
    
     /**
-     * Hide a reply.
+     * Hide a thread.
      * 
-     * @param  string $replyID 
-     * @param  string $confirm 
+     * @param  int    $threadID 
      * @access public
      * @return void
      */
-    public function hidePost($objectType, $objectID, $confirm = 'no')
+    public function hide($threadID)
     {
-        $thread = $objectType == 'reply' ? $this->dao->findById($objectID)->from(TABLE_REPLY)->fields('thread')->fetch('thread') : $objectID;
-        $owners = $this->thread->getBoardOwners($thread);
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) $this->send(array('result' => 'fail', 'message' => 'Not found'));
 
-        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) die();
-        if($confirm == 'no')
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canManage($moderators)) $this->send(array('result' => 'fail'));
+
+        if($this->thread->hide($threadID))
         {
-            $hideType = "confirmHide" . ucfirst($objectType);
-            echo js::confirm($this->lang->thread->$hideType, inlink('hidePost', "objectType=$objectType&objectID=$objectID&confirm=yes"));
-            exit;
+            $locate = helper::createLink('forum', 'board', "board=$thread->board");
+            $this->send(array('result' => 'success', 'locate' => $locate));
         }
-        else
-        {
-            $funcName = 'hide' . ucfirst($objectType);
-            $this->thread->$funcName($objectID);
-            die(js::reload('parent'));
-        }
-    }
 
-    /**
-     * Delete a reply 
-     * 
-     * @param string $replyID 
-     * @param string $confirm 
-     * @access public
-     * @return void
-     */
-    public function deleteReply($replyID)
-    {
-        $thread = $this->dao->findById($replyID)->from(TABLE_REPLY)->fields('thread')->fetch('thread');
-        $owners = $this->thread->getBoardOwners($thread);
-
-        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) $this->send(array('result' => 'fail'));
-
-        $result = $this->thread->deleteReply($replyID);
-        if($result) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 
@@ -236,28 +172,32 @@ class thread extends control
      */
     public function stick($threadID, $stick)
     {
-        $owners = $this->thread->getBoardOwners($threadID);
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canManage($moderators)) die();
 
-        if(!$this->thread->hasManagePriv($this->session->user->account, $owners)) die();
         $this->dao->update(TABLE_THREAD)->set('stick')->eq($stick)->where('id')->eq($threadID)->exec();
-
         if(dao::isError()) $this->send(array('result' =>'fail', 'message' => dao::getError()));
         $this->send(array('message' => $this->lang->thread->successStick, 'target' => '#manageBox', 'source' => inlink('view', "threaID=$threadID") . ' #manageMenu'));
     }
 
     /**
-     * delete a file from object.
-     *
-     * @param int    $fileID
-     * @param int    $objectID
-     * @param string $objectType
-     *
+     * Delete a file.
+     * 
+     * @param  int    $threadID 
+     * @param  int    $fileID 
+     * @access public
+     * @return void
      */
-    public function deleteFile($fileID, $objectID, $objectType)
+    public function deleteFile($threadID, $fileID)
     {
-        $table  = $objectType == 'thread' ? TABLE_THREAD : TABLE_REPLY;
-        $object = $this->dao->findByID($objectID)->from($table)->fetch();
-        if($this->session->user->account != $object->author) exit;
+        if($this->app->user->account == 'guest') die(js::locate($this->createLink('user', 'login')));
+
+        $thread = $this->thread->getByID($threadID);
+        if(!$thread) die(js::locate('back'));
+
+        /* Judge current user has priviledge to edit the thread or not. */
+        $moderators = $this->thread->getModerators($threadID);
+        if(!$this->thread->canEdit($moderators, $thread->author)) die(js::locate('back'));
 
         if($this->loadModel('file')->delete($fileID)) $this->send(array('result'=>'success'));
         $this->send(array('result'=>'fail', 'message'=> dao::getError()));
