@@ -12,5 +12,7 @@ $lang->reply = new stdClass();
 $lang->reply->common    = '回贴';
 $lang->reply->content   = '内容';
 $lang->reply->author    = '作者';
-$lang->reply->files     = '附件';
+$lang->reply->files     = '附件：';
 $lang->reply->addedDate = '回复时间';
+
+$lang->reply->edit = '编辑回帖';

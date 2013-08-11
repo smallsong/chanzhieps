@@ -30,21 +30,22 @@ class threadModel extends model
     /**
      * Get threads list.
      * 
-     * @param int    $board      the board
-     * @param string $orderBy       the order by 
-     * @param string $pager         the pager object
+     * @param string $board      the boards
+     * @param string $orderBy    the order by 
+     * @param string $pager      the pager object
      * @access public
      * @return array
      */
     public function getList($board, $orderBy, $pager = null)
     {
-        $userThreads = $this->cookie->threads;
         $threads = $this->dao->select('*')->from(TABLE_THREAD)
             ->where('board')->in($board)
-            ->andWhere("(INSTR('$userThreads', CONCAT('_',id,'_')) != 0 or hidden != 1 or author = '{$this->app->user->account}')") //exclude hide.
-            ->orderBy($orderBy)->page($pager, false)->fetchAll('id', false);
-        $this->processThreads($threads);
-        return $threads;
+            ->orderBy($orderBy)
+            ->page($pager)
+            ->fetchAll('id');
+        if(!$threads) return array();
+
+        return $this->process($threads);
     }
 
     /**
@@ -72,8 +73,33 @@ class threadModel extends model
      */
     public function getByUser($account, $pager)
     {
-        $threads = $this->dao->select('*')->from(TABLE_THREAD)->where('author')->eq($account)->orderBy('lastRepliedDate desc')->page($pager)->fetchAll('id');
-        $this->processThreads($threads);
+        $threads = $this->dao->select('*')
+            ->from(TABLE_THREAD)
+            ->where('author')->eq($account)
+            ->orderBy('repliedDate desc')
+            ->page($pager)
+            ->fetchAll('id');
+        return $this->process($threads);
+    }
+
+    /**
+     * Process threads.
+     * 
+     * @param  array    $threads 
+     * @access public
+     * @return array
+     */
+    public function process($threads)
+    {
+        foreach($threads as $thread)
+        {
+            /* Hide the thread or not. */
+            if($thread->hidden and strpos($this->cookie->t, ",$thread->id,") === false) unset($threads[$thread->id]);
+
+            /* Judge the thread is new or not.*/
+            $thread->isNew = ($now - strtotime($thread->repliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
+        }
+
         return $threads;
     }
 
@@ -86,64 +112,59 @@ class threadModel extends model
      */
     public function post($board)
     {
+        $now = helper::now();
         $thread = fixer::input('post')
             ->specialChars('title')
             ->stripTags('content', $this->config->thread->editor->allowTags)
             ->add('board', $board)
             ->add('author', $this->app->user->account)
-            ->add('addedDate', helper::now())
-            ->remove('files,labels')
+            ->add('addedDate', $now) 
+            ->add('repliedDate', $now)
+            ->remove('files, labels')
             ->get();
 
-        if(trim(strip_tags($thread->content) == '')) $thread->content = '';
         $this->dao->insert(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->exec();
 
         if(!dao::isError())
         {
             $threadID = $this->dao->lastInsertID();
-            /* set cookie in thread author.*/
-            $this->setCookie($threadID, 'thread');
-            /* Upload file.*/
-            $this->uploadFile('thread', $threadID);
+            $this->saveCookie($threadID);
+            $this->loadModel('file')->saveUpload('thread', $threadID);
 
+            /* Update board stats. */
             $thread->threadID = $threadID;
             $thread->replyID  = 0;
             $this->loadModel('forum')->updateBoardStats($board, 'thread', $thread);
+
+            return $threadID;
         }
-        return;
+
+        return false;
     }
 
     /**
-     * Set user reply Cookie. 
+     * Save the thread id to cookie.
      * 
-     * @param  int $replyID 
+     * @param  int     $thread 
      * @access public
      * @return void
      */
-    public function setCookie($objectID, $objectType = 'reply')
+    public function saveCookie($thread)
     {
-        $objectID   = '_' . $objectID . '_';
-        $cookieName = $objectType == 'reply' ? 'rps' : 'threads';
-        $objectIDs  =  $this->cookie->$cookieName;
-        if(!$objectIDs)
-        {
-            $objectIDs = $objectID;
-        }
-        elseif(strpos($objectIDs, $objectID) === false)
-        {
-            $objectIDs .= $objectID;
-        }
-        setcookie($cookieName, $objectIDs, time() + 31104000);
+        $thread = "$thread,";
+        $cookie = $this->cookie->t != false ? $this->cookie->t : ',';
+        if(strpos($cookie, $thread) === false) $cookie .= $thread;
+        setcookie('t', $cookie , time() + 60 * 60 * 24 * 30);
     }
 
     /**
      * Update thread.
      * 
-     * @param string $threadId 
+     * @param  int    $threadID 
      * @access public
      * @return void
      */
-    public function update($threadId)
+    public function update($threadID)
     {
         $thread = fixer::input('post')
             ->add('editor', $this->session->user->account)
@@ -152,10 +173,19 @@ class threadModel extends model
             ->remove('files,labels')
             ->get();
 
-        $this->dao->update(TABLE_THREAD)->data($thread)->autoCheck()->batchCheck('title, content', 'notempty')->where('id')->eq($threadId)->exec();
+        $this->dao->update(TABLE_THREAD)
+            ->data($thread)
+            ->autoCheck()
+            ->batchCheck('title, content', 'notempty')
+            ->where('id')->eq($threadID)
+            ->exec();
+
+        if(dao::isError()) return false;
+
         /* Upload file.*/
-        $this->uploadFile('thread', $threadId);
-        return;
+        $this->loadModel('file')->saveUpload('thread', $threadID);
+
+        return true;
     }
 
     /**
@@ -172,32 +202,17 @@ class threadModel extends model
         return !dao::isError();
     }
 
+    /**
+     * Hide a thread.
+     * 
+     * @param  int    $threadID 
+     * @access public
+     * @return void
+     */
     public function hide($threadID)
     {
         $this->dao->update(TABLE_THREAD)->set('hidden')->eq(1)->where('id')->eq($threadID)->exec();
-    }
-
-    /**
-     * Process threads 
-     * 
-     * @param  array $threads 
-     * @access private
-     * @return void
-     */
-    private function processThreads($threads)
-    {
-        $now = time();
-        foreach($threads as $threadID => $thread)
-        {
-            $thread->isNew = ($now - strtotime($thread->lastRepliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
-        }
-    }
-
-
-    private function uploadFile($objectType, $objectID)
-    {
-        $files = $this->loadModel('file')->getUpload('files');
-        if($files) $this->file->saveUpload($objectType, $objectID);
+        return !dao::isError();
     }
 
     /**
@@ -217,7 +232,7 @@ class threadModel extends model
         {
             $file->title .= ".$file->extension";
             echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title, '_blank'); 
-            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "fileID=$file->id&threadID=$thread->id"), '[x]', '', "class='deleter'") . '</sub>';
+            if($canManage) echo '<sub>' . html::a(inlink('deleteFile', "threadID=$thread->id&fileID=$file->id"), '[x]', '', "class='deleter'") . '</sub>';
             echo ' ';
         }
     }

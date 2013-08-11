@@ -197,6 +197,9 @@ $.extend(
                     }
                 }
 
+                /* If the response has locate param, locate the browse. */
+                if(response.locate) return location.href = response.locate;
+
                 /* If target and source returned in reponse, update target with the source. */
                 if(response.target && response.source)
                 {
@@ -221,14 +224,15 @@ $.extend(
         {
             if(confirm(v.lang.confirmDelete))
             {
-                var deleter  = $(this);
+                var deleter = $(this);
                 deleter.text(v.lang.deleteing);
 
                 $.getJSON(deleter.attr('href'), function(data) 
                 {
-                    if(data.result=='success')
+                    if(data.result == 'success')
                     {
                         if(deleter.parents('#ajaxModal').size()) return $.reloadAjaxModal();
+                        if(data.locate) return location.href = data.locate;
                         return location.reload();
                     }
                     else

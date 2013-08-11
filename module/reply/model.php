@@ -11,6 +11,22 @@
 class replyModel extends model
 {
     /**
+     * Get a reply by it's id.
+     * 
+     * @param  int    $replyID 
+     * @access public
+     * @return object
+     */
+    public function getByID($replyID)
+    {
+        $reply = $this->dao->findById($replyID)->from(TABLE_REPLY)->fetch();
+        if(!$reply) return false;
+
+        $reply->files = $this->loadModel('file')->getByObject('reply', $replyID);
+        return $reply;
+    }
+
+    /**
      * Get replies of a thread.
      * 
      * @param  int    $thread 
@@ -57,18 +73,18 @@ class replyModel extends model
     /**
      * Reply a thread.
      * 
-     * @param string $threadID 
+     * @param  int      $threadID 
      * @access public
      * @return void
      */
-    public function reply($threadID)
+    public function post($threadID)
     {
         $reply = fixer::input('post')
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
             ->add('thread', $threadID)
             ->stripTags('content', $this->config->thread->editor->allowTags)
-            ->remove('captcha, recTotal, recPerPage, pageID, files, labels')
+            ->remove('recTotal, recPerPage, pageID, files, labels')
             ->get();
 
         $this->dao->insert(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->exec();
@@ -82,44 +98,52 @@ class replyModel extends model
             /* Update the thread info. */
             $thread = $this->dao->findById($threadID)->from(TABLE_THREAD)->fields('replies, board')->fetch();
             $thread->replies += 1;
-            $thread->lastRepliedDate = helper::now();
-            $thread->lastRepliedBy   = $this->app->user->account;
-            $thread->lastReplyID     = $replyID;
+            $thread->repliedDate = helper::now();
+            $thread->repliedBy   = $this->app->user->account;
+            $thread->replyID     = $replyID;
             $this->dao->update(TABLE_THREAD)->data($thread)->where('id')->eq($threadID)->exec();
 
             /* Update board stats. */
             $reply->threadID = $threadID;
             $reply->replyID  = $replyID;
             $this->loadModel('forum')->updateBoardStats($thread->board, 'reply', $reply);
+
+            return $replyID;
         }
-        return;
+        return false;
     }
 
     /**
-     * Update reply.
+     * Update a reply.
      * 
-     * @param string $replyId 
+     * @param  int      $replyID 
      * @access public
      * @return void
      */
-    public function update($replyId)
+    public function update($replyID)
     {
         $reply = fixer::input('post')
             ->add('editor', $this->session->user->account)
             ->add('editedDate', helper::now())
             ->stripTags('content', $this->config->thread->editor->allowTags)
-            ->remove('yzm,files,labels')
+            ->remove('files,labels')
             ->get();
-        $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyId)->exec();
-        /* Upload file.*/
-        $this->uploadFile('reply', $replyId);
-        return;
+
+        $this->dao->update(TABLE_REPLY)->data($reply)->autoCheck()->check('content', 'notempty')->where('id')->eq($replyID)->exec();
+
+        if(!dao::isError())
+        {
+            $this->loadModel('file')->saveUpload('reply', $replyID);
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Hide a reply. 
      * 
-     * @param  string $replyID 
+     * @param  int      $replyID 
      * @access public
      * @return void
      */
@@ -153,12 +177,12 @@ class replyModel extends model
     {
         if(empty($reply->files)) return false;
 
-        echo '<br /><br />' . $this->lang->reply->file . ":";
+        echo $this->lang->reply->files; 
         foreach($reply->files as $file)
         {
-            $file->title .= ".$file->extension";
-            echo html::a(helper::createLink('file', 'download', "fileID=$file->id", $file->title)); 
-            if($canManage) echo ' ' . html::a(inlink('deleteFile', "fileID=$file->id&replyID=$reply->id"), 'Ｘ', '', "class='deleter'");
+            $file->title = $file->title . ".$file->extension";
+            echo html::a(helper::createLink('file', 'download', "fileID=$file->id"), $file->title, '_blank'); 
+            if($canManage) echo '<sub>' . html::a(helper::createLink('thread', 'deleteFile', "threadID=$reply->thread&fileID=$file->id"), '[x]', '', "class='deleter'") . '</sub>';
             echo ' ';
         }
     }
@@ -172,8 +196,8 @@ class replyModel extends model
      */
     public function saveCookie($reply)
     {
-        $reply = ",$reply,";
-        $cookie = $this->cookie->reply != false ? $this->cookie->reply : '';
+        $reply = "$reply,";
+        $cookie = $this->cookie->r != false ? $this->cookie->r : ',';
         if(strpos($cookie, $reply) === false) $cookie .= $reply;
         setcookie('r', $cookie , time() + 60 * 60 * 24 * 30);
     }

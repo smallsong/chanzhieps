@@ -21,7 +21,7 @@ class site extends control
         if(!empty($_POST))
         {
             $result = $this->loadModel('setting')->setItems('system.common.site', $_POST);
-            if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
+            if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
 

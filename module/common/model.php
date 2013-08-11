@@ -43,11 +43,11 @@ class commonModel extends model
         if(isset($this->config->system->common))
         {
             foreach($this->config->system->common as $record)
-            {
+            {   
                 if($record->section)
                 {
                     if(!isset($this->config->{$record->section})) $this->config->{$record->section} = new stdclass();
-                    $this->config->{$record->section}->{$record->key} = $record->value;
+                    if($record->key) $this->config->{$record->section}->{$record->key} = $record->value;
                 }
                 else
                 {
@@ -106,18 +106,11 @@ class commonModel extends model
     public static function hasPriv($module, $method)
     {
         global $app, $config;
+
         if(RUN_MODE == 'admin')
         {
             if($app->user->admin == 'no')    return false;
             if($app->user->admin == 'super') return true;
-        }
-        if(RUN_MODE == 'front')
-        {
-            if(
-                isset($config->front->groups->guest[$module]) 
-                && in_array($method, $config->front->groups->guest[$module])
-              ) return true;
-              return isset($config->front->groups->user[$module]) && in_array($method, $config->front->groups->user[$module]);
         }
 
         $rights  = $app->user->rights;
@@ -323,7 +316,10 @@ class commonModel extends model
     {
         echo '<ul class="breadcrumb">';
         echo '<li>' . $this->lang->currentPos . $this->lang->colon . html::a($this->config->webRoot, $this->lang->home) . '</li>';
-        $funcName = 'print' . $this->app->getModuleName();
+
+        $moduleName = $this->app->getModuleName();
+        $moduleName = $moduleName == 'reply' ? 'thread' : $moduleName;
+        $funcName = "print$moduleName";
         echo $this->$funcName($module, $object, $misc);
         echo '</ul>';
     }
@@ -402,6 +398,7 @@ class commonModel extends model
         $user->account  = 'guest';
         $user->realname = 'guest';
         $user->admin    = RUN_MODE == 'cli' ? 'super' : 'no';
+        $user->rights   = $this->config->rights->guest;
 
         $this->session->set('user', $user);
         $this->app->user = $this->session->user;
@@ -503,7 +500,7 @@ class commonModel extends model
     public function printForum($board = '')
     {
         $divider = $this->getPositionDivder();
-        echo $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forum->common);
+        echo $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome);
         if(!$board) return false;
 
         unset($board->pathNames[key($board->pathNames)]);

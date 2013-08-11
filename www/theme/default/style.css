@@ -225,11 +225,13 @@ caption{border-radius:6px 6px 0 0; border-bottom:none}
 th.a-left,   td.a-left  {text-align:left}
 th.a-center, td.a-center{text-align:center}
 th.a-right,  td.a-right {text-align:right}
-th.v-middle, td.v-middle{vertical-align: middle;}
 
 tr.a-center th, tr.a-center td {text-align:center}
 tr.a-center .a-left {text-align:left}
 tr.a-center .a-right {text-align:right}
+
+th.v-middle, td.v-middle{vertical-align: middle;}
+tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 
 /* resolve conflicts between kindeditor and bootstrap. */
 .ke-container td{padding:0;}

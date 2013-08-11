@@ -18,7 +18,7 @@
         </tr>  
         <?php endforeach;?>
       </tbody>
-      <tfoot><tr><td colspan='2'><?php $pager->show();?></td></tr></tfoot>
+      <tfoot><tr><td colspan='2'><?php $pager->show('right', 'short');?></td></tr></tfoot>
     </table>
   </div>
 </div>

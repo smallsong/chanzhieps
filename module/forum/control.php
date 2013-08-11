@@ -18,7 +18,7 @@ class forum extends control
      */
     public function index()
     {
-        $this->view->title  = $this->lang->forum->common;
+        $this->view->title  = $this->lang->forumHome;
         $this->view->boards = $this->forum->getBoards();
         //$this->view->layouts= $this->loadModel('block')->getLayouts('forum.index');
         //
@@ -36,7 +36,7 @@ class forum extends control
      * @access public
      * @return void
      */
-    public function board($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1)
+    public function board($boardID = 0, $orderBy = 'repliedDate_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
         $board = $this->loadModel('tree')->getById($boardID);
         if(!$board) die(js::locate('back'));
@@ -76,7 +76,7 @@ class forum extends control
      * @access public
      * @return void
      */
-    public function admin($boardID = 0, $orderBy = 'lastRepliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($boardID = 0, $orderBy = 'repliedDate_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
         $pager   = new pager($recTotal, $recPerPage, $pageID);
@@ -107,10 +107,10 @@ class forum extends control
             if($lastReply)
             {
                 $replies   = $this->dao->select('count(*) as count')->from(TABLE_REPLY)->where('thread')->eq($threadID)->fetch('count', false);
-                $data->replies         = $replies;
-                $data->lastRepliedBy   = $lastReply->author;
-                $data->lastRepliedDate = $lastReply->addedDate;
-                $data->lastReplyID     = $lastReply->id;
+                $data->replies     = $replies;
+                $data->repliedBy   = $lastReply->author;
+                $data->repliedDate = $lastReply->addedDate;
+                $data->replyID     = $lastReply->id;
                 $this->dao->update(TABLE_THREAD)->data($data, false)->where('id')->eq($threadID)->exec(false);
             }
         }
@@ -149,10 +149,10 @@ class forum extends control
             if($newestPost)
             {
                 $lastThread = ($newestPost->addedDate > $newestReply->addedDate) ? $newestPost : $newestReply;
-                $data->lastPostedBy   = $lastThread->author;
-                $data->lastPostedDate = $lastThread->addedDate;
-                $data->lastPostID     = $lastThread->threadID;
-                $data->lastReplyID    = $lastThread->replyID;
+                $data->postedBy   = $lastThread->author;
+                $data->postedDate = $lastThread->addedDate;
+                $data->postID     = $lastThread->threadID;
+                $data->replyID    = $lastThread->replyID;
                 $this->dao->update(TABLE_CATEGORY)->data($data, false)->where('id')->eq($boardID)->exec(false);
             }
         }

@@ -91,6 +91,9 @@ class user extends control
             $user = $this->user->identify($this->post->account, $this->post->password);
             if($user)
             {
+                /* Authorize the user. */
+                $user->rights = $this->user->authorize($user);
+
                 /* Register the session. */
                 $this->session->set('user', $user);
                 $this->app->user = $this->session->user;
@@ -188,16 +191,18 @@ class user extends control
      * @access public
      * @return void
      */
-    public function thread($recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function thread($recTotal = 0, $recPerPage = 10, $pageID = 1)
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
 
+        /* Load the pager. */
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $threads = $this->loadModel('thread')->getByUser($this->app->user->account, $pager);
-        
-        $this->view->threads = $threads;
+        /* Load the forum lang to change the pager lang items. */
+        $this->app->loadLang('forum');
+
+        $this->view->threads = $this->loadModel('thread')->getByUser($this->app->user->account, $pager);
         $this->view->pager   = $pager;
 
         $this->display();
@@ -213,11 +218,14 @@ class user extends control
     {
         if($this->app->user->account == 'guest') $this->locate(inlink('login'));
 
+        /* Load pager. */
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $replies = $this->loadModel('thread')->getReplyByUser($this->app->user->account, $pager);
-        $this->view->replies = $replies;
+        /* Load the thread lang thus to rewrite the page lang items. */
+        $this->app->loadLang('thread');    
+
+        $this->view->replies = $this->loadModel('reply')->getByUser($this->app->user->account, $pager);
         $this->view->pager   = $pager;
 
         $this->display();

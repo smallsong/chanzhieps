@@ -205,34 +205,20 @@ class userModel extends model
     /**
      * Authorize a user.
      * 
-     * @param   string $account   the account
+     * @param   object    $user   the user object.
      * @access  public
-     * @return  array             the priviledges.
+     * @return  array
      */
-    public function authorize($account)
+    public function authorize($user)
     {
-        $account = filter_var($account, FILTER_SANITIZE_STRING);
-        if(!$account) return false;
+        $rights = $this->config->rights->guest;
+        if($user->account == 'guest') return $rights;
 
-        $rights = array();
-        if($account == 'guest')
+        foreach($this->config->rights->member as $moduleName => $moduleMethods)
         {
-            $sql = $this->dao->select('module, method')->from(TABLE_GROUP)->alias('t1')->leftJoin(TABLE_GROUPPRIV)->alias('t2')
-                ->on('t1.id = t2.group')->where('t1.name')->eq('guest');
+            foreach($moduleMethods as $method) $rights[$moduleName][$method] = $method;
         }
-        else
-        {
-            $sql = $this->dao->select('module, method')->from(TABLE_USERGROUP)->alias('t1')->leftJoin(TABLE_GROUPPRIV)->alias('t2')
-                ->on('t1.group = t2.group')
-                ->where('t1.account')->eq($account);
-        }
-        $stmt = $sql->query();
-        if(!$stmt) return $rights;
 
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-        {
-            $rights[strtolower($row['module'])][strtolower($row['method'])] = true;
-        }
         return $rights;
     }
 

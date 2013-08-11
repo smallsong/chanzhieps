@@ -30,7 +30,7 @@ $lang->user->submit          = "提交";
 $lang->user->profile     = '个人信息';
 $lang->user->editProfile = '编辑信息';
 $lang->user->thread      = '我的主题';
-$lang->user->reply       = '我的回复';
+$lang->user->reply       = '我的回贴';
 $lang->user->message     = '我的消息';
 
 $lang->user->inputUserName       = '请输入用户名';

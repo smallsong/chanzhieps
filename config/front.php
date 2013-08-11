@@ -1,6 +1,6 @@
 <?php
 /**
- * The config items for front.
+ * The config items for rights for front pages..
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -8,64 +8,57 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-
-$config->front = new stdclass();
-$config->front->groups = new stdclass();
+/* Init the rights. */
+$config->rights = new stdclass();
 
 /* For guest users. */
-$config->front->groups->guest['index'][]   = 'index';
+$config->rights->guest['index']['index'] = 'index';
 
-$config->front->groups->guest['article'][] = 'index';
-$config->front->groups->guest['article'][] = 'browse';
-$config->front->groups->guest['article'][] = 'view';
+$config->rights->guest['article']['index'] = 'index';
+$config->rights->guest['article']['browse']= 'browse';
+$config->rights->guest['article']['view']  = 'view';
 
-$config->front->groups->guest['company'][]   = 'index';
-$config->front->groups->guest['company'][]   = 'contact';
+$config->rights->guest['company']['index']   = 'index';
+$config->rights->guest['company']['contact'] = 'contact';
 
-$config->front->groups->guest['forum'][]   = 'index';
-$config->front->groups->guest['forum'][]   = 'board';
+$config->rights->guest['forum']['index'] = 'index';
+$config->rights->guest['forum']['board'] = 'board';
 
-$config->front->groups->guest['thread'][]  = 'view';
+$config->rights->guest['thread']['view'] = 'view';
 
-$config->front->groups->guest['comment'][] = 'show';
-$config->front->groups->guest['comment'][] = 'post';
+$config->rights->guest['comment']['show'] = 'show';
+$config->rights->guest['comment']['post'] = 'post';
 
-$config->front->groups->guest['rss'][]     = 'index';
-$config->front->groups->guest['file'][]    = 'download';
+$config->rights->guest['user']['login']    = 'login';
+$config->rights->guest['user']['register'] = 'register';
 
-$config->front->groups->guest['user'][]    = 'login';
-$config->front->groups->guest['user'][]    = 'register';
+$config->rights->guest['rss']['index']     = 'index';
+$config->rights->guest['file']['download'] = 'download';
 
-/* For logged users. */
-$config->front->groups->user['thread'][]   = 'post';
-$config->front->groups->user['thread'][]   = 'reply';
-$config->front->groups->user['thread'][]   = 'edit';
-$config->front->groups->user['thread'][]   = 'post';
-$config->front->groups->user['thread'][]   = 'stick';
-$config->front->groups->user['thread'][]   = 'delete';
-$config->front->groups->user['thread'][]   = 'deletefile';
+/* For logged member. */
+$config->rights->member['thread']['post']       = 'post';
+$config->rights->member['thread']['reply']      = 'reply';
+$config->rights->member['thread']['edit']       = 'edit';
+$config->rights->member['thread']['hide']       = 'hide';
+$config->rights->member['thread']['stick']      = 'stick';
+$config->rights->member['thread']['delete']     = 'delete';
+$config->rights->member['thread']['deletefile'] = 'deletefile';
 
-$config->front->groups->user['reply'][]    = 'post';
-$config->front->groups->user['reply'][]    = 'edit';
-$config->front->groups->user['reply'][]    = 'delete';
+$config->rights->member['reply']['post']       = 'post';
+$config->rights->member['reply']['eidt']       = 'edit';
+$config->rights->member['reply']['hide']       = 'hide';
+$config->rights->member['reply']['delete']     = 'delete';
+$config->rights->member['reply']['deletefile'] = 'deletefile';
 
-$config->front->groups->user['user'][]     = 'control';
-$config->front->groups->user['user'][]     = 'profile';
-$config->front->groups->user['user'][]     = 'edit';
-$config->front->groups->user['user'][]     = 'logout';
-$config->front->groups->user['user'][]     = 'thread';
-$config->front->groups->user['user'][]     = 'reply';
-$config->front->groups->user['user'][]     = 'message';
-$config->front->groups->user['user'][]     = 'resetpassword';
+$config->rights->member['user']['control'] = 'control';
+$config->rights->member['user']['profile'] = 'profile';
+$config->rights->member['user']['edit']    = 'edit';
+$config->rights->member['user']['logout']  = 'logout';
+$config->rights->member['user']['thread']  = 'thread';
+$config->rights->member['user']['reply']   = 'reply';
+$config->rights->member['user']['message'] = 'message';
 
-$config->front->groups->user['file'][]     = 'ajaxupload';
+$config->rights->member['file']['ajaxupload'] = 'ajaxupload';
 
-$config->front->groups->user['message'][]  = 'view';
-$config->front->groups->user['message'][]  = 'batchdelete';
-
-/* For admin users. */
-$config->front->groups->admin['thread'][]  = 'stick';
-$config->front->groups->admin['thread'][]  = 'hidepost';
-$config->front->groups->admin['thread'][]  = 'deletethread';
-$config->front->groups->admin['thread'][]  = 'deletereply';
-$config->front->groups->admin['thread'][]  = 'deletefile';
+$config->rights->member['message']['view']        = 'view';
+$config->rights->member['message']['batchdelete'] = 'batchdelete';

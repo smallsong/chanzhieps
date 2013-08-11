@@ -23,8 +23,9 @@ $lang->thread->lastReply  = '最后回帖';
 $lang->thread->post       = '发贴';
 $lang->thread->browse     = '主题列表';
 $lang->thread->stick      = '置顶';
-$lang->thread->editReply  = '编辑回帖';
-$lang->thread->editThread = '编辑主题';
+$lang->thread->edit       = '编辑主题';
+$lang->thread->hide       = '隐藏';
+
 
 $lang->thread->sticks[0] = '不置顶';
 $lang->thread->sticks[1] = '版块置顶';

@@ -16,11 +16,11 @@ $lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{
 
 /* Global lang items. */
 $lang->home           = '首页';
-$lang->forum->common      = '论坛';
 $lang->welcome        = '欢迎您, <strong>%s</strong> ';
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
 $lang->frontHome      = '前台';
+$lang->forumHome      = '论坛';
 $lang->dashboard      = '用户中心';
 $lang->register       = '注册';
 $lang->logout         = '退出';
@@ -107,7 +107,7 @@ $lang->site->menu = new stdclass();
 $lang->site->menu->basic    = '站点设置|site|setbasic|';
 $lang->site->menu->logo     = 'LOGO设置|site|setlogo|';
 $lang->site->menu->nav      = '导航设置|nav|admin|';
-$lang->site->menu->slide    = '幻灯片|site|setslide|';
+$lang->site->menu->slide    = '幻灯片设置|slide|admin|';
 
 /* Menu of company module. */
 $lang->company->menu = new stdclass();
@@ -126,6 +126,11 @@ $lang->menuGroups->tree = 'article';
 $lang->nav = new stdclass();
 $lang->nav->menu = $lang->site->menu;
 $lang->menuGroups->nav  = 'site';
+
+/* Menu of tree module. */
+$lang->slide = new stdclass();
+$lang->slide->menu = $lang->site->menu;
+$lang->menuGroups->slide = 'site';
 
 /* The error messages. */
 $lang->error = new stdclass();

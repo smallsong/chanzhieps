@@ -19,20 +19,21 @@
         <div id='manageMenu'>
           <?php 
           if($thread->editor) printf($lang->thread->lblEdited, $thread->editor, $thread->editedDate);
-          if($this->thread->canManage($board->moderators))
-          {
-              echo $lang->thread->sticks[$thread->stick] . ' ';
-              foreach($lang->thread->sticks as $stick => $label)
-              {
-                  if($thread->stick != $stick) echo html::a(inlink('stick', "thread=$thread->id&stick=$stick"), $label, '', "class='jsoner'");
-              }
-          }
-
           if($this->app->user->account != 'guest')
           {
               echo html::a('#reply', $lang->reply->common);
               if($this->thread->canEdit($board->moderators, $thread->author)) echo html::a(inlink('edit', "threadID=$thread->id"), $lang->edit);
-              if($this->thread->canManage($board->moderators)) echo html::a(inlink('delete', "threadID=$thread->id"), $lang->delete, '', 'class="deleter"');
+
+              if($this->thread->canManage($board->moderators))
+              {
+                  echo $lang->thread->sticks[$thread->stick] . ' ';
+                  foreach($lang->thread->sticks as $stick => $label)
+                  {
+                      if($thread->stick != $stick) echo html::a(inlink('stick', "thread=$thread->id&stick=$stick"), $label, '', "class='jsoner'");
+                  }
+                  echo html::a(inlink('hide',   "threadID=$thread->id"), $lang->thread->hide, '', "class='jsoner'");
+                  echo html::a(inlink('delete', "threadID=$thread->id"), $lang->delete, '', "class='deleter'");
+              }
           }    
           else
           {
