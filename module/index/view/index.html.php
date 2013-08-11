@@ -1,34 +1,19 @@
 <?php include '../../common/view/header.html.php'; ?>
 <?php include '../../common/view/treeview.html.php'; ?>
-<?php $LatestArticles =  articleModel::getLatest(0,8);
-      $contact        = json_decode($this->config->company->contact);
-?>
 <div id="myCarousel" class="carousel slide">
   <div class="carousel-inner">
-    <div class="item active">
-      <img src="http://www.bootcss.com/assets/img/examples/slide-01.jpg" alt="">
-      <div class="container">
-        <div class="carousel-caption">
-          <h1>息壤 EPS 门户系统</h1>
-          <p class="lead">Cras justo odio, dapibus ac facilisis in, 
-            egestas eget quam. Donec id elit non mi porta gravida at eget metus. 
-            Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-          <a class="btn btn-large btn-primary" href="#">Sign up today</a>
-        </div>
-      </div>
-    </div>
+    <?php foreach($slides as $slide):?>
     <div class="item">
-      <img src="http://www.bootcss.com/assets/img/examples/slide-02.jpg" alt="">
+      <img src='<?php echo $slide->image;?>' alt='<?php echo $slide->title?>'>
       <div class="container">
         <div class="carousel-caption">
-          <h1>Another example headline.</h1>
-          <p class="lead">Cras justo odio, dapibus ac facilisis in, 
-            egestas eget quam. Donec id elit non mi porta gravida at eget metus. 
-            Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-          <a class="btn btn-large btn-primary" href="#">Learn more</a>
+          <h2><?php echo $slide->title;?></h2>
+          <p class="lead"><?php echo $slide->summary;?></p>
+          <a class="btn btn-large btn-primary" href='<?php echo $slide->url?>'><?php echo $slide->label;?></a>
         </div>
       </div>
     </div>
+    <?php endforeach;?>
   </div>
   <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
   <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
@@ -41,7 +26,7 @@
   </div>
   <div class="span4">
     <h4><?php echo $lang->index->news;?></h4>
-    <?php foreach($LatestArticles as $id => $article): ?>
+    <?php foreach($latestArticles as $id => $article): ?>
       <p><i class="icon-chevron-right"></i><?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news'");?></p>
     <?php endforeach; ?>
   </div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of common module of xirangEPS.
+ * The model file of setting module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Xiying Guan <guanxiying@xirangit.com>
@@ -51,7 +51,6 @@ class settingModel extends model
     {
         $level    = substr_count($path, '.');
         $section = '';
-
         if($level <= 1) return false;
         if($level == 2) list($owner, $module, $key) = explode('.', $path);
         if($level == 3) list($owner, $module, $section, $key) = explode('.', $path);

@@ -32,7 +32,7 @@ body {padding-top:60px; padding-bottom:40px;}
 .leftmenu.affix {top:40px;}
 .leftmenu.affix-bottom {position:absolute; top:auto; bottom:270px;}
 
-.adminList{max-height:40px; max-width:100px;}
+.image-small{max-height:100px; max-width:100px;}
 
 /* The settings for article create and edit page. */
 #summary  {background:#fff; margin-bottom:0; padding:4px 6px;}

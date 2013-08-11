@@ -41,7 +41,7 @@ class nav extends control
 
             $settings =  array('topNav' => json_encode($navs[1]));
             $result   = $this->loadModel('setting')->setItems('system.common.nav', $settings);
-            if($result) $this->send(array('return' => 'success', 'message' => $this->lang->setSuccess));
+            if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
 
