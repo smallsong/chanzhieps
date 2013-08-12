@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->site->copyrightStart;?></th> 
-      <td><?php echo html::input('copyrightStart', $this->config->site->copyrightStart, "class='text-2'");?></td> 
+      <td><?php echo html::input('copyrightStart', $this->config->site->copyrightStart, "class='text-3'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->site->keywords;?></th> 
