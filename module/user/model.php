@@ -256,7 +256,7 @@ class userModel extends model
         $format = 'Y-m-d H:i:s';
 
         $date = date($format,$intdate);
-        $this->dao->update(TABLE_USER)->where('id')->eq($userID)->set('allowTime')->eq($date)->exec();
+        $this->dao->update(TABLE_USER)->set('allowTime')->eq($date)->where('id')->eq($userID)->exec();
 
         return !dao::isError();
     }
