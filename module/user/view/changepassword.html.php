@@ -17,4 +17,3 @@
     <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
   </table>
 </form>
-<?php include '../../common/view/footer.admin.html.php';?>

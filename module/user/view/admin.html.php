@@ -44,7 +44,7 @@
     <td><?php echo $user->addedDate;?></td>
     <td><?php echo $user->visits;?></td>
     <td><?php echo $user->last;?></td>
-    <td class="operate">
+    <td class='operate'>
       <?php 
       foreach($lang->user->forbidDate as $date => $title)
       {

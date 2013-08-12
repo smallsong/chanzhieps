@@ -49,7 +49,7 @@
           <th><?php echo $lang->user->gtalk;?></th>
           <td><?php echo html::input('gtalk', $user->gtalk, "class='text-3'");?></td>
         </tr>  
-        <tr><td></td><td><?php echo html::submitButton();?></td></tr>
+        <tr><th></th><td><?php echo html::submitButton();?></td></tr>
       </table>
     </form>
   </div>
