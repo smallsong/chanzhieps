@@ -136,7 +136,7 @@ class article extends control
         }
 
         $article    = $this->article->getByID($articleID);
-        $categories =  $this->loadModel('tree')->getOptionMenu($article->type);
+        $categories = $this->loadModel('tree')->getOptionMenu($article->type);
         unset($categories[0]);
 
         $this->view->title      = $this->lang->article->edit;
