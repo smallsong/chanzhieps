@@ -13,6 +13,21 @@
 class slideModel extends model
 {
     /**
+     * Get one slide by id.
+     *
+     * @param int $id
+     * @access public
+     * @return array
+     */
+    public function getByID($id)
+    {
+        $slide = $this->dao->select('*')->from(TABLE_CONFIG)->where('id')->eq($id)->fetch();
+        if(!$slide) return false;
+
+        return json_decode($slide->value);
+    }
+
+    /**
      * Get slides list sorted by key.
      *
      * @access public
@@ -24,7 +39,7 @@ class slideModel extends model
             ->where('owner')->eq('system')
             ->andWhere('module')->eq('common')
             ->andWhere('section')->eq('slides')
-            ->orderBy('0+`key`')                      //Add 0 to enable order by char field.
+            ->orderBy('`key`')
             ->fetchAll('key');
 
         foreach($slides as $key => $slide)
@@ -69,28 +84,19 @@ class slideModel extends model
     /**
      * Update a slide.
      *
+     * @param int $id
      * @access public
      * @return bool
      */
-    public function update()
+    public function update($id)
     {
         $image = $this->uploadImage();
 
-        if(!empty($image))
-        {
-            $slide = fixer::input('post')->add('image', $image)->get();
-        }
-        else
-        {
-            $slide = fixer::input('post')->get();
-        }
-
-        $setting = new stdClass();
-        $setting->value = json_encode($slide);
+        $slide = fixer::input('post')->setIf(!empty($image), 'image', $image)->get();
 
         $this->dao->update(TABLE_CONFIG)
-            ->data($setting)
-            ->where('id')->eq($slide->id)
+            ->set('value')->eq(json_encode($slide))
+            ->where('id')->eq($id)
             ->exec();
         return !dao::isError();
     }
@@ -113,17 +119,17 @@ class slideModel extends model
         /* Reset key to zero to make sure key wouldnot overflow. */
         if($maxKey > 1000) $maxKey = 0;
 
-        foreach($_POST['order'] as $id => $key)
+        foreach($_POST['order'] as $id => $order)
         {
             /* Add maxKey to key ensure unique.*/
-            $key = $maxKey + $key;
+            $key = $maxKey + $order;
             $this->dao->update(TABLE_CONFIG)
                 ->data(array('key' => $key))
                 ->where('id')->eq($id)
                 ->exec();
         }
-        return !dao::isError();
 
+        return !dao::isError();
     }
 
     /**
@@ -137,10 +143,23 @@ class slideModel extends model
         $images = $this->loadModel('file')->saveUpload('slide');
         if(!$images) return false; 
 
-        $imageIDList = array_keys($images);
-        $image       = $this->file->getById($imageIDList[0]); 
+        $imageIdList = array_keys($images);
+        $image       = $this->file->getById($imageIdList[0]); 
 
         return $image->webPath;
     }
-}
 
+    /**
+     * Delete a slide.
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function delete()
+    {
+        $this->dao->delete()->from(TABLE_CONFIG)
+            ->where('id')->eq($id)
+            ->exec();
+        return !dao::isError();
+    }
+}

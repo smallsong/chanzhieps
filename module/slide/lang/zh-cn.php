@@ -14,7 +14,7 @@ $lang->slide->title    = '标题';
 $lang->slide->image    = '图片';
 $lang->slide->url      = '链接';
 $lang->slide->summary  = '摘要';
-$lang->slide->label    = '按钮';
+$lang->slide->label    = '按钮文字';
 
 $lang->slide->sort     = '排序';
 $lang->slide->saveSort = '保存排序';

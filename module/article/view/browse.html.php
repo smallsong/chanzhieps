@@ -5,7 +5,6 @@ $categoryPath = array_keys($category->pathNames);
 js::set('categoryPath',  json_encode($categoryPath));
 
 include '../../common/view/treeview.html.php';
-include 'portal.html.php';
 ?>
 <?php echo $common->printPositionBar($category);?>
 <div class='row'>
@@ -25,7 +24,7 @@ include 'portal.html.php';
           <div class='f-right w-p75'>
             <h5 class='article-title'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
             <div class='meta'>
-              <span class='f-12px'><?php echo $lang->article->addedDate;?>:<?php echo substr($article->addedDate, 2, 8);?></span> &nbsp;&nbsp;
+              <span class='f-12px'><?php echo $lang->article->addedDate;?>:<?php echo substr($article->addedDate, 2, 8);?></span>&nbsp;&nbsp;
             </div>
             <div class='summary'>
               <?php echo $article->summary;?> 

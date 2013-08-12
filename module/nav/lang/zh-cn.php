@@ -9,14 +9,14 @@
  * @link        http://www.zentao.net
  */
 
-$lang->setNav  = '导航设置';
-$lang->add      = '添加';
-$lang->addChild = '添加子导航';
-$lang->delete   = '删除导航';
-$lang->js->canNotRemoveAllNav   = '不能删除所有导航';
+$lang->nav->setNav   = '导航设置';
+$lang->nav->add      = '添加';
+$lang->nav->addChild = '添加子导航';
+$lang->nav->delete   = '删除导航';
 
-$lang->inputTitle = '请输入标题';
-$lang->inputUrl   = '请输入地址';
+$lang->nav->inputUrl        = '请输入链接';
+$lang->nav->inputTitle      = '请输入标题';
+$lang->nav->cannotRemoveAll = '不能删除所有导航';
 
 /* nav type   */
 $lang->nav->types = array();

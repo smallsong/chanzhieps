@@ -190,6 +190,7 @@ class userModel extends model
 
         /* Then check the password hash. */
         if(!$user) return false;
+
         if($this->createPassword($password, $user->account, $user->join) != $user->password) return false;
 
         /* Update user data. */
@@ -197,6 +198,10 @@ class userModel extends model
         $user->last = helper::now();
         $user->visits ++;
         $this->dao->update(TABLE_USER)->data($user)->where('account')->eq($account)->exec();
+
+        $user->realname  = empty($user->realname) ? $account : $user->realname;
+        $user->shortLast = substr($user->last, 5, -3);
+        $user->shortJoin = substr($user->join, 5, -3);
 
         /* Return him.*/
         return $user;
@@ -243,15 +248,7 @@ class userModel extends model
      */
     public function forbid($userID, $date)
     {
-        switch($date)
-        {
-            case "oneday"   : $intdate = strtotime("+1 day");break;
-            case "twodays"  : $intdate = strtotime("+2 day");break;
-            case "threedays": $intdate = strtotime("+3 day");break;
-            case "oneweek"  : $intdate = strtotime("+1 week");break;
-            case "onemonth" : $intdate = strtotime("+1 month");break;
-            case "forever"  : $intdate = strtotime("+10 years");break;
-        }
+        $intdate = strtotime("+$date day");
 
         $format = 'Y-m-d H:i:s';
 

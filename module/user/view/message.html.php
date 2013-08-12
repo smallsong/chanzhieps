@@ -12,10 +12,10 @@
         <th class='w-50px'><?php echo $lang->message->status;?></th>
         <th class='w-80px'><?php echo $lang->actions;?></th>
       </tr>
-      <form method='post' target='hiddenwin' action='<?php echo $this->createLink('message', 'batchDelete');?>'>
+      <form method='post' target='hiddenwin' action="<?php echo $this->createLink('message', 'batchDelete');?>">
       <?php foreach($messages as $message):?>
       <tr class='a-center'>
-        <td><input type='checkbox' name='messages[]' value='<?php echo $message->id?>' /></td>
+        <td><input type='checkbox' name='messages[]' value="<?php echo $message->id?>" /></td>
         <td><?php echo $message->from;?></td>
         <td><?php echo substr($message->time, 5);?></td>
         <td class='a-left'><?php echo $message->content;?></td>

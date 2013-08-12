@@ -252,7 +252,7 @@ class commonModel extends model
 
         $string  = '<ul class="nav pull-right">';
         $string .= sprintf('<li>%s</li>', html::a(getWebroot(), '<i class="icon-home icon-large"></i> ' . $lang->frontHome, '_blank', 'class="navbar-link"'));
-        $string .= sprintf('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large"></i> %s <b class="caret"></b></a>', $app->user->account);
+        $string .= sprintf('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-large"></i> %s <b class="caret"></b></a>', $app->user->realname);
         $string .= sprintf('<ul class="dropdown-menu"><li>%s</li><li>%s</li></ul>', html::a(helper::createLink('user', 'changePassword'), $lang->changePassword, '', "data-toggle='modal'"), html::a(helper::createLink('user','logout'), $lang->logout, ''));
         $string .= '</li></ul>';
 
@@ -271,7 +271,7 @@ class commonModel extends model
         $divider = '&nbsp;|&nbsp;';
         if($app->session->user->account != 'guest')
         {
-            printf($app->lang->welcome, $app->session->user->account);
+            printf($app->lang->welcome, $app->session->user->realname);
             $messages = $dao->select('COUNT(*) as count')->from(TABLE_MESSAGE)->where('`to`')->eq($app->session->user->account)->andWhere('readed')->eq(0)->fetch('count', false);
             if($messages) echo html::a(helper::createLink('user', 'message'), sprintf($app->lang->messages, $messages));
             echo html::a(helper::createLink('user', 'control'), $app->lang->dashboard);
@@ -563,32 +563,21 @@ class commonModel extends model
      * @access public
      * @return void
      */
-    public function getContact()
+    public function getContactValue($contactItem, $contactValue)
     {
-        $contact = json_decode($this->config->company->contact);
-        foreach($contact as $item => $value)
-        switch($item)
+        switch($contactItem)
         {
             case 'qq' : 
-                echo "<li>
-                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
-                        <a href='tencent://message/?uin={$value}&amp;Site={$this->config->company->name}&amp;Menu=yes'>{$value}</a>
-                      </li>";
+                echo html::a("tencent://message/?uin={$contactValue}&amp;Site={$this->config->company->name}&amp;Menu=yes", $contactValue);
             break;
             case 'email' : 
-                echo "<li>
-                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
-                        <a href='mailto:{$value}'>{$value}</a>
-                      </li>";
+                echo html::a("mailto:{$contactValue}", $contactValue);
             break;
             case 'wangwang' :
-                echo "<li>
-                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
-                        <a href='http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8'>{$value}</a>
-                      </li>";
+                echo html::a("http://www.taobao.com/webww/ww.php?ver=3&touid={$contactValue}&siteid=cntaobao&status=2&charset=utf-8", $contactValue);
             break;
-            default :
-                echo "<li><strong>{$this->lang->company->$item}{$this->lang->colon}</strong>$value</li>";     
+            default : 
+                echo $contactValue;
         }
     }
 }

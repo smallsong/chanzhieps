@@ -11,35 +11,35 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
-<form action="" method="post" id="ajaxForm">
-  <table class="table table-form">
+<form action='' method='post' id='ajaxForm'>
+  <table class='table table-form'>
     <caption><?php echo $lang->site->setBasic;?></caption> 
     <tr>
-      <th class="w-100px"><?php echo $lang->site->name;?></th> 
-      <td><?php echo html::input('name', $this->config->site->name, 'class="text-3"');?></td> 
+      <th class='w-100px'><?php echo $lang->site->name;?></th> 
+      <td><?php echo html::input('name', $this->config->site->name, "class='text-3'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->site->copyrightStart;?></th> 
-      <td><?php echo html::input('copyrightStart', $this->config->site->copyrightStart, 'class="text-2"');?></td> 
+      <td><?php echo html::input('copyrightStart', $this->config->site->copyrightStart, "class='text-2'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->site->keywords;?></th> 
-      <td><?php echo html::input('keywords', $this->config->site->keywords, 'class="text-1"');?></td> 
+      <td><?php echo html::input('keywords', $this->config->site->keywords, "class='text-1'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->site->slogan;?></th> 
-      <td><?php echo html::input('slogan', $this->config->site->slogan, 'class="text-1"');?></td> 
+      <td><?php echo html::input('slogan', $this->config->site->slogan, "class='text-1'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->site->desc;?></th> 
-      <td><?php echo html::textarea('desc', $this->config->site->desc, 'class="area-1" rows="10"');?></td> 
+      <td><?php echo html::textarea('desc', $this->config->site->desc, "class='area-1' rows='10'");?></td> 
     </tr>
    <tr>
       <th><?php echo $lang->site->icp;?></th> 
-      <td><?php echo html::input('icp', $this->config->site->icp, 'class="text-1"');?></td> 
+      <td><?php echo html::input('icp', $this->config->site->icp, "class='text-1'");?></td> 
     </tr>
     <tr>
-      <td></td>
+      <th></th>
       <td>
         <?php echo html::submitButton();?>
       </td>

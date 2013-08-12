@@ -1,4 +1,4 @@
-<div class='span3' id="leftmenu">
+<div class='span3' id='leftmenu'>
   <table class='table table-bordered'>
     <caption><?php echo $lang->user->control->common;?></caption>
     <?php
@@ -7,7 +7,7 @@
     {
         $class = 'a-center';
         list($label, $module, $method) = explode('|', $menu);
-        if($module == $this->app->getModuleName() && $method == $this->app->getMethodName()) $class .= ' active';
+        if($module == $this->app->getModuleName() && $method == $this->app->getMethodName()) $class .= 'active';
         echo "<tr><td class='$class'>" . html::a($this->createLink($module, $method), $label) . '</td></tr>';
     }
     ?>

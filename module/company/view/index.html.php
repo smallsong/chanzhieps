@@ -1,6 +1,6 @@
 <?php 
 include '../../common/view/header.html.php';
-$contact    = json_decode($this->config->company->contact);
+$contact = json_decode($this->config->company->contact);
 ?>
 <?php $common->printPositionBar($this->app->getModuleName());?>
 <div class='widget widget-category radius'>

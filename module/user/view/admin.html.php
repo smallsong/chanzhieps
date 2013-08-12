@@ -1,6 +1,6 @@
 <?php
 /**
- * The manageanswers view file of article module of xirangEPS.
+ * The admin view file of user module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Yangyang Shi <shiyangyangwork@yahoo.cn>
@@ -33,20 +33,20 @@
   <tbody>
   <?php foreach($users as $user):?>
   <tr class='a-center'>
-    <td class='a-center'><?php echo $user->id;?></td>
-    <td><?php echo $user->realname; ?> </td>
-    <td><?php echo $user->nickname; ?> </td>
-    <td><?php echo $user->account; ?> </td>
-    <td><?php $gendar = $user->gendar; echo $lang->user->gendarList->$gendar; ?> </td>
-    <td class='a-left'><?php echo $user->company; ?> </td>
-    <td><?php echo $user->addedDate; ?> </td>
-    <td><?php echo $user->visits; ?> </td>
-    <td><?php echo $user->last; ?> </td>
-    <td class="operate">
+    <td><?php echo $user->id;?></td>
+    <td><?php echo $user->realname;?></td>
+    <td><?php echo $user->nickname;?></td>
+    <td><?php echo $user->account;?></td>
+    <td><?php $gendar = $user->gendar; echo $lang->user->gendarList->$gendar;?></td>
+    <td class='a-left'><?php echo $user->company;?></td>
+    <td><?php echo $user->addedDate;?></td>
+    <td><?php echo $user->visits;?></td>
+    <td><?php echo $user->last;?></td>
+    <td class='operate'>
       <?php 
       foreach($lang->user->forbidDate as $date => $title)
       {
-          echo html::a($this->createLink('user', 'forbid', "date=$date&userID=$user->id"), $title);
+          echo html::a($this->createLink('user', 'forbid', "userID=$user->id&date=$date"), $title);
       }
       ?>
     </td>

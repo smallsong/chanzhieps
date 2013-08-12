@@ -42,7 +42,7 @@
       </tr>  
       <tr>
         <th></th>
-        <td><?php echo html::a(inlink('edit'), $lang->user->editProfile, '', 'class="btn btn-primary"');?></td>
+        <td><?php echo html::a(inlink('edit'), $lang->user->editProfile, '', "class='btn btn-primary'");?></td>
       </tr>
     </table>
   </div>
