@@ -296,11 +296,11 @@ class user extends control
     }
 
     /**
-     *  admin users list.
+     *  Admin users list.
      *
-     * @param int    $recTotal
-     * @param int    $recPerPage
-     * @param int    $pagerID
+     * @param  int    $recTotal
+     * @param  int    $recPerPage
+     * @param  int    $pagerID
      * @access public
      * @return void
      */
@@ -309,19 +309,15 @@ class user extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $users = $this->user->getList($pager);
- 
-        if(!empty($_GET))
-        {
-            $userName = fixer::input('get')->get();
-            $users    = $this->user->getList($pager, $userName->userName);
-        }
+        $key = $this->post->key ? $this->post->key : '';
 
-        $this->view->users = $users;
+        $this->view->users = $this->user->getList($pager, $key);
+        $this->view->key   = $key;
         $this->view->pager = $pager;
+
         $this->display();
     }
-    
+
     /**
      * forbid a user.
      *

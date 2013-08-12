@@ -10,11 +10,9 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<form method='get' class='form-inline mb-10px form-search pull-right'>
-  <?php echo html::hidden('m', 'user');?>
-  <?php echo html::hidden('f', 'admin');?>
-  <?php echo html::input('userName', '', "class='text-2 input-medium search-query' placeholder='{$lang->user->inputUserName}'");?>
-  <?php echo html::submitButton($lang->user->searchUser, 'btn'); ?>
+<form method='post' class='form-inline mb-10px form-search pull-right'>
+  <?php echo html::input('key', $key, "class='text-2 search-query' placeholder='{$lang->user->inputUserName}'"); ?>
+  <?php echo html::submitButton($lang->user->searchUser); ?>
 </form>
 <table class='table table-hover table-striped'>
   <caption><?php echo $lang->user->userList;?></caption>
