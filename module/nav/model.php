@@ -125,7 +125,7 @@ class navModel extends model
         $nav['url'] = $this->getUrl($nav);
 
         /* Add class attribue to highlight current menu. */
-        $nav['class']  = $nav['type'] . '_' . $nav[$nav['type']]; 
+        $nav['class']  = 'nav-' . $nav['type'] . '-' . $nav[$nav['type']]; 
 
         return $nav;
     }

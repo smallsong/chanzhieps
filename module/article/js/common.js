@@ -10,11 +10,11 @@ $(document).ready(function()
     });
     
     /* Set current active topNav. */
-    if(v.categoryPath && v.categoryPath.length)
+    if(v.path && v.path.length)
     {
-        $.each(eval(v.categoryPath), function(index, category) 
+        $.each(eval(v.path), function(index, category) 
         { 
-            $('#topNav .article_' + category).addClass('active');
+            $('.nav-article-' + category).addClass('active');
         })
     }
 });
