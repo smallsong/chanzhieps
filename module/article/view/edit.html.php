@@ -18,17 +18,17 @@
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>
       <td>
-        <?php echo html::select("categories[]", $categories, array_keys($article->categories), "multiple='multiple' class='select-3 chosen'");?>
+        <?php echo html::select('categories[]', $categories, array_keys($article->categories), "multiple='multiple' class='select-3 chosen'");?>
       </td> 
     </tr> 
     <tr>
       <th><?php echo $lang->article->author;?></th>
-      <td><?php echo html::input('author', $article->author, 'class=text-3');?></td> 
+      <td><?php echo html::input('author', $article->author, "class='text-3'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->article->original;?></th>
       <td>
-        <?php echo html::select('original', $lang->article->originalList, $article->original, 'class=select-3');?>
+        <?php echo html::select('original', $lang->article->originalList, $article->original, "class='select-3'");?>
         <span id='copyBox'>
           <?php
           echo html::input('copySite', $article->copySite, "class='text-2' placeholder='{$lang->article->copySite }'");
@@ -39,11 +39,11 @@
     </tr>
     <tr>
       <th><?php echo $lang->article->title;?></th>
-      <td><?php echo html::input('title', $article->title, 'class=text-1');?></td>
+      <td><?php echo html::input('title', $article->title, "class='text-1'");?></td>
     </tr>
    <tr>
       <th><?php echo $lang->article->keywords;?></th>
-      <td><?php echo html::input('keywords', $article->keywords, 'class=text-1');?></td>
+      <td><?php echo html::input('keywords', $article->keywords, "class='text-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->summary;?></th>
