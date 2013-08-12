@@ -16,7 +16,7 @@ class navModel extends model
      * @param  string $type
      * @return array
      */
-    public function getNavs($type = 'mainNav')
+    public function getNavs($type = 'topNav')
     {
         global $config;
 
@@ -25,61 +25,55 @@ class navModel extends model
     }
 
     /**
-     * create form input tags of backend.
+     * Create form input tags of backend.
      *
      * @param int $grade
      * @param array $nav
-     *
+     * @return string
      */
     public function createEntry($grade = 1, $nav = array())
     {
+        if(empty($nav))
+        {
+            $nav['type']   = 'common';
+            $nav['common'] = 'home';
+            $nav['title']  = $this->lang->nav->common->home;
+            $nav['url']    = '';
+        }
+
         $childGrade    = $grade + 1;
         $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
 
-        $html .= '<i class="icon-folder-open shut"></i>';
+        $articleHidden = ($nav['type'] == 'article') ? '' : 'hide'; 
+        $commonHidden  = ($nav['type'] == 'common')  ? '' : 'hide'; 
+        $urlHidden     = ($nav['type'] == 'input')   ? '' : 'hide'; 
+            
+        $entry = '<i class="icon-folder-open shut"></i>';
         
         /* nav type select tag. */
-        $type  = isset($nav['type']) ? $nav['type'] : ''; 
-        $html .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $type, "class='navType' grade='{$grade}'" );
+        $entry .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $nav['type'], "class='navType' grade='{$grade}'");
 
         /* artcle and common select tag. */
-        $hideArticle = $hideCommon = 'hide';
-        if(isset($nav['type']) && $nav['type'] == 'article')
-        {
-            $hideArticle = '';
-        }
-        elseif(empty($nav) or $nav['type'] == 'common')
-        {
-            $hideCommon = '';
-        }
-        $html .= html::select("nav[{$grade}][article][]", $articleTree, $nav['article'], "class='navSelector {$hideArticle}'");
-        $html .= html::select("nav[{$grade}][common][]", $this->lang->nav->common, $nav['common'], "class='navSelector {$hideCommon}'");
+        $entry .= html::select("nav[{$grade}][article][]", $articleTree, $nav['article'], "class='navSelector {$articleHidden}'");
+        $entry .= html::select("nav[{$grade}][common][]", $this->lang->nav->common, $nav['common'], "class='navSelector {$commonHidden}'");
             
-        $title = isset($nav['title']) ? $nav['title'] : "";
-        $html .= html::input("nav[{$grade}][title][]", $title, "placeholder='{$this->lang->inputTitle}' class='input-small titleInput'");
+        $entry .= html::input("nav[{$grade}][title][]", $nav['title'], "placeholder='{$this->lang->inputTitle}' class='input-small titleInput'");
 
         /* url input tag. */
-        $hideUrl    = '';
-        $disableUrl = '';
-        if(!isset($nav['type']) or $nav['type'] != 'input')
-        {
-            $hideUrl    = 'hide'; 
-            $disableUrl = 'disabled';
-        }
         $url   = isset($nav['url']) ? $nav['url'] : "";
-        $html .= html::input("nav[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$hideUrl}'");
+        $entry .= html::input("nav[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$urlHidden}'");
         
         /* hidden tags. */
-        if($grade >1 ) $html .= html::hidden("nav[{$grade}][parent][]", '', "class='grade{$grade}parent'" );
-        $html .= html::hidden("nav[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
+        if($grade >1 ) $entry .= html::hidden("nav[{$grade}][parent][]", '', "class='grade{$grade}parent'");
+        $entry .= html::hidden("nav[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
  
-        /* operate menu. */
-        $html .= html::a('javascript:;', $this->lang->nav->add, '', "class='plus{$grade}'" );
-        if($childGrade < 4) $html .= html::a('javascript:;', $this->lang->nav->addChild, '', "class='plus{$childGrade}'" );
-        $html .= html::a('javascript:;', $this->lang->delete, '', 'class="remove"' );
-        $html .= '<i class="icon-arrow-up"></i> <i class="icon-arrow-down"></i>';
+        /* operate buttons. */
+        $entry .= html::a('javascript:;', $this->lang->nav->add, '', "class='plus{$grade}'");
+        if($childGrade < 4) $entry .= html::a('javascript:;', $this->lang->nav->addChild, '', "class='plus{$childGrade}'");
+        $entry .= html::a('javascript:;', $this->lang->delete, '', "class='remove'");
+        $entry .= "<i class='icon-arrow-up'></i> <i class='icon-arrow-down'></i>";
 
-       return $html;
+       return $entry;
     }
 
     /**

@@ -34,6 +34,7 @@ class nav extends control
                 foreach($navList as &$nav)
                 $nav['children'] = isset($navs[3][$nav['key']]) ?  $navs[3][$nav['key']] : array();
             }
+
             foreach($navs[1] as &$nav)
             {
                 $nav['children'] = isset($navs[2][$nav['key']]) ?  $navs[2][$nav['key']] : array();
@@ -44,12 +45,10 @@ class nav extends control
             if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
-
-        $this->view->navs = json_decode($this->config->nav->mainNav,true);
-
-        $this->view->types = $this->lang->nav->types; 
+        $this->view->navs         = json_decode($this->config->nav->topNav,true);
+        $this->view->types        = $this->lang->nav->types; 
         $this->view->articleTree  = $this->loadModel('tree')->getOptionMenu('article');
-
+    
         if(empty($this->view->navs))
         {
             $originNav = array();

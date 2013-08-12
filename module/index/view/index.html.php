@@ -1,5 +1,6 @@
 <?php include '../../common/view/header.html.php';?>
 <?php include '../../common/view/treeview.html.php';?>
+<?php if($slildes):?>
 <div id="myCarousel" class="carousel slide">
   <div class="carousel-inner">
     <?php foreach($slides as $slide):?>
@@ -18,6 +19,7 @@
   <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
   <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
 </div>
+<?php endif;?>
 <div class="row-fluid">
 
   <div class="span4">

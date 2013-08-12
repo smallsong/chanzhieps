@@ -5,7 +5,7 @@ include 'header.lite.html.php';
 if(isset($config->site->logo)) $logo = json_decode($this->config->site->logo);
 js::set('lang', $lang->js);
 
-$topNavs = $this->loadModel('nav')->getNavs('mainNav');
+$topNavs = $this->loadModel('nav')->getNavs('topNav');
 ?>
 <div class='container'>
   <div class='masthead'>
