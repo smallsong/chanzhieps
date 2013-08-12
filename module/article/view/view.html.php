@@ -2,9 +2,10 @@
 include '../../common/view/header.html.php'; 
 include '../../common/view/treeview.html.php'; 
 
-js::set('articleID', $article->id);
 /* set categoryPath for mainNav highlight. */
 js::set('categoryPath',  json_encode($categoryPath));
+
+js::set('articleID', $article->id);
 ?>
 <?php $common->printPositionBar($category, $article);?>
 <div class='row'>
@@ -29,22 +30,23 @@ js::set('categoryPath',  json_encode($categoryPath));
           ?>
         </div>
         <div><?php echo $article->content;?></div>
-        <?php foreach($article->files as $file):?>
-        <?php if($file->isImage)
-              { 
+        <?php
+        foreach($article->files as $file)
+        {
+            if($file->isImage)
+            { 
                 echo html::image($file->smallURL, "title='{$file->title}' class='w-p45'");
-              }
-              else
-              {
+            }
+            else
+            {
                 echo html::a(inlink('download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank');
-              }
+            }
+        }
         ?> 
-        <?php endforeach;?>
       </div>
     </div>
-    <div id="commentBox"> 
-    </div>
-    <?php echo html::a('', '', '', 'name="comment"');?>
+    <div id='commentBox'></div>
+    <?php echo html::a('', '', '', "name='comment'");?>
     <div class='a-right'><?php if($article->editor) printf($lang->article->lblEditor, $article->editor, $article->editedDate);?></div>
   </div>
 <?php include '../../common/view/side.html.php'; ?>
