@@ -1,4 +1,17 @@
-<form id="slideForm" method='post' class="form-inline" enctype='multipart/form-data' action='<?php echo inlink('edit');?>'>
+<?php
+/**
+ * The edit view file of slide of xirangEPS.
+ *
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @author      Xiying Guan<guanxiying@xirangit.com>
+ * @package     slide
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+?>
+<?php include '../../common/view/header.admin.html.php';?>
+<?php include '../../common/view/kindeditor.html.php';?>
+<form id='ajaxForm' method='post' class='form-inline' enctype='multipart/form-data'>
   <table class='table table-bordered'>
     <caption><?php echo $lang->slide->edit;?></caption>
     <tr>
@@ -33,4 +46,4 @@
     </tr>
   </table>
 </form>
-<?php js::execute($pageJS);?>
+<?php include '../../common/view/footer.admin.html.php';?>

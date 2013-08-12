@@ -81,7 +81,7 @@ $(document).ready(function()
         
         if($(this).parent().is('.liGrade1') && $('.navList .liGrade1').size() ==1)
         {
-            bootbox.alert(v.lang.canNotRemoveAllNav);
+            bootbox.alert(v.cannotRemoveAll);
         }
         else 
         {
@@ -100,7 +100,7 @@ $(document).ready(function()
             {
                 $(this).parent().children('.urlInput').hide();
                 $(this).parent().children('.navSelector').hide();
-                $(this).parent().children('.navSelector[name*='+type+']').show();
+                $(this).parent().children('.navSelector[name*='+type+']').show().change();
             }
             else
             {

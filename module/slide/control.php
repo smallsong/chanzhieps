@@ -34,7 +34,7 @@ class slide extends control
         {
             if($this->slide->create())
             {
-                $this->send(array('result' => 'success', 'message' => $this->lang->slide->successSave));
+                $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
             }
 
             $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
@@ -46,21 +46,21 @@ class slide extends control
     /**
      * Edit a slide.
      *
+     * @param int $id
      * @access public
      * @return void
      */
-    public function edit()
+    public function edit($id)
     {
         if($_POST)
         {
-            if($this->slide->update()) $this->send(array('result' => 'success', 'message' => $this->lang->slide->successSave));
+            if($this->slide->update($id))
+            $this->send(array('result' => 'success', 'locate'=>$this->inLink('admin')) );
             $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
         }
 
-        $slide = $this->dao->select('*')->from(TABLE_CONFIG)->where('id')->eq($this->get->id)->fetch();
-
-        $this->view->id   = $slide->id;
-        $this->view->slide = json_decode($slide->value);
+        $this->view->id    = $id;
+        $this->view->slide = $this->slide->getByID($id);
         $this->display();
     }
 
@@ -72,11 +72,7 @@ class slide extends control
      */
     public function delete($id)
     {
-        $this->dao->delete()->from(TABLE_CONFIG)
-            ->where('id')->eq($id)
-            ->exec();
-
-        if(!dao::isError()) $this->send(array('result' => 'success'));
+        if($this->slide->delete($id)) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 

@@ -74,8 +74,8 @@ class navModel extends model
         $html .= html::hidden("nav[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
  
         /* operate menu. */
-        $html .= html::a('javascript:;', $this->lang->add, '', "class='plus{$grade}'" );
-        if($childGrade < 4) $html .= html::a('javascript:;', $this->lang->addChild, '', "class='plus{$childGrade}'" );
+        $html .= html::a('javascript:;', $this->lang->nav->add, '', "class='plus{$grade}'" );
+        if($childGrade < 4) $html .= html::a('javascript:;', $this->lang->nav->addChild, '', "class='plus{$childGrade}'" );
         $html .= html::a('javascript:;', $this->lang->delete, '', 'class="remove"' );
         $html .= '<i class="icon-arrow-up"></i> <i class="icon-arrow-down"></i>';
 

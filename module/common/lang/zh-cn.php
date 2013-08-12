@@ -104,10 +104,10 @@ $lang->forum->menu->tree   = '版块管理|tree|browse|type=forum';
 /* Menu of site module. */
 $lang->site = new stdclass();
 $lang->site->menu = new stdclass();
-$lang->site->menu->basic    = '站点设置|site|setbasic|';
-$lang->site->menu->logo     = 'LOGO设置|site|setlogo|';
-$lang->site->menu->nav      = '导航设置|nav|admin|';
-$lang->site->menu->slide    = '幻灯片设置|slide|admin|';
+$lang->site->menu->basic     = '站点设置|site|setbasic|';
+$lang->site->menu->logo      = 'LOGO设置|site|setlogo|';
+$lang->site->menu->nav       = '导航设置|nav|admin|';
+$lang->site->menu->slide     = array('link' => '幻灯片设置|slide|admin|', 'alias' => 'create,edit');
 
 /* Menu of company module. */
 $lang->company->menu = new stdclass();
