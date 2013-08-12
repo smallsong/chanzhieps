@@ -7,7 +7,7 @@
     {
         $class = 'a-center';
         list($label, $module, $method) = explode('|', $menu);
-        if($module == $this->app->getModuleName() && $method == $this->app->getMethodName()) $class .= 'active';
+        if($module == $this->app->getModuleName() && $method == $this->app->getMethodName()) $class .= ' active';
         echo "<tr><td class='$class'>" . html::a($this->createLink($module, $method), $label) . '</td></tr>';
     }
     ?>
