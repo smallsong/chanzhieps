@@ -193,15 +193,15 @@ class userModel extends model
 
         if($this->createPassword($password, $user->account, $user->join) != $user->password) return false;
 
-        $user->realname  = empty($user->realname) ? $account : $user->realname;
-        $user->shortLast = substr($user->last, 5, -3);
-        $user->shortJoin = substr($user->join, 5, -3);
-
         /* Update user data. */
         $user->ip = $this->server->remote_addr;
         $user->last = helper::now();
         $user->visits ++;
         $this->dao->update(TABLE_USER)->data($user)->where('account')->eq($account)->exec();
+
+        $user->realname  = empty($user->realname) ? $account : $user->realname;
+        $user->shortLast = substr($user->last, 5, -3);
+        $user->shortJoin = substr($user->join, 5, -3);
 
         /* Return him.*/
         return $user;
