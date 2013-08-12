@@ -556,6 +556,7 @@ class commonModel extends model
 
         return $link;
     }
+
     /**
      * get contact information.
      * 
