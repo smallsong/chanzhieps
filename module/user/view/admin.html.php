@@ -11,8 +11,8 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <form method='post' class='form-inline mb-10px form-search pull-right'>
-  <?php echo html::input('userName', '', "class='text-2 input-medium search-query' placeholder='{$lang->user->inputUserName}'"); ?>
-  <?php echo html::submitButton($lang->user->searchUser, 'btn'); ?>
+  <?php echo html::input('key', $key, "class='text-2' placeholder='{$lang->user->inputUserName}'"); ?>
+  <?php echo html::submitButton($lang->user->searchUser); ?>
 </form>
 <table class='table table-hover table-striped'>
   <caption><?php echo $lang->user->userList;?></caption>

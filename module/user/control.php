@@ -296,11 +296,11 @@ class user extends control
     }
 
     /**
-     *  admin users list.
+     *  Admin users list.
      *
-     * @param int    $recTotal
-     * @param int    $recPerPage
-     * @param int    $pagerID
+     * @param  int    $recTotal
+     * @param  int    $recPerPage
+     * @param  int    $pagerID
      * @access public
      * @return void
      */
@@ -309,19 +309,15 @@ class user extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $users = $this->user->getList($pager);
+        $key = $this->post->key ? $this->post->key : '';
 
-        if(!empty($_POST))
-        {
-            $userName = fixer::input('post')->get();
-            $users    = $this->user->getList($pager, $userName->userName);
-        }
- 
-        $this->view->users = $users;
+        $this->view->users = $this->user->getList($pager, $key);
+        $this->view->key   = $key;
         $this->view->pager = $pager;
+
         $this->display();
     }
-    
+
     /**
      * forbid a user.
      *
@@ -329,11 +325,11 @@ class user extends control
      * @param int    $userID
      * @return viod
      */
-    public function forbid($date, $userID)
+    public function forbid($userID, $date)
     {
-        if(!isset($this->lang->user->forbidDate->$date) or !$userID) $this->send(array('message' => $this->lang->user->forbidFail));       
+        if(!$userID or !isset($this->lang->user->forbidDate->$date)) $this->send(array('message' => $this->lang->user->forbidFail));       
 
-        $result = $this->user->forbid($date, $userID);
+        $result = $this->user->forbid($userID, $date);
         if($result)
         {
             $this->send(array('result'=>'success', 'message' => $this->lang->user->forbidSuccess));
