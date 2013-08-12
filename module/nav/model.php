@@ -16,7 +16,7 @@ class navModel extends model
      * @param  string $type
      * @return array
      */
-    public function getNavs($type = 'mainNav')
+    public function getNavs($type = 'topNav')
     {
         global $config;
 

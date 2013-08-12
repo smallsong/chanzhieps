@@ -9,7 +9,7 @@ $(document).ready(function()
         if($(this).val() == 0) $('#copyBox').show().find(':input').attr('disabled', false);
     });
     
-    /* Set current active mainNav. */
+    /* Set current active topNav. */
     if(v.categoryPath && v.categoryPath.length)
     {
         $.each(eval(v.categoryPath), function(index, category) 
