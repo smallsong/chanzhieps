@@ -62,7 +62,7 @@ class settingModel extends model
         $item->key     = $key;
         $item->value   = $value;
 
-        $this->dao->replace(TABLE_CONFIG)->data($item)->exec($autoCompany = false);
+        $this->dao->replace(TABLE_CONFIG)->data($item)->exec();
     }
 
     /**
