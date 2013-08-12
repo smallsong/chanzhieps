@@ -8,59 +8,7 @@
  * @version     $Id: zh-cn.php 824 2010-05-02 15:32:06Z wwccss $
  * @link        http://www.xirang.biz
  */
-$lang->user->common          = '用户';
-$lang->user->userList        = '会员列表';
-$lang->user->view            = "用户详情";
-$lang->user->create          = "添加用户";
-$lang->user->edit            = "编辑用户";
-$lang->user->changePassword  = "更改密码";
-$lang->user->newPassword     = "新密码";
-$lang->user->update          = "编辑用户";
-$lang->user->delete          = "删除用户";
-$lang->user->browse          = "浏览用户";
-$lang->user->deny            = "访问受限";
-$lang->user->confirmDelete   = "您确认删除该用户吗？";
-$lang->user->confirmActivate = "您确认激活该用户吗？";
-$lang->user->relogin         = "重新登录";
-$lang->user->asGuest         = "游客访问";
-$lang->user->goback          = "返回前一页";
-$lang->user->allUsers        = '全部用户';
-$lang->user->submit          = "提交";
-
-$lang->user->profile     = '个人信息';
-$lang->user->editProfile = '编辑信息';
-$lang->user->thread      = '我的主题';
-$lang->user->reply       = '我的回贴';
-$lang->user->message     = '我的消息';
-
-$lang->user->inputUserName       = '请输入用户名';
-$lang->user->inputAccountOrEmail = '请输入用户名或Email';
-$lang->user->inputPassword       = '请输入密码';
-$lang->user->searchUser          = '搜索';
-
-$lang->user->errorDeny     = "抱歉，您无权访问『<b>%s</b>』模块的『<b>%s</b>』功能。请联系管理员获取权限。点击后退返回上页。";
-$lang->user->loginFailed   = "登录失败，请检查您的用户名或密码是否填写正确。";
-$lang->user->lblZenTaoID   = '提示：可以用禅道社区帐号登录';
-$lang->user->lblRegistered = '恭喜您，已经成功注册。';
-$lang->user->forbidSuccess = '禁用成功';
-$lang->user->forbidFail    = '禁用失败';
-
-$lang->user->forbidUser          = '禁用管理';
-$lang->user->forbid              = '禁用';
-$lang->user->forbidDate = new stdClass();
-$lang->user->forbidDate->oneday      = '一天';
-$lang->user->forbidDate->twodays     = '两天';
-$lang->user->forbidDate->threedays   = '三天';
-$lang->user->forbidDate->oneweek     = '一周';
-$lang->user->forbidDate->onemonth    = '一个月';
-$lang->user->forbidDate->forever     = '永久';
-$lang->user->operate                 = '操作';
-
-$lang->user->gendarList = new stdclass();
-$lang->user->gendarList->m = '男';
-$lang->user->gendarList->f = '女';
-$lang->user->gendarList->u = '';
-
+$lang->user->common    = '用户';
 $lang->user->id        = '编号';
 $lang->user->account   = '用户名';
 $lang->user->password  = '密码';
@@ -89,6 +37,58 @@ $lang->user->last      = '最后登录时间';
 $lang->user->allowTime = '开放时间';
 $lang->user->status    = '状态';
 $lang->user->alert     = '您的帐号已被禁用';
+
+$lang->user->userList        = '会员列表';
+$lang->user->view            = "用户详情";
+$lang->user->create          = "添加用户";
+$lang->user->edit            = "编辑用户";
+$lang->user->changePassword  = "更改密码";
+$lang->user->newPassword     = "新密码";
+$lang->user->update          = "编辑用户";
+$lang->user->delete          = "删除用户";
+$lang->user->browse          = "浏览用户";
+$lang->user->deny            = "访问受限";
+$lang->user->confirmDelete   = "您确认删除该用户吗？";
+$lang->user->confirmActivate = "您确认激活该用户吗？";
+$lang->user->relogin         = "重新登录";
+$lang->user->asGuest         = "游客访问";
+$lang->user->goback          = "返回前一页";
+$lang->user->allUsers        = '全部用户';
+$lang->user->submit          = "提交";
+$lang->user->forbid          = '禁用';
+
+$lang->user->profile     = '个人信息';
+$lang->user->editProfile = '编辑信息';
+$lang->user->thread      = '我的主题';
+$lang->user->reply       = '我的回贴';
+$lang->user->message     = '我的消息';
+
+$lang->user->inputUserName       = '请输入用户名';
+$lang->user->inputAccountOrEmail = '请输入用户名或Email';
+$lang->user->inputPassword       = '请输入密码';
+$lang->user->searchUser          = '搜索';
+
+$lang->user->errorDeny     = "抱歉，您无权访问『<b>%s</b>』模块的『<b>%s</b>』功能。请联系管理员获取权限。点击后退返回上页。";
+$lang->user->loginFailed   = "登录失败，请检查您的用户名或密码是否填写正确。";
+$lang->user->lblZenTaoID   = '提示：可以用禅道社区帐号登录';
+$lang->user->lblRegistered = '恭喜您，已经成功注册。';
+$lang->user->forbidSuccess = '禁用成功';
+$lang->user->forbidFail    = '禁用失败';
+
+$lang->user->forbidUser          = '禁用管理';
+$lang->user->forbidDate = array();
+$lang->user->forbidDate['1']     = '一天';
+$lang->user->forbidDate['2']     = '两天';
+$lang->user->forbidDate['3']     = '三天';
+$lang->user->forbidDate['7']     = '一周';
+$lang->user->forbidDate['30']    = '一个月';
+$lang->user->forbidDate['10000'] = '永久';
+$lang->user->operate             = '操作';
+
+$lang->user->gendarList = new stdclass();
+$lang->user->gendarList->m = '男';
+$lang->user->gendarList->f = '女';
+$lang->user->gendarList->u = '';
 
 $lang->user->register  = new stdclass();
 $lang->user->register->welcome     = '欢迎注册成为会员';
