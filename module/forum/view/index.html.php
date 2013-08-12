@@ -21,7 +21,7 @@
           <strong><?php echo html::a(inlink('board', "id=$childBoard->id"), $childBoard->name);?></strong><br />
           <i><?php echo $childBoard->desc;?></i>
         </td>
-        <td class='w-50px strong'><nobr><?php echo trim($childBoard->owners, ',');?></nobr></td>
+        <td class='w-50px strong'><nobr><?php echo trim($childBoard->moderators, ',');?></nobr></td>
         <td class='w-70px'><?php echo $childBoard->threads;?></td>
         <td class='w-70px'><?php echo $childBoard->posts;?></td>
         <td class='w-150px a-left'>
