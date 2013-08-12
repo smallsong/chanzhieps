@@ -190,7 +190,12 @@ class userModel extends model
 
         /* Then check the password hash. */
         if(!$user) return false;
+
         if($this->createPassword($password, $user->account, $user->join) != $user->password) return false;
+
+        $user->realname  = empty($user->realname) ? $account : $user->realname;
+        $user->shortLast = substr($user->last, 5, -3);
+        $user->shortJoin = substr($user->join, 5, -3);
 
         /* Update user data. */
         $user->ip = $this->server->remote_addr;

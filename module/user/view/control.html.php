@@ -3,7 +3,7 @@
   <?php include './side.html.php';?>
   <div class='span9'>
     <table class='table table-bordered'>
-      <caption><?php printf($lang->user->control->welcome, $this->app->user->account);?></caption>
+      <caption><?php printf($lang->user->control->welcome, $this->app->user->realname);?></caption>
       <tr><td></td></tr>
     </table>
   </div>

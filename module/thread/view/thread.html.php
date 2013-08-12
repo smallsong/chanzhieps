@@ -1,4 +1,4 @@
-<table class='table table-form'>
+<table class='table'>
   <caption><?php echo $thread->addedDate . " " . $thread->title;?></caption>
   <tbody>
     <tr>
@@ -13,8 +13,7 @@
   </tbody>
   <tfoot>
     <tr> 
-      <td class='speaker'></td>
-      <td class='a-right' id='manageBox'>
+      <td class='a-right' colspan="2" id='manageBox'>
         <div class='f-left'><?php $this->thread->printFiles($thread, $this->thread->canManage($board->moderators));?></div>
         <div id='manageMenu'>
           <?php 
