@@ -309,12 +309,12 @@ class user extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $users = $this->user->getUsers($pager);
+        $users = $this->user->getList($pager);
 
         if(!empty($_POST))
         {
             $userName = fixer::input('post')->get();
-            $users    = $this->user->getUsers($pager, $userName->userName);
+            $users    = $this->user->getList($pager, $userName->userName);
         }
  
         $this->view->users = $users;
