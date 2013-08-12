@@ -1,6 +1,6 @@
 <?php
 /**
- * The browse view file of article of xirangEPS.
+ * The admin view file of article of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -10,7 +10,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<table class="table table-hover table-bordered table-striped">
+<table class="table table-bordered table-hover table-striped">
   <caption>
     <div class='f-left'><?php echo $lang->article->list;?></div>
     <div class='f-right'><?php echo html::a($this->inlink('create'), $lang->article->create);?></div>

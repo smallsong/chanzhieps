@@ -42,9 +42,8 @@ js::set('categoryPath',  json_encode($categoryPath));
         <?php endforeach;?>
       </div>
     </div>
-    <div id="commentBox"> 
-    </div>
-    <?php echo html::a('', '', '', 'name="comment"');?>
+    <div id='commentBox'></div>
+    <?php echo html::a('', '', '', "name='comment'");?>
     <div class='a-right'><?php if($article->editor) printf($lang->article->lblEditor, $article->editor, $article->editedDate);?></div>
   </div>
 <?php include '../../common/view/side.html.php'; ?>
