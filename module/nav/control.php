@@ -57,7 +57,7 @@ class nav extends control
             $originNav['common'] =  'home';
             $originNav['title']  = $this->lang->home;
 
-            $this->view->navs = array(1 => array($originNav));
+            $this->view->navs = array($originNav);
         }
 
         $this->display();
