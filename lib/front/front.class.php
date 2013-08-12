@@ -642,7 +642,6 @@ EOT;
         $jsConfig->save           = $lang->save;
         $jsConfig->router         = $app->server->PHP_SELF;
         $jsConfig->runMode        = $runMode;
-        $jsConfig->submitting    = $lang->submitting;
 
         $js  = self::start(false);
         $js .= 'var config=' . json_encode($jsConfig);
