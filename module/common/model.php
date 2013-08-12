@@ -563,32 +563,21 @@ class commonModel extends model
      * @access public
      * @return void
      */
-    public function getContact()
+    public function getContactValue($contactItem, $contactValue)
     {
-        $contact = json_decode($this->config->company->contact);
-        foreach($contact as $item => $value)
-        switch($item)
+        switch($contactItem)
         {
             case 'qq' : 
-                echo "<li>
-                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
-                        <a href='tencent://message/?uin={$value}&amp;Site={$this->config->company->name}&amp;Menu=yes'>{$value}</a>
-                      </li>";
+                echo html::a("tencent://message/?uin={$contactValue}&amp;Site={$this->config->company->name}&amp;Menu=yes", $contactValue);
             break;
             case 'email' : 
-                echo "<li>
-                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
-                        <a href='mailto:{$value}'>{$value}</a>
-                      </li>";
+                echo html::a("mailto:{$contactValue}", $contactValue);
             break;
             case 'wangwang' :
-                echo "<li>
-                        <strong>{$this->lang->company->$item}{$this->lang->colon}</strong>
-                        <a href='http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8'>{$value}</a>
-                      </li>";
+                echo html::a("http://www.taobao.com/webww/ww.php?ver=3&touid={$contactValue}&siteid=cntaobao&status=2&charset=utf-8", $contactValue);
             break;
-            default :
-                echo "<li><strong>{$this->lang->company->$item}{$this->lang->colon}</strong>$value</li>";     
+            default : 
+                echo $contactValue;
         }
     }
 }

@@ -32,7 +32,12 @@
   </div>
   <div class="span4">
     <h4><?php echo $lang->index->contact;?></h4>
-    <ul><?php $this->loadModel('common')->getContact();?></ul>
+    <?php foreach($contact as $item => $value):?>
+    <p>
+      <strong><?php echo $this->lang->company->$item . $lang->colon;?></strong>
+      <?php $this->loadModel('common')->getContactValue($item, $value);?>
+    </p>
+    <?php endforeach;?>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
