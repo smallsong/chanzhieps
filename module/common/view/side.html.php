@@ -1,6 +1,4 @@
-<?php
-$topCategories = $this->loadModel('tree')->getChildren(0);
-?>
+<?php $topCategories = $this->loadModel('tree')->getChildren(0);?>
 <div class='span3'>
   <div class='widget radius'> 
     <h4><?php echo $lang->categoryMenu;?></h4>
@@ -9,7 +7,7 @@ $topCategories = $this->loadModel('tree')->getChildren(0);
       <li>
         <?php
         $browseLink = $this->createLink('article', 'browse', "categoryID={$topCategory->id}");
-        echo '<i class="icon-chevron-right"></i> ';
+        echo "<i class='icon-chevron-right'></i>";
         echo html::a($browseLink, $topCategory->name, '', "id='category{$topCategory->id}'");
         ?>
       </li>

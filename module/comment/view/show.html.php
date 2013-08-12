@@ -5,15 +5,15 @@ css::internal($pageCSS);
 ?>
 <?php
 if(isset($comments) and $comments):?>
-<div id="commentList" class='commentList radius-top'> 
-  <div class="box-title"><?php echo $lang->comment->list;?></div>
+<div id='commentList' class='commentList radius-top'> 
+  <div class='box-title'><?php echo $lang->comment->list;?></div>
   <div class='box-content'>
-    <a name="first"></a>
-    <?php foreach($comments as $number => $comment) :?>
-      <div id='<?php echo $comment->id?>'  class='comment'>
-      <strong>#<?php echo ($number + 1)?> <?php echo $comment->author;?></strong> at <?php echo $comment->date;?><br />
-      <?php echo nl2br($comment->content);?>
-    </div>
+    <a name='first'></a>
+    <?php foreach($comments as $number => $comment):?>
+      <div id='<?php echo $comment->id?>' class='comment'>
+        <strong>#<?php echo ($number + 1)?><?php echo $comment->author;?></strong> at <?php echo $comment->date;?><br />
+        <?php echo nl2br($comment->content);?>
+      </div>
     <?php endforeach;?>
     <div id='pager'><?php $pager->show('right', 'shortest');?></div>
     <div class='c-right'></div>
@@ -21,7 +21,7 @@ if(isset($comments) and $comments):?>
 </div>  
 <?php endif;?>
 <div class='cont'>
-  <form method='post' id='commentForm' action='<?php echo $this->createLink('comment', 'post');?>' class='form-inline'>
+  <form method='post' id='commentForm' action="<?php echo $this->createLink('comment', 'post');?>" class='form-inline'>
     <table class='table table-form'>
       <caption><?php echo $lang->comment->post;?></caption>
       <tr>

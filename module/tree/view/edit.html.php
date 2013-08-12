@@ -1,6 +1,6 @@
 <?php
 /**
- * The edit view of product category of xirangEPS.
+ * The edit view of tree category of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
@@ -9,7 +9,7 @@
  * @link        http://www.xirang.biz
  */
 ?>
-<form method='post' id='editForm' action='<?php echo inlink('edit', 'categoryID='.$category->id);?>' class='form-inline'>
+<form method='post' id='editForm' action="<?php echo inlink('edit', 'categoryID='.$category->id);?>" class='form-inline'>
   <table class='table table-form'> 
     <caption><?php echo $lang->tree->edit;?></caption>
     <tr>

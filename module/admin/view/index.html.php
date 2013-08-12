@@ -35,7 +35,6 @@
         <?php echo html::a($this->createLink('company', 'setcontact'), '<h3>' . $lang->admin->shortcuts->contact . '</h3>')?>
       </div>      
     </div>
-
   </div>
 </div>
 <?php include '../../common/view/footer.admin.html.php';?>

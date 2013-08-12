@@ -24,7 +24,7 @@ js::set('type', $type);
       </tr>
     </table>
   </div>
-  <div class="span8" id='categoryBox'></div>
+  <div class='span8' id='categoryBox'></div>
   <?php else:?>
   <div id='categoryBox'></div>
   <?php endif;?>

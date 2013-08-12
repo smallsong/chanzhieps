@@ -33,13 +33,13 @@
         }
         else
         {
-            $objectViewLink = "<span  class='alert-error'>{$lang->comment->deletedObject}</span>";
+            $objectViewLink = "<span class='alert-error'>{$lang->comment->deletedObject}</span>";
         }
 
         $config->requestType = 'GET';
         echo <<<EOT
-        <strong>$comment->author</strong> <i class='blue'>$comment->email</i> 
-        <strong>$comment->date</strong> {$lang->comment->commentTo}
+        <strong>$comment->author</strong><i class='blue'>$comment->email</i> 
+        <strong>$comment->date</strong>{$lang->comment->commentTo}
         $objectViewLink
 EOT;
         ?>
