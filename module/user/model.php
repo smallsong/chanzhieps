@@ -243,15 +243,7 @@ class userModel extends model
      */
     public function forbid($userID, $date)
     {
-        switch($date)
-        {
-            case "oneday"   : $intdate = strtotime("+1 day");break;
-            case "twodays"  : $intdate = strtotime("+2 day");break;
-            case "threedays": $intdate = strtotime("+3 day");break;
-            case "oneweek"  : $intdate = strtotime("+1 week");break;
-            case "onemonth" : $intdate = strtotime("+1 month");break;
-            case "forever"  : $intdate = strtotime("+10 years");break;
-        }
+        $intdate = strtotime("+$date day");
 
         $format = 'Y-m-d H:i:s';
 
