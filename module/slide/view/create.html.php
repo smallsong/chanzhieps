@@ -1,5 +1,18 @@
-<form id="slideForm" method='post' class="form-inline" enctype='multipart/form-data' action='<?php echo inlink('create');?>'>
-  <table class='table table-bordered'>
+<?php
+/**
+ * The create view file of slide of xirangEPS.
+ *
+ * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
+ * @author      Xiying Guan<guanxiying@xirangit.com>
+ * @package     slide
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+?>
+<?php include '../../common/view/header.admin.html.php';?>
+<?php include '../../common/view/kindeditor.html.php';?>
+<form id='ajaxForm' method='post' class='form-inline' enctype='multipart/form-data'>
+  <table class='table table-form'>
     <caption><?php echo $lang->slide->create;?></caption>
     <tr>
       <th class="w-100px"><?php echo $lang->slide->title;?></th>
@@ -19,9 +32,9 @@
     </tr>
     <tr>
       <th><?php echo $lang->slide->summary;?></th>
-      <td><?php echo html::textarea('summary', '', 'class=area-1');?></td>
+      <td><?php echo html::textarea('summary', '', "class='area-1' rows='6'");?></td>
     </tr>
     <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
   </table>
 </form>
-<?php js::execute($pageJS);?>
+<?php include '../../common/view/footer.admin.html.php';?>
