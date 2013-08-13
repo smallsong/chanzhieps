@@ -40,9 +40,7 @@
     </tr>
     <tr>
       <th></th>
-      <td>
-        <?php echo html::submitButton();?>
-      </td>
+      <td><?php echo html::submitButton();?></td>
     </tr>
   </table>
 </form>
