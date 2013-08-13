@@ -171,6 +171,7 @@ class article extends control
         $this->view->desc       = $article->desc;
         $this->view->article    = $article;
         $this->view->category   = $category;
+        $this->view->contact    = $this->loadModel('company')->getContact();
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
