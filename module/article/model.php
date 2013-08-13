@@ -36,12 +36,8 @@ class articleModel extends model
 
         /* Get article path to highlight main nav. */
         $path = '';
-        foreach($article->categories as $category)
-        {
-            $path .= $category->path;
-        }
+        foreach($article->categories as $category) $path .= $category->path;
         $article->path = explode(',', trim($path, ','));
-
 
         /* Get it's files. */
         $article->files = $this->loadModel('file')->getByObject('article', $articleID);
