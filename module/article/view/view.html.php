@@ -10,21 +10,20 @@ js::set('articleID', $article->id);
 <?php $common->printPositionBar($category, $article);?>
 <div class='row'>
   <div class='span9'>
-    <div class='widget widget-category radius'>
-      <h4><?php echo $article->title;?></h4>
+    <div class='widget radius'>
       <div class='content'>
+        <h3 class='a-center'><?php echo $article->title;?></h3>
         <div class='f-12px mb-10px'>
           <?php
-          printf($lang->article->lblAddedDate, $article->addedDate);
           printf($lang->article->lblAuthor,    $article->author);
           printf($lang->article->lblSource);
           if($article->original)
           {
-              echo "<strong>{$lang->article->original}</strong> &nbsp;&nbsp;";
+              echo "<strong>{$lang->article->original}</strong>";
           }
           else
           {
-              $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite);
+              $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite); 
           }
           printf($lang->article->lblViews, $article->views);
           ?>
