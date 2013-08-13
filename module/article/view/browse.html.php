@@ -22,12 +22,15 @@ include '../../common/view/treeview.html.php';
           echo html::a(inlink('view', "id=$article->id"), html::image($imageURL, "title='{$file->title}'"), '', "class='f-left article-img'");
           ?>
           <div class='f-right w-p75'>
-            <h5 class='article-title'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
-            <div class='meta'>
-              <span class='f-12px'><?php echo $lang->article->addedDate;?>:<?php echo substr($article->addedDate, 2, 8);?></span>&nbsp;&nbsp;
-            </div>
+            <h5 class='article-title f-left'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
+            <span class='f-left'><?php echo $article->addedDate;?></span>
+            <div class='c-both'></div>
+            <?php
+            $summary = $article->summary;
+            if(empty($article->summary)) $summary = html::cutString($article->content, 300);
+            ?>
             <div class='summary'>
-              <?php echo $article->summary;?> 
+              <?php echo $summary;?> 
             </div>
           </div>
           <div class='c-both'></div>

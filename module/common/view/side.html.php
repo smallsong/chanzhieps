@@ -18,11 +18,10 @@
   <div class='widget radius'>  
     <h4><?php echo $lang->company->contactUs;?></h4>
     <ul>
-      <?php $contact = json_decode($this->config->company->contact);?>
       <?php foreach($contact as $item => $value):?>
       <li>
         <strong><?php echo $this->lang->company->$item . $lang->colon;?></strong>
-        <?php $this->loadModel('common')->getContactValue($item, $value);?>
+        <?php echo $value;?>
       </li>
       <?php endforeach;?>
     </ul>

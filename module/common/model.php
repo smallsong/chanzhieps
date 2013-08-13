@@ -556,28 +556,4 @@ class commonModel extends model
 
         return $link;
     }
-
-    /**
-     * get contact information.
-     * 
-     * @access public
-     * @return void
-     */
-    public function getContactValue($contactItem, $contactValue)
-    {
-        switch($contactItem)
-        {
-            case 'qq' : 
-                echo html::a("tencent://message/?uin={$contactValue}&amp;Site={$this->config->company->name}&amp;Menu=yes", $contactValue);
-            break;
-            case 'email' : 
-                echo html::a("mailto:{$contactValue}", $contactValue);
-            break;
-            case 'wangwang' :
-                echo html::a("http://www.taobao.com/webww/ww.php?ver=3&touid={$contactValue}&siteid=cntaobao&status=2&charset=utf-8", $contactValue);
-            break;
-            default : 
-                echo $contactValue;
-        }
-    }
 }
