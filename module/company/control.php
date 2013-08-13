@@ -21,6 +21,7 @@ class company extends control
         $this->view->title    = $this->config->company->name;
         $this->view->keywords = $this->config->company->name;
         $this->view->company  = $this->config->company;
+        $this->view->contact  = $this->company->getContact();
 
         $this->display();
     }
