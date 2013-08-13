@@ -1,8 +1,8 @@
 <?php 
 include '../../common/view/header.html.php';
 
-$categoryPath = array_keys($category->pathNames);
-js::set('categoryPath', json_encode($categoryPath));
+$path = array_keys($category->pathNames);
+js::set('path',  json_encode($path));
 
 include '../../common/view/treeview.html.php';
 ?>

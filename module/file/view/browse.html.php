@@ -12,13 +12,13 @@
     <th><?php echo $lang->actions;?></th>
   </tr>
   <?php foreach($files as $file):?>
-  <tr>
+  <tr class='v-middle'>
     <td><?php echo $file->id;?></td>
     <td>
       <?php
       if($file->isImage)
       {
-          echo html::a(inlink('download', "id=$file->id"), html::image($file->smallURL, "class='adminList' title='{$file->title}'"), '_blank');
+          echo html::a(inlink('download', "id=$file->id"), html::image($file->smallURL, "class='image-small' title='{$file->title}'"), '_blank');
           if($file->primary == 1) echo '<small class="label label-important">'. $lang->file->primary .'</small>';
       }
       else

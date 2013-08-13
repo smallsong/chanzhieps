@@ -57,6 +57,7 @@ $(document).ready(function()
                 cssPath:[v.jsRoot + 'kindeditor/plugins/code/prettify.css'],
                 urlType:'relative', 
                 uploadJson: createLink('file', 'ajaxUpload'),
+                imageTabIndex:1,
                 allowFileManager:true,
                 langType:v.editorLang,
                 afterBlur: function(){this.sync(); },

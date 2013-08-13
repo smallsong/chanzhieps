@@ -1,18 +1,17 @@
 (function($) 
 {
-    jQuery.fn.fixImage = function(maxWidth = 0,  maxHeight = 0)
+    jQuery.fn.fixImage = function(maxWidth, maxHeight)
     { 
         container = $(this).parent();
-
         parentWidth  = parseInt(container.width());
         parentHeight = parseInt(container.height());
 
-        if(maxWidth <= 0) maxWidth = parentWidth;
-        if(maxHeight <= 0) maxHeight = parentHeight;
+        if(isNaN(maxWidth)) maxWidth   = parentWidth;
+        if(isNaN(maxHeight)) maxHeight = parentHeight;
         
         $(this).css('max-width',  maxWidth);
         $(this).css('max-height', maxHeight);
-        
+
         width  = $(this).width();
         height = $(this).height();
         

@@ -3,7 +3,7 @@ include '../../common/view/header.html.php';
 include '../../common/view/treeview.html.php'; 
 
 /* set categoryPath for topNav highlight. */
-js::set('categoryPath',  json_encode($categoryPath));
+js::set('path',  json_encode($article->path));
 
 js::set('articleID', $article->id);
 ?>

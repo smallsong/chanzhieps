@@ -26,5 +26,5 @@ $lang->nav->types['input']   = '自定义导航';
 
 /* common navs.*/
 $lang->nav->common->home     = '首页';
-$lang->nav->common->about    = '关于我们';
+$lang->nav->common->company  = '关于我们';
 $lang->nav->common->forum    = '论坛';

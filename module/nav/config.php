@@ -10,6 +10,6 @@
  */
 $config->nav->common = new stdClass();
 $config->nav->common->home  = helper::createLink('index', 'index');
-$config->nav->common->about = helper::createLink('company', 'index');
+$config->nav->common->company = helper::createLink('company', 'index');
 $config->nav->common->forum = helper::createLink('forum', 'index');
 

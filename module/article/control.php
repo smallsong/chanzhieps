@@ -172,14 +172,6 @@ class article extends control
         $this->view->article    = $article;
         $this->view->category   = $category;
 
-        /* Get category paths to highlight main nav. */
-        $categoryPath = '';
-        foreach($article->categories as $category)
-        {
-            $categoryPath .= $category->path;
-        }
-        $this->view->categoryPath = explode(',', trim($categoryPath, ','));
-
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
         $this->display();

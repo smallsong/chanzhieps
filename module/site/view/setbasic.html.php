@@ -3,7 +3,7 @@
  * The setbasic view file of site module of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 QingDao XiRang Network Infomation Co,LTD (www.xirang.biz)
- * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @author      xiying Guang <guanxiying@xirangit.com>
  * @package     site
  * @version     $Id$
  * @link        http://www.xirang.biz
@@ -19,8 +19,8 @@
       <td><?php echo html::input('name', $this->config->site->name, "class='text-3'");?></td> 
     </tr>
     <tr>
-      <th><?php echo $lang->site->copyrightStart;?></th> 
-      <td><?php echo html::input('copyrightStart', $this->config->site->copyrightStart, "class='text-2'");?></td> 
+      <th><?php echo $lang->site->copyright;?></th> 
+      <td><?php echo html::input('copyright', $this->config->site->copyright, "class='text-3'");?></td> 
     </tr>
     <tr>
       <th><?php echo $lang->site->keywords;?></th> 
@@ -40,9 +40,7 @@
     </tr>
     <tr>
       <th></th>
-      <td>
-        <?php echo html::submitButton();?>
-      </td>
+      <td><?php echo html::submitButton();?></td>
     </tr>
   </table>
 </form>
