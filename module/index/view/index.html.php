@@ -16,12 +16,12 @@
     </div>
     <?php endforeach;?>
   </div>
-  <?php echo html::a('#slide', $lang->slide->prev,  '', "class='left carousel-control' data-slide='prev'")?>
+  <?php echo html::a('#slide', $lang->slide->prev, '', "class='left carousel-control' data-slide='prev'")?>
   <?php echo html::a('#slide', $lang->slide->next, '', "class='right carousel-control' data-slide='next'")?>
 </div>
 <?php endif;?>
-<div class='row-fluid'>
 
+<div class='row-fluid'>
   <div class='span4'>
     <h4><?php echo $lang->index->aboutus;?></h4>
     <p><?php echo $this->config->company->desc;?></p>
@@ -41,11 +41,12 @@
   <div class='span4'>
     <h4><?php echo $lang->index->contact;?></h4>
     <?php foreach($contact as $item => $value):?>
-    <p>
-      <strong><?php echo $this->lang->company->$item . $lang->colon;?></strong>
-      <?php echo $value;?>
-    </p>
+    <dl>
+      <dt class='w-p20 f-left pb-10px a-right'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
+      <dd class='w-p70 f-left pb-10px'><?php echo $value;?></dd>
+    </dl>
     <?php endforeach;?>
+    <div class='c-both'></div>
   </div>
 
 </div>
