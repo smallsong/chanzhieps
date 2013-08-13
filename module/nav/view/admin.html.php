@@ -23,17 +23,17 @@
           {
               echo "<li class='liGrade1'>";
               echo $this->nav->createEntry(1, $nav);
-              if(isset($nav['children']))
+              if(isset($nava->children))
               {
                   echo "<ul class='ulGrade2'>";
-                  foreach($nav['children'] as $nav2)
+                  foreach($nav->children as $nav2)
                   {
                       echo "<li class='liGrade2'>";
                       echo $this->nav->createEntry(2, $nav2);
-                      if(isset($nav2['children']))
+                      if(isset($nav2->children))
                       {
                           echo "<ul class='ulGrade3'>";
-                          foreach($nav2['children'] as $nav3)
+                          foreach($nav2->children as $nav3)
                           {
                               echo  "<li class='liGrade3'>". $this->nav->createEntry(3, $nav3) .'</li>';
                           }

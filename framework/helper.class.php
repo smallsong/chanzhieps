@@ -408,3 +408,24 @@ function getWebRoot()
     }
     return substr($path, 0, (strrpos($path, '/') + 1));
 }
+
+/**
+ * Addslashes if magic_quotes_gpc is on.
+ * This function generally used on variable beside GPC (Get/Post/Cookie).
+ *
+ * @param mixed $data
+ * @return mixed
+ */
+function autoSlashes($data)
+{
+    if(!get_magic_quotes_gpc()) return $data;
+
+    if(is_array($data) or is_object($data))
+    {
+        foreach($data as $value) $value = addslashes($value);
+    }
+    else
+    {
+        $data = addslashes($data);
+    }
+}
