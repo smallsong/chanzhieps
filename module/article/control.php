@@ -49,13 +49,14 @@ class article extends control
             $desc     = strip_tags($category->desc);
         }
 
-        $this->view->title    = $title;
-        $this->view->keywords = $keywords;
-        $this->view->desc     = $desc;
-        $this->view->category = $category;
-        $this->view->articles = $articles;
-        $this->view->pager    = $pager;
-        //$this->view->layouts= $this->loadModel('block')->getLayouts('article.list');
+        $this->view->title     = $title;
+        $this->view->keywords  = $keywords;
+        $this->view->desc      = $desc;
+        $this->view->category  = $category;
+        $this->view->articles  = $articles;
+        $this->view->pager     = $pager;
+        $this->view->contact   = $this->loadModel('company')->getContact();
+        //$this->view->layouts = $this->loadModel('block')->getLayouts('article.list');
 
         $this->display();
     }

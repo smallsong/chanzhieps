@@ -35,9 +35,9 @@ class index extends control
         $this->loadModel('article');
         $this->app->loadLang('user');
 
-        $this->view->slides = $this->loadModel('slide')->getList();
+        $this->view->slides         = $this->loadModel('slide')->getList();
         $this->view->latestArticles = $this->loadModel('article')->getLatest(0,8);
-        $this->view->contact        = json_decode($this->config->company->contact);
+        $this->view->contact        = $this->loadModel('company')->getContact();
         $this->display();
     }
 }
