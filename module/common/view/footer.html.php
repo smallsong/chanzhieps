@@ -1,5 +1,5 @@
   <hr/>
-  <footer class='a-center'>
+  <footer class='a-center mb-10px'>
    <?php 
    echo "&copy; {$config->company->name} {$config->site->copyright}-" . date('Y') . '&nbsp;&nbsp;';
    echo $config->site->icp;
