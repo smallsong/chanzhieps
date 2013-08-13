@@ -11,17 +11,39 @@
 class navModel extends model
 {
     /**
-     * get all navs 
+     * Get all navs 
      *
      * @param  string $type
      * @return array
      */
-    public function getNavs($type = 'topNav')
+    public function getNavs($type = 'top')
     {
         global $config;
 
-        if(!isset($config->nav->$type)) return false;
+        if(!isset($config->nav->$type)) return $this->getDefault();
         return json_decode($config->nav->$type);
+    }
+    
+    /**
+     * Get common navs as default.
+     * 
+     * @access public
+     * @return array   
+     */
+    public function getDefault()
+    {
+        $navs = array();
+        foreach($this->config->nav->common as $item => $url)
+        {
+            $nav = new stdClass();
+            $nav->type   = 'common';
+            $nav->common = $item;
+            $nav->class  = 'nav-common-home';
+            $nav->title  = $this->lang->nav->common->$item;
+            $nav->url    = $url;
+            $navs[] = $nav;
+        }
+        return $navs;
     }
 
     /**
@@ -31,49 +53,49 @@ class navModel extends model
      * @param array $nav
      * @return string
      */
-    public function createEntry($grade = 1, $nav = array())
+    public function createEntry($grade = 1, $nav = null)
     {
         if(empty($nav))
         {
-            $nav['type']   = 'common';
-            $nav['common'] = 'home';
-            $nav['title']  = $this->lang->nav->common->home;
-            $nav['url']    = '';
+            $nav = new stdClass();
+            $nav->type   = 'common';
+            $nav->common = 'home';
+            $nav->title  = $this->lang->nav->common->home;
+            $nav->url    = '';
         }
 
         $childGrade    = $grade + 1;
         $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
 
-        $articleHidden = ($nav['type'] == 'article') ? '' : 'hide'; 
-        $commonHidden  = ($nav['type'] == 'common')  ? '' : 'hide'; 
-        $urlHidden     = ($nav['type'] == 'input')   ? '' : 'hide'; 
-            
+        $articleHidden = ($nav->type == 'article') ? '' : 'hide'; 
+        $commonHidden  = ($nav->type == 'common')  ? '' : 'hide'; 
+        $urlHidden     = ($nav->type == 'input')   ? '' : 'hide'; 
+
         $entry = '<i class="icon-folder-open shut"></i>';
-        
+
         /* nav type select tag. */
-        $entry .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $nav['type'], "class='navType' grade='{$grade}'");
+        $entry .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $nav->type, "class='navType' grade='{$grade}'");
 
         /* artcle and common select tag. */
-        $entry .= html::select("nav[{$grade}][article][]", $articleTree, $nav['article'], "class='navSelector {$articleHidden}'");
-        $entry .= html::select("nav[{$grade}][common][]", $this->lang->nav->common, $nav['common'], "class='navSelector {$commonHidden}'");
-            
-        $entry .= html::input("nav[{$grade}][title][]", $nav['title'], "placeholder='{$this->lang->inputTitle}' class='input-small titleInput'");
+        $entry .= html::select("nav[{$grade}][article][]", $articleTree, $nav->article, "class='navSelector {$articleHidden}'");
+        $entry .= html::select("nav[{$grade}][common][]", $this->lang->nav->common, $nav->common, "class='navSelector {$commonHidden}'");
+
+        $entry .= html::input("nav[{$grade}][title][]", $nav->title, "placeholder='{$this->lang->nav->inputTitle}' class='input-small titleInput'");
 
         /* url input tag. */
-        $url   = isset($nav['url']) ? $nav['url'] : "";
-        $entry .= html::input("nav[{$grade}][url][]", $url, "placeholder='{$this->lang->inputUrl}' class='urlInput {$urlHidden}'");
-        
+        $entry .= html::input("nav[{$grade}][url][]", $nav->url, "placeholder='{$this->lang->nav->inputUrl}' class='urlInput {$urlHidden}'");
+
         /* hidden tags. */
         if($grade >1 ) $entry .= html::hidden("nav[{$grade}][parent][]", '', "class='grade{$grade}parent'");
         $entry .= html::hidden("nav[{$grade}][key][]", '', "class='input grade{$grade}key'"); 
- 
+
         /* operate buttons. */
         $entry .= html::a('javascript:;', $this->lang->nav->add, '', "class='plus{$grade}'");
         if($childGrade < 4) $entry .= html::a('javascript:;', $this->lang->nav->addChild, '', "class='plus{$childGrade}'");
         $entry .= html::a('javascript:;', $this->lang->delete, '', "class='remove'");
         $entry .= "<i class='icon-arrow-up'></i> <i class='icon-arrow-down'></i>";
 
-       return $entry;
+        return $entry;
     }
 
     /**
@@ -91,7 +113,7 @@ class navModel extends model
         {
             foreach($navs as $field => $values) $organizeNavs[$i][$field] = $values[$i];
         }
-        
+
         foreach($organizeNavs as &$nav) $nav = $this->buildNav($nav);
 
         return $organizeNavs;
@@ -141,7 +163,7 @@ class navModel extends model
         global $config;
 
         if($nav['type'] == 'common')  return $config->nav->common->$nav['common'];   
-        if($nav['type'] == 'article') return helper::createLink('article', 'browse', "categoryID={$nav['article']}");
+        if($nav['type'] == 'article') return commonModel::createFrontLink('article', 'browse', "categoryID={$nav['article']}");
 
         return $nav['url'];
     }

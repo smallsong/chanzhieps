@@ -9,7 +9,8 @@
  * @link        http://www.xirang.biz
  */
 $config->nav->common = new stdClass();
-$config->nav->common->home  = helper::createLink('index', 'index');
-$config->nav->common->company = helper::createLink('company', 'index');
-$config->nav->common->forum = helper::createLink('forum', 'index');
+
+$config->nav->common->home    = commonModel::createFrontLink('index', 'index');
+$config->nav->common->company = commonModel::createFrontLink('company', 'index');
+$config->nav->common->forum   = commonModel::createFrontLink('forum', 'index');
 
