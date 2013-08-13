@@ -23,14 +23,10 @@ include '../../common/view/treeview.html.php';
           ?>
           <div class='f-right w-p75'>
             <h5 class='article-title f-left'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
-            <span class='f-left'><?php echo $article->addedDate;?></span>
+            <span class='f-left'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span>
             <div class='c-both'></div>
-            <?php
-            $summary = $article->summary;
-            if(empty($article->summary)) $summary = html::cutString($article->content, 300);
-            ?>
             <div class='summary'>
-              <?php echo $summary;?> 
+              <?php echo $article->summary;?> 
             </div>
           </div>
           <div class='c-both'></div>
