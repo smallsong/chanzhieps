@@ -74,7 +74,7 @@ $lang->company->fax       = '传真';
 $lang->company->qq        = 'QQ';
 $lang->company->weibo     = '微博';
 $lang->company->weixin    = '微信';
-$lang->company->wangwang  = '阿里旺旺';
+$lang->company->wangwang  = '旺旺';
 
 /* The main menus. */
 $lang->menu = new stdclass();
