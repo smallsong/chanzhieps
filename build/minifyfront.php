@@ -15,7 +15,7 @@ $jqueryRoot = $jsRoot . 'jquery/';
 $jsFiles[] = $jsRoot . 'jquery/min.js';
 $jsFiles[] = $jsRoot . 'jquery/form/min.js';
 $jsFiles[] = $jsRoot . 'bootstrap/min.js';
-$jsFiles[] = $jsRoot . 'ajax.js';
+$jsFiles[] = $jsRoot . 'xirang.js';
 $jsFiles[] = $jsRoot . 'my.js';
 
 /* Combine these js files. */
