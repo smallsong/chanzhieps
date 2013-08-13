@@ -1,7 +1,7 @@
 <?php include '../../common/view/header.html.php';?>
 <?php include '../../common/view/treeview.html.php';?>
 <?php if($slides):?>
-<div id='slide' class='carousel slide'>
+<div id='myCarousel' class='carousel slide'>
   <div class='carousel-inner'>
     <?php foreach($slides as $slide):?>
     <div class='item'>
@@ -16,8 +16,8 @@
     </div>
     <?php endforeach;?>
   </div>
-  <?php echo html::a('#slide', $lang->slide->prev,  '', "class='left carousel-control' data-slide='prev'")?>
-  <?php echo html::a('#slide', $lang->slide->next, '', "class='right carousel-control' data-slide='next'")?>
+  <a class='left carousel-control' href='#myCarousel' data-slide='prev'>‹</a>
+  <a class='right carousel-control' href='#myCarousel' data-slide='next'>›</a>
 </div>
 <?php endif;?>
 <div class='row-fluid'>
@@ -41,11 +41,12 @@
   <div class='span4'>
     <h4><?php echo $lang->index->contact;?></h4>
     <?php foreach($contact as $item => $value):?>
-    <p>
-      <strong><?php echo $this->lang->company->$item . $lang->colon;?></strong>
-      <?php echo $value;?>
-    </p>
+    <dl>
+      <dt class='w-p20 f-left pb-10px a-right'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
+      <dd class='w-p70 f-left pb-10px'><?php echo $value;?></dd>
+    </dl>
     <?php endforeach;?>
+    <div class='c-both'></div>
   </div>
 
 </div>
