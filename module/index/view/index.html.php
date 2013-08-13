@@ -1,7 +1,7 @@
 <?php include '../../common/view/header.html.php';?>
 <?php include '../../common/view/treeview.html.php';?>
 <?php if($slides):?>
-<div id='myCarousel' class='carousel slide'>
+<div id='slide' class='carousel slide'>
   <div class='carousel-inner'>
     <?php foreach($slides as $slide):?>
     <div class='item'>
@@ -16,12 +16,12 @@
     </div>
     <?php endforeach;?>
   </div>
-  <a class='left carousel-control' href='#myCarousel' data-slide='prev'>‹</a>
-  <a class='right carousel-control' href='#myCarousel' data-slide='next'>›</a>
+  <?php echo html::a('#slide', $lang->slide->prev, '', "class='left carousel-control' data-slide='prev'")?>
+  <?php echo html::a('#slide', $lang->slide->next, '', "class='right carousel-control' data-slide='next'")?>
 </div>
 <?php endif;?>
-<div class='row-fluid'>
 
+<div class='row-fluid'>
   <div class='span4'>
     <h4><?php echo $lang->index->aboutus;?></h4>
     <p><?php echo $this->config->company->desc;?></p>
