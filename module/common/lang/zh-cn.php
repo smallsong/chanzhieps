@@ -33,8 +33,8 @@ $lang->currentPos     = '当前位置';
 $lang->categoryMenu   = '分类导航';
 
 /* actions for slides.*/
-$lang->slide->prev = '‹';
-$lang->slide->next = '›';
+$lang->prev = '‹';
+$lang->next = '›';
 
 /* Global action items. */
 $lang->reset          = '重填';

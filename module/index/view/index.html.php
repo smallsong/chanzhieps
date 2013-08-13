@@ -16,8 +16,8 @@
     </div>
     <?php endforeach;?>
   </div>
-  <?php echo html::a('#slide', $lang->slide->prev, '', "class='left carousel-control' data-slide='prev'")?>
-  <?php echo html::a('#slide', $lang->slide->next, '', "class='right carousel-control' data-slide='next'")?>
+  <?php echo html::a('#slide', $lang->prev, '', "class='left carousel-control' data-slide='prev'")?>
+  <?php echo html::a('#slide', $lang->next, '', "class='right carousel-control' data-slide='next'")?>
 </div>
 <?php endif;?>
 
