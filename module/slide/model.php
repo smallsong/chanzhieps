@@ -155,7 +155,7 @@ class slideModel extends model
      * @param int $id
      * @return bool
      */
-    public function delete()
+    public function delete($id)
     {
         $this->dao->delete()->from(TABLE_CONFIG)
             ->where('id')->eq($id)
