@@ -32,6 +32,10 @@ $lang->forgotPassword = '忘记密码?';
 $lang->currentPos     = '当前位置';
 $lang->categoryMenu   = '分类导航';
 
+/* actions for slides.*/
+$lang->slide->prev = '‹';
+$lang->slide->next = '›';
+
 /* Global action items. */
 $lang->reset          = '重填';
 $lang->edit           = '编辑';
@@ -128,7 +132,6 @@ $lang->nav->menu = $lang->site->menu;
 $lang->menuGroups->nav  = 'site';
 
 /* Menu of tree module. */
-$lang->slide = new stdclass();
 $lang->slide->menu = $lang->site->menu;
 $lang->menuGroups->slide = 'site';
 

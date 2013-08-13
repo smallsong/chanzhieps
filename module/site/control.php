@@ -65,7 +65,7 @@ class site extends control
             $setting->addedBy   = $logoFile->addedBy;
             $setting->addedDate = $logoFile->addedDate;
 
-            $result = $this->loadModel('setting')->setItems('system.common.site', array('logo' => $json_encode($setting)) );
+            $result = $this->loadModel('setting')->setItems('system.common.site', array('logo' => autoSlashes(json_encode($setting))));
             if($result)
             {
                 $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess, 'locate'=>inlink('setLogo')));

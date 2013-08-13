@@ -11,12 +11,13 @@
 class nav extends control
 {
     /**
-     * nav admin function
+     * Nav admin function
      *
+     * @param string   $top
      * @access public
      * @return void
      */
-    public function admin()
+    public function admin($type = 'top')
     {   
         if($_POST)
         {
@@ -40,24 +41,16 @@ class nav extends control
                 $nav['children'] = isset($navs[2][$nav['key']]) ?  $navs[2][$nav['key']] : array();
             }
 
-            $settings =  array('topNav' => json_encode($navs[1]));
+            $settings =  array($type => json_encode($navs[1]));
             $result   = $this->loadModel('setting')->setItems('system.common.nav', $settings);
             if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->faild));
         }
-        $this->view->navs         = json_decode($this->config->nav->topNav,true);
+        $this->view->navs         = $this->nav->getNavs($type);
+
         $this->view->types        = $this->lang->nav->types; 
         $this->view->articleTree  = $this->loadModel('tree')->getOptionMenu('article');
-    
-        if(empty($this->view->navs))
-        {
-            $originNav = array();
-            $originNav['type']   =  'common';
-            $originNav['common'] =  'home';
-            $originNav['title']  = $this->lang->home;
-
-            $this->view->navs = array($originNav);
-        }
+        
 
         $this->display();
     }   
