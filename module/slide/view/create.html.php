@@ -11,7 +11,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
-<form id='ajaxForm' method='post' class='form-inline' enctype='multipart/form-data'>
+<form id='ajaxForm' method='post' enctype='multipart/form-data'>
   <table class='table table-form'>
     <caption><?php echo $lang->slide->create;?></caption>
     <tr>
@@ -24,7 +24,10 @@
     </tr>
     <tr>
       <th><?php echo $lang->slide->image;?></th>
-      <td><?php echo html::file('files[]', "tabindex='-1'");?></td>
+      <td>
+        <?php echo html::file('files[]', "tabindex='-1'");?>
+        <br/><label class='text-info'><?php echo $lang->slide->suitableSize;?></label>
+      </td>
     </tr>
     <tr>
       <th><?php echo $lang->slide->label;?></th>
