@@ -1,6 +1,5 @@
 <?php 
 include '../../common/view/header.html.php';
-$contact = json_decode($this->config->company->contact);
 ?>
 <?php $common->printPositionBar($this->app->getModuleName());?>
 <div class='widget widget-category radius'>
@@ -8,12 +7,13 @@ $contact = json_decode($this->config->company->contact);
   <div class='content'>
     <p><?php echo $company->content;?></p>
     <br/>
-    <address>
+    <dl>
       <?php foreach($contact as $item => $value):?>
-      <?php if($value == "") continue;?>
-      <strong><?php echo $lang->company->$item;?>:</strong><?php echo $value;?><br/>
+      <dt class='w-p5  f-left pb-10px a-right'><?php echo $lang->company->$item;?>:</dt>
+      <dd class='w-p90 f-left pb-10px'><?php echo $value;?></dd>
       <?php endforeach;?>
-    </address>
+    <div class='c-both'></div>
+    </dl>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
