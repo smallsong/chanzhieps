@@ -11,8 +11,8 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include '../../common/view/kindeditor.html.php';?>
-<form id='ajaxForm' method='post' class='form-inline' enctype='multipart/form-data'>
-  <table class='table table-bordered'>
+<form id='ajaxForm' method='post' enctype='multipart/form-data'>
+  <table class='table table-bordered table-form'>
     <caption><?php echo $lang->slide->edit;?></caption>
     <tr>
       <th class="w-100px"><?php echo $lang->slide->title;?></th>
@@ -27,6 +27,7 @@
       <td>
         <?php echo html::image($slide->image, "class='image-small'");?>
         <?php echo html::file('files[]', "tabindex='-1'");?>
+        <br><label class='text-info'><?php echo $lang->slide->suitableSize;?></label>
       </td>
     </tr>
     <tr>

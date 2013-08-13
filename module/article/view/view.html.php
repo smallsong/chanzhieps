@@ -13,7 +13,7 @@ js::set('articleID', $article->id);
     <div class='widget radius'>
       <div class='content'>
         <h3 class='a-center'><?php echo $article->title;?></h3>
-        <div class='f-12px mb-10px'>
+        <div class='f-12px mb-10px a-center'>
           <?php
           printf($lang->article->lblAuthor,    $article->author);
           printf($lang->article->lblSource);
@@ -34,7 +34,7 @@ js::set('articleID', $article->id);
         {
             if($file->isImage)
             { 
-                echo html::image($file->smallURL, "title='{$file->title}' class='w-p45'");
+                echo html::image($file->smallURL, "title='{$file->title}'");
             }
             else
             {
