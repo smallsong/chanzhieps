@@ -349,7 +349,7 @@ EOT;
         if($this->post->password == '') die(js::error($this->lang->install->errorEmptyPassword));
 
         $addedDate = helper::now();
-        $admin = new stdClass();
+        $admin = new stdclass();
         $admin->account  = $this->post->account;
         $admin->realname = $this->post->account;
         $admin->password = $this->loadModel('user')->createPassword($this->post->password, $admin->account, $addedDate);

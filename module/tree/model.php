@@ -371,7 +371,7 @@ class treeModel extends model
         $parent = $this->getByID($parent);
 
         /* Init the category object. */
-        $category = new stdClass();
+        $category = new stdclass();
         $category->parent  = $parent ? $parent->id : 0;
         $category->grade   = $parent ? $parent->grade + 1 : 1;
         $category->type    = $type;
@@ -446,7 +446,7 @@ class treeModel extends model
 
                 if($parentCategoryID == 0)
                 {
-                    $parentCategory = new stdClass();
+                    $parentCategory = new stdclass();
                     $parentCategory->grade = 0;
                     $parentCategory->path  = ',';
                 }

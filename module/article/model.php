@@ -204,7 +204,7 @@ class articleModel extends model
        {
            if(!$category) continue;
 
-           $data = new stdClass();
+           $data = new stdclass();
            $data->type     = $type; 
            $data->id       = $articleID;
            $data->category = $category;

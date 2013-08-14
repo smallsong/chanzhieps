@@ -58,13 +58,13 @@ $lang->fail           = '失败';
 $lang->noResultsMatch = '没有匹配的选项';
 
 /* Items for javascript. */
-$lang->js = new stdClass();
+$lang->js = new stdclass();
 $lang->js->confirmDelete = '您确定要执行删除操作吗？';
 $lang->js->deleteing     = '删除中';
 $lang->js->doing         = '处理中';
 
 /* Contact fields*/
-$lang->company = new stdClass();
+$lang->company = new stdclass();
 $lang->company->contactUs = '联系我们';
 $lang->company->address   = '地址';
 $lang->company->phone     = '电话';
@@ -132,7 +132,7 @@ $lang->nav->menu = $lang->site->menu;
 $lang->menuGroups->nav  = 'site';
 
 /* Menu of tree module. */
-$lang->slide = new stdClass();
+$lang->slide = new stdclass();
 $lang->slide->menu = $lang->site->menu;
 $lang->menuGroups->slide = 'site';
 

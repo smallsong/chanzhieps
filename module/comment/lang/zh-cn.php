@@ -37,7 +37,7 @@ $lang->comment->confirmPassPre      = '您确定要通过之前的评论吗？';
 $lang->comment->statusList[0] = '未审核';
 $lang->comment->statusList[1] = '已审核';
 
-$lang->captcha = new stdClass();
+$lang->captcha = new stdclass();
 $lang->captcha->numbers = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十');
 $lang->captcha->actions = array('*' => '乘', '-' => '减', '+' => '加');
 $lang->captcha->equal       = '=';

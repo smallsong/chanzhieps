@@ -130,7 +130,7 @@ class blockModel extends model
         foreach($_POST as $region => $regionBlocks)
         {
             $region = str_replace('region', '', $region);
-            $layout = new stdClass();
+            $layout = new stdclass();
             foreach($regionBlocks as $block)
             {
                 if(!$block) continue;

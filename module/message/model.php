@@ -22,7 +22,7 @@ class messageModel extends model
      */
     public function sendMessage($to, $message, $link = '', $from = 'system')
     {
-        $data = new stdClass();
+        $data = new stdclass();
         $data->from    = $from;
         $data->content = mb_substr(strip_tags($message), 0, 50);
         $data->link    = 'http://' . $this->server->http_host . $link;

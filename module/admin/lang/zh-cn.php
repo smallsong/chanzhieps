@@ -1,5 +1,5 @@
 <?php 
-$lang->admin->shortcuts = new stdClass();
+$lang->admin->shortcuts = new stdclass();
 
 $lang->admin->shortcuts->adminArticle  = '文章管理';
 $lang->admin->shortcuts->createArticle = '发布文章';

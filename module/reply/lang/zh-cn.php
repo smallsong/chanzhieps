@@ -8,7 +8,7 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-$lang->reply = new stdClass();
+$lang->reply = new stdclass();
 $lang->reply->common    = '回贴';
 $lang->reply->content   = '内容';
 $lang->reply->author    = '作者';

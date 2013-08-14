@@ -1358,7 +1358,7 @@ class router
     public function loadConfig($moduleName, $exitIfNone = true)
     {
         global $config;
-        if($config and (!isset($config->$moduleName) or !is_object($config->$moduleName))) $config->$moduleName = new stdClass();
+        if($config and (!isset($config->$moduleName) or !is_object($config->$moduleName))) $config->$moduleName = new stdclass();
         $extConfigFiles = array();
 
         /* Set the main config file and extension config file. */

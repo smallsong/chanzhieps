@@ -35,7 +35,7 @@ class navModel extends model
         $navs = array();
         foreach($this->config->nav->system as $item => $url)
         {
-            $nav = new stdClass();
+            $nav = new stdclass();
             $nav->type   = 'system';
             $nav->system = $item;
             $nav->class  = 'nav-system-home';
@@ -57,7 +57,7 @@ class navModel extends model
     {
         if(empty($nav))
         {
-            $nav = new stdClass();
+            $nav = new stdclass();
             $nav->type   = 'system';
             $nav->system = 'home';
             $nav->title  = $this->lang->nav->system->home;

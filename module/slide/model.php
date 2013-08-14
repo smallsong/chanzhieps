@@ -67,7 +67,7 @@ class slideModel extends model
 
         $slide = fixer::input('post')->add('image', $image)->get();
 
-        $setting = new stdClass();
+        $setting = new stdclass();
         $setting->owner   = 'system';
         $setting->module  = 'common';
         $setting->section = 'slides';

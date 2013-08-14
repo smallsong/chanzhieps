@@ -393,7 +393,7 @@ class commonModel extends model
         if($this->session->user) return $this->app->user = $this->session->user;
 
         /* Create a guest account. */
-        $user           = new stdClass();
+        $user           = new stdclass();
         $user->id       = 0;
         $user->account  = 'guest';
         $user->realname = 'guest';

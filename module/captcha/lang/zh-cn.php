@@ -8,7 +8,7 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-$lang->captcha = new stdClass();
+$lang->captcha = new stdclass();
 
 $lang->captcha->common      = '验证码';
 $lang->captcha->numbers     = array('零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖', '拾');
