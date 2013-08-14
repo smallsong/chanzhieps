@@ -97,7 +97,7 @@ class threadModel extends model
             if($thread->hidden and strpos($this->cookie->t, ",$thread->id,") === false) unset($threads[$thread->id]);
 
             /* Judge the thread is new or not.*/
-            $thread->isNew = ($now - strtotime($thread->repliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
+            $thread->isNew = (time() - strtotime($thread->repliedDate)) < 24 * 60 * 60 * $this->config->thread->newDays;
         }
 
         return $threads;
@@ -195,7 +195,7 @@ class threadModel extends model
      * @access public
      * @return void
      */
-    public function delete($threadID)
+    public function delete($threadID , $null = null)
     {
         $this->dao->delete()->from(TABLE_THREAD)->where('id')->eq($threadID)->exec(false);
         $this->dao->delete()->from(TABLE_REPLY)->where('thread')->eq($threadID)->exec(false);
@@ -278,12 +278,12 @@ class threadModel extends model
     public function canEdit($board, $author)
     {
         /* If the board is readonly, only managers can edit it. */
-        if($board->readonly) return $this->canManage($board);
+        if(isset($board->readonly) && $board->readonly) return $this->canManage($board);
 
         /* If the board is an open one, the author or managers can edit it. */
         $user = $this->app->user->account;
         if($user == $author) return true;
-        if($this->canManage($board->moderators)) return true;
+        if(isset($board->moderators) && $this->canManage($board->moderators)) return true;
 
         return false;
     }

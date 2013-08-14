@@ -20,11 +20,12 @@ $lang->nav->cannotRemoveAll = '不能删除所有导航';
 
 /* nav type   */
 $lang->nav->types = array();
-$lang->nav->types['common']  = '通用导航';
-$lang->nav->types['article'] = '文章类目导航';
-$lang->nav->types['input']   = '自定义导航';
+$lang->nav->types['system']  = '系统模块';
+$lang->nav->types['article'] = '文章类目';
+$lang->nav->types['custom']  = '自定义';
 
 /* common navs.*/
-$lang->nav->common->home     = '首页';
-$lang->nav->common->company  = '关于我们';
-$lang->nav->common->forum    = '论坛';
+$lang->nav->system = new stdClass();
+$lang->nav->system->home     = '首页';
+$lang->nav->system->company  = '关于我们';
+$lang->nav->system->forum    = '论坛';

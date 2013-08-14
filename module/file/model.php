@@ -87,7 +87,7 @@ class fileModel extends model
         $file->smallURL  = '';
 
         $file->isImage   = false;
-        if(in_array($this->config->file->imageExtensions, strtolower($file->extension)) !== false)
+        if(in_array(strtolower($file->extension), $this->config->file->imageExtensions) !== false)
         {
             $file->middleURL = $this->webPath . str_replace('f_', 'm_', $file->pathname);
             $file->smallURL  = $this->webPath . str_replace('f_', 's_', $file->pathname);
@@ -314,7 +314,7 @@ class fileModel extends model
      * @access public
      * @return void
      */
-    public function delete($fileID)
+    public function delete($fileID, $null = null)
     {
         $file = $this->getByID($fileID);
         if(file_exists($file->realPath)) unlink($file->realPath);

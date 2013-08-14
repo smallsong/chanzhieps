@@ -8,9 +8,9 @@
  * @version     $Id$
  * @link        http://www.xirang.biz
  */
-$config->nav->common = new stdClass();
+$config->nav->system = new stdClass();
 
-$config->nav->common->home    = commonModel::createFrontLink('index', 'index');
-$config->nav->common->company = commonModel::createFrontLink('company', 'index');
-$config->nav->common->forum   = commonModel::createFrontLink('forum', 'index');
+$config->nav->system->home    = commonModel::createFrontLink('index', 'index');
+$config->nav->system->company = commonModel::createFrontLink('company', 'index');
+$config->nav->system->forum   = commonModel::createFrontLink('forum', 'index');
 

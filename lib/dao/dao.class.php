@@ -924,7 +924,7 @@ class dao
      * @access public
      * @return bool
      */
-    public function isError()
+    public static function isError()
     {
         return !empty(dao::$errors);
     }
@@ -935,7 +935,7 @@ class dao
      * @access public
      * @return array
      */
-    public function getError()
+    public static function getError()
     {
         $errors = dao::$errors;
         dao::$errors = array();     // Must clear it.
@@ -1132,7 +1132,7 @@ class sql
      * @access public
      * @return object the sql object.
      */
-    public function update($table)
+    public static function update($table)
     {
         $sqlobj = self::factory();
         $sqlobj->sql = "UPDATE $table SET ";
@@ -1146,7 +1146,7 @@ class sql
      * @access public
      * @return object the sql object.
      */
-    public function insert($table)
+    public static function insert($table)
     {
         $sqlobj = self::factory();
         $sqlobj->sql = "INSERT INTO $table SET ";

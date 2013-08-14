@@ -79,6 +79,7 @@ class replyModel extends model
      */
     public function post($threadID)
     {
+        $this->app->loadConfig('thread');
         $reply = fixer::input('post')
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
@@ -159,7 +160,7 @@ class replyModel extends model
      * @access public
      * @return void
      */
-    public function delete($replyID)
+    public function delete($replyID, $null = null)
     {
         $this->dao->delete()->from(TABLE_REPLY)->where('id')->eq($replyID)->exec(false);
         return !dao::isError();

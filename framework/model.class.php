@@ -207,8 +207,8 @@ class model
      * @access public
      * @return void
      */
-    public function delete($table, $id, $autoSite = true)
+    public function delete($table, $id)
     {
-        $this->dao->delete()->from($table)->where('id')->eq($id)->exec($autoSite);
+        $this->dao->delete()->from($table)->where('id')->eq($id)->exec();
     }
 }    

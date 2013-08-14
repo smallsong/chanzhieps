@@ -428,4 +428,5 @@ function autoSlashes($data)
     {
         $data = addslashes($data);
     }
+    return $data;
 }
