@@ -12,7 +12,7 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
     <div class='row'>
       <div id='topnav-menu' class='a-right'> <?php echo commonModel::printTopBar();?> </div>
       <?php if(isset($logo)):?>
-      <div class='span3'>
+      <div class='span3' id='logoBox'>
         <img class='logo' src="<?php echo $logo->webPath?>" />
       </div>
       <div class='span9 a-right'>
@@ -26,10 +26,10 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
       <div class='span8 ml-zero mt-20px f-right'><?php echo $this->config->site->slogan;?></div>
       <?php endif;?>
     </div>
-    <div class='navbar'>
+    <div id='topNav' class='navbar'>
       <div class='navbar-inner'>
         <div class='container'>
-          <ul id='topNav' class='nav sf-menu sf-js-enabled'>
+          <ul class='nav sf-menu sf-js-enabled grade1'>
             <?php foreach($topNavs as $nav1):?>
             <li class="cat-item <?php echo $nav1->class?>"> 
               <?php echo html::a($nav1->url, $nav1->title);?>
