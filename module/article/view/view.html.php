@@ -48,6 +48,6 @@ js::set('articleID', $article->id);
     <?php echo html::a('', '', '', "name='comment'");?>
     <div class='a-right'><?php if($article->editor) printf($lang->article->lblEditor, $article->editor, $article->editedDate);?></div>
   </div>
-<?php include '../../common/view/side.html.php'; ?>
+  <?php include '../../common/view/side.html.php'; ?>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>

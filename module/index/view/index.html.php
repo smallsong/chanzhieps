@@ -42,8 +42,8 @@
     <h4><?php echo $lang->index->contact;?></h4>
     <?php foreach($contact as $item => $value):?>
     <dl>
-      <dt class='w-p20 f-left pb-10px a-right'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
-      <dd class='w-p70 f-left pb-10px'><?php echo $value;?></dd>
+      <dt class='w-p20 f-left c-both pb-10px a-right'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
+      <dd class='w-p70 f-left c-both pb-10px'><?php echo $value;?></dd>
     </dl>
     <?php endforeach;?>
     <div class='c-both'></div>

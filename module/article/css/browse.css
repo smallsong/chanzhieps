@@ -1,11 +1,5 @@
-.article-list{margin: 10px 0 0;}
-.article-list li{list-style: none; margin: 0 0 35px;}
-
 .article-title{margin: 0;}
 .article-title a{color: #5A5A5A;}
 .article-title a:hover, .article-title a:active{color: #4691EF; text-decoration: none;}
-
-.meta{margin-bottom: 10px;}
-.summary{margin-bottom:10px;}
 
 a.article-img{width: 128px; height: 128px; padding: 3px;}

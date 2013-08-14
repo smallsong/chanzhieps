@@ -1,6 +1,6 @@
 <?php
 /**
- * The model class file of ZenTaoPHP framework.
+ * The model class file of xirangEPS framework.
  *
  * The author disclaims copyright to this source code.  In place of
  * a legal notice, here is a blessing:
