@@ -2,5 +2,5 @@ $(document).ready(function()
 {
     $.setAjaxForm('#reply');   
     $.setAjaxJSONER('.jsoner')
-    $('.nav-common-forum').addClass('active');
+    $('.nav-system-forum').addClass('active');
 });

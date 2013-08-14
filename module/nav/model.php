@@ -25,7 +25,7 @@ class navModel extends model
     }
     
     /**
-     * Get common navs as default.
+     * Get system navs as default.
      * 
      * @access public
      * @return array   
@@ -33,13 +33,13 @@ class navModel extends model
     public function getDefault()
     {
         $navs = array();
-        foreach($this->config->nav->common as $item => $url)
+        foreach($this->config->nav->system as $item => $url)
         {
             $nav = new stdClass();
-            $nav->type   = 'common';
-            $nav->common = $item;
-            $nav->class  = 'nav-common-home';
-            $nav->title  = $this->lang->nav->common->$item;
+            $nav->type   = 'system';
+            $nav->system = $item;
+            $nav->class  = 'nav-system-home';
+            $nav->title  = $this->lang->nav->system->$item;
             $nav->url    = $url;
             $navs[] = $nav;
         }
@@ -58,9 +58,9 @@ class navModel extends model
         if(empty($nav))
         {
             $nav = new stdClass();
-            $nav->type   = 'common';
-            $nav->common = 'home';
-            $nav->title  = $this->lang->nav->common->home;
+            $nav->type   = 'system';
+            $nav->system = 'home';
+            $nav->title  = $this->lang->nav->system->home;
             $nav->url    = '';
         }
 
@@ -68,17 +68,17 @@ class navModel extends model
         $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
 
         $articleHidden = ($nav->type == 'article') ? '' : 'hide'; 
-        $commonHidden  = ($nav->type == 'common')  ? '' : 'hide'; 
-        $urlHidden     = ($nav->type == 'input')   ? '' : 'hide'; 
+        $system        = ($nav->type == 'system')  ? '' : 'hide'; 
+        $urlHidden     = ($nav->type == 'custom')  ? '' : 'hide'; 
 
         $entry = '<i class="icon-folder-open shut"></i>';
 
         /* nav type select tag. */
         $entry .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $nav->type, "class='navType' grade='{$grade}'");
 
-        /* artcle and common select tag. */
+        /* artcle and system select tag. */
         $entry .= html::select("nav[{$grade}][article][]", $articleTree, $nav->article, "class='navSelector {$articleHidden}'");
-        $entry .= html::select("nav[{$grade}][common][]", $this->lang->nav->common, $nav->common, "class='navSelector {$commonHidden}'");
+        $entry .= html::select("nav[{$grade}][system][]", $this->lang->nav->system, $nav->system, "class='navSelector {$system}'");
 
         $entry .= html::input("nav[{$grade}][title][]", $nav->title, "placeholder='{$this->lang->nav->inputTitle}' class='input-small titleInput'");
 
@@ -162,7 +162,7 @@ class navModel extends model
     {
         global $config;
 
-        if($nav['type'] == 'common')  return $config->nav->common->$nav['common'];   
+        if($nav['type'] == 'system')  return $config->nav->system->$nav['system'];   
         if($nav['type'] == 'article') return commonModel::createFrontLink('article', 'browse', "categoryID={$nav['article']}");
 
         return $nav['url'];

@@ -87,7 +87,7 @@ $(document).ready(function()
         type  = $(this).val();
         grade = $(this).attr('grade');
 
-        if(type != 'input')
+        if(type != 'custom')
         {
             $(this).parent().children('.urlInput').hide();
             $(this).parent().children('.navSelector').hide();
