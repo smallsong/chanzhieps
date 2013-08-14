@@ -41,10 +41,6 @@ class forum extends control
         $board = $this->loadModel('tree')->getById($boardID);
         if(!$board) die(js::locate('back'));
 
-        /* Set keywords and desc. */
-        $keywords = $this->view->board->keyword . '' . $this->config->site->keywords;
-        $desc     = strip_tags($this->view->board->desc);
-
         /* Get stick threads. */
         $sticks = $this->loadModel('thread')->getSticks($boardID);
 
@@ -54,8 +50,8 @@ class forum extends control
         $threads = $this->thread->getList($boardID, $orderBy, $pager);
 
         $this->view->title     = $board->name;
-        $this->view->keyword   = $keywords;
-        $this->view->desc      = $desc;
+        $this->view->keyword   = $board->keyword . '' . $this->config->site->keywords;
+        $this->view->desc      = strip_tags($board->desc);
         $this->view->board     = $board;
         $this->view->sticks    = $sticks;
         $this->view->threads   = $threads;

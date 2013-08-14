@@ -159,7 +159,7 @@ class replyModel extends model
      * @access public
      * @return void
      */
-    public function delete($replyID)
+    public function delete($replyID, $null = null)
     {
         $this->dao->delete()->from(TABLE_REPLY)->where('id')->eq($replyID)->exec(false);
         return !dao::isError();
