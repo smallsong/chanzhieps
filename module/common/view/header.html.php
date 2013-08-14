@@ -26,7 +26,7 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
       <div class='span8 ml-zero mt-20px f-right'><?php echo $this->config->site->slogan;?></div>
       <?php endif;?>
     </div>
-    <div id='topNav' class='navbar'>
+    <div id='topNav' class='navbar navbar-inverse'>
       <div class='navbar-inner'>
         <div class='container'>
           <ul class='nav sf-menu sf-js-enabled grade1'>
