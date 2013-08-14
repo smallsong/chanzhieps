@@ -167,7 +167,7 @@ class articleModel extends model
      * @access public
      * @return void
      */
-    public function delete($articleID)
+    public function delete($articleID, $null = null)
     {
         $article = $this->getByID($articleID);
         if(!$article) return false;

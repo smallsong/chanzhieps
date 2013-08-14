@@ -1146,7 +1146,7 @@ class sql
      * @access public
      * @return object the sql object.
      */
-    public function insert($table)
+    public static function insert($table)
     {
         $sqlobj = self::factory();
         $sqlobj->sql = "INSERT INTO $table SET ";
