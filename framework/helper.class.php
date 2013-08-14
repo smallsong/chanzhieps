@@ -228,6 +228,22 @@ class helper
     }
 
     /**
+     * Json encode and addslashe if magic_quotes_gpc is on. 
+     * 
+     * @param   mixed  $data   the object to encode
+     * @static
+     * @access  public
+     * @return  string  decoded string.
+     */
+    static public function jsonEncode($data)
+    {
+        return get_magic_quotes_gpc() ? addslashes(json_encode($data)) : json_encode($data);
+    }
+
+
+
+
+    /**
      *  Compute the diff days of two date.
      * 
      * @param   date  $date1   the first date.
@@ -409,24 +425,3 @@ function getWebRoot()
     return substr($path, 0, (strrpos($path, '/') + 1));
 }
 
-/**
- * Addslashes if magic_quotes_gpc is on.
- * This function generally used on variable beside GPC (Get/Post/Cookie).
- *
- * @param mixed $data
- * @return mixed
- */
-function autoSlashes($data)
-{
-    if(!get_magic_quotes_gpc()) return $data;
-
-    if(is_array($data) or is_object($data))
-    {
-        foreach($data as $value) $value = addslashes($value);
-    }
-    else
-    {
-        $data = addslashes($data);
-    }
-    return $data;
-}

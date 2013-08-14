@@ -245,11 +245,16 @@ tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 .shadow{box-shadow:0 1px 2px rgba(0,0,0,.05); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 
 /*---------------------- FRONT ---------------------------*/
+/* Logo setting.*/
+img.logo{max-height: 100px;}
+
 /* global settings.*/
 .row{width: 100%; margin-left: 0;}
 .span4{margin-left: 0;}
 .span9{margin-left: 0;}
 .span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
+
+/* nav settings.*/
 .navbar .navbar-inner {padding: 0;}
 .navbar .nav li.cat-item a {border-left: 1px solid rgba(255, 255, 255, 0.75);border-right: 1px solid rgba(0, 0, 0, 0.1);font-weight: bold;text-align: center;}
 .navbar .nav li.cat-item:first-child a {border-left: 0 none;border-radius: 3px 0 0 3px;}
