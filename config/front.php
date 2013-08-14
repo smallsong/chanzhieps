@@ -25,6 +25,7 @@ $config->rights->guest['forum']['index'] = 'index';
 $config->rights->guest['forum']['board'] = 'board';
 
 $config->rights->guest['thread']['view'] = 'view';
+$config->rights->guest['thread']['post'] = 'post';
 
 $config->rights->guest['comment']['show'] = 'show';
 $config->rights->guest['comment']['post'] = 'post';
