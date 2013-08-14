@@ -11,27 +11,26 @@ include '../../common/view/treeview.html.php';
   <div class='span9'>
     <div class='widget radius'>
       <h4><?php echo $category->name;?></h4>
-      <ul>
+      <ul class="media-list">
       <?php foreach($articles as $article):?>
-        <li>
+        <li class="media">
           <?php 
           if(empty($article->primaryImage))
           {
-              echo html::a(inlink('view', "id=$article->id"), html::image($themeRoot . 'default/images/main/noimage.jpg', "title='{$article->title}'"), '', "class='f-left article-img'");
+              // no image，better not display a empty box 
+              // echo html::a(inlink('view', "id=$article->id"), html::image($themeRoot . 'default/images/main/noimage.jpg', "title='{$article->title}' class='media-object' width='125'"), '', "class='pull-left'");
           }
           else
           {
               $title = $article->primaryImage->title ? $article->primaryImage->title : $article->title;
-              echo html::a(inlink('view', "id=$article->id"), html::image($article->primaryImage->smallURL, "title='{$title}'"), '', "class='f-left article-img'");
+              echo html::a(inlink('view', "id=$article->id"), html::image($article->primaryImage->smallURL, "title='{$title}' class='media-object'"), '', "class='pull-left'");
           }
           ?>
-          <div class='f-right w-p75'>
-            <h5 class='article-title f-left'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
-            <span class='f-left'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span>
-            <div class='c-both'></div>
-            <div class='pv-10px'><?php echo $article->summary;?></div>
+          <div class='media-body'>
+            <h3 class='media-heading'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h3>
+            <p><?php echo $article->summary;?></p>
+            <p><span class='muted'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span></p>
           </div>
-          <div class='c-both'></div>
         </li>
       <?php endforeach;?>
       </ul>
