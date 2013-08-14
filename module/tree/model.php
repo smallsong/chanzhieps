@@ -341,7 +341,7 @@ class treeModel extends model
      * @access public
      * @return void
      */
-    public function delete($categoryID)
+    public function delete($categoryID, $null = null)
     {
         $category = $this->getById($categoryID);
         $family   = $this->getFamily($categoryID);

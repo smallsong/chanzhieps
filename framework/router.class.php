@@ -1023,7 +1023,7 @@ class router
         if(!is_file($this->controlFile))
         {
             $this->controlFile = $this->moduleRoot . 'ext' . DS . $this->siteCode . DS . $this->moduleName . DS . 'control.php';
-            if(!is_file($this->controlFile)) helper::header404($this->URI);
+            if(!is_file($this->controlFile)) header("Location: {$this->config->webRoot}");
             return false;
         }
         return true;

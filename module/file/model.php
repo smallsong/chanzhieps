@@ -314,7 +314,7 @@ class fileModel extends model
      * @access public
      * @return void
      */
-    public function delete($fileID)
+    public function delete($fileID, $null = null)
     {
         $file = $this->getByID($fileID);
         if(file_exists($file->realPath)) unlink($file->realPath);

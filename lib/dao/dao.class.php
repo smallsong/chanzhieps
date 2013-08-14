@@ -924,7 +924,7 @@ class dao
      * @access public
      * @return bool
      */
-    public function isError()
+    public static function isError()
     {
         return !empty(dao::$errors);
     }
@@ -935,7 +935,7 @@ class dao
      * @access public
      * @return array
      */
-    public function getError()
+    public static function getError()
     {
         $errors = dao::$errors;
         dao::$errors = array();     // Must clear it.

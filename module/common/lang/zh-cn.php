@@ -9,6 +9,9 @@
  * @link        http://www.zentao.net
  */
 $lang->colon = ' : ';
+$lang->prev  = '‹';
+$lang->next  = '›';
+
 
 /* Lang items for xirang. */
 $lang->xirangEPS = 'xirangEPS';
@@ -31,10 +34,6 @@ $lang->changePassword = '修改密码';
 $lang->forgotPassword = '忘记密码?';
 $lang->currentPos     = '当前位置';
 $lang->categoryMenu   = '分类导航';
-
-/* actions for slides.*/
-$lang->prev = '‹';
-$lang->next = '›';
 
 /* Global action items. */
 $lang->reset          = '重填';
