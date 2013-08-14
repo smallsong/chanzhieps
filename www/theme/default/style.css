@@ -292,3 +292,6 @@ ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 
 .widget ul {margin:10px 20px}
 .widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
+
+/* Forum settings*/
+#forum {margin-top: 20px;}
