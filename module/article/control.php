@@ -132,7 +132,7 @@ class article extends control
         if($_POST)
         {
             $this->article->update($articleID);
-            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError));
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin')));
         }
 
@@ -166,12 +166,12 @@ class article extends control
         $title    = $article->title . ' - ' . $category->name;
         $keywords = $article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
         
-        $this->view->title      = $title;
-        $this->view->keywords   = $keywords;
-        $this->view->desc       = $article->desc;
-        $this->view->article    = $article;
-        $this->view->category   = $category;
-        $this->view->contact    = $this->loadModel('company')->getContact();
+        $this->view->title    = $title;
+        $this->view->keywords = $keywords;
+        $this->view->desc     = $article->desc;
+        $this->view->article  = $article;
+        $this->view->category = $category;
+        $this->view->contact  = $this->loadModel('company')->getContact();
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
@@ -187,9 +187,7 @@ class article extends control
      */
     public function delete($articleID)
     {
-        $result = $this->article->delete($articleID);
-
-        if($result) $this->send(array('result' => 'success'));
+        if($this->article->delete($articleID)) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 }

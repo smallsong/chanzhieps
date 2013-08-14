@@ -10,19 +10,19 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<table class="table table-bordered table-hover table-striped">
+<table class='table table-bordered table-hover table-striped'>
   <caption>
     <div class='f-left'><?php echo $lang->article->list;?></div>
     <div class='f-right'><?php echo html::a($this->inlink('create'), $lang->article->create);?></div>
   </caption>
   <thead>
     <tr class='a-center'>
-      <th class="w-id"><?php echo $lang->article->id;?></th>
+      <th class='w-id'><?php echo $lang->article->id;?></th>
       <th><?php echo $lang->article->title;?></th>
-      <th class="w-p20"><?php echo $lang->article->category;?></th>
-      <th class="w-140px"><?php echo $lang->article->addedDate;?></th>
-      <th class="w-60px"><?php echo $lang->article->views;?></th>
-      <th class="w-150px"><?php echo $lang->actions;?></th>
+      <th class='w-p20'><?php echo $lang->article->category;?></th>
+      <th class='w-140px'><?php echo $lang->article->addedDate;?></th>
+      <th class='w-60px'><?php echo $lang->article->views;?></th>
+      <th class='w-150px'><?php echo $lang->actions;?></th>
     </tr>
   </thead>
   <tbody>

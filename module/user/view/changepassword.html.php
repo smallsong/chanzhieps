@@ -1,5 +1,5 @@
 <?php include '../../common/view/header.admin.html.php';?>
-<form method='post' action='<?php echo inlink('changepassword');?>' id="passwordForm" class="form form-inline" >
+<form method='post' action='<?php echo inlink('changepassword');?>' id="ajaxForm" class="form form-inline" >
   <table class='table table-form'>
     <caption><?php echo $lang->user->changePassword;?></caption>
     <tr>
@@ -17,3 +17,4 @@
     <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
   </table>
 </form>
+<?php include '../../common/view/header.admin.html.php';?>

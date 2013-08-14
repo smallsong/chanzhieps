@@ -9,9 +9,9 @@ include '../../common/view/treeview.html.php';
 <?php echo $common->printPositionBar($category);?>
 <div class='row'>
   <div class='span9'>
-    <div class='widget widget-category radius'>
+    <div class='widget radius'>
       <h4><?php echo $category->name;?></h4>
-      <ul class='article-list'>
+      <ul>
       <?php foreach($articles as $article):?>
         <li>
           <?php 
@@ -25,9 +25,7 @@ include '../../common/view/treeview.html.php';
             <h5 class='article-title f-left'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
             <span class='f-left'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span>
             <div class='c-both'></div>
-            <div class='summary'>
-              <?php echo $article->summary;?> 
-            </div>
+            <div class='pv-10px'><?php echo $article->summary;?></div>
           </div>
           <div class='c-both'></div>
         </li>
