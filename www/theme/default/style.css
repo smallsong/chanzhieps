@@ -287,11 +287,12 @@ ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 
 /* Widget settings. */
 .widget {margin: 20px 0 15px; padding:0; border:1px solid #ddd;}
-.widget h4 {margin:0; padding:0; padding-left:10px; border-bottom:1px solid #ddd; height:40px; line-height:40px; font-size:14px; font-weight:700; background: #EFEFEF; color:#333; }
+.widget h4 {margin:0; padding:0 0 0 10px; border-bottom:1px solid #ddd; border-radius: 5px 5px 0 0; height:40px; line-height:40px; font-size:14px; font-weight:700; background: #EFEFEF; color:#333; }
 .widget .content {padding:10px;}
 
 .widget ul {margin:10px 20px}
 .widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
+.widget ul li a {padding-left:5px;}
 
 /* Forum settings*/
 #forum {margin-top: 20px;}
