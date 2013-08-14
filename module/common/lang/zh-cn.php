@@ -101,6 +101,7 @@ $lang->comment->menu->browse = '未审核|comment|admin|status=0';
 $lang->comment->menu->tree   = '已审核|comment|admin|status=1';
 
 /* Menu of forum module. */
+$lang->forum = new stdclass();
 $lang->forum->menu = new stdclass();
 $lang->forum->menu->browse = '主题列表|forum|admin|';
 $lang->forum->menu->tree   = '版块管理|tree|browse|type=forum';
@@ -132,6 +133,7 @@ $lang->nav->menu = $lang->site->menu;
 $lang->menuGroups->nav  = 'site';
 
 /* Menu of tree module. */
+$lang->slide = new stdClass();
 $lang->slide->menu = $lang->site->menu;
 $lang->menuGroups->slide = 'site';
 

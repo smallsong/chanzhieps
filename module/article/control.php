@@ -168,7 +168,7 @@ class article extends control
         
         $this->view->title      = $title;
         $this->view->keywords   = $keywords;
-        $this->view->desc       = $article->desc;
+        $this->view->summary       = $article->summary;
         $this->view->article    = $article;
         $this->view->category   = $category;
         $this->view->contact    = $this->loadModel('company')->getContact();
