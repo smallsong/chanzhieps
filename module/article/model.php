@@ -81,7 +81,11 @@ class articleModel extends model
         foreach($articles as $article) $article->categories = $categories[$article->id];
 
         /* Assign images to it's article. */
-        foreach($articles as $article) $article->images = $images[$article->id];
+        foreach($articles as $article)
+        {
+            $article->images = $images[$article->id];
+            $article->primaryImage = $article->images[0];
+        }
         
         /* Assign summary to it's article. */
         foreach($articles as $article) $article->summary = empty($article->summary) ? substr(strip_tags($article->content), 0, 300) : $article->summary;

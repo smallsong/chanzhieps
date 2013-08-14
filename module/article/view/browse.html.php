@@ -15,15 +15,14 @@ include '../../common/view/treeview.html.php';
       <?php foreach($articles as $article):?>
         <li>
           <?php 
-          if(empty($article->images))
+          if(empty($article->primaryImage))
           {
               echo html::a(inlink('view', "id=$article->id"), html::image($themeRoot . 'default/images/main/noimage.jpg', "title='{$article->title}'"), '', "class='f-left article-img'");
           }
           else
           {
-              $firstImage = $article->images[0];
-              $title      = $firstImage->title ? $firstImage->title : $article->title;
-              echo html::a(inlink('view', "id=$article->id"), html::image($firstImage->smallURL, "title='{$title}'"), '', "class='f-left article-img'");
+              $title = $article->primaryImage->title ? $article->primaryImage->title : $article->title;
+              echo html::a(inlink('view', "id=$article->id"), html::image($article->primaryImage->smallURL, "title='{$title}'"), '', "class='f-left article-img'");
           }
           ?>
           <div class='f-right w-p75'>
