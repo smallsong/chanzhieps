@@ -79,6 +79,7 @@ class replyModel extends model
      */
     public function post($threadID)
     {
+        $this->app->loadConfig('thread');
         $reply = fixer::input('post')
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())

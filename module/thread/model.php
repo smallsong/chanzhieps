@@ -278,12 +278,12 @@ class threadModel extends model
     public function canEdit($board, $author)
     {
         /* If the board is readonly, only managers can edit it. */
-        if($board->readonly) return $this->canManage($board);
+        if(isset($board->readonly) && $board->readonly) return $this->canManage($board);
 
         /* If the board is an open one, the author or managers can edit it. */
         $user = $this->app->user->account;
         if($user == $author) return true;
-        if($this->canManage($board->moderators)) return true;
+        if(isset($board->moderators) && $this->canManage($board->moderators)) return true;
 
         return false;
     }
