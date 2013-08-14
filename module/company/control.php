@@ -53,7 +53,7 @@ class company extends control
     {
         if(!empty($_POST))
         {
-            $contact = array('contact' => json_encode($_POST));
+            $contact = array('contact' => helper::jsonEncode($_POST));
             $result  = $this->loadModel('setting')->setItems('system.common.company', $contact);
             if($result) $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess));
             $this->send(array('result' => 'fail', 'message' => $this->lang->fail));

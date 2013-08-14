@@ -71,7 +71,7 @@ class slideModel extends model
         $setting->owner   = 'system';
         $setting->module  = 'common';
         $setting->section = 'slides';
-        $setting->value   = autoSlashes(json_encode($slide));
+        $setting->value   = helper::jsonEncode($slide);
 
         $slideKeys    = isset($this->config->slides) ? array_keys((array)$this->config->slides) : array(0);
         $setting->key = max($slideKeys) + 1;
@@ -95,7 +95,7 @@ class slideModel extends model
         $slide = fixer::input('post')->setIf(!empty($image), 'image', $image)->get();
 
         $this->dao->update(TABLE_CONFIG)
-            ->set('value')->eq(autoSlashes(json_encode($slide)))
+            ->set('value')->eq(helper::jsonEncode($slide))
             ->where('id')->eq($id)
             ->exec();
         return !dao::isError();
