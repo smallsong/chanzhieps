@@ -165,22 +165,14 @@ class article extends control
 
         $title    = $article->title . ' - ' . $category->name;
         $keywords = $article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
+        $desc     = strip_tags($article->summary);
         
-<<<<<<< HEAD
-        $this->view->title    = $title;
-        $this->view->keywords = $keywords;
-        $this->view->desc     = $article->desc;
-        $this->view->article  = $article;
-        $this->view->category = $category;
-        $this->view->contact  = $this->loadModel('company')->getContact();
-=======
         $this->view->title      = $title;
         $this->view->keywords   = $keywords;
-        $this->view->summary    = $article->summary;
+        $this->view->desc       = $desc;
         $this->view->article    = $article;
         $this->view->category   = $category;
         $this->view->contact    = $this->loadModel('company')->getContact();
->>>>>>> 9d128969786c76f13ea47c178b4c313a516bae93
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
