@@ -82,6 +82,9 @@ class articleModel extends model
 
         /* Assign images to it's article. */
         foreach($articles as $article) $article->images = $images[$article->id];
+        
+        /* Assign summary to it's article. */
+        foreach($articles as $article) $article->summary = empty($article->summary) ? substr(strip_tags($article->content), 0, 300) : $article->summary;
 
         return $articles;
     }
@@ -164,7 +167,7 @@ class articleModel extends model
      * @access public
      * @return void
      */
-    public function delete($articleID)
+    public function delete($articleID, $null = null)
     {
         $article = $this->getByID($articleID);
         if(!$article) return false;

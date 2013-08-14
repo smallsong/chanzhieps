@@ -543,7 +543,7 @@ class commonModel extends model
      * @param string|array $vars
      * return string 
      */
-    public static function createFrontLink($module, $method, $vars)
+    public static function createFrontLink($module, $method, $vars = '')
     {
         if(RUN_MODE == 'front') return helper::createLink($module, $method, $vars);
 

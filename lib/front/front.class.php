@@ -384,19 +384,6 @@ class html
         }
         return " <input type='button' value='$label' class='$class'  $misc onclick='history.back(-1);' /> ";
     }
-
-    /**
-     Return part of string.
-     *
-     * @static
-     * @access public
-     * @return string
-     */
-     public static function cutString($str, $length, $encoding='utf-8')
-     {
-         return mb_substr(strip_tags($str), 0, $length, $encoding);
-     }
-    
 }
 
 /**

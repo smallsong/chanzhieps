@@ -15,22 +15,23 @@ include '../../common/view/treeview.html.php';
       <?php foreach($articles as $article):?>
         <li>
           <?php 
-          if(empty($article->images)) $firstImage = false;
-
-          $firstImage = $article->images[0];
-          $imageURL   = $firstImage ? $firstImage->smallURL : $themeRoot . 'default/images/main/noimage.jpg';
-          echo html::a(inlink('view', "id=$article->id"), html::image($imageURL, "title='{$file->title}'"), '', "class='f-left article-img'");
+          if(empty($article->images))
+          {
+              echo html::a(inlink('view', "id=$article->id"), html::image($themeRoot . 'default/images/main/noimage.jpg', "title='{$article->title}'"), '', "class='f-left article-img'");
+          }
+          else
+          {
+              $firstImage = $article->images[0];
+              $title      = $firstImage->title ? $firstImage->title : $article->title;
+              echo html::a(inlink('view', "id=$article->id"), html::image($firstImage->smallURL, "title='{$title}'"), '', "class='f-left article-img'");
+          }
           ?>
           <div class='f-right w-p75'>
             <h5 class='article-title f-left'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h5>
-            <span class='f-left'><?php echo $article->addedDate;?></span>
+            <span class='f-left'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span>
             <div class='c-both'></div>
-            <?php
-            $summary = $article->summary;
-            if(empty($article->summary)) $summary = html::cutString($article->content, 300);
-            ?>
             <div class='summary'>
-              <?php echo $summary;?> 
+              <?php echo $article->summary;?> 
             </div>
           </div>
           <div class='c-both'></div>
