@@ -1,6 +1,6 @@
-#shortcutContainer {margin-top:60px;}
+#shortcutBox {margin-top:60px;}
 
-#shortcutContainer .shortcut
+#shortcutBox .shortcut
 {
             transition: opacity .3s;
          -o-transition: opacity .3s;
@@ -8,7 +8,7 @@
     -webkit-transition: opacity .3s;
     text-align:center; margin-top: 20px;
 }
-#shortcutContainer .shortcut:hover
+#shortcutBox .shortcut:hover
 {
          opacity: 0.8;
     -moz-opacity: 0.8;
@@ -20,8 +20,8 @@
     -webkit-transition: opacity .3s;
 }
 
-#shortcutContainer h3{line-height: 140px; color: #FFFFFF; font-weight: 500;}
-#shortcutContainer a:hover{text-decoration: none;}
+#shortcutBox h3{line-height: 140px; color: #FFFFFF; font-weight: 500;}
+#shortcutBox a:hover{text-decoration: none;}
 
 .article-admin {background: #2D89EF;}
 .article-create{background: #B91D47;}

@@ -240,9 +240,6 @@ class helper
         return get_magic_quotes_gpc() ? addslashes(json_encode($data)) : json_encode($data);
     }
 
-
-
-
     /**
      *  Compute the diff days of two date.
      * 

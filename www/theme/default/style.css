@@ -48,7 +48,7 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .table-6 {width:800px;margin-bottom:10px}
 
 /* form table settings. */
-.table-form {border:1px solid #DDDDDD;}
+.table-form {border:1px solid #DDDDDD; border-collapse: inherit;}
 .table-form tr th, .table-form tr td {border:none;}
 .table-form tr th:first-child, .table-form tr td:first-child {text-align:right;}
 .table-form tr th.a-center, .table-form tr td.a-center{text-align:center;}
@@ -292,3 +292,6 @@ ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 
 .widget ul {margin:10px 20px}
 .widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
+
+/* Forum settings*/
+#forum {margin-top: 20px;}
