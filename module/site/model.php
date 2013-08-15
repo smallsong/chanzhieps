@@ -24,7 +24,7 @@ class siteModel extends model
         if(!isset($this->config->site->name))       $this->config->site->name       = $this->lang->xirangEPS;
         if(!isset($this->config->site->keywords))   $this->config->site->keywords   = '';
         if(!isset($this->config->site->slogan))     $this->config->site->slogan     = '';
-        if(!isset($this->config->site->copyright))  $this->config->site->copyright  = date('Y')-1;
+        if(!isset($this->config->site->copyright))  $this->config->site->copyright  = '';
         if(!isset($this->config->site->icp))        $this->config->site->icp        = '';
         if(!isset($this->config->site->desc))       $this->config->site->desc       = '';
         if(!isset($this->config->site->menu))       $this->config->site->menu       = json_encode(array());
