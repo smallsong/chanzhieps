@@ -13,8 +13,8 @@ $themeRoot = $webRoot . "theme/";
   if(!isset($desc))     $desc     = $config->site->desc;
 
   echo html::title($title . '-' . $config->site->name);
-  echo html::meta('keywords',    $keywords);
-  echo html::meta('description', $desc);
+  echo html::meta('keywords',    strip_tags($keywords));
+  echo html::meta('description', strip_tags($desc));
 
   js::exportConfigVars();
   if($config->debug)

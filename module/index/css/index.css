@@ -10,8 +10,8 @@
 .carousel-caption .btn {margin-top: 10px;}
 
 .row-fluid{margin-bottom: 20px;}
-.row-fluid .span4{ height: 320px; padding: 20px 20px 17px; overflow: hidden; font-size: 13px; color: #83868A; transition: all 0.5s ease 0s; border: 1px solid #DDDDDD;}
-.row-fluid .span4 li{list-style: none; height: 30px; line-height: 30px; overflow: hidden;}
+.row-fluid .panel{ height: 320px; padding: 20px 20px 17px; overflow: hidden; font-size: 13px; color: #83868A; transition: all 0.5s ease 0s; border: 1px solid #DDDDDD;}
+.row-fluid .panel li{list-style: none; height: 30px; line-height: 30px; overflow: hidden;}
 
 a.latest-news{color: #5A5A5A; padding-left: 5px;}
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}

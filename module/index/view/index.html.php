@@ -22,33 +22,39 @@
 <?php endif;?>
 
 <div class='row-fluid'>
-  <div class='span4 radius'>
-    <h4><?php echo $lang->index->aboutus;?></h4>
-    <p><?php echo $this->config->company->desc;?><?php echo html::a($this->createLink('company', 'index'), $lang->more . $lang->raquo);?></p>
+  <div class='span4'>
+    <div class="panel radius">
+      <h4><?php echo $lang->index->aboutus;?></h4>
+      <p><?php echo $this->config->company->desc;?><?php echo html::a($this->createLink('company', 'index'), $lang->more . $lang->raquo);?></p>
+    </div>
   </div>
 
-  <div class='span4 radius'>
-    <h4><?php echo $lang->index->news;?></h4>
-    <ul class='mg-zero'>
-      <?php foreach($latestArticles as $id => $article): ?>
-      <li>
-          <i class='icon-chevron-right'></i>
-          <?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news' title='{$article}'");?>
-      </li>
-      <?php endforeach;?>
-    </ul>
+  <div class='span4'>
+    <div class="panel radius">
+      <h4><?php echo $lang->index->news;?></h4>
+      <ul class='mg-zero'>
+        <?php foreach($latestArticles as $id => $article): ?>
+        <li>
+            <i class='icon-chevron-right'></i>
+            <?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news' title='{$article}'");?>
+        </li>
+        <?php endforeach;?>
+      </ul>
+    </div>
   </div>
 
-  <div class='span4 radius'>
-    <h4><?php echo $lang->index->contact;?></h4>
-    <dl id='contact'>
-      <?php foreach($contact as $item => $value):?>
-      <dt class='w-p20'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
-      <dd class='w-p70'><?php echo $value;?></dd>
+  <div class='span4'>
+    <div class="panel radius">
+      <h4><?php echo $lang->index->contact;?></h4>
+      <dl id='contact'>
+        <?php foreach($contact as $item => $value):?>
+        <dt class='w-p20'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
+        <dd class='w-p70'><?php echo $value;?></dd>
+        <div class='c-both'></div>
+        <?php endforeach;?>
+      </dl>
       <div class='c-both'></div>
-      <?php endforeach;?>
-    </dl>
-    <div class='c-both'></div>
+    </div>
   </div>
 
 </div>
