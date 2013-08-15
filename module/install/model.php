@@ -348,13 +348,13 @@ EOT;
     {
         if($this->post->password == '') die(js::error($this->lang->install->errorEmptyPassword));
 
-        $addedDate = helper::now();
+        $join  = helper::now();
         $admin = new stdclass();
         $admin->account  = $this->post->account;
         $admin->realname = $this->post->account;
-        $admin->password = $this->loadModel('user')->createPassword($this->post->password, $admin->account, $addedDate);
+        $admin->password = $this->loadModel('user')->createPassword($this->post->password, $admin->account, $join);
         $admin->admin    = 'super';
-        $admin->addedDate= $addedDate;
+        $admin->join     = $join;
         $this->dao->insert(TABLE_USER)->data($admin)->autoCheck()->check('account', 'notempty')->exec();
     }
 }
