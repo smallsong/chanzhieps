@@ -50,8 +50,8 @@
         <?php foreach($contact as $item => $value):?>
         <dt class='w-p20'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
         <dd class='w-p70'><?php echo $value;?></dd>
-        <div class='c-both'></div>
         <?php endforeach;?>
+        <div class='c-both'></div>
       </dl>
       <div class='c-both'></div>
     </div>

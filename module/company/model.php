@@ -21,17 +21,24 @@ class companyModel extends model
         $contact = json_decode($this->config->company->contact);
         foreach($contact as $item => $value)
         {
-            if($item == 'qq') 
+            if($value)
             {
-                $contact->qq = html::a("tencent://message/?uin={$value}&amp;Site={$this->config->company->name}&amp;Menu=yes", $value);
+                if($item == 'qq') 
+                {
+                    $contact->qq = html::a("tencent://message/?uin={$value}&amp;Site={$this->config->company->name}&amp;Menu=yes", $value);
+                }
+                else if($item == 'email')
+                {
+                    $contact->email = html::a("mailto:{$value}", $value);
+                }
+                else if($item == 'wangwang')
+                {
+                    $contact->wangwang = html::a("http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8", $value);
+                }
             }
-            else if($item == 'email')
+            else
             {
-                $contact->email = html::a("mailto:{$value}", $value);
-            }
-            else if($item == 'wangwang')
-            {
-                $contact->wangwang = html::a("http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8", $value);
+                unset($contact->$item);
             }
         }
         return $contact;
