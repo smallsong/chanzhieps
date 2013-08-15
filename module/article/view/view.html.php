@@ -12,7 +12,7 @@ js::set('articleID', $article->id);
   <div class='span9'>
     <div class='widget radius'>
       <div class='content'>
-        <h3 class='a-center'><?php echo $article->title;?></h3>
+        <h2 class='a-center'><?php echo $article->title;?></h2>
         <div class='f-12px mb-10px a-center'>
           <?php
           printf($lang->article->lblAuthor,    $article->author);
