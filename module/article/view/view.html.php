@@ -38,7 +38,7 @@ js::set('articleID', $article->id);
             }
             else
             {
-                echo "<div class='a-right'>" . html::a($this->createLink('file', 'download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank') . '</div>';
+                echo "<div class='a-left'>" . html::a($this->createLink('file', 'download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank') . '</div>';
             }
         }
         ?> 
