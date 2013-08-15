@@ -31,7 +31,7 @@ include '../../common/view/treeview.html.php';
         </li>
       <?php endforeach;?>
       </ul>
-      <div class='w-p95 pd-10px'><?php $pager->show('right', 'short');?></div>
+      <div class='w-p95 pd-10px clearfix'><?php $pager->show('right', 'short');?></div>
       <div class='c-both'></div>
     </div>
   </div>
