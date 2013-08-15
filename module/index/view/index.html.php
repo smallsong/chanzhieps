@@ -30,12 +30,14 @@
 
   <div class='span4'>
     <h4><?php echo $lang->index->news;?></h4>
-    <?php foreach($latestArticles as $id => $article): ?>
-    <p>
-        <i class='icon-chevron-right'></i>
-        <?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news'");?>
-    </p>
-    <?php endforeach;?>
+    <ul class='mg-zero'>
+      <?php foreach($latestArticles as $id => $article): ?>
+      <li>
+          <i class='icon-chevron-right'></i>
+          <?php echo html::a($this->createLink('article','view', "id=$id"), $article, '', "class='latest-news' title='{$article}'");?>
+      </li>
+      <?php endforeach;?>
+    </ul>
   </div>
 
   <div class='span4'>
