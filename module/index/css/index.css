@@ -13,6 +13,7 @@
 .row-fluid .span4{
 background: linear-gradient(to bottom, #ECE8E0 0%, #E8E4DB 51%, #E2DDD2 100%) repeat scroll 0 0 transparent;
 height: 320px; padding: 20px 20px 17px; overflow: hidden; font-size: 13px; color: #83868A; border-radius: 6px 6px 6px 6px; transition: all 0.5s ease 0s;}
+.row-fluid .span4 li{list-style: none; height: 30px; line-height: 30px; overflow: hidden;}
 
 a.latest-news{color: #5A5A5A; padding-left: 5px;}
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
