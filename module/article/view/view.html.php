@@ -28,22 +28,21 @@ js::set('articleID', $article->id);
           printf($lang->article->lblViews, $article->views);
           ?>
         </div>
-        <div><?php echo $article->content;?></div>
+        <p><?php echo $article->content;?></p>
         <?php
         foreach($article->files as $file)
         {
             if($file->isImage)
             { 
-                echo html::image($file->smallURL, "title='{$file->title}'");
+                echo "<div class='a-center'>" . html::image($file->smallURL, "title='{$file->title}'") . '</div>';
             }
             else
             {
-                echo html::a($this->createLink('file', 'download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank') . '<br/>';
+                echo "<div class='a-right'>" . html::a($this->createLink('file', 'download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank') . '</div>';
             }
         }
         ?> 
       </div>
-      <div class='a-right mg-10px'><?php if($article->editor) printf($lang->article->lblEditor, $article->editor, $article->editedDate);?></div>
     </div>
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
