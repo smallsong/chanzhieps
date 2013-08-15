@@ -14,21 +14,17 @@ include '../../common/view/treeview.html.php';
       <ul class="media-list">
       <?php foreach($articles as $article):?>
         <li class="media">
-          <?php 
-          if(empty($article->primaryImage))
-          {
-              // no image，better not display a empty box 
-              // echo html::a(inlink('view', "id=$article->id"), html::image($themeRoot . 'default/images/main/noimage.jpg', "title='{$article->title}' class='media-object' width='125'"), '', "class='pull-left'");
-          }
-          else
-          {
-              $title = $article->primaryImage->title ? $article->primaryImage->title : $article->title;
-              echo html::a(inlink('view', "id=$article->id"), html::image($article->primaryImage->smallURL, "title='{$title}' class='media-object'"), '', "class='pull-left'");
-          }
-          ?>
           <div class='media-body'>
             <h3 class='media-heading'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h3>
-            <p><?php echo $article->summary;?></p>
+            <p>
+              <?php 
+              if(!empty($article->image))
+              {
+                  $title = $article->image->primary->title ? $article->image->primary->title : $article->title;
+                  echo html::image($article->image->primary->smallURL, "title='{$title}' class='media-object'");
+              }
+              ?>
+              <?php echo $article->summary;?></p>
             <p><span class='muted'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span></p>
           </div>
         </li>
