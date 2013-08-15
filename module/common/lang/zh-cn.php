@@ -23,7 +23,7 @@ $lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{
 
 /* Global lang items. */
 $lang->home           = '首页';
-$lang->welcome        = '欢迎您, <strong>%s</strong> ';
+$lang->welcome        = '欢迎您，<strong>%s</strong>！';
 $lang->todayIs        = '今天是%s，';
 $lang->aboutUs        = '关于我们';
 $lang->frontHome      = '前台';

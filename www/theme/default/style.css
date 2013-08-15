@@ -250,6 +250,7 @@ tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 img.logo{max-height: 100px; margin-bottom: 10px;}
 
 /* global settings.*/
+.masthead{position: relative;padding-top: 10px;}
 .masthead .span9 p{margin: 40px 50px 10px 20px;}
 .row{width: 100%; margin-left: 0;}
 .span4{margin-left: 0;}
@@ -279,6 +280,9 @@ img.logo{max-height: 100px; margin-bottom: 10px;}
 #topNav li:hover ul, #topNav li.sfHover ul {left:0; top:2.5em; z-index:99}
 #topNav li:hover li ul, #topNav li.sfHover ul {top:-999em}
 #topNav ul li li:hover ul, #topNav li.sfHover ul {left:10em; top:0}
+
+/* topnav-menu setting. */
+#topnav-menu{position: absolute; top: 10px; right: 0}
 
 /* breadcrumb setting*/
 ul.breadcrumb {background:none; margin-bottom: 20px; padding: 0 5px;}

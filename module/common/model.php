@@ -277,7 +277,6 @@ class commonModel extends model
             echo html::a(helper::createLink('user', 'control'), $app->lang->dashboard);
             echo $divider;
             echo html::a(helper::createLink('user', 'logout'),  $app->lang->logout);
-            echo $divider;
         }    
         else
         {

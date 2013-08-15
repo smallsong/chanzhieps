@@ -27,7 +27,7 @@ $lang->articleViews    = '<i>%s views</i> ';
 $lang->articleComments = '<i>%s comments</i> ';
 $lang->articleAuthor   = '<i>%s posted at %s</i>';
 
-$lang->welcome        = "Welcome, <strong>%s</strong> ";
+$lang->welcome        = "Welcome, <strong>%s</strong>!";
 $lang->welcomeAdmin   = "Welcome to use xirangEPS";
 $lang->todayIs        = 'Today is %s，';
 $lang->dashboard      = 'Dashboard';
