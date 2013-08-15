@@ -10,7 +10,7 @@
         <div class='carousel-caption'>
           <h2><?php echo $slide->title;?></h2>
           <p class='lead'><?php echo $slide->summary;?></p>
-          <?php echo html::a($slide->url, $slide->label, '', "class='btn btn-large btn-primary'");?>
+          <?php if(trim($slide->label) != '') echo html::a($slide->url, $slide->label, '', "class='btn btn-large btn-primary'");?>
         </div>
       </div>
     </div>
@@ -46,13 +46,13 @@
   <div class='span4'>
     <div class="panel radius">
       <h4><?php echo $lang->index->contact;?></h4>
+      <?php foreach($contact as $item => $value):?>
       <dl id='contact'>
-        <?php foreach($contact as $item => $value):?>
-        <dt class='w-p20'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
-        <dd class='w-p70'><?php echo $value;?></dd>
-        <?php endforeach;?>
+        <dt><?php echo $this->lang->company->$item . $lang->colon;?></dt>
+        <dd><?php echo $value;?></dd>
         <div class='c-both'></div>
       </dl>
+      <?php endforeach;?>
       <div class='c-both'></div>
     </div>
   </div>

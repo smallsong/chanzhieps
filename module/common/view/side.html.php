@@ -17,12 +17,12 @@
 
   <div class='widget radius'>  
     <h4><?php echo $lang->company->contactUs;?></h4>
+    <?php foreach($contact as $item => $value):?>
     <dl id='contact'>
-      <?php foreach($contact as $item => $value):?>
-      <dt class='w-p25'><?php echo $this->lang->company->$item . $lang->colon;?></dt>
-      <dd class='w-p60'><?php echo $value;?></dd>
-      <?php endforeach;?>
+      <dt><?php echo $this->lang->company->$item . $lang->colon;?></dt>
+      <dd><?php echo $value;?></dd>
       <div class='c-both'></div>
     </dl>
+    <?php endforeach;?>
   </div>
 </div>

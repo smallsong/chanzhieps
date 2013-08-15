@@ -7,13 +7,13 @@ include '../../common/view/header.html.php';
   <div class='content'>
     <p><?php echo $company->content;?></p>
     <br/>
+    <?php foreach($contact as $item => $value):?>
     <dl id='contact'>
-      <?php foreach($contact as $item => $value):?>
       <dt class='w-p5'><?php echo $lang->company->$item;?>:</dt>
       <dd class='w-p90'><?php echo $value;?></dd>
-      <?php endforeach;?>
-    <div class='c-both'></div>
+      <div class='c-both'></div>
     </dl>
+    <?php endforeach;?>
   </div>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>

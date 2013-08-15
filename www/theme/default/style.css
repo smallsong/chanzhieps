@@ -293,5 +293,6 @@ ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 .widget ul li a {padding-left:5px;}
 
 /* Contact settings. */
-#contact dt{float: left; padding-bottom: 10px; text-align: right;}
-#contact dd{float: left; padding-bottom: 10px;}
+#contact{margin: 0; padding: 5px;}
+#contact dt{width: 50px; float: left; text-align: right;}
+#contact dd{float: left;}
