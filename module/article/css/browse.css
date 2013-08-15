@@ -2,4 +2,4 @@
 .article-title a{color: #5A5A5A;}
 .article-title a:hover, .article-title a:active{color: #4691EF; text-decoration: none;}
 
-a.article-img{width: 128px; height: 128px; padding: 3px;}
+img.media-object {max-height: 200px; width:100%; margin:10px;}

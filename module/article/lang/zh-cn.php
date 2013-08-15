@@ -15,7 +15,7 @@ $lang->article->category   = '类目';
 $lang->article->categories = '类目';
 $lang->article->title      = '标题';
 $lang->article->content    = '内容';
-$lang->article->original   = '原创';
+$lang->article->original   = '来源';
 $lang->article->copySite   = '来源网站';
 $lang->article->copyURL    = '来源URL';
 $lang->article->keywords   = '关键字';
@@ -35,17 +35,16 @@ $lang->article->create     = '发布文章';
 $lang->article->edit       = '编辑文章';
 $lang->article->files      = '附件';
 
-$lang->article->originalList[1] = '本站原创';
+$lang->article->originalList[1] = '原创';
 $lang->article->originalList[0] = '转贴';
 
 $lang->article->confirmDelete = '您确定删除该文章吗？';
 $lang->article->successSave   = '成功保存';
-$lang->article->original      = '来源';
 
 $lang->article->lblAddedDate = '<strong>添加时间：</strong> %s &nbsp;&nbsp;';
 $lang->article->lblAuthor    = "<strong>作者：</strong> %s &nbsp;&nbsp;";
 $lang->article->lblSource    = '<strong>来源：</strong>';
-$lang->article->lblViews     = '<strong>阅读：</strong>%s';
+$lang->article->lblViews     = ' <strong>阅读：</strong>%s';
 $lang->article->lblEditor    = '<i>最后编辑：%s 于 %s</i>';
 
 $lang->article->prev = '&laquo; ';

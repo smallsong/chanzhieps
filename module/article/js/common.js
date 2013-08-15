@@ -1,7 +1,5 @@
 $(document).ready(function()
 {
-    $(".article-img img").fixImage();
-
     /* Set the orginal and copySite, copyURL fields. */
     $('#original').change(function()
     {

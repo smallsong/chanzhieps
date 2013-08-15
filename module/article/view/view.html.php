@@ -16,13 +16,13 @@ js::set('articleID', $article->id);
         <div class='f-12px mb-10px a-center'>
           <?php
           printf($lang->article->lblAuthor,    $article->author);
-          printf($lang->article->lblSource);
           if($article->original)
           {
-              echo "<strong>{$lang->article->original}</strong>";
+              echo "<strong>{$lang->article->originalList[$article->original]}</strong>";
           }
           else
           {
+              printf($lang->article->lblSource);
               $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite); 
           }
           printf($lang->article->lblViews, $article->views);
@@ -38,15 +38,15 @@ js::set('articleID', $article->id);
             }
             else
             {
-                echo html::a(inlink('download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank');
+                echo html::a($this->createLink('file', 'download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank') . '<br/>';
             }
         }
         ?> 
       </div>
+      <div class='a-right mg-10px'><?php if($article->editor) printf($lang->article->lblEditor, $article->editor, $article->editedDate);?></div>
     </div>
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
-    <div class='a-right'><?php if($article->editor) printf($lang->article->lblEditor, $article->editor, $article->editedDate);?></div>
   </div>
   <?php include '../../common/view/side.html.php'; ?>
 </div>

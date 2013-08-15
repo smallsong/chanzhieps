@@ -83,8 +83,11 @@ class articleModel extends model
         /* Assign images to it's article. */
         foreach($articles as $article)
         {
-            $article->images = $images[$article->id];
-            $article->primaryImage = $article->images[0];
+            if(empty($images[$article->id])) continue;
+
+            $article->image = new stdclass();
+            $article->image->list   = $images[$article->id];
+            $article->image->primary = $article->image->list[0];
         }
         
         /* Assign summary to it's article. */
