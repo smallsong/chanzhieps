@@ -7,10 +7,10 @@ include '../../common/view/header.html.php';
   <div class='content'>
     <p><?php echo $company->content;?></p>
     <br/>
-    <dl>
+    <dl id='contact'>
       <?php foreach($contact as $item => $value):?>
-      <dt class='w-p5  f-left pb-10px a-right'><?php echo $lang->company->$item;?>:</dt>
-      <dd class='w-p90 f-left pb-10px'><?php echo $value;?></dd>
+      <dt class='w-p5'><?php echo $lang->company->$item;?>:</dt>
+      <dd class='w-p90'><?php echo $value;?></dd>
       <?php endforeach;?>
     <div class='c-both'></div>
     </dl>
