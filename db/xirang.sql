@@ -149,22 +149,6 @@ CREATE TABLE IF NOT EXISTS `xr_reply` (
   KEY `author` (`author`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- DROP TABLE IF EXISTS `xr_site`;
-CREATE TABLE IF NOT EXISTS `xr_site` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `domain` varchar(30) NOT NULL,
-  `code` varchar(30) NOT NULL,
-  `logo` varchar(60) NOT NULL,
-  `slogan` varchar(255) NOT NULL,
-  `mission` text NOT NULL,
-  `theme` varchar(30) NOT NULL,
-  `type` varchar(30) NOT NULL,
-  `keywords` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `domain` (`domain`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 -- DROP TABLE IF EXISTS `xr_thread`;
 CREATE TABLE IF NOT EXISTS `xr_thread` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
