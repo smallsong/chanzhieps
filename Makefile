@@ -35,7 +35,7 @@ tgz:
 	chmod 777 -R xirangeps/config
 	chmod 777 xirangeps/module
 	chmod a+rx xirangeps/bin/*
-	find xirangeps/ -name ext |xargs chmod -R 777
+	#find xirangeps/ -name ext |xargs chmod 777 -R
 	# zip it.
 	zip -r -9 xirangEPS.$(VERSION).zip xirangeps
 	rm -fr xirangeps
