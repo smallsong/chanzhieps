@@ -34,8 +34,14 @@ class user extends control
             $user = $this->user->identify($this->post->account, $this->post->password1);
             if($user)
             {
+                /* Authorize the user. */
+                $user->rights = $this->user->authorize($user);
+
+                /* Save to session. */
                 $this->session->set('user', $user);
                 $this->app->user = $this->session->user;
+
+                /* Go to the referer. */
                 $url = $this->post->referer ? urldecode($this->post->referer) : inlink('user', 'control');
                 $this->send( array('result' => 'success', 'locate'=>$url) );
             }
