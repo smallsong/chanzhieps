@@ -249,6 +249,7 @@ tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 img.logo{max-height: 100px; margin-bottom: 10px;}
 
 /* global settings.*/
+.masthead .span9 p{margin: 40px 50px 10px 20px;}
 .row{width: 100%; margin-left: 0;}
 .span4{margin-left: 0;}
 .span9{margin-left: 0;}
@@ -279,17 +280,14 @@ img.logo{max-height: 100px; margin-bottom: 10px;}
 #topNav ul li li:hover ul, #topNav li.sfHover ul {left:10em; top:0}
 
 /* breadcrumb setting*/
-ul.breadcrumb {background:none; margin: 0; padding: 0;}
+ul.breadcrumb {background:none; margin-bottom: 20px; padding: 0;}
 ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 
 /* Widget settings. */
-.widget {margin: 20px 0 15px; padding:0; border:1px solid #ddd;}
+.widget {margin-bottom: 10px; padding:0; border:1px solid #ddd;}
 .widget h4 {margin:0; padding:0 0 0 10px; border-bottom:1px solid #ddd; border-radius: 5px 5px 0 0; height:40px; line-height:40px; font-size:14px; font-weight:700; background: #EFEFEF; color:#333; }
 .widget .content {padding:10px;}
 
 .widget ul {margin:10px 20px}
 .widget ul li {width:100%; padding:0; list-style-type:none; margin-bottom:5px; }
 .widget ul li a {padding-left:5px;}
-
-/* Forum settings*/
-#forum {margin-top: 20px;}

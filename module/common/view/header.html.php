@@ -13,13 +13,10 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
       <div id='topnav-menu' class='a-right'> <?php echo commonModel::printTopBar();?> </div>
       <?php if(isset($logo)):?>
       <div class='span3' id='logoBox'>
-        <img class='logo' src="<?php echo $logo->webPath?>" />
+        <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
       </div>
-      <div class='span9 a-right'>
-        <div class='slogan'>
-          <h3><?php echo $config->company->name;?></h3>
-          <span><?php echo $this->config->site->slogan;?></span>
-        </div>
+      <div class='span9'>
+        <p><?php echo $this->config->site->slogan;?></p>
       </div>
       <?php else:?>
       <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
