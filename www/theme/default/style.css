@@ -250,8 +250,8 @@ tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 img.logo{max-height: 100px; margin-bottom: 10px;}
 
 /* global settings.*/
-.masthead{position: relative;padding-top: 10px;}
-.masthead .span9 p{margin: 40px 50px 10px 20px;}
+.masthead{position: relative;padding-top: 20px;}
+.masthead .slogan{margin:40px 50px 10px 20px;}
 .row{width: 100%; margin-left: 0;}
 .span4{margin-left: 0;}
 .span9{margin-left: 0;}

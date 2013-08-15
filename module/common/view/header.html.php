@@ -16,7 +16,7 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
         <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
       </div>
       <div class='span9'>
-        <p><?php echo $this->config->site->slogan;?></p>
+        <p class="slogan"><?php echo $this->config->site->slogan;?></p>
       </div>
       <?php else:?>
       <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
