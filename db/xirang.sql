@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `xr_category` (
   `postID` mediumint(9) NOT NULL,
   `replyID` mediumint(8) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `tree` (`type`),
+  KEY `type` (`type`),
   KEY `order` (`order`),
   KEY `parent` (`parent`),
   KEY `path` (`path`)
