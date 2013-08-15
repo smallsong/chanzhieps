@@ -8,11 +8,12 @@ $themeRoot = $webRoot . "theme/";
 <head>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
   <?php
-  if(!isset($title))    $title    = $lang->xirangEPS;
+  if(!isset($title))    $title    = ''; 
+  if(!empty($title))    $title   .= $lang->minus;
   if(!isset($keywords)) $keywords = $config->site->keywords;
   if(!isset($desc))     $desc     = $config->site->desc;
 
-  echo html::title($title . '-' . $config->site->name);
+  echo html::title($title . $config->site->name);
   echo html::meta('keywords',    strip_tags($keywords));
   echo html::meta('description', strip_tags($desc));
 

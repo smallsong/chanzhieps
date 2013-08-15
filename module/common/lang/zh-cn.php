@@ -14,10 +14,11 @@ $lang->prev    = '‹';
 $lang->next    = '›';
 $lang->laquo   = '&laquo;';
 $lang->raquo   = '&raquo;';
+$lang->minus   = ' - ';
 $lang->divider = "<span class='divider'>{$lang->raquo}</span> ";
 
 /* Lang items for xirang. */
-$lang->xirangEPS = 'xirangEPS';
+$lang->xirangEPS = '息壤企业门户系统';
 $lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
 
 /* Global lang items. */

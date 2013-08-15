@@ -44,7 +44,7 @@ class thread extends control
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' =>$locate));
         }
 
-        $this->view->title = $board->name . $this->lang->thread->post;
+        $this->view->title = $board->name . $this->lang->minus . $this->lang->thread->post;
         $this->view->board = $board;
         $this->display();
     }
@@ -74,7 +74,7 @@ class thread extends control
             $this->send(array('result' => 'success', 'locate' => inlink('view', "threadID=$threadID")));
         }
 
-        $this->view->title  = $this->lang->thread->edit . $this->view->thread->title;
+        $this->view->title  = $this->lang->thread->edit . $this->lang->minus . $thread->title;
         $this->view->thread = $thread;
         $this->view->board  = $this->loadModel('tree')->getById($thread->board);
 
@@ -107,7 +107,7 @@ class thread extends control
         /* Get all speakers. */
         $speakers = $this->thread->getSpeakers($thread, $replies);
 
-        $this->view->title    = $thread->title . '-' . $board->name;
+        $this->view->title    = $thread->title . $this->lang->minus . $board->name;
         $this->view->board    = $board;
         $this->view->thread   = $thread;
         $this->view->replies  = $replies;
