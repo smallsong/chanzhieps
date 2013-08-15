@@ -24,7 +24,8 @@ include '../../common/view/treeview.html.php';
                   echo html::image($article->image->primary->smallURL, "title='{$title}' class='media-object'");
               }
               ?>
-              <?php echo $article->summary;?></p>
+              <?php echo $article->summary;?>
+            </p>
             <p><span class='muted'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span></p>
           </div>
         </li>
