@@ -18,10 +18,10 @@ class forum extends control
      */
     public function index()
     {
-        $this->view->title  = $this->lang->forumHome;
-        $this->view->boards = $this->forum->getBoards();
-        //$this->view->layouts= $this->loadModel('block')->getLayouts('forum.index');
-        //
+        $this->view->title     = $this->lang->forumHome;
+        $this->view->boards    = $this->forum->getBoards();
+        //$this->view->layouts = $this->loadModel('block')->getLayouts('forum.index');
+
         $this->display();
     }
 
@@ -46,7 +46,7 @@ class forum extends control
 
         /* Get common threads. */
         $this->app->loadClass('pager', $static = true);
-        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $pager   = new pager($recTotal, $recPerPage, $pageID);
         $threads = $this->thread->getList($boardID, $orderBy, $pager);
 
         $this->view->title     = $board->name;
