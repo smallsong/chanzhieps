@@ -324,18 +324,6 @@ class commonModel extends model
         echo '</ul>';
     }
     
-
-    /**
-     * get positionbar divider.
-     *
-     * @access public
-     * @return string
-     */
-    public function getPositionDivder()
-    {
-        return " <span class='divider'>&raquo;</span> ";
-    }
-
     /**
      * Print the link contains orderBy field.
      *
@@ -471,7 +459,7 @@ class commonModel extends model
      */
     public function printcompany($module)
     {
-        echo $this->getPositionDivder() . $this->lang->aboutUs; 
+        echo $this->lang->divider . $this->lang->aboutUs; 
     }
 
     /**
@@ -484,7 +472,7 @@ class commonModel extends model
      */
     public function printArticle($module, $article)
     {
-        $divider = $this->getPositionDivder();
+        $divider = $this->lang->divider;
 
         foreach($module->pathNames as $moduleID => $moduleName) echo $divider . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName);
         if($article) echo $divider . html::a(inlink('view', "id=$article->id"), $article->title);
@@ -499,7 +487,7 @@ class commonModel extends model
      */
     public function printForum($board = '')
     {
-        $divider = $this->getPositionDivder();
+        $divider = $this->lang->divider;
         echo $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome);
         if(!$board) return false;
 

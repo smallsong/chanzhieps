@@ -8,10 +8,13 @@
  * @version     $Id$
  * @link        http://www.zentao.net
  */
-$lang->colon = ' : ';
-$lang->prev  = '‹';
-$lang->next  = '›';
-
+/* common sign setting. */
+$lang->colon   = ' : ';
+$lang->prev    = '‹';
+$lang->next    = '›';
+$lang->laquo   = '&laquo;';
+$lang->raquo   = '&raquo;';
+$lang->divider = "<span class='divider'>{$lang->raquo}</span> ";
 
 /* Lang items for xirang. */
 $lang->xirangEPS = 'xirangEPS';
