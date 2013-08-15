@@ -86,7 +86,7 @@ class articleModel extends model
             if(empty($images[$article->id])) continue;
 
             $article->image = new stdclass();
-            $article->image->list   = $images[$article->id];
+            $article->image->list    = $images[$article->id];
             $article->image->primary = $article->image->list[0];
         }
         
