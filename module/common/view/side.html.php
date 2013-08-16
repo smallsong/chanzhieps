@@ -15,10 +15,10 @@
     </ul>
   </div>
 
-  <div class='widget radius'>  
+  <div id='contact' class='widget radius'>  
     <h4><?php echo $lang->company->contactUs;?></h4>
     <?php foreach($contact as $item => $value):?>
-    <dl id='contact'>
+    <dl>
       <dt><?php echo $this->lang->company->$item . $lang->colon;?></dt>
       <dd><?php echo $value;?></dd>
       <div class='c-both'></div>

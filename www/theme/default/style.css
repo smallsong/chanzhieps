@@ -300,6 +300,6 @@ ul.breadcrumb .divider{font-size:20px;color:#3280FC}
 .widget ul li:hover>i.icon-chevron-right{opacity: 1}
 
 /* Contact settings. */
-#contact{margin: 0; padding: 5px;}
+#contact dl{margin: 0; padding: 5px;}
 #contact dt{width: 50px; float: left; text-align: right;}
 #contact dd{float: left;}

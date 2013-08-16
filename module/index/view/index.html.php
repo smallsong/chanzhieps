@@ -44,10 +44,10 @@
   </div>
 
   <div class='span4'>
-    <div class="panel radius">
+    <div id='contact' class="panel radius">
       <h4><?php echo $lang->index->contact;?></h4>
       <?php foreach($contact as $item => $value):?>
-      <dl id='contact'>
+      <dl>
         <dt><?php echo $this->lang->company->$item . $lang->colon;?></dt>
         <dd><?php echo $value;?></dd>
         <div class='c-both'></div>
