@@ -85,6 +85,18 @@ CREATE TABLE IF NOT EXISTS `xr_config` (
   UNIQUE KEY `unique` (`owner`,`module`,`section`,`key`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+-- DROP TABLE IF EXISTS `xr_down`;
+CREATE TABLE IF NOT EXISTS `xr_down` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `account` char(30) DEFAULT NULL,
+  `file` mediumint(5) DEFAULT NULL,
+  `ip` char(15) NOT NULL,
+  `time` datetime NOT NULL,
+  `referer` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fileID` (`file`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- DROP TABLE IF EXISTS `xr_file`;
 CREATE TABLE IF NOT EXISTS `xr_file` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,

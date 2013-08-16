@@ -309,6 +309,27 @@ class fileModel extends model
     }
 
     /**
+     * Save file download log.
+     *
+     * @param int $file
+     * @return bool
+     */
+    public function log($file)
+    {
+        $log = new stdClass();
+        $log->file    = $file;
+        $log->account = $this->app->user->account;
+        $log->ip      = $this->server->remote_addr;
+        $log->referer = $this->server->http_referer;
+        $log->time    = helper::now();
+
+        $this->dao->insert(TABLE_DOWN)->data($log)->exec();
+        $this->dao->update(TABLE_FILE)->set('downloads = downloads + 1')->where('id')->eq($file)->exec(false);
+
+        return !dao::isError();
+    }
+
+    /**
      * Delete the record and the file
      * 
      * @param  int    $fileID 

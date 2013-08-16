@@ -127,17 +127,10 @@ class file extends control
         $file = $this->file->getById($id);
         if(file_exists($file->realPath))
         {
-            if($file->public)
-            {
-                $this->dao->update(TABLE_FILE)->set('downloads = downloads + 1')->where('id')->eq($id)->exec(false);
-                $this->locate($file->webPath);
-            }
-            else
-            {
-                if($this->app->user->account == 'guest') $this->locate($this->createLink('user', 'login'));
-                $this->dao->update(TABLE_FILE)->set('downloads = downloads + 1')->where('id')->eq($id)->exec(false);
-                $this->locate($file->webPath);
-            }
+            if(!$file->public && $this->app->user->account == 'guest') $this->locate($this->createLink('user', 'login'));
+
+            $this->file->log($id);
+            $this->locate($file->webPath);
         }
         else
         {

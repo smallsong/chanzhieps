@@ -84,4 +84,5 @@ define('TABLE_REPLY',    $config->db->prefix . 'reply');
 define('TABLE_USER',     $config->db->prefix . 'user');
 define('TABLE_GROUP',    $config->db->prefix . 'group');
 define('TABLE_FILE',     $config->db->prefix . 'file');
+define('TABLE_DOWN',     $config->db->prefix . 'down');
 define('TABLE_MESSAGE',  $config->db->prefix . 'message');
