@@ -48,7 +48,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->article->summary;?></th>
-      <td><?php echo html::textarea('summary', $arricle->summary, "rows='2' class='area-1'");?></td>
+      <td><?php echo html::textarea('summary', $article->summary, "rows='2' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->article->content;?></th>
