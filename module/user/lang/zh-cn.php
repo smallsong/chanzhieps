@@ -3,6 +3,7 @@
  * The user module zh-cn file of xirangEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     user
  * @version     $Id: zh-cn.php 824 2010-05-02 15:32:06Z wwccss $
