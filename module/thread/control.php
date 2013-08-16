@@ -108,6 +108,9 @@ class thread extends control
         /* Get all speakers. */
         $speakers = $this->thread->getSpeakers($thread, $replies);
 
+        /* Set the views counter + 1; */
+        $this->thread->plusCounter($threadID);
+
         $this->view->title    = $thread->title . $this->lang->minus . $board->name;
         $this->view->board    = $board;
         $this->view->thread   = $thread;
@@ -115,6 +118,7 @@ class thread extends control
         $this->view->pager    = $pager;
         $this->view->speakers = $this->loadModel('user')->getBasicInfo($speakers);
         //$this->view->layouts= $this->loadModel('block')->getLayouts('thread.view');
+
         $this->display();
     }
 
