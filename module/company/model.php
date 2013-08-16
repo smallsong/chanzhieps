@@ -32,6 +32,10 @@ class companyModel extends model
                 {
                     $contact->email = html::a("mailto:{$value}", $value);
                 }
+                else if($item == 'weibo')
+                {
+                    $contact->weibo = html::a("http://weibo.com/n/{$value}", $value);
+                }
                 else if($item == 'wangwang')
                 {
                     $contact->wangwang = html::a("http://www.taobao.com/webww/ww.php?ver=3&touid={$value}&siteid=cntaobao&status=2&charset=utf-8", $value);
