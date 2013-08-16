@@ -8,19 +8,18 @@ js::set('lang', $lang->js);
 $topNavs = $this->loadModel('nav')->getNavs('top');
 ?>
 <div class='container'>
-  <div class='masthead'>
     <div class='row'>
-      <div id='topnav-menu' class='a-right'> <?php echo commonModel::printTopBar();?> </div>
+      <div class='a-right'> <?php echo commonModel::printTopBar();?> </div>
       <?php if(isset($logo)):?>
       <div class='span3' id='logoBox'>
         <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
       </div>
       <div class='span9'>
-        <p class="slogan"><?php echo $this->config->site->slogan;?></p>
+        <p id='slogan'><?php echo $this->config->site->slogan;?></p>
       </div>
       <?php else:?>
       <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
-      <div class='span8 ml-zero mt-20px f-right'><?php echo $this->config->site->slogan;?></div>
+      <div id='slogan' class='span8'><?php echo $this->config->site->slogan;?></div>
       <?php endif;?>
     </div>
     <div id='topNav' class='navbar navbar-inverse'>
@@ -52,4 +51,3 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
         </div>
       </div>
     </div>
-  </div>
