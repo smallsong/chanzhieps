@@ -123,7 +123,7 @@ class file extends control
      * @access public
      * @return void
      */
-    public function download($fileID)
+    public function download($fileID, $mouse = '')
     {
         $file = $this->file->getById($fileID);
 
