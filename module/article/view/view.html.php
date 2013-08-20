@@ -29,19 +29,7 @@ js::set('articleID', $article->id);
           ?>
         </div>
         <p><?php echo $article->content;?></p>
-        <?php
-        foreach($article->files as $file)
-        {
-            if($file->isImage)
-            { 
-                echo "<div class='a-center'>" . html::image($file->smallURL, "title='{$file->title}'") . '</div>';
-            }
-            else
-            {
-                echo "<div class='a-left'>" . html::a($this->createLink('file', 'download', "id=$file->id"), "{$file->title}.{$file->extension}", '_blank') . '</div>';
-            }
-        }
-        ?> 
+        <div class='f-left'><?php $this->loadModel('file')->printFiles($article->files);?></div>
       </div>
     </div>
     <div id='commentBox'></div>
