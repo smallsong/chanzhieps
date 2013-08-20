@@ -11,6 +11,43 @@
  */
 class product extends control
 {
+    /** 
+     * Browse product in front.
+     * 
+     * @param int    $categoryID   the category id
+     * @param string $orderBy      the order by
+     * @param int    $recTotal     record total
+     * @param int    $recPerPage   record per page
+     * @param int    $pageID       current page id
+     * @access public
+     * @return void
+     */
+    public function browse($categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+
+        $category = $this->loadModel('tree')->getById($categoryID);
+        $products = $this->product->getList($this->tree->getFamily($categoryID), $orderBy, $pager);
+
+        if($category)
+        {
+            $title    = $category->name;
+            $keywords = trim($category->keyword . ' ' . $this->config->site->keywords);
+            $desc     = strip_tags($category->desc);
+        }
+
+        $this->view->title     = $title;
+        $this->view->keywords  = $keywords;
+        $this->view->desc      = $desc;
+        $this->view->category  = $category;
+        $this->view->products  = $products;
+        $this->view->pager     = $pager;
+        $this->view->contact   = $this->loadModel('company')->getContact();
+        //$this->view->layouts = $this->loadModel('block')->getLayouts('article.list');
+
+        $this->display();
+    }
     /**
      * Browse product in admin.
      * 
