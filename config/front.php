@@ -15,9 +15,13 @@ $config->rights = new stdclass();
 /* For guest users. */
 $config->rights->guest['index']['index'] = 'index';
 
-$config->rights->guest['article']['index'] = 'index';
-$config->rights->guest['article']['browse']= 'browse';
-$config->rights->guest['article']['view']  = 'view';
+$config->rights->guest['article']['index']  = 'index';
+$config->rights->guest['article']['browse'] = 'browse';
+$config->rights->guest['article']['view']   = 'view';
+
+$config->rights->guest['product']['index']  = 'index';
+$config->rights->guest['product']['browse'] = 'browse';
+$config->rights->guest['product']['view']   = 'view';
 
 $config->rights->guest['company']['index']   = 'index';
 $config->rights->guest['company']['contact'] = 'contact';
@@ -34,8 +38,9 @@ $config->rights->guest['comment']['post'] = 'post';
 $config->rights->guest['user']['login']    = 'login';
 $config->rights->guest['user']['register'] = 'register';
 
-$config->rights->guest['rss']['index']     = 'index';
-$config->rights->guest['file']['download'] = 'download';
+$config->rights->guest['rss']['index']       = 'index';
+$config->rights->guest['file']['download']   = 'download';
+$config->rights->guest['file']['printfiles'] = 'printfiles';
 
 /* For logged member. */
 $config->rights->member['thread']['post']       = 'post';
