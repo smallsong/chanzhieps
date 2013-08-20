@@ -18,7 +18,6 @@ include '../../common/view/treeview.html.php';
             <h3 class='media-heading'><?php echo html::a(inlink('view', "id=$product->id"), $product->name);?></h3>
             <p>
               <?php 
-              a($product);
               if(!empty($product->image))
               {
                   $title = $product->image->primary->title ? $product->image->primary->title : $product->title;
