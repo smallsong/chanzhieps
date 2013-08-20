@@ -1,14 +1,20 @@
 <?php include 'header.lite.html.php';?>
 <?php js::set('lang', $lang->js);?>
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <?php echo html::a($this->createLink($this->config->default->module), $lang->xirangEPS, '', "class='brand'");?>
-      <?php echo commonModel::createMainMenu($this->moduleName);?>
-      <?php echo commonModel::createManagerMenu();?>
-     </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <?php echo html::a($this->createLink($this->config->default->module), $lang->xirangEPS, '', "class='navbar-brand'");?>
   </div>
-</div>
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <?php echo commonModel::createMainMenu($this->moduleName);?>
+    <?php echo commonModel::createManagerMenu();?>
+  </div><!-- /.navbar-collapse -->
+</nav>
 
 <div class="container-fluid">
   <div class="row-fluid">
