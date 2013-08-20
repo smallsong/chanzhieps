@@ -1,6 +1,6 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row-fluid'>
-  <div class='span12'>
+  <div class='col-md-12'>
     <form method='post' id='ajaxForm' class='form-inline'>
       <table class='table table-form table-bordered'> 
         <caption><?php echo $lang->user->register->welcome;?></caption>

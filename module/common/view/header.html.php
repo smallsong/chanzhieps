@@ -11,15 +11,15 @@ $topNavs = $this->loadModel('nav')->getNavs('top');
     <div class='row'>
       <div class='a-right'> <?php echo commonModel::printTopBar();?> </div>
       <?php if(isset($logo)):?>
-      <div class='span3' id='logoBox'>
+      <div class='col-md-3' id='logoBox'>
         <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
       </div>
-      <div class='span9'>
+      <div class='col-md-9'>
         <p id='slogan'><?php echo $this->config->site->slogan;?></p>
       </div>
       <?php else:?>
-      <div class='span4'><h3><?php echo $config->company->name;?></h3></div>
-      <div id='slogan' class='span8'><?php echo $this->config->site->slogan;?></div>
+      <div class='col-md-4'><h3><?php echo $config->company->name;?></h3></div>
+      <div id='slogan' class='col-md-8'><?php echo $this->config->site->slogan;?></div>
       <?php endif;?>
     </div>
     <div id='topNav' class='navbar navbar-inverse'>

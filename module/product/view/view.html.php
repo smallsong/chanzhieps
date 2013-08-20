@@ -9,7 +9,7 @@ js::set('productID', $product->id);
 ?>
 <?php $common->printPositionBar($category, $product);?>
 <div class='row'>
-  <div class='span9'>
+  <div class='col-md-9'>
     <div class='widget radius'>
       <div class='content'>
         <h2 class='a-center'><?php echo $product->name;?></h2>

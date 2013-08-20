@@ -1,5 +1,5 @@
 <?php $topCategories = $this->loadModel('tree')->getChildren(0);?>
-<div class='span3'>
+<div class='col-md-3'>
   <div class='widget radius'> 
     <h4><?php echo $lang->categoryMenu;?></h4>
     <ul>
