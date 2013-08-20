@@ -75,6 +75,7 @@ define('TABLE_SITE',     $config->db->prefix . 'site');
 define('TABLE_CONFIG',   $config->db->prefix . 'config');
 define('TABLE_CATEGORY', $config->db->prefix . 'category');
 define('TABLE_RELATION', $config->db->prefix . 'relation');
+define('TABLE_PRODUCT',  $config->db->prefix . 'product');
 define('TABLE_ARTICLE',  $config->db->prefix . 'article');
 define('TABLE_BLOCK',    $config->db->prefix . 'block');
 define('TABLE_LAYOUT',   $config->db->prefix . 'layout');

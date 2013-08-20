@@ -83,6 +83,7 @@ $lang->company->wangwang  = '旺旺';
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin   = '首页|admin|index|';
+$lang->menu->product = '产品|product|admin|';
 $lang->menu->article = '文章|article|admin|';
 $lang->menu->comment = '评论|comment|admin|';
 $lang->menu->forum   = '论坛|forum|admin|';
@@ -97,6 +98,12 @@ $lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'a
 $lang->article->menu->create = '发布文章|article|create|';
 $lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
+/* Menu of product module. */
+$lang->product = new stdclass();
+$lang->product->menu = new stdclass();
+$lang->product->menu->browse = array('link' => '产品列表|product|admin|', 'alias' => 'edit');
+$lang->product->menu->create = '发布产品|product|create|';
+$lang->product->menu->tree   = '类目管理|tree|browse|type=product';
 
 /* Menu of comment module. */
 $lang->comment = new stdclass();
