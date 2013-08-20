@@ -1,7 +1,7 @@
 <?php include '../../common/view/header.html.php';?>
 <div class='row-fluid'>
   <?php include './side.html.php';?>
-  <div class='span9'>
+  <div class='col-md-9'>
     <form method='post' id='ajaxForm' class='form form-inline'>
       <table class='table table-form table-bordered'>
         <caption><?php echo $lang->user->editProfile;?></caption>

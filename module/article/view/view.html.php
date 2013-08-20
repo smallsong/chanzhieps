@@ -9,7 +9,7 @@ js::set('articleID', $article->id);
 ?>
 <?php $common->printPositionBar($category, $article);?>
 <div class='row'>
-  <div class='span9'>
+  <div class='col-md-9'>
     <div class='widget radius'>
       <div class='content'>
         <h2 class='a-center'><?php echo $article->title;?></h2>

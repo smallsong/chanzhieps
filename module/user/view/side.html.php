@@ -1,4 +1,4 @@
-<div class='span3' id='leftmenu'>
+<div class='col-md-3' id='leftmenu'>
   <table class='table table-bordered'>
     <caption><?php echo $lang->user->control->common;?></caption>
     <?php
