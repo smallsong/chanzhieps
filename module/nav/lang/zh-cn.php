@@ -23,6 +23,7 @@ $lang->nav->cannotRemoveAll = '不能删除所有导航';
 $lang->nav->types = array();
 $lang->nav->types['system']  = '系统模块';
 $lang->nav->types['article'] = '文章类目';
+$lang->nav->types['product'] = '产品类目';
 $lang->nav->types['custom']  = '自定义';
 
 /* common navs.*/

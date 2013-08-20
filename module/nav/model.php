@@ -67,8 +67,10 @@ class navModel extends model
 
         $childGrade    = $grade + 1;
         $articleTree   = $this->loadModel('tree')->getOptionMenu('article');
+        $productTree   = $this->loadModel('tree')->getOptionMenu('product');
 
         $articleHidden = ($nav->type == 'article') ? '' : 'hide'; 
+        $productHidden = ($nav->type == 'product') ? '' : 'hide'; 
         $system        = ($nav->type == 'system')  ? '' : 'hide'; 
         $urlHidden     = ($nav->type == 'custom')  ? '' : 'hide'; 
 
@@ -79,6 +81,7 @@ class navModel extends model
 
         /* artcle and system select tag. */
         $entry .= html::select("nav[{$grade}][article][]", $articleTree, $nav->article, "class='navSelector {$articleHidden}'");
+        $entry .= html::select("nav[{$grade}][product][]", $productTree, $nav->product, "class='navSelector {$productHidden}'");
         $entry .= html::select("nav[{$grade}][system][]", $this->lang->nav->system, $nav->system, "class='navSelector {$system}'");
 
         $entry .= html::input("nav[{$grade}][title][]", $nav->title, "placeholder='{$this->lang->nav->inputTitle}' class='input-small titleInput'");
@@ -165,6 +168,7 @@ class navModel extends model
 
         if($nav['type'] == 'system')  return $config->nav->system->$nav['system'];   
         if($nav['type'] == 'article') return commonModel::createFrontLink('article', 'browse', "categoryID={$nav['article']}");
+        if($nav['type'] == 'product') return commonModel::createFrontLink('product', 'browse', "categoryID={$nav['product']}");
 
         return $nav['url'];
     }
