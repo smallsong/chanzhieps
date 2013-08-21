@@ -17,7 +17,7 @@
 </nav>
 
 <div class="container-fluid">
-  <div class="row-fluid">
+  <div class="row">
     <?php 
     $moduleMenu = commonModel::createModuleMenu($this->moduleName);
     if($moduleMenu) echo "<div class='col-md-2'>$moduleMenu</div>\n<div class='col-md-10'>\n";

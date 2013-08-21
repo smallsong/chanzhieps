@@ -21,7 +21,7 @@
 </div>
 <?php endif;?>
 
-<div class='row-fluid'>
+<div class='row'>
   <div class='col-md-4'>
     <div class="panel radius">
       <h4><?php echo $lang->index->aboutus;?></h4>

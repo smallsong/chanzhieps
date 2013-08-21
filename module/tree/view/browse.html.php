@@ -16,7 +16,7 @@ js::set('root', $root);
 js::set('type', $type);
 ?>
 <?php if(strpos($treeMenu, '<li>') !== false):?>
-<div class='row-fluid'>
+<div class='row'>
   <div class='col-md-4'>
     <table class='table'>
       <caption><?php echo $title;?></caption>

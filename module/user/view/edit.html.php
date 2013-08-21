@@ -1,5 +1,5 @@
 <?php include '../../common/view/header.html.php';?>
-<div class='row-fluid'>
+<div class='row'>
   <?php include './side.html.php';?>
   <div class='col-md-9'>
     <form method='post' id='ajaxForm' class='form form-inline'>

@@ -12,7 +12,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <div class='container' id='shortcutBox'>
-  <div class='row-fluid'>
+  <div class='row'>
     <div class='col-md-4 shortcut article-create'> 
       <?php echo html::a($this->createLink('article', 'create'), '<h3>' . $lang->admin->shortcuts->createArticle . '</h3>')?>
     </div>
@@ -23,7 +23,7 @@
       <?php echo html::a($this->createLink('tree', 'browse'), '<h3>' . $lang->admin->shortcuts->category . '</h3>')?>
     </div>
   </div>
-  <div class='row-fluid'>
+  <div class='row'>
     <div class='col-md-3 shortcut site'> 
       <?php echo html::a($this->createLink('site', 'setBasic'), '<h3>' . $lang->admin->shortcuts->site . '</h3>')?>
     </div>
