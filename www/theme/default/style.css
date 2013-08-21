@@ -248,9 +248,6 @@ tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 /*---------------------- FRONT ---------------------------*/
 
 /* global settings.*/
-.row{width: 100%; margin-left: 0;}
-.span4{margin-left: 0;}
-.span9{margin-left: 0;}
 .span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
 #slogan{margin: 20px 0 0 0; font-size: 16px;}
 .span9 #slogan{margin: 40px 50px 10px 20px;}
