@@ -225,14 +225,14 @@ class articleModel extends model
      * Create preview link. 
      * 
      * @param  int    $articleID 
-     * @param  string $type         article|help
      * @access public
      * @return string
      */
-    public function createPreviewLink($articleID, $type = 'article')
+    public function createPreviewLink($articleID)
     {
-        $module = $type == 'article' ? 'article' : 'help';
-        $method = $type == 'article' ? 'view'    : 'read';
+        $article = $this->getByID($articleID);
+        $module = $article->type == 'article' ? 'article' : 'help';
+        $method = $article->type == 'article' ? 'view'    : 'read';
 
         return commonModel::createFrontLink($module, $method, "articleID=$articleID");
     }
