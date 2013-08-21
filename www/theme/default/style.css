@@ -218,7 +218,7 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .page #_recPerPage{padding:3px; height:26px; line-height:26px; text-align:center;}
 
 /*-----------------------BOOTSTRAP CUSTOMIZE----------------------------*/
-.table{margin-bottom:10px; border-left: 1px solid #DDD; border-right: 1px solid #DDD;}
+.table{margin-bottom:10px; border: 1px solid #DDD;}
 .table-bordered{border-radius:0 0 6px 6px;}
 .table-bordered tr th:first-child, .table-bordered tr td:first-child{border-left: 0;}
 .table-bordered tfoot th:last-child, .table-bordered tfoot td:last-child{border-bottom: 0;}
