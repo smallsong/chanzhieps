@@ -16,6 +16,7 @@ $lang->next    = '›';
 $lang->laquo   = '&laquo;';
 $lang->raquo   = '&raquo;';
 $lang->minus   = ' - ';
+$lang->RMB     = '￥';
 $lang->divider = "<span class='divider'>{$lang->raquo}</span> ";
 
 /* Lang items for xirang. */
