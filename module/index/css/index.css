@@ -5,8 +5,11 @@
 .carousel-control { width:80px; line-height:270px; font-size: 120px; text-shadow: 0 1px 1px rgba(0,0,0,.4); border: 0; z-index: 10;}
 .carousel .item {height: 270px;}
 .carousel img {position: absolute; top: 0; left: 0; min-width: 100%; height: 270px;}
-.carousel-caption {background-color: transparent; position: static; max-width: 550px; padding: 0 80px; margin-top:50px;}
-.carousel-caption h2,.carousel-caption .lead {margin: 0; line-height: 1.25; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.4);}
+.carousel-caption {background-color: transparent; position: static; max-width: 550px; padding: 0 80px; margin-top:40px;text-align:left;}
+.carousel-caption ul{padding: 10px}
+.carousel-caption h2,
+.carousel-caption .lead {margin-top: 10px; line-height: 1.25; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.4);}
+.carousel-caption .lead {padding-left:10px; font-size:14px;}
 .carousel-caption .btn {margin-top: 10px;}
 
 .row-fluid{margin-bottom: 20px;}
