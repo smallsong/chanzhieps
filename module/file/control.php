@@ -116,25 +116,42 @@ class file extends control
     }
 
     /**
-     * Download a file.
+     * Down a file.
      * 
-     * @param string $id 
+     * @param  int    $fileID 
+     * @param  string $mouse 
      * @access public
      * @return void
      */
-    public function download($id)
+    public function download($fileID, $mouse = '')
     {
-        $file = $this->file->getById($id);
-        if(file_exists($file->realPath))
-        {
-            if(!$file->public && $this->app->user->account == 'guest') $this->locate($this->createLink('user', 'login'));
+        $file = $this->file->getById($fileID);
 
-            $this->file->log($id);
-            $this->locate($file->webPath);
+        /* Judge the mode, down or open. */
+        $mode  = 'down';
+        $fileTypes = 'txt|jpg|jpeg|gif|png|bmp|xml|html';
+        if(stripos($fileTypes, $file->extension) !== false and $mouse == 'left') $mode = 'open';
+
+        if(!$file->public && $this->app->user->account == 'guest') $this->locate($this->createLink('user', 'login'));
+        /* If the mode is open, locate directly. */
+        if($mode == 'open')
+        {
+            if(file_exists($file->realPath))$this->locate($file->webPath);
+            $this->app->error("The file you visit $fileID not found.", __FILE__, __LINE__, true);
         }
         else
         {
-            die(js::alert('File not found'));
+            /* Down the file. */
+            if(file_exists($file->realPath))
+            {
+                $fileName = $file->title . '.' . $file->extension;
+                $fileData = file_get_contents($file->realPath);
+                $this->sendDownHeader($fileName, $file->extension, $fileData);
+            }
+            else
+            {
+                $this->app->error("The file you visit $fileID not found.", __FILE__, __LINE__, true);
+            }
         }
     }
 

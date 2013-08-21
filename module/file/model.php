@@ -307,7 +307,7 @@ class fileModel extends model
             return false;
         }
     }
-
+ 
     /**
      * Save file download log.
      *
@@ -343,5 +343,22 @@ class fileModel extends model
         $this->dao->delete()->from(TABLE_FILE)->where('id')->eq($file->id)->exec(false);
         return !dao::isError();
     }
+    
+    /**
+     * Print files.
+     * 
+     * @param  object $files 
+     * @access public
+     * @return void
+     */
+    public function printFiles($files)
+    {
+        if(empty($files)) return false;
 
+        foreach($files as $file)
+        {
+            $file->title = $file->title . ".$file->extension";
+            echo html::a(helper::createLink('file', 'download', "fileID=$file->id&mouse=left"), $file->title, '_blank'); 
+        }
+    }
 }

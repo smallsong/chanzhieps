@@ -17,7 +17,7 @@ js::set('type', $type);
 ?>
 <?php if(strpos($treeMenu, '<li>') !== false):?>
 <div class='row-fluid'>
-  <div class='span4'>
+  <div class='col-md-4'>
     <table class='table'>
       <caption><?php echo $title;?></caption>
       <tr>
@@ -25,7 +25,7 @@ js::set('type', $type);
       </tr>
     </table>
   </div>
-  <div class='span8' id='categoryBox'></div>
+  <div class='col-md-8' id='categoryBox'></div>
   <?php else:?>
   <div id='categoryBox'></div>
   <?php endif;?>

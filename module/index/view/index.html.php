@@ -22,14 +22,14 @@
 <?php endif;?>
 
 <div class='row-fluid'>
-  <div class='span4'>
+  <div class='col-md-4'>
     <div class="panel radius">
       <h4><?php echo $lang->index->aboutus;?></h4>
       <p><?php echo $this->config->company->desc;?><?php echo html::a($this->createLink('company', 'index'), $lang->more . $lang->raquo);?></p>
     </div>
   </div>
 
-  <div class='span4'>
+  <div class='col-md-4'>
     <div class="panel radius">
       <h4><?php echo $lang->index->news;?></h4>
       <ul class='mg-zero'>
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class='span4'>
+  <div class='col-md-4'>
     <div id='contact' class="panel radius">
       <h4><?php echo $lang->index->contact;?></h4>
       <?php foreach($contact as $item => $value):?>

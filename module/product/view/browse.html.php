@@ -12,21 +12,22 @@ include '../../common/view/treeview.html.php';
     <div class='widget radius'>
       <h4><?php echo $category->name;?></h4>
       <ul class="media-list">
-      <?php foreach($articles as $article):?>
+      <?php foreach($products as $product):?>
         <li class="media">
           <div class='media-body'>
-            <h3 class='media-heading'><?php echo html::a(inlink('view', "id=$article->id"), $article->title);?></h3>
+            <h3 class='media-heading'><?php echo html::a(inlink('view', "id=$product->id"), $product->name);?></h3>
             <p>
               <?php 
-              if(!empty($article->image))
+              a($product);
+              if(!empty($product->image))
               {
-                  $title = $article->image->primary->title ? $article->image->primary->title : $article->title;
-                  echo html::image($article->image->primary->smallURL, "title='{$title}' class='media-object'");
+                  $title = $product->image->primary->title ? $product->image->primary->title : $product->title;
+                  echo html::image($product->image->primary->smallURL, "title='{$title}' class='media-object'");
               }
               ?>
-              <?php echo $article->summary;?>
+              <?php echo $product->summary;?>
             </p>
-            <p><span class='muted'><?php echo date('Y/m/d', strtotime($article->addedDate));?></span></p>
+            <p><span class='muted'><?php echo date('Y/m/d', strtotime($product->addedDate));?></span></p>
           </div>
         </li>
       <?php endforeach;?>
