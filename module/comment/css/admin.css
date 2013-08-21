@@ -2,3 +2,8 @@
 td.content-box{padding: 8px 0;}
 .content-box textarea{width: 95%; margin: 0; border: none; resize: none; box-shadow: none;}
 .content-box textarea:focus{margin: 0; border: none; box-shadow: none;}
+
+caption{padding:0;}
+#statusNav{margin:0; }
+caption ul li{padding: 0;}
+.nav-tabs .active  a{color:#333;}

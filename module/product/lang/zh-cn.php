@@ -33,6 +33,8 @@ $lang->product->editedDate = '编辑时间';
 $lang->product->views      = '浏览';
 $lang->product->stick      = '置顶级别';
 $lang->product->order      = '排序';
+$lang->product->attribute  = '产品属性';
+$lang->product->sales      = '产品定价';
 
 $lang->product->list       = '产品列表';
 $lang->product->admin      = '维护产品';

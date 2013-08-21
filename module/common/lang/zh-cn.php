@@ -108,8 +108,8 @@ $lang->product->menu->tree   = '类目管理|tree|browse|type=product';
 /* Menu of comment module. */
 $lang->comment = new stdclass();
 $lang->comment->menu = new stdclass();
-$lang->comment->menu->browse = '未审核|comment|admin|status=0';
-$lang->comment->menu->tree   = '已审核|comment|admin|status=1';
+$lang->comment->menu->product = '产品评论|comment|admin|type=product';
+$lang->comment->menu->article = '文章评论|comment|admin|type=article';
 
 /* Menu of forum module. */
 $lang->forum = new stdclass();

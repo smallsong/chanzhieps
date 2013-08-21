@@ -37,7 +37,7 @@
       <td>
         <?php
         echo html::a($this->createLink('article', 'edit', "articleID=$article->id"), $lang->edit);
-        echo html::a($this->article->createPreviewLink($article->id, $article->type), $lang->preview, '_blank');
+        echo html::a($this->article->createPreviewLink($article->id), $lang->preview, '_blank');
         echo html::a($this->createLink('file',    'browse', "objectType=article&objectID=$article->id"), $lang->article->files, '', "data-toggle='modal' data-width='1000'");
         echo html::a($this->createLink('article', 'delete', "articleID=$article->id"), $lang->delete, '', 'class="deleter"');
         ?>
