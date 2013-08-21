@@ -13,8 +13,12 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <div class="col-md-12">
   <form method='post' class='form-inline mb-10px form-search pull-right'>
-    <?php echo html::input('key', $key, "class='text-2 search-query' placeholder='{$lang->user->inputUserName}'"); ?>
-    <?php echo html::submitButton($lang->user->searchUser); ?>
+    <div class="input-group w-200px">
+      <?php echo html::input('key', $key, "class='form-control text-2 search-query' placeholder='{$lang->user->inputUserName}'"); ?>
+      <span class="input-group-btn">
+        <?php echo html::submitButton($lang->user->searchUser,"btn btn-primary"); ?>
+      </span>
+    </div>
   </form>
   <table class='table table-hover table-striped'>
     <caption><?php echo $lang->user->userList;?></caption>
