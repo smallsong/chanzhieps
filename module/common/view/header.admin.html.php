@@ -16,7 +16,7 @@
   </div><!-- /.navbar-collapse -->
 </nav>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <?php 
     $moduleMenu = commonModel::createModuleMenu($this->moduleName);
