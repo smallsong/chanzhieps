@@ -9,7 +9,7 @@
       <div class='container'>
         <div class='carousel-caption'>
           <h2><?php echo $slide->title;?></h2>
-          <p class='lead'><?php echo $slide->summary;?></p>
+          <div class='lead'><?php echo $slide->summary;?></div>
           <?php if(trim($slide->label) != '') echo html::a($slide->url, $slide->label, '', "class='btn btn-large btn-primary'");?>
         </div>
       </div>
