@@ -1,6 +1,4 @@
   <?php if($moduleMenu) echo '</div>';?>
-  <div class='c-both'></div>
-  </div>    
 </div>
 
 <div class="navbar navbar-fixed-bottom">
