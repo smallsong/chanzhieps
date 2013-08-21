@@ -13,23 +13,21 @@ include '../../common/view/treeview.html.php';
       <h4><?php echo $category->name;?></h4>
       <ul class="media-list">
       <?php foreach($products as $product):?>
-        <li class="media">
+        <li class='media f-left'>
+          <?php 
+          $title = $product->image->primary->title ? $product->image->primary->title : $product->title;
+          echo html::a(inlink('view', "id=$product->id"), html::image($product->image->primary->smallURL, "title='{$title}'"), '', "class='media-image'");
+          ?>
           <div class='media-body'>
-            <h3 class='media-heading'><?php echo html::a(inlink('view', "id=$product->id"), $product->name);?></h3>
+            <h5 class='media-heading'><?php echo html::a(inlink('view', "id=$product->id"), $product->name);?></h5>
             <p>
-              <?php 
-              if(!empty($product->image))
-              {
-                  $title = $product->image->primary->title ? $product->image->primary->title : $product->title;
-                  echo html::image($product->image->primary->smallURL, "title='{$title}' class='media-object'");
-              }
-              ?>
-              <?php echo $product->summary;?>
+              <del><?php echo $lang->RMB . $product->price;?></del>
+              <em><?php echo $lang->RMB . $product->promotion;?></em>
             </p>
-            <p><span class='muted'><?php echo date('Y/m/d', strtotime($product->addedDate));?></span></p>
           </div>
         </li>
       <?php endforeach;?>
+      <div class='c-both'></div>
       </ul>
       <div class='w-p95 pd-10px clearfix'><?php $pager->show('right', 'short');?></div>
       <div class='c-both'></div>
