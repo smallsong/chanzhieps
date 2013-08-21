@@ -60,10 +60,12 @@ class fileModel extends model
      */
     public function getByObjectList($objectType, $objects, $isImage = false)
     {
+        $table = TABLE_ARTICLE;
+        if($objectType == product) $table = TABLE_PRODUCT;
         $files = $this->dao->select('t1.*')
             ->from(TABLE_FILE)->alias('t1')
-            ->leftJoin(TABLE_ARTICLE)->alias('t2')->on('t1.objectID = t2.id')
-            ->where('t1.objectType')->eq('article')
+            ->leftJoin($table)->alias('t2')->on('t1.objectID = t2.id')
+            ->where('t1.objectType')->eq($objectType)
             ->andWhere('t2.id')->in($objects)
             ->beginIf($isImage)->andWhere('t1.extension')->in($this->config->file->imageExtensions)->fi()
             ->fetchGroup('objectID');
