@@ -37,26 +37,37 @@ class commentModel extends model
      * Get comment list.
      * 
      * @param int    $status    the comment status
+     * @param string $type
      * @param object $pager 
      * @access public
      * @return void
      */
-    public function getList($status, $pager = null)
+    public function getList($status, $type = '', $pager = null)
     {
         $comments = $this->dao->select('*')->from(TABLE_COMMENT)
             ->where('status')->eq($status)
+            ->beginIf($type != '')->andWhere('objectType')->eq($type)->fi()
             ->orderBy('id_desc')
             ->page($pager)
             ->fetchAll('id');
 
-        /* Get article titls and id. */
+        /* Get object titls and id. */
         $articles = array();
-        foreach($comments as $comment) $articles[] = $comment->objectID;
-        $articleTitles = $this->dao->select('id, title')->from(TABLE_ARTICLE)->where('id')->in($articles)->fetchPairs('id', 'title');
+        $products = array();
 
         foreach($comments as $comment)
         {
-            $comment->objectTitle = isset($articleTitles[$comment->objectID]) ? $articleTitles[$comment->objectID] : '';
+            if('article' == $comment->objectType) $articles[] = $comment->objectID;
+            if('product' == $comment->objectType) $products[] = $comment->objectID;
+        }
+
+        $articleTitles = $this->dao->select('id, title')->from(TABLE_ARTICLE)->where('id')->in($articles)->fetchPairs('id', 'title');
+        $productTitles = $this->dao->select('id, name')->from(TABLE_PRODUCT)->where('id')->in($products)->fetchPairs('id', 'name');
+
+        foreach($comments as $comment)
+        {
+            if($comment->objectType == 'article') $comment->objectTitle = isset($articleTitles[$comment->objectID]) ? $articleTitles[$comment->objectID] : '';
+            if($comment->objectType == 'product') $comment->objectTitle = isset($productTitles[$comment->objectID]) ? $productTitles[$comment->objectID] : '';
         }
 
         return $comments;
@@ -170,10 +181,16 @@ class commentModel extends model
         {
             $link = helper::createLink('help', 'read', "articleID=$comment->objectID");
         }
-        else
+        elseif($comment->objectType == 'article')
         {
             $link = helper::createLink('article', 'view', "articleID=$comment->objectID");
+            $link = $this->loadModel('article')->createPreviewLink($comment->objectID);
         }
+        elseif($comment->objectType == 'product')
+        {
+            $link = helper::createLink('product', 'view', "prodcutID=$comment->objectID");
+        }
+
 
         return $link;
     }

@@ -11,15 +11,26 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php js::set('currentMenu', $status == 0 ? 0 : 1);?>
+<?php js::set('currentMenu', $currentMenu);?>
 <table class='table table-bordered'>
-  <caption><?php echo $lang->comment->statusList[$status] . $lang->comment->common;?></caption>
-  <tbody>
+  <caption>
+    <ul class="nav nav-tabs" id="statusNav">
+      <li <?php if(0==$status) echo "class='active'";?>>
+        <?php echo html::a($this->inLink('admin', "type={$type}&status=0"), $lang->comment->statusList[0]);?>
+      </li>
+      <li <?php if(1==$status) echo "class='active'";?>>
+        <?php echo html::a($this->inLink('admin', "type={$type}&status=1"), $lang->comment->statusList[1]);?>
+      </li>
+    </ul>
+  </caption>
+  <thead>
     <tr>
       <th class='w-id'><?php echo $lang->comment->id;?></th>
       <th><?php echo $lang->comment->content;?></th>
       <th class='w-120px a-center'><?php echo $lang->actions;?></th>
     </tr>
+  </thead>
+  <tbody>
     <?php foreach($comments as $comment):?>
     <tr>
       <td rowspan='2' class='a-center'><strong><?php echo $comment->id;?></strong></td>
