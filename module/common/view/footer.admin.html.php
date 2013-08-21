@@ -1,4 +1,5 @@
   <?php if($moduleMenu) echo '</div>';?>
+  <div class='c-both'></div>
   </div>    
 </div>
 
