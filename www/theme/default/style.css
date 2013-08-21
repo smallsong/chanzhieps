@@ -272,8 +272,8 @@ img.logo{max-height: 100px; margin-bottom: 10px;}
 #topNav li:hover {visibility:inherit;}
 
 /* nav a settings.*/
-#topNav a {color: #E9E9E9; position: relative; display: block; width:107px;height: 50px;line-height: 30px; font-weight: bold; text-decoration:none; border-right: 1px solid rgba(0, 0, 0, 0.1); transition: all .6s;}
-#topNav a:hover, #topNav li.active a {background: #3280fc; transition: all .6s; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;}
+#topNav a {color: #E9E9E9; position: relative; display: block; min-width:120px;height: 50px;line-height: 30px;font-weight: bold; text-decoration:none; border-right: 1px solid rgba(0, 0, 0, 0.1); transition: all .6s;}
+#topNav a:hover, #topNav li.active a {color: #fff; background: #3280fc; transition: all .6s; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;}
 #topNav ul li:first-child a {border-radius: 3px 0 0 3px;}
 #topNav ul li:last-child  a {border-right: 0 none;}
 #topNav ul.children a {color:#333; width:138px; padding:8px 0; display:block;}
