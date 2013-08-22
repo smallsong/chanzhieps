@@ -39,11 +39,12 @@ class fileModel extends model
      * @access public
      * @return void
      */
-    public function getByObject($objectType, $objectID = '')
+    public function getByObject($objectType, $objectID = '', $isImage = false)
     {
         $files = $this->dao->select('*')->from(TABLE_FILE)
             ->where('objectType')->eq($objectType)
-            ->beginIF($objectID)->andWhere('objectID')->in($objectID)->fi()
+            ->andWhere('objectID')->in($objectID)
+            ->beginIf($isImage)->andWhere('extension')->in($this->config->file->imageExtensions)->fi()
             ->orderBy('id')
             ->fetchAll('id');
 
