@@ -463,7 +463,7 @@ class commonModel extends model
 
         foreach($module->pathNames as $moduleID => $moduleName)
         {
-            echo '<li>' . $divider . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
+            echo '<li>' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
         }
         if($product) echo '<li>' . $divider . html::a(inlink('view', "id=$product->id"), $product->name) . '</li>';
     }
@@ -478,7 +478,7 @@ class commonModel extends model
      */
     public function printcompany($module)
     {
-        echo '<li>' . $this->lang->divider . $this->lang->aboutUs . '</li>'; 
+        echo '<li>' . $this->lang->aboutUs . '</li>'; 
     }
 
     /**
@@ -495,7 +495,7 @@ class commonModel extends model
 
         foreach($module->pathNames as $moduleID => $moduleName)
         {
-            echo '<li>' . $divider . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
+            echo '<li>' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
         }
         if($article) echo '<li>' . $divider . html::a(inlink('view', "id=$article->id"), $article->title) . '</li>';
     }
@@ -510,13 +510,13 @@ class commonModel extends model
     public function printForum($board = '')
     {
         $divider = $this->lang->divider;
-        echo '<li>' . $divider . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome) . '</li>';
+        echo '<li>' . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome) . '</li>';
         if(!$board) return false;
 
         unset($board->pathNames[key($board->pathNames)]);
         foreach($board->pathNames as $boardID => $boardName)
         {
-            echo '<li>' . $divider . html::a(helper::createLink('forum', 'board', "boardID=$boardID"), $boardName) . '</li>';
+            echo '<li>' . html::a(helper::createLink('forum', 'board', "boardID=$boardID"), $boardName) . '</li>';
         }
     }
 
@@ -531,7 +531,7 @@ class commonModel extends model
     public function printThread($board, $thread = '')
     {
         $this->printForum($board);
-        if($thread) echo '<li>' . $this->lang->divider . html::a(inlink('view', "id=$thread->id"), $thread->title) . '</li>';
+        if($thread) echo '<li>' . html::a(inlink('view', "id=$thread->id"), $thread->title) . '</li>';
     }
 
     /**
@@ -545,7 +545,7 @@ class commonModel extends model
      */
     public function printSearch($module, $object, $keywords)
     {
-        echo "<li> {$this->lang->divider} {$this->lang->position['search']} > " . html::a(inlink('xunSearch', "module=$module") . "?key=$keywords", $keywords);
+        echo "<li> {$this->lang->position['search']} > " . html::a(inlink('xunSearch', "module=$module") . "?key=$keywords", $keywords);
     }
 
     /**
