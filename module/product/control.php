@@ -94,11 +94,8 @@ class product extends control
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
-        $categories = $this->loadModel('tree')->getOptionMenu('product');
-        unset($categories[0]);
-
-        $this->view->title           = $this->lang->product->create;
-        $this->view->categories      = $categories;
+        $this->view->title      = $this->lang->product->create;
+        $this->view->categories = $this->loadModel('tree')->getOptionMenu('product', 0, $removeRoot = true);
 
         $this->display();
     }
@@ -120,12 +117,10 @@ class product extends control
         }
 
         $product    = $this->product->getByID($productID);
-        $categories = $this->loadModel('tree')->getOptionMenu('product');
-        unset($categories[0]);
 
         $this->view->title      = $this->lang->product->edit;
         $this->view->product    = $product;
-        $this->view->categories = $categories;
+        $this->view->categories = $this->loadModel('tree')->getOptionMenu('product', 0, $removeRoot = true);
 
         $this->display();
     }
