@@ -13,9 +13,9 @@
 <?php
 class fileModel extends model
 {
-    public $savePath  = '';
-    public $webPath   = '';
-    public $now       = 0;
+    public $savePath = '';
+    public $webPath  = '';
+    public $now      = 0;
 
     /**
      * The construct function, set the save path and web path.
