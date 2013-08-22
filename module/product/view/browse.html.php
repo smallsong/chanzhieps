@@ -16,7 +16,14 @@ include '../../common/view/treeview.html.php';
         <li class='media f-left'>
           <?php 
           $title = $product->image->primary->title ? $product->image->primary->title : $product->title;
-          echo html::a(inlink('view', "id=$product->id"), html::image($product->image->primary->smallURL, "title='{$title}'"), '', "class='media-image'");
+          if(empty($product->image)) 
+          {
+              echo html::a(inlink('view', "id=$product->id"), html::image($themeRoot . 'default/images/main/noimage.gif', "title='{$title}'"), '', "class='media-image'");
+          }
+          else
+          {
+              echo html::a(inlink('view', "id=$product->id"), html::image($product->image->primary->smallURL, "title='{$title}'"), '', "class='media-image'");
+          }
           ?>
           <div class='media-body'>
             <h5 class='media-heading'><?php echo html::a(inlink('view', "id=$product->id"), $product->name);?></h5>
