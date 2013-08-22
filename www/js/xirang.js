@@ -261,8 +261,10 @@ $.extend(
         /* Set the data target for modal. */
         $('a[data-toggle=modal]').attr('data-target', '#ajaxModal');
 
+
         $('a[data-toggle=modal]').click(function()
         {
+            $('#ajaxModal').load($(this).attr('href'));
             /* Save the href to rel attribute thus we can save it. */
             $('#ajaxModal').attr('rel', $(this).attr('href'));
 
