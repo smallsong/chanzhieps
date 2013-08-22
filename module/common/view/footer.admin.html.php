@@ -1,13 +1,11 @@
   <?php if($moduleMenu) echo '</div>';?>
 </div>
 
-<div class="navbar navbar-fixed-bottom">
-  <div class='navbar-inner'>
-    <div class='container'>
-      <div class='navbar-text pull-right'><?php printf($lang->poweredBy, $config->version, $config->version);?></div>
-    </div>
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+	<div class="collapse navbar-collapse navbar-ex6-collapse">
+    <div class='navbar-text pull-right'><?php printf($lang->poweredBy, $config->version, $config->version);?></div>
   </div>
-</div>
+</nav>
 
 <?php
 if($config->debug) js::import($jsRoot . 'jquery/form/min.js');
