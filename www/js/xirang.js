@@ -256,8 +256,7 @@ $.extend(
         if($('a[data-toggle=modal]').size() == 0) return false;
 
         /* Addpend modal div. */
-        var div = $('<div id="ajaxModal" class="modal hide fade" tabindex="-1"></div>');
-        div.appendTo('body');
+        $('<div id="ajaxModal" class="modal fade modal-dialog"></div>').appendTo('body');
 
         /* Set the data target for modal. */
         $('a[data-toggle=modal]').attr('data-target', '#ajaxModal');
@@ -277,13 +276,9 @@ $.extend(
                 modalWidth  = parseInt($(this).data('width')); 
                 modalMarginLeft = (modalWidth - 580) / 2 + 280;
             }
-
             /* Set the width and margin-left styles. */
-            $('#ajaxModal').css('width',modalWidth);
+            $('#ajaxModal').css('width', modalWidth);
             $('#ajaxModal').css('margin-left', '-' + modalMarginLeft + 'px')
-
-            /* Load the target url in modal. */
-            $('#ajaxModal').load($(this).attr('href')); 
         });  
     },
 
