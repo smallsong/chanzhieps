@@ -43,6 +43,8 @@ class productModel extends model
         /* Get it's files. */
         $product->files = $this->loadModel('file')->getByObject('product', $productID);
 
+        $product->images = $this->file->getByObject('product', $productID, $isImage = true );
+
         return $product;
     }   
 
