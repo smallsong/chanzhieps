@@ -133,6 +133,7 @@ class file extends control
         if(stripos($fileTypes, $file->extension) !== false and $mouse == 'left') $mode = 'open';
 
         if(!$file->public && $this->app->user->account == 'guest') $this->locate($this->createLink('user', 'login'));
+
         /* If the mode is open, locate directly. */
         if($mode == 'open')
         {
@@ -265,25 +266,16 @@ class file extends control
         die($content);
     }
 
-
     /**
-     * Delet a file
+     * Delet a file.
      *
-     * @param int $fileID
+     * @param  int  $fileID
      * @return void
      */
     public function delete($fileID)
     {
-        $this->dao->delete()->from(TABLE_FILE)
-            ->where('id')->eq($fileID)
-            ->exec();
-        if(!dao::isError())
-        {
-            $this->send(array('result' => 'success')); 
-        }
-        else
-        {
-            $this->send(array('result' => 'fail', 'message' => dao::getError())); 
-        }
+        $this->dao->delete()->from(TABLE_FILE)->where('id')->eq($fileID)->exec();
+        if(!dao::isError()) $this->send(array('result' => 'success')); 
+        $this->send(array('result' => 'fail', 'message' => dao::getError())); 
     }
 }
