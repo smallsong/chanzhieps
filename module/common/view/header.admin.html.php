@@ -13,11 +13,11 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <?php echo commonModel::createMainMenu($this->moduleName);?>
     <?php echo commonModel::createManagerMenu();?>
-  </div><!-- /.navbar-collapse -->
+  </div>
 </nav>
 
 <div id="body-content" class="row clearfix">
-    <?php 
-    $moduleMenu = commonModel::createModuleMenu($this->moduleName);
-    if($moduleMenu) echo "<div class='col-md-2'>$moduleMenu</div>\n<div class='col-md-10'>\n";
-    ?>
+  <?php 
+  $moduleMenu = commonModel::createModuleMenu($this->moduleName);
+  if($moduleMenu) echo "<div class='col-md-2'>$moduleMenu</div>\n<div class='col-md-10'>\n";
+  ?>
