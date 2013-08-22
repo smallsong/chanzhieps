@@ -256,14 +256,15 @@ $.extend(
         if($('a[data-toggle=modal]').size() == 0) return false;
 
         /* Addpend modal div. */
-        var div = $('<div id="ajaxModal" class="modal hide fade" tabindex="-1"></div>');
-        div.appendTo('body');
+        $('<div id="ajaxModal" class="modal fade modal-dialog"></div>').appendTo('body');
 
         /* Set the data target for modal. */
         $('a[data-toggle=modal]').attr('data-target', '#ajaxModal');
 
+
         $('a[data-toggle=modal]').click(function()
         {
+            $('#ajaxModal').load($(this).attr('href'));
             /* Save the href to rel attribute thus we can save it. */
             $('#ajaxModal').attr('rel', $(this).attr('href'));
 
@@ -277,13 +278,9 @@ $.extend(
                 modalWidth  = parseInt($(this).data('width')); 
                 modalMarginLeft = (modalWidth - 580) / 2 + 280;
             }
-
             /* Set the width and margin-left styles. */
-            $('#ajaxModal').css('width',modalWidth);
+            $('#ajaxModal').css('width', modalWidth);
             $('#ajaxModal').css('margin-left', '-' + modalMarginLeft + 'px')
-
-            /* Load the target url in modal. */
-            $('#ajaxModal').load($(this).attr('href')); 
         });  
     },
 
@@ -300,7 +297,7 @@ $.extend(
 });
 
 /**
- * Fix image's margin to made it center and middle.
+ * resize image's max width and max height to made it center and middle.
  *
  * @param maxWidth
  * @param maxHeight
@@ -309,7 +306,7 @@ $.extend(
  
 (function($) 
 {
-    jQuery.fn.fixImage = function(maxWidth, maxHeight)
+    jQuery.fn.resizeImage = function(maxWidth, maxHeight)
     { 
         container = $(this).parent();
         parentWidth  = parseInt(container.width());
@@ -321,15 +318,7 @@ $.extend(
         $(this).css('max-width',  maxWidth);
         $(this).css('max-height', maxHeight);
 
-        width  = $(this).width();
-        height = $(this).height();
-        
-        marginY = (maxHeight - height) / 2;
-        marginX = (maxWidth  - width) / 2;
-        
-        $(this).css('margin', marginY + 'px ' + marginX + 'px');
-
-        container.css('padding', 0) ;
+        return true;
     };
 })(jQuery);
 

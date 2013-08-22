@@ -1,3 +1,4 @@
+<div class='bg-white radius'>
 <table class='table table-bordered'>
   <caption><?php echo $lang->file->browse;?></caption>
   <tr>
@@ -59,6 +60,7 @@
   <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
 </table>
 </form>
+</div>
 <script>
 $(document).ready(function(){   
     $.setAjaxForm('#fileForm', function(data) { $.reloadAjaxModal(); }); 

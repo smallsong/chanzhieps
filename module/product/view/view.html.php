@@ -1,3 +1,15 @@
+<?php
+/**
+ * The create view file of product category of xirangEPS.
+ *
+ * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     product
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+?>
 <?php 
 include '../../common/view/header.html.php'; 
 include '../../common/view/treeview.html.php'; 
@@ -9,6 +21,7 @@ js::set('productID', $product->id);
 ?>
 <?php $common->printPositionBar($category, $product);?>
 <div class='row'>
+  <?php include '../../common/view/side.html.php'; ?>
   <div class='col-md-9'>
     <div class='widget radius'>
       <div class='content'>
@@ -20,6 +33,5 @@ js::set('productID', $product->id);
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
   </div>
-  <?php include '../../common/view/side.html.php'; ?>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>

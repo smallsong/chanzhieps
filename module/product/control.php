@@ -4,7 +4,7 @@
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
- * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @author      Xiying Guan <guanxiying@xirangit.com>
  * @package     product
  * @version     $Id$
  * @link        http://www.xirang.biz
@@ -48,6 +48,7 @@ class product extends control
 
         $this->display();
     }
+
     /**
      * Browse product in admin.
      * 
@@ -103,7 +104,7 @@ class product extends control
     }
 
     /**
-     * Edit an product.
+     * Edit a product.
      * 
      * @param  int $productID 
      * @access public
@@ -149,12 +150,12 @@ class product extends control
         $keywords = $product->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
         $desc     = strip_tags($product->summary);
         
-        $this->view->title      = $title;
-        $this->view->keywords   = $keywords;
-        $this->view->desc       = $desc;
-        $this->view->product    = $product;
-        $this->view->category   = $category;
-        $this->view->contact    = $this->loadModel('company')->getContact();
+        $this->view->title    = $title;
+        $this->view->keywords = $keywords;
+        $this->view->desc     = $desc;
+        $this->view->product  = $product;
+        $this->view->category = $category;
+        $this->view->contact  = $this->loadModel('company')->getContact();
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($productID)->exec(false);
 
@@ -162,7 +163,7 @@ class product extends control
     }
 
     /**
-     * Delete an product.
+     * Delete a product.
      * 
      * @param  int      $productID 
      * @access public

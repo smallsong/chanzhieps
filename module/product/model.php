@@ -4,7 +4,7 @@
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
- * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @author      Xiying Guan <guanxiying@xirangit.com>
  * @package     product
  * @version     $Id$
  * @link        http://www.xirang.biz
@@ -21,10 +21,7 @@ class productModel extends model
     public function getByID($productID)
     {   
         /* Get product self. */
-        $product = $this->dao->select('*')
-            ->from(TABLE_PRODUCT)
-            ->where('id')->eq($productID)
-            ->fetch();
+        $product = $this->dao->select('*')->from(TABLE_PRODUCT)->where('id')->eq($productID)->fetch();
         if(!$product) return false;
 
         /* Get it's categories. */
@@ -78,10 +75,11 @@ class productModel extends model
             ->beginIF($categories)->andWhere('t1.category')->in($categories)->fi()
             ->fetchGroup('product', 'id');
 
-        $images = $this->loadModel('file')->getByObjectList('product', array_keys($products), $isImage = true);
-
         /* Assign categories to it's product. */
         foreach($products as $product) $product->categories = $categories[$product->id];
+
+        /* Get images for these products. */
+        $images = $this->loadModel('file')->getByObjectList('product', array_keys($products), $isImage = true);
 
         /* Assign images to it's product. */
         foreach($products as $product)
@@ -119,7 +117,7 @@ class productModel extends model
     }
 
     /**
-     * Create an product.
+     * Create a product.
      * 
      * @access public
      * @return int|bool
@@ -145,9 +143,9 @@ class productModel extends model
     }
 
     /**
-     * Update an product.
+     * Update a product.
      * 
-     * @param string $productID 
+     * @param  int $productID 
      * @access public
      * @return void
      */
@@ -171,7 +169,7 @@ class productModel extends model
     }
         
     /**
-     * Delete an product.
+     * Delete a product.
      * 
      * @param  int      $productID 
      * @access public
@@ -189,7 +187,7 @@ class productModel extends model
     }
 
     /**
-     * Process categories for an product.
+     * Process categories for a product.
      * 
      * @param  int    $productID 
      * @param  array  $categories 
