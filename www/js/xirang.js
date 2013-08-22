@@ -295,7 +295,7 @@ $.extend(
 });
 
 /**
- * Fix image's margin to made it center and middle.
+ * resize image's max width and max height to made it center and middle.
  *
  * @param maxWidth
  * @param maxHeight
@@ -304,7 +304,7 @@ $.extend(
  
 (function($) 
 {
-    jQuery.fn.fixImage = function(maxWidth, maxHeight)
+    jQuery.fn.resizeImage = function(maxWidth, maxHeight)
     { 
         container = $(this).parent();
         parentWidth  = parseInt(container.width());
@@ -316,15 +316,7 @@ $.extend(
         $(this).css('max-width',  maxWidth);
         $(this).css('max-height', maxHeight);
 
-        width  = $(this).width();
-        height = $(this).height();
-        
-        marginY = (maxHeight - height) / 2;
-        marginX = (maxWidth  - width) / 2;
-        
-        $(this).css('margin', marginY + 'px ' + marginX + 'px');
-
-        container.css('padding', 0) ;
+        return true;
     };
 })(jQuery);
 
