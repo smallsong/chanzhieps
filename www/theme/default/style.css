@@ -195,7 +195,6 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 #docbody    {margin:0; padding:12px; background:#fff;}
 #doccontent {margin-bottom:10px; padding:10px; border:1px solid #C8E0F5; background:url(./images/default/bg.content.png) repeat-x; font-size:14px; line-height:1.5}
 #summary    {margin-bottom:10px; padding:10px 10px 10px 0px; line-height:1.5; background:#efefef; font-size:12px}
-#keywords   {margin-top:10px;font-size:12px}
 #docend     {height:48px;  background:url('./images/default/bg.docend.png');}
 #doccontent h1  {margin:10px 0 10px 0}
 #doccontent h3  {margin:10px 0 10px 0}
@@ -250,9 +249,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 /*---------------------- FRONT ---------------------------*/
 
 /* global settings.*/
-.span9 h4{background: #F3F3F3; color:#333; padding: 8px 0 8px 10px;}
-#slogan{margin: 20px 0 0 0; font-size: 16px;}
-.span9 #slogan{margin: 40px 50px 10px 20px;}
+#site-slogan{margin: 20px 0 0 0; font-size: 16px;}
 
 /* Logo setting.*/
 #logoBox{margin:0;}

@@ -2,7 +2,7 @@
 <div class='col-md-3'>
   <div class='widget radius'> 
     <h4><?php echo $lang->categoryMenu;?></h4>
-    <ul>
+    <ul class="pd-zero">
       <?php foreach($topCategories as $topCategory):?>
       <li>
         <?php
