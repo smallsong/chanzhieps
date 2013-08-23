@@ -284,9 +284,10 @@ class threadModel extends model
         /* If the board is an open one, the author or managers can edit it. */
         $user = $this->app->user->account;
         if($user == $author) return true;
+
         if(isset($board->moderators) && $this->canManage($board->moderators)) return true;
 
-        return false;
+        return $this->canManage($board);
     }
 
     /**
