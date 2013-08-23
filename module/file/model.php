@@ -32,48 +32,29 @@ class fileModel extends model
     }
 
     /**
-     * Get files of an object.
-     * 
-     * @param string $objectType 
-     * @param string $objectID 
-     * @access public
-     * @return void
-     */
-    public function getByObject($objectType, $objectID = '')
-    {
-        $files = $this->dao->select('*')->from(TABLE_FILE)
-            ->where('objectType')->eq($objectType)
-            ->beginIF($objectID)->andWhere('objectID')->in($objectID)->fi()
-            ->orderBy('id')
-            ->fetchAll('id');
-
-        return $this->batchProcessFile($files);
-    }
-
-    /**
      * Get files of an object list.
      * 
      * @param string $objectType 
-     * @param string $objects 
+     * @param mixed $object 
      * @access public
      * @return void
      */
-    public function getByObjectList($objectType, $objects, $isImage = false)
+    public function getByObject($objectType, $object, $isImage = false)
     {
-        $table = TABLE_ARTICLE;
-        if($objectType == product) $table = TABLE_PRODUCT;
-        $files = $this->dao->select('t1.*')
-            ->from(TABLE_FILE)->alias('t1')
-            ->leftJoin($table)->alias('t2')->on('t1.objectID = t2.id')
-            ->where('t1.objectType')->eq($objectType)
-            ->andWhere('t2.id')->in($objects)
-            ->beginIf($isImage)->andWhere('t1.extension')->in($this->config->file->imageExtensions)->fi()
+        $files = $this->dao->select('*')
+            ->from(TABLE_FILE)
+            ->where('objectType')->eq($objectType)
+            ->andWhere('objectID')->in($object)
+            ->beginIf($isImage)
+            ->andWhere('extension')->in($this->config->file->imageExtensions)->orderBy('`primary`')
+            ->fi() 
             ->fetchGroup('objectID');
 
-        foreach($files as $objectID => &$fileList)
-        {
-            $fileList = $this->batchProcessFile($fileList);
-        }
+        foreach($files as &$fileList) $fileList = $this->batchProcessFile($fileList);
+
+        /* if object is an objectID return without group. */
+        if(is_numeric($object)) $files = $files[$object];
+
         return $files;
     }
 

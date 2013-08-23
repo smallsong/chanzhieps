@@ -77,7 +77,7 @@ class productModel extends model
         foreach($products as $product) $product->categories = $categories[$product->id];
 
         /* Get images for these products. */
-        $images = $this->loadModel('file')->getByObjectList('product', array_keys($products), $isImage = true);
+        $images = $this->loadModel('file')->getByObject('product', array_keys($products), $isImage = true);
 
         /* Assign images to it's product. */
         foreach($products as $product)
@@ -124,6 +124,7 @@ class productModel extends model
     {
         $product = fixer::input('post')
             ->join('categories', ',')
+            ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
             ->get();
 
