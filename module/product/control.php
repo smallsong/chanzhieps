@@ -140,7 +140,7 @@ class product extends control
         $category = $category[0];
         $category = $this->loadModel('tree')->getById($category->id);
 
-        $title    = $product->title . ' - ' . $category->name;
+        $title    = $product->name . ' - ' . $category->name;
         $keywords = $product->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords;
         $desc     = strip_tags($product->summary);
         

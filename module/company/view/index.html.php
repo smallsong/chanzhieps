@@ -2,7 +2,7 @@
 include '../../common/view/header.html.php';
 ?>
 <?php $common->printPositionBar($this->app->getModuleName());?>
-<div class='widget radius'>
+<div class='box radius'>
   <div class='content'>
     <p><?php echo $company->content;?></p>
     <br/>

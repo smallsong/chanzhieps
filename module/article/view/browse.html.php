@@ -9,7 +9,7 @@ include '../../common/view/treeview.html.php';
 <?php echo $common->printPositionBar($category);?>
 <div class='row'>
   <div class='col-md-9'>
-    <div class='widget radius'>
+    <div class='box radius'>
       <h4><?php echo $category->name;?></h4>
       <ul class="media-list">
       <?php foreach($articles as $article):?>
