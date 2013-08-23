@@ -42,6 +42,10 @@ class productModel extends model
 
         $product->images = $this->file->getByObject('product', $productID, $isImage = true );
 
+        $product->image = new stdclass();
+        $product->image->list    = $product->images;
+        $product->image->primary = $product->image->list[0];
+
         return $product;
     }   
 
@@ -86,7 +90,6 @@ class productModel extends model
         {
             if(empty($images[$product->id])) continue;
 
-            $product->image = new stdclass();
             $product->image->list    = $images[$product->id];
             $product->image->primary = $product->image->list[0];
         }
