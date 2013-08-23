@@ -80,7 +80,7 @@ class articleModel extends model
         foreach($articles as $article) $article->categories = $categories[$article->id];
 
         /* Get images for these articles. */
-        $images = $this->loadModel('file')->getByObjectList('article', array_keys($articles), $isImage = true);
+        $images = $this->loadModel('file')->getByObject('article', array_keys($articles), $isImage = true);
 
         /* Assign images to it's article. */
         foreach($articles as $article)

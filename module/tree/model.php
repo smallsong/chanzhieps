@@ -139,10 +139,11 @@ class treeModel extends model
      * 
      * @param  string $tree 
      * @param  int    $startCategory 
+     * @param  bool   $removeRoot 
      * @access public
      * @return string
      */
-    public function getOptionMenu($type = 'article', $startCategory = 0)
+    public function getOptionMenu($type = 'article', $startCategory = 0, $removeRoot = false )
     {
         /* First, get all categories. */
         $treeMenu   = array();
@@ -190,7 +191,7 @@ class treeModel extends model
 
         $topMenu = @array_pop($treeMenu);
         $topMenu = explode("\n", trim($topMenu));
-        $lastMenu[] = '/';
+        if(!$removeRoot) $lastMenu[] = '/';
 
         foreach($topMenu as $menu)
         {

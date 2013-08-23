@@ -110,12 +110,10 @@ class article extends control
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
         }
 
-        $categories = $this->loadModel('tree')->getOptionMenu($type);
-        unset($categories[0]);
 
         $this->view->title           = $this->lang->article->create;
         $this->view->currentCategory = $categoryID;
-        $this->view->categories      = $categories;
+        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
         $this->view->type            = $type;
 
         $this->display();
@@ -138,12 +136,10 @@ class article extends control
         }
 
         $article    = $this->article->getByID($articleID);
-        $categories = $this->loadModel('tree')->getOptionMenu($article->type);
-        unset($categories[0]);
 
         $this->view->title      = $this->lang->article->edit;
         $this->view->article    = $article;
-        $this->view->categories = $categories;
+        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
 
         $this->display();
     }
