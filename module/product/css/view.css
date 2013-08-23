@@ -1,8 +1,9 @@
-.pro-picture{float: left; width: 40%;}
-.pro-picture a.main-picture{display: block; text-align: center; width: 288px; line-height: 288px; border: 1px solid #E5E5E5; padding: 3px;}
-.widget ul.image-list{margin: 5px 0 0 0; padding: 0; width: 288px;}
-.widget .image-list li{width: 72px; height: 72px; float: left;}
-.image-list a.little-picture{display: block; text-align: center; width: 70px; line-height: 70px; border: 1px solid #E5E5E5; padding: 1px;}
+.primary{float: left; width: 40%;}
+.primary a.big-image{display: block; text-align: center; width: 288px; line-height: 288px; border: 1px solid #E5E5E5; padding: 3px;}
+.widget ul.list{margin: 5px 0 0 0; padding: 0; width: 288px;}
+.widget ul.list li{width: 72px; height: 72px; float: left;}
+ul.list a.little-image{display: block; text-align: center; width: 70px; line-height: 70px; border: 1px solid #E5E5E5; padding: 1px;}
 .property{float: right; width: 60%;}
 .property h3{font-size: 18px; font-weight: bold; margin: 0 0 20px 0;}
 .property table tr{height: 30px; border-bottom: 1px dotted #ddd;}
+.property em{color: #CC0000;}
