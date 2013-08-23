@@ -20,7 +20,6 @@ js::set('productID', $product->id);
 ?>
 <?php $common->printPositionBar($category, $product);?>
 <div class='row'>
-  <?php include '../../common/view/side.html.php'; ?>
   <div class='col-md-9'>
       
     <?php $title = $product->image->primary->title ? $product->image->primary->title : $product->name;?>
@@ -63,7 +62,7 @@ js::set('productID', $product->id);
     <div class='c-both'></div>
 
     <div class='box radius mt-20px'>
-      <h4>产品详情</h4>
+      <h4><?php echo $lang->product->content;?></h4>
       <div class='content'><?php echo $product->content;?></div>
       <div class='f-left'><?php $this->loadModel('file')->printFiles($product->files);?></div>
       <div class='c-both'></div>
@@ -71,5 +70,6 @@ js::set('productID', $product->id);
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
   </div>
+  <?php include './side.html.php'; ?>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>

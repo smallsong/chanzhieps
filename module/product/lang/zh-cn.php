@@ -37,6 +37,7 @@ $lang->product->attribute  = '产品属性';
 $lang->product->sales      = '产品定价';
 
 $lang->product->list       = '产品列表';
+$lang->product->hot        = '热门产品';
 $lang->product->admin      = '维护产品';
 $lang->product->create     = '发布产品';
 $lang->product->edit       = '编辑产品';
