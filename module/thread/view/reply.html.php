@@ -12,7 +12,7 @@
       printf($lang->thread->lblSpeaker, $speaker->account, $speaker->visits, $speaker->shortJoin, $speaker->shortLast);
       ?>
     </td>
-    <td id=<?php echo $reply->id;?>><?php echo $reply->content;?></td>
+    <td id='<?php echo $reply->id;?>'><?php echo $reply->content;?></td>
   </tr>
   <tr> 
     <td class='speaker'></td>

@@ -8,7 +8,7 @@
         printf($lang->thread->lblSpeaker, $speaker->account, $speaker->visits, $speaker->shortJoin, $speaker->shortLast);
         ?>
       </td>
-      <td id=<?php echo $thread->id;?>><?php echo $thread->content;?></td>
+      <td id='<?php echo $thread->id;?>'><?php echo $thread->content;?></td>
     </tr>
   </tbody>
   <tfoot>
