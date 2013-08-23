@@ -125,7 +125,7 @@ class product extends control
     }
 
     /**
-     * View an product.
+     * View a product.
      * 
      * @param int $productID 
      * @access public
