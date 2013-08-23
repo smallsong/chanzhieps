@@ -107,13 +107,26 @@ class productModel extends model
      */
     public function getLatest($categories, $count)
     {
-        return $this->dao->select('t1.id, t1.title')
-            ->from(TABLE_PRODUCT)->alias('t1')
-            ->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
-            ->beginIF($categories)->andWhere('t2.category')->in($categories)->fi()
-            ->orderBy('id_desc')
-            ->limit($count)
-            ->fetchPairs('id', 'title');
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal = 0, $recPerPage = $count, $pageID = 1);
+
+        return $this->getList($categories, 'id_desc', $pager);
+    }
+
+    /**
+     * get hot products. 
+     *
+     * @param array      $categories
+     * @param int        $count
+     * @access public
+     * @return array
+     */
+    public function getHot($categories, $count)
+    {
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal = 0, $recPerPage = $count, $pageID = 1);
+
+        return $this->getList($categories, 'views_desc', $pager);
     }
 
     /**
