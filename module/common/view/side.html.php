@@ -1,6 +1,6 @@
 <?php $topCategories = $this->loadModel('tree')->getChildren(0);?>
 <div class='col-md-3'>
-  <div class='widget radius'> 
+  <div class='box widget radius'> 
     <h4><?php echo $lang->categoryMenu;?></h4>
     <ul class="pd-zero">
       <?php foreach($topCategories as $topCategory):?>
@@ -15,7 +15,7 @@
     </ul>
   </div>
 
-  <div id='contact' class='widget radius'>  
+  <div id='contact' class='box widget radius'>  
     <h4><?php echo $lang->company->contactUs;?></h4>
     <?php foreach($contact as $item => $value):?>
     <dl>

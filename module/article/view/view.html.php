@@ -4,13 +4,12 @@ include '../../common/view/treeview.html.php';
 
 /* set categoryPath for topNav highlight. */
 js::set('path',  json_encode($article->path));
-
 js::set('articleID', $article->id);
 ?>
 <?php $common->printPositionBar($category, $article);?>
 <div class='row'>
   <div class='col-md-9'>
-    <div class='widget radius'>
+    <div class='box radius'>
       <div class='content'>
         <h2 class='a-center'><?php echo $article->title;?></h2>
         <div class='f-12px mb-10px a-center'>

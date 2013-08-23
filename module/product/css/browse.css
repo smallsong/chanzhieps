@@ -1,6 +1,6 @@
-.widget li.media{float: left; width: 25%; margin-top: 0; padding: 0 8px; text-align:center;}
-.widget li a.media-image{display: block; width: 138px; line-height: 138px; border: 1px solid #E5E5E5; padding: 3px; margin: 0 auto;}
-.widget li a.media-image:hover,.widget li a.media-image:active{border: 1px solid #CCC;}
+li.media{float: left; width: 25%; margin-top: 0; padding: 0 8px; text-align:center;}
+a.media-image{display: block; width: 138px; line-height: 138px; border: 1px solid #E5E5E5; padding: 3px; margin: 0 auto;}
+a.media-image:hover,.widget li a.media-image:active{border: 1px solid #CCC;}
 .media-body{margin-top: 8px;}
 .media-body em{color: #CC0000; font-weight: bolder;}
 .media-body del{color:#CCC;}

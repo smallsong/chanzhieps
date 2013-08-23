@@ -22,7 +22,7 @@ js::set('productID', $product->id);
 <div class='row'>
   <?php include '../../common/view/side.html.php'; ?>
   <div class='col-md-9'>
-    <div class='widget radius'>
+    <div class='box radius'>
       
       <div class='content'>
       
