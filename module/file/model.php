@@ -360,8 +360,11 @@ class fileModel extends model
 
         foreach($files as $file)
         {
-            $file->title = $file->title . ".$file->extension";
-            echo html::a(helper::createLink('file', 'download', "fileID=$file->id&mouse=left"), $file->title, '_blank'); 
+            if(!$file->isImage)
+            {
+                $file->title = $file->title . ".$file->extension";
+                echo html::a(helper::createLink('file', 'download', "fileID=$file->id&mouse=left"), $file->title, '_blank'); 
+            }
         }
     }
 }
