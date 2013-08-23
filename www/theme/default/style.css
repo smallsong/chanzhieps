@@ -217,10 +217,14 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .page #_recPerPage{padding:3px; height:26px; line-height:26px; text-align:center;}
 
 /*-----------------------BOOTSTRAP CUSTOMIZE----------------------------*/
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {margin-right:0;}
+.modal{ overflow-y:auto; }
+
 .table{margin-bottom:10px; border: 1px solid #DDD;}
 .table-bordered{border-radius:0 0 6px 6px;}
 .table-bordered tr th:first-child, .table-bordered tr td:first-child{border-left: 0;}
 .table-bordered tfoot th:last-child, .table-bordered tfoot td:last-child{border-bottom: 0;}
+
 caption{border-radius:6px 6px 0 0; border-bottom:none}
 th.a-left,   td.a-left  {text-align:left}
 th.a-center, td.a-center{text-align:center}
@@ -243,8 +247,6 @@ tr.v-middle td, tr.v-middle th{vertical-align: middle;}
 .radius-bottom {border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; -webkit-border-radius: 0 0 5px 5px;}
 
 .shadow{box-shadow:0 1px 2px rgba(0,0,0,.05); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05); }
-.modal{ overflow-y:auto; }
-body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {margin-right:0;}
 
 /*---------------------- FRONT ---------------------------*/
 
