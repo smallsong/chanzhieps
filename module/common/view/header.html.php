@@ -4,16 +4,15 @@ include 'header.lite.html.php';
 js::set('lang', $lang->js);
 ?>
 <div class='container'>
-
+  <div class='a-right'><?php echo commonModel::printTopBar();?></div>
   <div class='row'>
-    <div class='a-right'><?php echo commonModel::printTopBar();?></div>
     <?php if(isset($config->site->logo)):?>
     <?php $logo = json_decode($config->site->logo);?>
     <div class='col-md-3' id='logoBox'>
       <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
     </div>
     <div class='col-md-9'>
-      <p id='slogan'><?php echo $this->config->site->slogan;?></p>
+      <p id='site-slogan'><?php echo $this->config->site->slogan;?></p>
     </div>
     <?php else:?>
     <div class='col-md-4'><h3><?php echo $config->company->name;?></h3></div>

@@ -32,7 +32,7 @@
   <div class='col-md-4'>
     <div class="panel radius">
       <h4><?php echo $lang->index->news;?></h4>
-      <ul class='mg-zero'>
+      <ul class='mg-zero pd-zero'>
         <?php foreach($latestArticles as $id => $article): ?>
         <li>
             <i class='icon-chevron-right'></i>
