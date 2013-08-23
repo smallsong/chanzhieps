@@ -44,7 +44,6 @@ class product extends control
         $this->view->products  = $products;
         $this->view->pager     = $pager;
         $this->view->contact   = $this->loadModel('company')->getContact();
-        //$this->view->layouts = $this->loadModel('block')->getLayouts('article.list');
 
         $this->display();
     }
@@ -157,7 +156,7 @@ class product extends control
         $this->view->category = $category;
         $this->view->contact  = $this->loadModel('company')->getContact();
 
-        $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($productID)->exec(false);
+        $this->dao->update(TABLE_PRODUCT)->set('views = views + 1')->where('id')->eq($productID)->exec(false);
 
         $this->display();
     }
