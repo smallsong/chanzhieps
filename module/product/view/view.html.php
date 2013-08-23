@@ -20,7 +20,6 @@ js::set('productID', $product->id);
 ?>
 <?php $common->printPositionBar($category, $product);?>
 <div class='row'>
-  <?php include '../../common/view/side.html.php'; ?>
   <div class='col-md-9'>
     <div class='box radius'>
       
@@ -66,9 +65,7 @@ js::set('productID', $product->id);
           </div>
         </div>
         <div class='c-both'></div>
-        <div class=''>
         <?php echo $product->content;?>
-        </div>
         <div class='f-left'><?php $this->loadModel('file')->printFiles($product->files);?></div>
         <div class='c-both'></div>
       </div>
@@ -76,5 +73,6 @@ js::set('productID', $product->id);
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
   </div>
+  <?php include './side.html.php'; ?>
 </div>
 <?php include '../../common/view/footer.html.php'; ?>
