@@ -497,7 +497,7 @@ class commonModel extends model
         {
             echo '<li>' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
         }
-        if($article) echo '<li>' . $divider . html::a(inlink('view', "id=$article->id"), $article->title) . '</li>';
+        if($article) echo '<li>' . html::a(inlink('view', "id=$article->id"), $article->title) . '</li>';
     }
 
     /**
