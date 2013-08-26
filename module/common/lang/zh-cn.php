@@ -84,8 +84,8 @@ $lang->company->wangwang  = '旺旺';
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin   = '首页|admin|index|';
-$lang->menu->product = '产品|product|admin|';
 $lang->menu->article = '文章|article|admin|';
+$lang->menu->product = '产品|product|admin|';
 $lang->menu->comment = '评论|comment|admin|';
 $lang->menu->forum   = '论坛|forum|admin|';
 $lang->menu->site    = '站点|site|setbasic|';
