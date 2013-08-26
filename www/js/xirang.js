@@ -56,9 +56,9 @@ $.extend(
                         var errorLabel =  key + 'Label';
 
                         /* Create the error message. */
-                        var errorMSG = '<label id="'  + errorLabel + '" for="' + key  + '"  class="text-error">';
+                        var errorMSG = '<span id="'  + errorLabel + '" for="' + key  + '"  class="red">';
                         errorMSG += $.type(value) == 'string' ? value : value.join(';');
-                        errorMSG += '</label>';
+                        errorMSG += '</span>';
 
                         /* Append error message, set style and set the focus events. */
                         $('#' + errorLabel).remove(); 
