@@ -12,7 +12,7 @@ js::set('lang', $lang->js);
       <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
     </div>
     <div class='col-md-9'>
-      <p id='site-slogan'><?php echo $this->config->site->slogan;?></p>
+      <p class='slogan'><?php echo $this->config->site->slogan;?></p>
     </div>
     <?php else:?>
     <div class='col-md-4'><h3><?php echo $config->company->name;?></h3></div>

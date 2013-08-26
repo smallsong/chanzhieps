@@ -52,6 +52,6 @@ include '../../common/view/treeview.html.php';
       <div class='c-both'></div>
     </div>
   </div>
-  <?php include '../../common/view/side.html.php';?>
+  <?php include './side.html.php';?>
 </div>
 <?php include '../../common/view/footer.html.php';?>
