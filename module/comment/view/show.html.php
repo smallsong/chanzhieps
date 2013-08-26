@@ -49,9 +49,9 @@ if(isset($comments) and $comments):?>
             ?>
           </td>
         </tr>
+        <tr id='captchaBox' style="display:none;"></tr>  
+        <tr><td></td><td><div class='col-lg-11'><?php echo html::submitButton();?></div></td></tr>
       </tbody>
-      <tr id='captchaBox' style="display:none;"></tr>  
-      <tr><td></td><td><?php echo html::submitButton();?></td></tr>
     </table>
   </form>
 </div>
