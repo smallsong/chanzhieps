@@ -3,7 +3,10 @@ $(document).ready(function()
     setRequiredFields();
     setAdminLeftMenu();
 
-    $('img.adaptive').resizeImage();
+    $('img.adaptive').each(function()
+    {
+      $(this).resizeImage()
+    });
     $.setAjaxModal();
     $.setAjaxForm('#ajaxForm');
     $.setAjaxDeleter('.deleter');
