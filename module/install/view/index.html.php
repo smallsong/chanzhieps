@@ -12,7 +12,7 @@
 ?>
 <?php include '../../common/view/header.lite.html.php';?>
 <div class='container'>
-  <div class='hero-unit'>
+  <div class='jumbotron'>
     <h3><?php echo $lang->install->welcome;?></h3>
     <div><?php echo $lang->install->desc;?></div>
     

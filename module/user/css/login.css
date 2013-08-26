@@ -4,3 +4,5 @@
 
 #logo{display: block; margin: 0 auto; text-align: center;}
 #logo img{width: 200px; padding: 0 0 10px 0;}
+
+.input-block-level{width: 100%;}
