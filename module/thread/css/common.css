@@ -1,10 +1,9 @@
 .table td.speaker{width: 150px; border-right:1px solid #dddddd;}
 
-#fileform input{width: 340px; margin-bottom:2px; margin-top:5px}
+#fileform input{margin-bottom:2px; margin-top:5px}
 #fileform label{display: inline;}
 
-#reply textarea{width: 926px}
+#reply textarea{width: 100%;}
 #reply #fileform {margin:10px 0}
-#reply #fileform input{width: 438px}
 
 .page{margin-bottom:8px}

@@ -14,11 +14,11 @@
   <thead>
     <tr class='a-center'>
       <th class='a-center' colspan='2'><?php echo $lang->thread->title;?></th>
-      <th><?php echo $lang->thread->author;?></th>
-      <th><?php echo $lang->thread->postedDate;?></th>
-      <th><?php echo $lang->thread->views;?></th>
-      <th><?php echo $lang->thread->replies;?></th>
-      <th colspan='2'><?php echo $lang->thread->lastReply;?></th>
+      <th class='w-50px'><?php echo $lang->thread->author;?></th>
+      <th class='w-100px'><?php echo $lang->thread->postedDate;?></th>
+      <th class='w-50px'><?php echo $lang->thread->views;?></th>
+      <th class='w-50px'><?php echo $lang->thread->replies;?></th>
+      <th class='w-150px' colspan='2'><?php echo $lang->thread->lastReply;?></th>
     </tr>  
   </thead>
   <tbody>
@@ -29,11 +29,11 @@
         <?php echo "<span class=red>{$lang->thread->stick}</span> "?>
         <?php echo html::a($this->createLink('thread', 'view', "id=$thread->id"), $thread->title);?>
       </td>
-      <td class='a-left w-50px'><?php echo $thread->author;?></td>
-      <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
-      <td class='w-30px'><?php echo $thread->views;?></td>
-      <td class='w-30px'><?php echo $thread->replies;?></td>
-      <td class='a-left w-150px'><?php if($thread->replies) echo substr($thread->repliedDate, 5, -3) . ' ' . $thread->repliedBy;?></td>  
+      <td class='a-left'><?php echo $thread->author;?></td>
+      <td><?php echo substr($thread->addedDate, 5, -3);?></td>
+      <td><?php echo $thread->views;?></td>
+      <td><?php echo $thread->replies;?></td>
+      <td class='a-left'><?php if($thread->replies) echo substr($thread->repliedDate, 5, -3) . ' ' . $thread->repliedBy;?></td>  
     </tr>  
     <?php unset($threads[$thread->id]);?>
     <?php endforeach;?>
