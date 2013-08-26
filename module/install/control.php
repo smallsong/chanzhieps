@@ -105,7 +105,7 @@ class install extends control
     }
 
     /**
-     * Step4: create site and admin.
+     * Step4: create admin password and set the version.
      * 
      * @access public
      * @return array
@@ -116,6 +116,7 @@ class install extends control
         {
             $this->install->createAdmin();
             if(dao::isError()) die(js::error(dao::getError()));
+            $this->loadModel('setting')->updateVersion($this->config->version);
             die(js::locate(inlink('step5', "admin={$this->post->account}"), 'parent'));
         }
 
