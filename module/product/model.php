@@ -221,7 +221,6 @@ class productModel extends model
            ->where('type')->eq($type)
            ->andWhere('id')->eq($productID)
            ->autoCheck()
-           ->batchCheck('type, id', 'notempty')
            ->exec();
 
        /* Then insert the new data. */
