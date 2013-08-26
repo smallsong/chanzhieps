@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS `xr_product` (
   `sticky` enum('0','1','2','3') NOT NULL DEFAULT '0',
   `order` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `model` (`model`)
+  KEY `model` (`model`),
   KEY `order` (`order`),
   KEY `views` (`views`),
-  KEY `sticky` (`sticky`),
+  KEY `sticky` (`sticky`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- DROP TABLE IF EXISTS `xr_article`;
