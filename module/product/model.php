@@ -169,13 +169,13 @@ class productModel extends model
     public function update($productID)
     {
         $product = fixer::input('post')
-            ->remove('categories')
+            ->join('categories', ',')
             ->add('editor', $this->app->user->account)
             ->add('editedDate', helper::now())
             ->get();
 
         $this->dao->update(TABLE_PRODUCT)
-            ->data($product)
+            ->data($product, $skip = 'categories')
             ->autoCheck()
             ->batchCheck($this->config->product->edit->requiredFields, 'notempty')
             ->where('id')->eq($productID)
