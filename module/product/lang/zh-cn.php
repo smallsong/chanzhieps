@@ -21,7 +21,7 @@ $lang->product->color      = '颜色';
 $lang->product->origin     = '产地';
 $lang->product->unit       = '单位';
 $lang->product->price      = '价格';
-$lang->product->promotion  = '促销价格';
+$lang->product->promotion  = '特价';
 $lang->product->amount     = '数量';
 $lang->product->keywords   = '关键字';
 $lang->product->summary    = '摘要';
@@ -45,7 +45,3 @@ $lang->product->files      = '附件';
 
 $lang->product->confirmDelete = '您确定删除该产品吗？';
 $lang->product->successSave   = '成功保存';
-
-$lang->product->prev = '&laquo; ';
-$lang->product->next = '&raquo; ';
-$lang->product->none = '没有了';

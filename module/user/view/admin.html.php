@@ -31,7 +31,7 @@
         <th class='w-80px'><?php echo $lang->user->account;?></th>
         <th class='w-60px'><?php echo $lang->user->gendar;?></th>
         <th class='a-left'><?php echo $lang->user->company;?></th>
-        <th class='w-150px'><?php echo $lang->user->addedDate;?></th>
+        <th class='w-150px'><?php echo $lang->user->join;?></th>
         <th class='w-80px'><?php echo $lang->user->visits;?></th>
         <th class='w-150px'><?php echo $lang->user->last;?></th>
         <th><?php echo $lang->user->forbid;?></th>
@@ -46,7 +46,7 @@
       <td><?php echo $user->account;?></td>
       <td><?php $gendar = $user->gendar; echo $lang->user->gendarList->$gendar;?></td>
       <td class='a-left'><?php echo $user->company;?></td>
-      <td><?php echo $user->addedDate;?></td>
+      <td><?php echo $user->join;?></td>
       <td><?php echo $user->visits;?></td>
       <td><?php echo $user->last;?></td>
       <td class='operate'>

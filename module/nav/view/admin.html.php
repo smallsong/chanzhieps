@@ -12,7 +12,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <?php include './navcode.html.php';?>
-<?php js::set('cannotRemoveAll', $lang->nav->cannotRemoveAll);?>
+<?php js::set('cannotRemoveAll', $lang->nav->cannotRemoveAll); ?>
 <form class='form-inline' id='navForm' method='post'>
   <table class='table table-inline'>
     <caption><?php echo $lang->nav->setNav;?></caption>
@@ -24,7 +24,7 @@
           {
               echo "<li class='liGrade1'>";
               echo $this->nav->createEntry(1, $nav);
-              if(isset($nava->children))
+              if(isset($nav->children))
               {
                   echo "<ul class='ulGrade2'>";
                   foreach($nav->children as $nav2)

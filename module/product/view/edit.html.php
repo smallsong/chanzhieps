@@ -37,37 +37,52 @@
       <td><?php echo html::input('keywords', $product->keywords, "class='text-1'");?></td>
     </tr>
     <tr>
-      <th rowspan='3'><?php echo $lang->product->attribute?></th>
-      <td >
-        <label><?php echo $lang->product->brand;?></label>
-        <?php echo html::input('brand', $product->brand, "class='text-3'");?>
-        <label><?php echo $lang->product->model;?></label>
-        <?php echo html::input('model', $product->model, "class='text-3'");?>
-      </td>
-    </tr>
-    <tr>
-      <td >
-        <label><?php echo $lang->product->color;?></label>
-        <?php echo html::input('color', $product->color, "class='text-3'");?>
-        <label> <?php echo $lang->product->amount;?> </label>
-        <?php echo html::input('amount', $product->amount, "class='text-3'");?>
-      </td>
-    </tr>
-    <tr>
-      <td >
-        <label><?php echo $lang->product->origin;?></label>
-        <?php echo html::input('origin', $product->origin, "class='text-3'");?>
-        <label><?php echo $lang->product->unit;?></label>
-        <?php echo html::input('unit', $product->unit, "class='text-3'");?>
-      </td>
-    </tr>
-    <tr>
-      <th><?php echo $lang->product->sales?></th>
+      <th rowspan='4'><?php echo $lang->product->attribute?></th>
       <td>
-        <label><?php echo $lang->product->price;?></label>
-        <?php echo html::input('price', $product->price, "class='text-3'");?>
-        <label><?php echo $lang->product->promotion;?></label>
-        <?php echo html::input('promotion', $product->promotion, "class='text-3'");?>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->brand;?>
+          <?php echo html::input('brand', $product->brand, "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->model;?>
+          <?php echo html::input('model', $product->model, "class='text-3'");?>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->color;?>
+          <?php echo html::input('color', $product->color, "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->amount;?> 
+          <?php echo html::input('amount', $product->amount, "class='text-3'");?>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->origin;?>
+          <?php echo html::input('origin', $product->origin, "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->unit;?>
+          <?php echo html::input('unit', $product->unit, "class='text-3'");?>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->price;?>
+          <?php echo html::input('price', $product->price, "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->promotion;?>
+          <?php echo html::input('promotion', $product->promotion, "class='text-3'");?>
+        </div>
       </td>
     </tr>
     <tr>
