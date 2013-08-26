@@ -20,11 +20,12 @@
       </span>
     </div>
   </form>
+  <div class='c-both'></div>
   <table class='table table-hover table-striped'>
     <caption><?php echo $lang->user->userList;?></caption>
     <thead>
       <tr class='a-center'>
-        <th class='w-id'><?php echo $lang->user->id;?></th>
+        <th class='w-60px'><?php echo $lang->user->id;?></th>
         <th class='w-80px'><?php echo $lang->user->realname;?></th>
         <th class='w-80px'><?php echo $lang->user->nickname;?></th>
         <th class='w-80px'><?php echo $lang->user->account;?></th>
