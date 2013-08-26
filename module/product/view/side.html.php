@@ -23,7 +23,7 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
       <?php foreach($hotProducts as $product):?>
       <li class='media'>
         <?php 
-        $title = $product->image->primary->title ? $product->image->primary->title : $product->title;
+        $title = $product->image->primary->title ? $product->image->primary->title : $product->name;
         if(empty($product->image)) 
         {
             echo html::a(inlink('view', "id=$product->id"), html::image($themeRoot . 'default/images/main/noimage.gif', "title='{$title}' class='adaptive'"), '', "class='media-image'");

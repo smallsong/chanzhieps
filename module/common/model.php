@@ -459,20 +459,17 @@ class commonModel extends model
      */
     public function printProduct($module, $product)
     {
-        $divider = $this->lang->divider;
-
         foreach($module->pathNames as $moduleID => $moduleName)
         {
             echo '<li>' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
         }
-        if($product) echo '<li>' . $divider . html::a(inlink('view', "id=$product->id"), $product->name) . '</li>';
+        if($product) echo '<li>' . html::a(inlink('view', "id=$product->id"), $product->name) . '</li>';
     }
 
     /**
-     * Print the positon bar of article module.
+     * Print the positon bar of company module.
      * 
      * @param  object $module 
-     * @param  object $article 
      * @access public
      * @return void
      */
