@@ -21,28 +21,28 @@ if(isset($comments) and $comments):?>
 </div>  
 <?php endif;?>
 <div class='cont'>
-  <form method='post' id='commentForm' action="<?php echo $this->createLink('comment', 'post');?>" class='form-inline'>
+  <form method='post' id='commentForm' action="<?php echo $this->createLink('comment', 'post');?>">
     <table class='table table-form'>
       <caption><?php echo $lang->comment->post;?></caption>
       <tr>
-        <td class='w-50px'><nobr><?php echo $lang->comment->author;?></nobr></td>
+        <th class='w-80px v-middle'><?php echo $lang->comment->author;?></th>
         <td> 
           <?php 
           $author = $this->session->user->account == 'guest' ? '' : $this->session->user->account;
           $email  = $this->session->user->account == 'guest' ? '' : $this->session->user->email;
-          echo html::input('author', $author, "class='text-3'");
+          echo "<div class='col-lg-7'>" . html::input('author', $author) . "</div>";
           ?>
         </td>
       </tr>
       <tr>
-        <td><?php echo $lang->comment->email;?></td>
-        <td><?php echo html::input('email', $email, "class='text-3'");?></td>
+        <th class='v-middle'><?php echo $lang->comment->email;?></th>
+        <td><?php echo "<div class='col-lg-7'>" . html::input('email', $email) . "</div>";?></td>
       </tr>
       <tr>
-        <td><?php echo $lang->comment->content;?></td>
+        <th class='v-middle'><?php echo $lang->comment->content;?></th>
         <td>
           <?php 
-          echo html::textarea('content', '', "rows='3' class='area-1'");
+          echo "<div class='col-lg-11'>" . html::textarea('content', '', "class='form-control' rows='3'") . "</div>";
           echo html::hidden('objectType', $objectType);
           echo html::hidden('objectID', $objectID);
           ?>
