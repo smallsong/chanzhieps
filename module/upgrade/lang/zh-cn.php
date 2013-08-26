@@ -38,5 +38,4 @@ EOT;
 
 $lang->upgrade->versionNote = "务必选择正确的版本，否则会造成数据丢失。";
 
-$lang->upgrade->fromVersions['1.0'] = '1.0.BETA';
-$lang->upgrade->fromVersions['1.1'] = '1.1.stable';
+$lang->upgrade->fromVersions['1_1'] = '1.1.stable';

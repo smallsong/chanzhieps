@@ -51,8 +51,8 @@ class upgradeModel extends model
     {
         switch($fromVersion)
         {
-            case '1.0': $this->execSQL($this->getUpgradeFile('1.0'));
-            case '1.1': $this->execSQL($this->getUpgradeFile('1.1'));
+            case '1_0': $this->execSQL($this->getUpgradeFile('1.0'));
+            case '1_1': $this->execSQL($this->getUpgradeFile('1.1'));
             default: if(!$this->isError()) $this->loadModel('setting')->updateVersion($this->config->version);
         }
 
@@ -71,8 +71,8 @@ class upgradeModel extends model
         $confirmContent = '';
         switch($fromVersion)
         {
-            case '1.0': $confirmContent .= file_get_contents($this->getUpgradeFile('1.0'));
-            case '1.1': $confirmContent .= file_get_contents($this->getUpgradeFile('1.1'));
+            case '1_0': $confirmContent .= file_get_contents($this->getUpgradeFile('1.0'));
+            case '1_1': $confirmContent .= file_get_contents($this->getUpgradeFile('1.1'));
         }
         return str_replace('xr_', $this->config->db->prefix, $confirmContent);
     }
