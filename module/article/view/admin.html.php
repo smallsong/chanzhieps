@@ -18,10 +18,10 @@
   </caption>
   <thead>
     <tr class='a-center'>
-      <th class='w-id'><?php echo $lang->article->id;?></th>
+      <th class='w-60px'><?php echo $lang->article->id;?></th>
       <th><?php echo $lang->article->title;?></th>
       <th class='w-p20'><?php echo $lang->article->category;?></th>
-      <th class='w-140px'><?php echo $lang->article->addedDate;?></th>
+      <th class='w-160px'><?php echo $lang->article->addedDate;?></th>
       <th class='w-60px'><?php echo $lang->article->views;?></th>
       <th class='w-150px'><?php echo $lang->actions;?></th>
     </tr>
