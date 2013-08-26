@@ -18,11 +18,11 @@
   </caption>
   <thead>
     <tr class='a-center'>
-      <th class='w-id'><?php echo $lang->product->id;?></th>
+      <th class='w-60px'><?php echo $lang->product->id;?></th>
       <th><?php echo $lang->product->name;?></th>
-      <th class='w-p20'><?php echo $lang->product->category;?></th>
-      <th class='w-p20'><?php echo $lang->product->amount;?></th>
-      <th class='w-140px'><?php echo $lang->product->addedDate;?></th>
+      <th class='w-p15'><?php echo $lang->product->category;?></th>
+      <th class='w-p10'><?php echo $lang->product->amount;?></th>
+      <th class='w-160px'><?php echo $lang->product->addedDate;?></th>
       <th class='w-60px'><?php echo $lang->product->views;?></th>
       <th class='w-150px'><?php echo $lang->actions;?></th>
     </tr>

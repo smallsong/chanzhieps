@@ -51,9 +51,9 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 
 /* form table settings. */
 .table-form {border:1px solid #DDDDDD; border-collapse: inherit;}
-.table-form tr th, .table-form tr td {border:none;}
-.table-form tr th {text-align:right;}
-.table-form tr th.a-center, .table-form tr td.a-center{text-align:center;}
+.table-form tbody tr th, .table-form tbody tr td {border:none;}
+.table-form tbody tr th {text-align:right; vertical-align:middle}
+.table-form tbody tr th.a-center, .table-form tbody tr td.a-center{text-align:center;}
 
 .nobr  {overflow:hidden; white-space:nowrap;}
 .fixed {table-layout:fixed}
@@ -115,6 +115,7 @@ caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF
 .w-130px {width:130px}
 .w-140px {width:140px}
 .w-150px {width:150px}
+.w-160px {width:160px}
 .w-200px {width:200px}
 
 .w-id   {width:45px;}
@@ -222,6 +223,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 
 .table{margin-bottom:10px; border: 1px solid #DDD;}
 .table-bordered{border-radius:0 0 6px 6px;}
+.table-bordered thead tr th{border-bottom:0;}
 .table-bordered tr th:first-child, .table-bordered tr td:first-child{border-left: 0;}
 .table-bordered tfoot th:last-child, .table-bordered tfoot td:last-child{border-bottom: 0;}
 

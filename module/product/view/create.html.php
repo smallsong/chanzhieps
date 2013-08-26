@@ -39,34 +39,50 @@
     <tr>
       <th rowspan='4'>规格参数</th>
       <td >
-        <label><?php echo $lang->product->brand;?></label>
-        <?php echo html::input('brand', '', "class='text-3'");?>
-        <label><?php echo $lang->product->model;?></label>
-        <?php echo html::input('model', '', "class='text-3'");?>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->brand;?>
+          <?php echo html::input('brand', '', "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->model;?>
+          <?php echo html::input('model', '', "class='text-3'");?>
+        </div>
       </td>
     </tr>
     <tr>
       <td >
-        <label><?php echo $lang->product->color;?></label>
-        <?php echo html::input('color', '', "class='text-3'");?>
-        <label> <?php echo $lang->product->amount;?> </label>
-        <?php echo html::input('amount', '', "class='text-3'");?>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->color;?>
+          <?php echo html::input('color', '', "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->amount;?> 
+          <?php echo html::input('amount', '', "class='text-3'");?>
+        </div>
       </td>
     </tr>
     <tr>
       <td >
-        <label><?php echo $lang->product->origin;?></label>
-        <?php echo html::input('origin', '', "class='text-3'");?>
-        <label><?php echo $lang->product->unit;?></label>
-        <?php echo html::input('unit', '', "class='text-3'");?>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->origin;?>
+          <?php echo html::input('origin', '', "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->unit;?>
+          <?php echo html::input('unit', '', "class='text-3'");?>
+        </div>
       </td>
     </tr>
     <tr>
       <td>
-        <label><?php echo $lang->product->price;?></label>
-        <?php echo html::input('price', '', "class='text-3'");?>
-        <label><?php echo $lang->product->promotion;?></label>
-        <?php echo html::input('promotion', '', "class='text-3'");?>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->price;?>
+          <?php echo html::input('price', '', "class='text-3'");?>
+        </div>
+        <div class='col-lg-4'>
+          <?php echo $lang->product->promotion;?>
+          <?php echo html::input('promotion', '', "class='text-3'");?>
+        </div>
       </td>
     </tr>
     <tr>

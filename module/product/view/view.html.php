@@ -24,11 +24,11 @@ js::set('productID', $product->id);
       
     <?php $title = $product->image->primary->title ? $product->image->primary->title : $product->name;?>
     <?php if(empty($product->images)):?>
-    <div class='primary'>
+    <div class='col-md-5 primary'>
       <?php echo html::a(inlink('view', "id=$product->id"), html::image($themeRoot . 'default/images/main/noimage.gif', "title='{$title}' alt='{$product->name}'"), '', "class='big-image'");?>
     </div>
     <?php else:?>
-    <div class='primary'>
+    <div class='col-md-5 primary'>
       <?php echo html::a(inlink('view', "id=$product->id"), html::image($product->image->primary->smallURL, "title='{$title}' alt='{$product->name}'"), '', "class='big-image'");?>
       <ul class='list'>
         <?php foreach($product->image->list as $image):?>
@@ -42,7 +42,7 @@ js::set('productID', $product->id);
     </div>
     <?php endif;?>
 
-    <div class='property'>
+    <div class='col-md-7 property'>
       <h3><?php echo $product->name;?></h3>
       <table class='w-p100'>
         <?php if($product->promotion):?>

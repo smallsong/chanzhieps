@@ -237,20 +237,4 @@ class productModel extends model
            $this->dao->insert(TABLE_RELATION)->data($data)->exec();
        }
     }
-
-    /**
-     * Create preview link. 
-     * 
-     * @param  int    $productID 
-     * @param  string $type         product|help
-     * @access public
-     * @return string
-     */
-    public function createPreviewLink($productID, $type = 'product')
-    {
-        $module = $type == 'product' ? 'product' : 'help';
-        $method = $type == 'product' ? 'view'    : 'read';
-
-        return commonModel::createFrontLink($module, $method, "productID=$productID");
-    }
 }
