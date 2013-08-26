@@ -296,10 +296,10 @@ $.extend(
 });
 
 /**
- * resize image's max width and max height to made it center and middle.
+ * Resize image's max width and max height to made it center and middle.
  *
- * @param maxWidth
- * @param maxHeight
+ * @param   int   maxWidth
+ * @param   int   maxHeight
  * @return void
  */
  
