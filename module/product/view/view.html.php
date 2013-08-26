@@ -67,8 +67,10 @@ js::set('productID', $product->id);
       <div class='f-left'><?php $this->loadModel('file')->printFiles($product->files);?></div>
       <div class='c-both'></div>
     </div>
+
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
+
   </div>
   <?php include './side.html.php'; ?>
 </div>
