@@ -40,11 +40,11 @@ $themeRoot = $webRoot . "theme/";
   echo html::icon($webRoot . 'favicon.ico');
   echo html::rss($config->webRoot .'rss.xml', $config->site->name);
 ?>
-  <!--[if lt IE 9]>
-  <?php
-    js::import($jsRoot . 'html5shiv/min.js');
-    js::import($jsRoot . 'respond/min.js');
-  ?>
-  <![endif]-->
+<!--[if lt IE 9]>
+<?php
+js::import($jsRoot . 'html5shiv/min.js');
+js::import($jsRoot . 'respond/min.js');
+?>
+<![endif]-->
 </head>
 <body>
