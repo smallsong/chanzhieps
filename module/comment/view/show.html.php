@@ -24,30 +24,32 @@ if(isset($comments) and $comments):?>
   <form method='post' id='commentForm' action="<?php echo $this->createLink('comment', 'post');?>">
     <table class='table table-form'>
       <caption><?php echo $lang->comment->post;?></caption>
-      <tr>
-        <th class='w-80px v-middle'><?php echo $lang->comment->author;?></th>
-        <td> 
-          <?php 
-          $author = $this->session->user->account == 'guest' ? '' : $this->session->user->account;
-          $email  = $this->session->user->account == 'guest' ? '' : $this->session->user->email;
-          echo "<div class='col-lg-7'>" . html::input('author', $author) . "</div>";
-          ?>
-        </td>
-      </tr>
-      <tr>
-        <th class='v-middle'><?php echo $lang->comment->email;?></th>
-        <td><?php echo "<div class='col-lg-7'>" . html::input('email', $email) . "</div>";?></td>
-      </tr>
-      <tr>
-        <th class='v-middle'><?php echo $lang->comment->content;?></th>
-        <td>
-          <?php 
-          echo "<div class='col-lg-11'>" . html::textarea('content', '', "class='form-control' rows='3'") . "</div>";
-          echo html::hidden('objectType', $objectType);
-          echo html::hidden('objectID', $objectID);
-          ?>
-        </td>
-      </tr>
+      <tbody>
+        <tr>
+          <th class='w-80px v-middle'><?php echo $lang->comment->author;?></th>
+          <td> 
+            <?php 
+            $author = $this->session->user->account == 'guest' ? '' : $this->session->user->account;
+            $email  = $this->session->user->account == 'guest' ? '' : $this->session->user->email;
+            echo "<div class='col-lg-7'>" . html::input('author', $author) . "</div>";
+            ?>
+          </td>
+        </tr>
+        <tr>
+          <th class='v-middle'><?php echo $lang->comment->email;?></th>
+          <td><?php echo "<div class='col-lg-7'>" . html::input('email', $email) . "</div>";?></td>
+        </tr>
+        <tr>
+          <th class='v-middle'><?php echo $lang->comment->content;?></th>
+          <td>
+            <?php 
+            echo "<div class='col-lg-11'>" . html::textarea('content', '', "class='form-control' rows='3'") . "</div>";
+            echo html::hidden('objectType', $objectType);
+            echo html::hidden('objectID', $objectID);
+            ?>
+          </td>
+        </tr>
+      </tbody>
       <tr id='captchaBox' style="display:none;"></tr>  
       <tr><td></td><td><?php echo html::submitButton();?></td></tr>
     </table>

@@ -737,7 +737,7 @@ class dao
     public function check($fieldName, $funcName, $condition = '')
     {
         /* If no this field in the data, reuturn. */
-        if(!isset($this->sqlobj->data->$fieldName)) return $this;
+        if(!isset($this->sqlobj->data->$fieldName) && $funcName != 'notempty') return $this;
 
         /* Set the field label and value. */
         global $lang, $config, $app;

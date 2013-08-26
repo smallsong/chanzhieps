@@ -38,7 +38,7 @@
     </tr>
     <tr>
       <th rowspan='4'><?php echo $lang->product->attribute?></th>
-      <td >
+      <td>
         <div class='col-lg-4'>
           <?php echo $lang->product->brand;?>
           <?php echo html::input('brand', $product->brand, "class='text-3'");?>
@@ -80,8 +80,8 @@
           <?php echo html::input('price', $product->price, "class='text-3'");?>
         </div>
         <div class='col-lg-4'>
-<?php echo $lang->product->promotion;?>
-        <?php echo html::input('promotion', $product->promotion, "class='text-3'");?>
+          <?php echo $lang->product->promotion;?>
+          <?php echo html::input('promotion', $product->promotion, "class='text-3'");?>
         </div>
       </td>
     </tr>
