@@ -34,10 +34,11 @@ class fileModel extends model
     /**
      * Get files of an object list.
      * 
-     * @param string $objectType 
-     * @param mixed $object 
+     * @param   string  $objectType 
+     * @param   mixed   $object 
+     * @param   bool    $isImage 
      * @access public
-     * @return void
+     * @return array
      */
     public function getByObject($objectType, $object, $isImage = false)
     {
@@ -45,9 +46,7 @@ class fileModel extends model
             ->from(TABLE_FILE)
             ->where('objectType')->eq($objectType)
             ->andWhere('objectID')->in($object)
-            ->beginIf($isImage)
-            ->andWhere('extension')->in($this->config->file->imageExtensions)->orderBy('`primary`')
-            ->fi() 
+            ->beginIf($isImage)->andWhere('extension')->in($this->config->file->imageExtensions)->orderBy('`primary`')->fi() 
             ->fetchGroup('objectID');
 
         foreach($files as &$fileList) $fileList = $this->batchProcessFile($fileList);

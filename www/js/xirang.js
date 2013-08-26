@@ -27,7 +27,7 @@ $.extend(
                     if($.isFunction(callback)) return callback(response);
                     if($('#responser').length && response.message && response.message.length)
                     {
-                        $('#responser').html(response.message).addClass('text-error f-12px').show().delay(3000).fadeOut(100);
+                        $('#responser').html(response.message).addClass('red f-12px').show().delay(3000).fadeOut(100);
                     }
 
                     if(response.locate) return location.href = response.locate;
@@ -43,7 +43,7 @@ $.extend(
                 if($.type(response.message) == 'string')
                 {
                     if($('#responser').length == 0) return bootbox.alert(response.message);
-                    return $('#responser').html(response.message).addClass('text-error f-12px').show().delay(5000).fadeOut(100);
+                    return $('#responser').html(response.message).addClass('red f-12px').show().delay(5000).fadeOut(100);
                 }
 
                 /* The result.message is just a object. */
@@ -67,13 +67,14 @@ $.extend(
                         $(errorOBJ).css('border-color','#953B39')
                         $(errorOBJ).change(function()
                         {
-                            $(this).removeAttr('style')
+                            $(errorOBJ).css('margin-bottom', 0);
+                            $(errorOBJ).css('border-color','')
                             $('#' + errorLabel).remove(); 
                         });
                     })
 
                     /* Focus the first error field thus to nitify the user. */
-                    var firstErrorField = $('#' +$('label.text-error').first().attr('for'));
+                    var firstErrorField = $('#' +$('span.red').first().attr('for'));
                     topOffset = parseInt(firstErrorField.offset().top) - 20;   // 20px offset more for margin.
 
                     /* If there's the navbar-fixed-top element, minus it's height. */
@@ -261,7 +262,6 @@ $.extend(
         /* Set the data target for modal. */
         $('a[data-toggle=modal]').attr('data-target', '#ajaxModal');
 
-
         $('a[data-toggle=modal]').click(function()
         {
             $('#ajaxModal').load($(this).attr('href'));
@@ -297,10 +297,10 @@ $.extend(
 });
 
 /**
- * resize image's max width and max height to made it center and middle.
+ * Resize image's max width and max height to made it center and middle.
  *
- * @param maxWidth
- * @param maxHeight
+ * @param   int   maxWidth
+ * @param   int   maxHeight
  * @return void
  */
  

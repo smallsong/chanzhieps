@@ -35,7 +35,6 @@
     </tr>  
     <?php endforeach;?>
   </tbody>
-  <?php $config->requestType = 'GET';?>
   <tfoot><tr><td colspan='8'><?php $pager->show();?></td></tr></tfoot>
 </table>
 <?php include '../../common/view/footer.admin.html.php'; ?>
