@@ -187,14 +187,14 @@ class settingModel extends model
     /**
      * Get the version of current zentaopms.
      * 
-     * Since the version field not saved in db. So if empty, return 1.0.
+     * Since the version field not saved in db. So if empty, return 1.1.
      *
      * @access public
      * @return void
      */
     public function getVersion()
     {
-        $version = isset($this->config->global->version) ? $this->config->global->version : '1.0';    // No version, set as 1.0.
+        $version = isset($this->config->global->version) ? $this->config->global->version : '1.1';    // No version, set as 1.0.
         return $version;
     }
 
