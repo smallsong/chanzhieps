@@ -25,16 +25,16 @@
       <td><?php echo html::input('name', '', "class='text-1'");?></td>
     </tr>
     <tr>
+      <th><?php echo $lang->product->keywords;?></th>
+      <td><?php echo html::input('keywords', '', "class='text-1'");?></td>
+    </tr>
+    <tr>
       <th><?php echo $lang->product->summary;?></th>
       <td><?php echo html::textarea('summary', '', "rows='2' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->product->content;?></th>
       <td valign='middle'><?php echo html::textarea('content', '', "rows='10' class='area-1'");?></td>
-    </tr>
-    <tr>
-      <th><?php echo $lang->product->keywords;?></th>
-      <td><?php echo html::input('keywords', '', "class='text-1'");?></td>
     </tr>
     <tr>
       <th rowspan='4'><?php echo $lang->product->attribute?></th>
