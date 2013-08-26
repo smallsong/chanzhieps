@@ -18,27 +18,27 @@
     <caption><?php echo $lang->product->create;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->product->category;?></th>
-      <td ><?php echo html::select("categories[]", $categories, $currentCategory, "multiple='multiple' class='select-3 chosen'");?></td>
+      <td><?php echo html::select("categories[]", $categories, $currentCategory, "multiple='multiple' class='select-3 chosen'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->product->name;?></th>
-      <td ><?php echo html::input('name', '', "class='text-1'");?></td>
+      <td><?php echo html::input('name', '', "class='text-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->product->summary;?></th>
-      <td ><?php echo html::textarea('summary', '', "rows='2' class='area-1'");?></td>
+      <td><?php echo html::textarea('summary', '', "rows='2' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->product->content;?></th>
-      <td   valign='middle'><?php echo html::textarea('content', '', "rows='10' class='area-1'");?></td>
+      <td valign='middle'><?php echo html::textarea('content', '', "rows='10' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->product->keywords;?></th>
-      <td ><?php echo html::input('keywords', '', "class='text-1'");?></td>
+      <td><?php echo html::input('keywords', '', "class='text-1'");?></td>
     </tr>
     <tr>
-      <th rowspan='4'>规格参数</th>
-      <td >
+      <th rowspan='4'><?php echo $lang->product->attribute?></th>
+      <td>
         <div class='col-lg-4'>
           <?php echo $lang->product->brand;?>
           <?php echo html::input('brand', '', "class='text-3'");?>
@@ -50,7 +50,7 @@
       </td>
     </tr>
     <tr>
-      <td >
+      <td>
         <div class='col-lg-4'>
           <?php echo $lang->product->color;?>
           <?php echo html::input('color', '', "class='text-3'");?>
@@ -62,7 +62,7 @@
       </td>
     </tr>
     <tr>
-      <td >
+      <td>
         <div class='col-lg-4'>
           <?php echo $lang->product->origin;?>
           <?php echo html::input('origin', '', "class='text-3'");?>
@@ -87,7 +87,7 @@
     </tr>
     <tr>
       <td></td>
-      <td ><?php echo html::submitButton();?></td>
+      <td><?php echo html::submitButton();?></td>
     </tr>
   </table>
 </form>
