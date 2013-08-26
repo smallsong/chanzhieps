@@ -5,6 +5,7 @@ js::set('lang', $lang->js);
 ?>
 <div class='container'>
   <div class='a-right'><?php echo commonModel::printTopBar();?></div>
+
   <div class='row'>
     <?php if(isset($config->site->logo)):?>
     <?php $logo = json_decode($config->site->logo);?>
