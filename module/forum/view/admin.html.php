@@ -3,20 +3,20 @@
   <caption><?php echo $lang->forum->threadList;?></caption>
   <thead>
     <tr class='a-center'>
-      <th class='w-id'><?php echo $lang->thread->id;?></th>
+      <th class='w-60px'><?php echo $lang->thread->id;?></th>
       <th><?php echo $lang->thread->title;?></th>
-      <th><?php echo $lang->thread->author;?></th>
-      <th><?php echo $lang->thread->postedDate;?></th>
-      <th><?php echo $lang->thread->views;?></th>
-      <th><?php echo $lang->thread->replies;?></th>
-      <th><?php echo $lang->thread->lastReply;?></th>
+      <th class='w-50px'><?php echo $lang->thread->author;?></th>
+      <th class='w-100px'><?php echo $lang->thread->postedDate;?></th>
+      <th class='w-60px'><?php echo $lang->thread->views;?></th>
+      <th class='w-60px'><?php echo $lang->thread->replies;?></th>
+      <th class='w-150px'><?php echo $lang->thread->lastReply;?></th>
       <th class='w-80px a-center'><?php echo $lang->actions;?></th>
     </tr>  
   </thead>
   <tbody>
     <?php foreach($threads as $thread):?>
     <tr class='a-center'>
-      <th><?php echo $thread->id;?></th>
+      <td><?php echo $thread->id;?></td>
       <td class='a-left'>
         <?php
         $iconRoot = $themeRoot . 'default/images/forum/';
@@ -24,11 +24,11 @@
         echo html::a(commonModel::createFrontLink('thread', 'view', "threadID=$thread->id"), $thread->title, '_blank');
         ?>
       </td>
-      <td class='w-50px'><?php echo $thread->author;?></td>
-      <td class='w-100px'><?php echo substr($thread->addedDate, 5, -3);?></td>
-      <td class='w-30px'><?php echo $thread->views;?></td>
-      <td class='w-30px'><?php echo $thread->replies;?></td>
-      <td class='w-150px a-left'><?php if($thread->replies) echo substr($thread->repliedDate, 5, -3) . ' ' . $thread->repliedBy;?></td>  
+      <td><?php echo $thread->author;?></td>
+      <td><?php echo substr($thread->addedDate, 5, -3);?></td>
+      <td><?php echo $thread->views;?></td>
+      <td><?php echo $thread->replies;?></td>
+      <td class='a-left'><?php if($thread->replies) echo substr($thread->repliedDate, 5, -3) . ' ' . $thread->repliedBy;?></td>  
       <td>
         <?php echo html::a($this->createLink('thread', 'delete', "threadID=$thread->id"), $lang->delete, '', "class='deleter'"); ?>
       </td>
