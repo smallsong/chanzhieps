@@ -234,8 +234,8 @@ tr.a-center th, tr.a-center td {text-align:center}
 tr.a-center .a-left {text-align:left}
 tr.a-center .a-right {text-align:right}
 
-th.v-middle, td.v-middle{vertical-align: middle;}
-tr.v-middle td, tr.v-middle th{vertical-align: middle;}
+table tbody tr th.v-middle, table tbody tr td.v-middle{vertical-align: middle;}
+table tbody tr.v-middle td, table tbody tr.v-middle th{vertical-align: middle;}
 
 /* resolve conflicts between kindeditor and bootstrap. */
 .ke-container td{padding:0;}
