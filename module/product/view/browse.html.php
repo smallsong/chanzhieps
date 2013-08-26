@@ -30,11 +30,11 @@ include '../../common/view/treeview.html.php';
         $title = $product->image->primary->title ? $product->image->primary->title : $product->name;
         if(empty($product->image)) 
         {
-            echo html::a(inlink('view', "id=$product->id"), html::image($themeRoot . 'default/images/main/noimage.gif', "title='{$title}'"), '', "class='media-image'");
+            echo html::a(inlink('view', "id=$product->id"), html::image($themeRoot . 'default/images/main/noimage.gif', "title='{$title}' class='adaptive'"), '', "class='media-image'");
         }
         else
         {
-            echo html::a(inlink('view', "id=$product->id"), html::image($product->image->primary->smallURL, "title='{$title}' alt='{$product->name}'"), '', "class='media-image'");
+            echo html::a(inlink('view', "id=$product->id"), html::image($product->image->primary->smallURL, "title='{$title}' class='adaptive' alt='{$product->name}'"), '', "class='media-image'");
         }
         ?>
         <div class='media-body'>
