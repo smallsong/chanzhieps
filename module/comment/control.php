@@ -65,7 +65,6 @@ class comment extends control
     /**
      * Get the latest approvaled comments.
      * 
-     * @param string $type 
      * @param int $status 
      * @param int    $recTotal 
      * @param int    $recPerPage 
@@ -73,17 +72,16 @@ class comment extends control
      * @access public
      * @return void
      */
-    public function admin($type = '', $status = '0', $recTotal = 0, $recPerPage = 5, $pageID = 1)
+    public function admin($status = '0', $recTotal = 0, $recPerPage = 5, $pageID = 1)
     {
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $this->view->comments = $this->comment->getList($status, $type, $pager);
+        $this->view->comments = $this->comment->getList($status, $pager);
         $this->view->pager    = $pager;
         
-        $this->view->type = $type;
         $this->view->status = $status;
-        $this->view->currentMenu = $type == 'article' ? 1 : 0;
+        $this->view->currentMenu = $status == 0 ? 0 : 1;
         $this->display();
     }
 

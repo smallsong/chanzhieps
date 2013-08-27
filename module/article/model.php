@@ -205,7 +205,6 @@ class articleModel extends model
            ->where('type')->eq($type)
            ->andWhere('id')->eq($articleID)
            ->autoCheck()
-           ->batchCheck('type, id', 'notempty')
            ->exec();
 
        /* Then insert the new data. */

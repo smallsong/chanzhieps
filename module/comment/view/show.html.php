@@ -31,13 +31,13 @@ if(isset($comments) and $comments):?>
             <?php 
             $author = $this->session->user->account == 'guest' ? '' : $this->session->user->account;
             $email  = $this->session->user->account == 'guest' ? '' : $this->session->user->email;
-            echo "<div class='col-lg-7'>" . html::input('author', $author) . "</div>";
+            echo "<div class='col-lg-7'>" . html::input('author', $author, "class='text-1'") . "</div>";
             ?>
           </td>
         </tr>
         <tr>
           <th class='v-middle'><?php echo $lang->comment->email;?></th>
-          <td><?php echo "<div class='col-lg-7'>" . html::input('email', $email) . "</div>";?></td>
+          <td><?php echo "<div class='col-lg-7'>" . html::input('email', $email, "class='text-1'") . "</div>";?></td>
         </tr>
         <tr>
           <th class='v-middle'><?php echo $lang->comment->content;?></th>
@@ -49,9 +49,9 @@ if(isset($comments) and $comments):?>
             ?>
           </td>
         </tr>
+        <tr id='captchaBox' style="display:none;"></tr>  
+        <tr><td></td><td><div class='col-lg-11'><?php echo html::submitButton();?></div></td></tr>
       </tbody>
-      <tr id='captchaBox' style="display:none;"></tr>  
-      <tr><td></td><td><?php echo html::submitButton();?></td></tr>
     </table>
   </form>
 </div>
