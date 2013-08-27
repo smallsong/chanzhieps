@@ -51,7 +51,7 @@ class site extends control
             $logoFile = $fileModel->getById($fileID[0]); 
 
             /*delete old logo*/
-            $oldLogos  = $fileModel->getByObject('logo');
+            $oldLogos  = $fileModel->getByObject('logo', 0);
             foreach($oldLogos as $oldLogo)
             {
                 if($oldLogo->id != $logoFile->id) $fileModel->delete($oldLogo->id);
@@ -80,12 +80,5 @@ class site extends control
         $this->view->logo = isset($this->config->site->logo) ? json_decode($this->config->site->logo) : false;
 
         $this->display();
-    }
-        
-    public function setSlide()
-    {
-        $this->view->slide = isset($this->config->site->slide) ? $this->config->site->slide : '';
-        $this->display();
-        
     }
 }
