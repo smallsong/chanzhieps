@@ -6,20 +6,17 @@ js::set('lang', $lang->js);
 <div class='container'>
   <div class='a-right'><?php echo commonModel::printTopBar();?></div>
 
-  <div class='row'>
-    <?php if(isset($config->site->logo)):?>
-    <?php $logo = json_decode($config->site->logo);?>
-    <div class='col-md-3' id='logoBox'>
-      <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
-    </div>
-    <div class='col-md-9'>
-      <p class='slogan'><?php echo $this->config->site->slogan;?></p>
-    </div>
-    <?php else: ?>
-    <div class='col-md-4'><h3><?php echo $config->site->name;?></h3></div>
-    <div id='slogan' class='col-md-8'><?php echo $this->config->site->slogan;?></div>
-    <?php endif;?>
+  <?php if(isset($config->site->logo)):?>
+  <?php $logo = json_decode($config->site->logo);?>
+  <div id='logoBox' class='f-left'>
+    <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
   </div>
+  <div class='f-left'><p id='slogan'><?php echo $this->config->site->slogan;?></p></div>
+  <?php else: ?>
+  <div class='f-left' id='name'><h3><?php echo $config->site->name;?></h3></div>
+  <div class='f-left' id='slogan'><?php echo $this->config->site->slogan;?></div>
+  <?php endif;?>
+  <div class='c-both'></div>
 
   <?php $topNavs = $this->loadModel('nav')->getNavs('top');?>
   <nav id='topNav' class='navbar' role="navigation">
