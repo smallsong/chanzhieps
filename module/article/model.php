@@ -154,13 +154,13 @@ class articleModel extends model
     public function update($articleID)
     {
         $article = fixer::input('post')
-            ->remove('categories')
+            ->join('categories', ',')
             ->add('editor', $this->app->user->account)
             ->add('editedDate', helper::now())
             ->get();
 
         $this->dao->update(TABLE_ARTICLE)
-            ->data($article)
+            ->data($article, $skip = 'categories')
             ->autoCheck()
             ->batchCheck($this->config->article->edit->requiredFields, 'notempty')
             ->where('id')->eq($articleID)
