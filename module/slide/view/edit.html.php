@@ -33,7 +33,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->slide->label;?></th>
-      <td><?php echo html::input('label', $slide->lable, 'class=text-1');?></td>
+      <td><?php echo html::input('label', $slide->label, 'class=text-1');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->slide->summary;?></th>
