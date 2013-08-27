@@ -25,7 +25,7 @@
     </div>
     <div class='col-md-4'>
       <div class="shortcut category">
-        <?php echo html::a($this->createLink('tree', 'browse'), '<h3>' . $lang->admin->shortcuts->category . '</h3>')?>  
+        <?php echo html::a($this->createLink('comment', 'admin'), '<h3>' . $lang->admin->shortcuts->comment . '</h3>')?>  
       </div>
     </div>
   </div>
