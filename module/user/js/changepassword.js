@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
-    $.setAjaxForm('#passwordForm', function()
+    $.setAjaxForm('#passwordForm', function(response)
     {
-        window.location.reload();
+        if('success' == response.result) window.location.reload();
     });
 });
