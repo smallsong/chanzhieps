@@ -25,9 +25,9 @@
   </caption>
   <thead>
     <tr>
-      <th class='w-id'><?php echo $lang->comment->id;?></th>
+      <th class='w-60px'><?php echo $lang->comment->id;?></th>
       <th><?php echo $lang->comment->content;?></th>
-      <th class='w-120px a-center'><?php echo $lang->actions;?></th>
+      <th class='w-140px a-center'><?php echo $lang->actions;?></th>
     </tr>
   </thead>
   <tbody>
