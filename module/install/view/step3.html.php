@@ -14,7 +14,7 @@
   <?php if(isset($error)):?>
   <table class='table table-bordered' align='center'>
 	<caption><?php echo $lang->install->error;?></caption>
-    <tr><td class="text-error"><?php echo $error;?></td></tr>
+    <tr><td class='red'><?php echo $error;?></td></tr>
     <tr><td><?php echo html::backButton($lang->install->pre, 'btn btn-primary');?></td></tr>
   </table>
   <?php else:?>
