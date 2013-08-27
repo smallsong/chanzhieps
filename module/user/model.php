@@ -81,11 +81,11 @@ class userModel extends model
             ->setIF($this->post->password1 == false, 'password', '')
             ->setIF($this->cookie->r != '', 'referer', $this->cookie->r)
             ->setIF($this->cookie->r == '', 'referer', '')
-            ->remove('password1, password2')
             ->get();
         $user->password = $this->createPassword($this->post->password1, $user->account, $user->join); 
 
-        $this->dao->insert(TABLE_USER)->data($user)
+        $this->dao->insert(TABLE_USER)
+            ->data($user, $skip = 'password1,password2')
             ->autoCheck()
             ->batchCheck($this->config->user->register->requiredFields, 'notempty')
             ->check('account', 'unique', '1=1', false)
@@ -117,10 +117,10 @@ class userModel extends model
         $user = fixer::input('post')
             ->cleanInt('imobile, qq, zipcode')
             ->specialChars('company, address, phone,')
-            ->remove('password1, password2')
             ->get();
 
-        return $this->dao->update(TABLE_USER)->data($user)
+        return $this->dao->update(TABLE_USER)
+            ->data($user, $skip = 'password1,password2')
             ->autoCheck()
             ->batchCheck($this->config->user->edit->requiredFields, 'notempty')
             ->checkIF($this->post->email != false, 'email', 'email')
