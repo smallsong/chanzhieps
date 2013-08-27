@@ -103,6 +103,12 @@ class article extends control
      */
     public function create($type = 'article', $categoryID = '')
     {
+        $categories = $this->loadModel('tree')->getOptionMenu('article', 0, $removeRoot = true);
+        if(empty($categories))
+        {
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=article')));
+        }
+
         if($_POST)
         {
             $this->article->create();       
@@ -127,6 +133,12 @@ class article extends control
      */
     public function edit($articleID)
     {
+        $categories = $this->loadModel('tree')->getOptionMenu('article', 0, $removeRoot = true);
+        if(empty($categories))
+        {
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=article')));
+        }
+
         if($_POST)
         {
             $this->article->update($articleID);
@@ -138,8 +150,7 @@ class article extends control
 
         $this->view->title      = $this->lang->article->edit;
         $this->view->article    = $article;
-        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
-
+        $this->view->categories = $categories;
         $this->display();
     }
 
