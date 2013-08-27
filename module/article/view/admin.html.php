@@ -12,10 +12,7 @@
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
 <table class='table table-bordered table-hover table-striped'>
-  <caption>
-    <div class='f-left'><?php echo $lang->article->list;?></div>
-    <div class='f-right'><?php echo html::a($this->inlink('create'), $lang->article->create);?></div>
-  </caption>
+  <caption><?php echo $lang->article->list;?></caption>
   <thead>
     <tr class='a-center'>
       <th class='w-60px'><?php echo $lang->article->id;?></th>
