@@ -79,7 +79,7 @@ $lang->install->setConfig  = '数据库配置';
 $lang->install->key        = '配置项';
 $lang->install->value      = '值';
 $lang->install->saveConfig = '保存配置文件';
-$lang->install->save2File  = '<span class="text-error">尝试写入配置文件，失败！</span>拷贝上面文本框中的内容，将其保存到 "<strong> %s </strong>"中。';
+$lang->install->save2File  = '<span class="red">尝试写入配置文件，失败！</span>拷贝上面文本框中的内容，将其保存到 "<strong> %s </strong>"中。';
 $lang->install->saved2File = '配置信息已经成功保存到" <strong>%s</strong> "中。您后面还可继续修改此文件。';
 $lang->install->errorNotSaveConfig = '还没有保存配置文件';
 
