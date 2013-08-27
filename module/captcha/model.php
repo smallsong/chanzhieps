@@ -44,10 +44,12 @@ class captchaModel extends model
         return <<<EOT
 <th>{$this->lang->captcha->common}</th>;
 <td>
-  <h4><span class='label label-default'>{$captcha->first} {$captcha->operator} {$captcha->second}</span>&nbsp;&nbsp;
+  <div class="col-lg-6">
+  <h4><span class='label label-danger'>{$captcha->first} {$captcha->operator} {$captcha->second}</span>&nbsp;&nbsp;
   {$this->lang->captcha->equal} &nbsp;&nbsp;
-  <input type='text' name='captcha' id='captcha' class='w-30px a-center' placeholder='{$this->lang->captcha->placeholder}' />
+  <input type='text' name='captcha' id='captcha' class='w-60px a-center' placeholder='{$this->lang->captcha->placeholder}' />
   </h4>
+  </div>
 </td>;
 EOT;
     }

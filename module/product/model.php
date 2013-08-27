@@ -142,6 +142,9 @@ class productModel extends model
     {
         $product = fixer::input('post')
             ->join('categories', ',')
+            ->setDefault('price', 0)
+            ->setDefault('amount', 0)
+            ->setDefault('promotion', 0)
             ->add('author', $this->app->user->account)
             ->add('addedDate', helper::now())
             ->get();
@@ -170,6 +173,9 @@ class productModel extends model
     {
         $product = fixer::input('post')
             ->join('categories', ',')
+            ->setDefault('price', 0)
+            ->setDefault('amount', 0)
+            ->setDefault('promotion', 0)
             ->add('editor', $this->app->user->account)
             ->add('editedDate', helper::now())
             ->get();

@@ -18,7 +18,7 @@
       <th class='w-100px'><?php echo $lang->thread->postedDate;?></th>
       <th class='w-50px'><?php echo $lang->thread->views;?></th>
       <th class='w-50px'><?php echo $lang->thread->replies;?></th>
-      <th class='w-150px' colspan='2'><?php echo $lang->thread->lastReply;?></th>
+      <th class='w-200px'><?php echo $lang->thread->lastReply;?></th>
     </tr>  
   </thead>
   <tbody>

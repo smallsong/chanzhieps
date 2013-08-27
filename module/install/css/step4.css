@@ -1,4 +1,4 @@
 .container {width:360px}
 .table-bordered{border-left:1px solid #DDDDDD}
-.table td, .table th{border:none; padding:2px 5px; line-height:40px; height:40px}
+.table tbody tr td, .table tbody tr th{border:none; padding:2px 5px; line-height:40px; height:40px}
 .table .text-2 {margin:auto 0}
