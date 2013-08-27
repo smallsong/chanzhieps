@@ -4,20 +4,6 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
 ?>
 <div class='col-md-3'>
   <div class='widget box radius'> 
-    <h4><?php echo $lang->categoryMenu;?></h4>
-    <ul class="pd-zero">
-      <?php foreach($topCategories as $topCategory):?>
-      <li>
-        <?php
-        $browseLink = $this->createLink('article', 'browse', "categoryID={$topCategory->id}");
-        echo "<i class='icon-chevron-right'></i>";
-        echo html::a($browseLink, $topCategory->name, '', "id='category{$topCategory->id}'");
-        ?>
-      </li>
-      <?php endforeach;?>
-    </ul>
-  </div>
-  <div class='widget box radius'> 
     <h4><?php echo $lang->product->hot?></h4>
     <ul class="media-list">
       <?php foreach($hotProducts as $product):?>
@@ -40,6 +26,20 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
             <em><?php  echo $lang->product->promotion . $lang->RMB . $product->promotion;?></em>
           </p>
         </div>
+      </li>
+      <?php endforeach;?>
+    </ul>
+  </div>
+  <div class='widget box radius'> 
+    <h4><?php echo $lang->categoryMenu;?></h4>
+    <ul class="pd-zero">
+      <?php foreach($topCategories as $topCategory):?>
+      <li>
+        <?php
+        $browseLink = $this->createLink('article', 'browse', "categoryID={$topCategory->id}");
+        echo "<i class='icon-chevron-right'></i>";
+        echo html::a($browseLink, $topCategory->name, '', "id='category{$topCategory->id}'");
+        ?>
       </li>
       <?php endforeach;?>
     </ul>

@@ -19,7 +19,7 @@
     </caption>
     <thead>
       <tr class='a-center'>
-        <th class='w-id'><?php echo $lang->slide->sort;?></th>
+        <th class='w-60px'><?php echo $lang->slide->sort;?></th>
         <th class='w-100px'><?php echo $lang->slide->image;?></th>
         <th class='w-p20'><?php echo $lang->slide->title;?></th>
         <th><?php echo $lang->slide->summary;?></th>
