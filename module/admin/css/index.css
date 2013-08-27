@@ -20,7 +20,7 @@
     -webkit-transition: opacity .3s;
 }
 
-#shortcutBox h3{line-height: 140px; color: #FFFFFF; font-weight: 500;}
+#shortcutBox h3{line-height: 170px; color: #FFFFFF; font-weight: 500;}
 #shortcutBox a:hover{text-decoration: none;}
 
 .article-admin {background: #2D89EF;}
