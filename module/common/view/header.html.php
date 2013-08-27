@@ -9,7 +9,6 @@ js::set('lang', $lang->js);
   <div class='row'>
     <?php if(isset($config->site->logo)):?>
     <?php $logo = json_decode($config->site->logo);?>
-    <?php var_dump($logo);?>
     <div class='col-md-3' id='logoBox'>
       <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
     </div>
