@@ -42,4 +42,4 @@ $cssFile = $themeRoot . "default/all.css";
 file_put_contents($cssFile, $cssCode);
 
 /* Compress it. */
-`java -jar ~/bin/yuicompressor/build/yuicompressor.jar --type css $cssFile -o $cssFile`;
+// `java -jar ~/bin/yuicompressor/build/yuicompressor.jar --type css $cssFile -o $cssFile`;
