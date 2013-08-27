@@ -9,14 +9,15 @@ js::set('lang', $lang->js);
   <div class='row'>
     <?php if(isset($config->site->logo)):?>
     <?php $logo = json_decode($config->site->logo);?>
+    <?php var_dump($logo);?>
     <div class='col-md-3' id='logoBox'>
       <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "class='logo' title='{$this->config->company->name}'"));?>
     </div>
     <div class='col-md-9'>
       <p class='slogan'><?php echo $this->config->site->slogan;?></p>
     </div>
-    <?php else:?>
-    <div class='col-md-4'><h3><?php echo $config->company->name;?></h3></div>
+    <?php else: ?>
+    <div class='col-md-4'><h3><?php echo $config->site->name;?></h3></div>
     <div id='slogan' class='col-md-8'><?php echo $this->config->site->slogan;?></div>
     <?php endif;?>
   </div>

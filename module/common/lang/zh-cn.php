@@ -84,8 +84,8 @@ $lang->company->wangwang  = '旺旺';
 /* The main menus. */
 $lang->menu = new stdclass();
 $lang->menu->admin   = '首页|admin|index|';
-$lang->menu->product = '产品|product|admin|';
 $lang->menu->article = '文章|article|admin|';
+$lang->menu->product = '产品|product|admin|';
 $lang->menu->comment = '评论|comment|admin|';
 $lang->menu->forum   = '论坛|forum|admin|';
 $lang->menu->site    = '站点|site|setbasic|';
@@ -109,8 +109,9 @@ $lang->product->menu->tree   = '类目管理|tree|browse|type=product';
 /* Menu of comment module. */
 $lang->comment = new stdclass();
 $lang->comment->menu = new stdclass();
-$lang->comment->menu->product = '产品评论|comment|admin|type=product';
-$lang->comment->menu->article = '文章评论|comment|admin|type=article';
+$lang->comment->menu->unchecked = '未审核|comment|admin|status=0';
+$lang->comment->menu->checked   = '已审核|comment|admin|status=1';
+
 
 /* Menu of forum module. */
 $lang->forum = new stdclass();

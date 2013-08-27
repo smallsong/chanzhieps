@@ -14,7 +14,7 @@
 <?php include '../../common/view/kindeditor.html.php';?>
 <?php include '../../common/view/chosen.html.php';?>
 <form method='post' class='form-inline' id='ajaxForm'> 
-  <table class='table table-hover table-bordered table-form'>
+  <table class='table table-bordered table-form'>
     <caption><?php echo $lang->product->create;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->product->category;?></th>
@@ -25,16 +25,16 @@
       <td><?php echo html::input('name', '', "class='text-1'");?></td>
     </tr>
     <tr>
+      <th><?php echo $lang->product->keywords;?></th>
+      <td><?php echo html::input('keywords', '', "class='text-1'");?></td>
+    </tr>
+    <tr>
       <th><?php echo $lang->product->summary;?></th>
       <td><?php echo html::textarea('summary', '', "rows='2' class='area-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->product->content;?></th>
       <td valign='middle'><?php echo html::textarea('content', '', "rows='10' class='area-1'");?></td>
-    </tr>
-    <tr>
-      <th><?php echo $lang->product->keywords;?></th>
-      <td><?php echo html::input('keywords', '', "class='text-1'");?></td>
     </tr>
     <tr>
       <th rowspan='4'><?php echo $lang->product->attribute?></th>

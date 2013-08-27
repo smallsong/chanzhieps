@@ -91,13 +91,13 @@ $(document).ready(function()
         {
             $(this).parent().children('.urlInput').hide();
             $(this).parent().children('.navSelector').hide();
-            $(this).parent().children('.navSelector[name*='+type+']').show().change();
+            $(this).parent().children('.navSelector[name*='+type+']').removeClass('hide').show().change();
         }
         else
         {
             $(this).parent().children(':input[type=text]').val('');
             $(this).parent().children('.navSelector').hide();
-            $(this).parent().children('.urlInput').show(); 
+            $(this).parent().children('.urlInput').removeClass('hide').show(); 
         }
     });
 

@@ -37,12 +37,11 @@ class commentModel extends model
      * Get comment list.
      * 
      * @param int    $status    the comment status
-     * @param string $type
      * @param object $pager 
      * @access public
      * @return void
      */
-    public function getList($status, $type = '', $pager = null)
+    public function getList($status, $pager = null)
     {
         $comments = $this->dao->select('*')->from(TABLE_COMMENT)
             ->where('status')->eq($status)

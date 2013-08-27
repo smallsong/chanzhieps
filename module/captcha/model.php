@@ -42,11 +42,12 @@ class captchaModel extends model
     {
         $captcha = $this->create();
         return <<<EOT
-<td>{$this->lang->captcha->common}</td>;
+<th>{$this->lang->captcha->common}</th>;
 <td>
-  <span class='label label-important'>{$captcha->first} {$captcha->operator} {$captcha->second}</span>&nbsp;&nbsp;
+  <h4><span class='label label-default'>{$captcha->first} {$captcha->operator} {$captcha->second}</span>&nbsp;&nbsp;
   {$this->lang->captcha->equal} &nbsp;&nbsp;
   <input type='text' name='captcha' id='captcha' class='w-30px a-center' placeholder='{$this->lang->captcha->placeholder}' />
+  </h4>
 </td>;
 EOT;
     }
