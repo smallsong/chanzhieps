@@ -21,10 +21,16 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
         ?>
         <div class='media-body'>
           <h5 class='media-heading'><?php echo html::a(inlink('view', "id=$product->id"), $product->name);?></h5>
+          <?php if($product->promotion != 0 && $product->price != 0):?>
           <p>
-            <del><?php echo $lang->product->price . $lang->RMB . $product->price;?></del><br/>
-            <em><?php  echo $lang->product->promotion . $lang->RMB . $product->promotion;?></em>
+            <del><?php echo $lang->RMB . $product->price;?></del>
+            <em><?php echo $lang->RMB . $product->promotion;?></em>
           </p>
+          <?php elseif($product->promotion == 0 && $product->price != 0):?>
+          <p><em><?php echo $lang->product->price . $lang->RMB . $product->price;?></em></p>
+          <?php elseif($product->promotion != 0 && $product->price == 0):?>
+          <p><em><?php echo $lang->product->promotion . $lang->RMB . $product->promotion;?></em></p>
+          <?php endif;?>
         </div>
       </li>
       <?php endforeach;?>
