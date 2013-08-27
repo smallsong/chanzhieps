@@ -2,7 +2,7 @@
   <table class='table table-form'>
     <caption><?php echo $parent ? $lang->category->children : $lang->category->common;?></caption>
     <tr>
-      <td class='w-p10'>
+      <th class='w-p10'>
         <nobr>
         <?php
         $chevron = '<i class="icon-chevron-right"></i>';
@@ -12,7 +12,7 @@
         }
         ?>
         </nobr>
-      </td>
+      </th>
       <td> 
         <?php
         $maxOrder = 0;
