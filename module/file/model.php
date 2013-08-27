@@ -322,7 +322,7 @@ class fileModel extends model
     {
         $file = $this->getByID($fileID);
         if(file_exists($file->realPath)) unlink($file->realPath);
-        $this->dao->delete()->from(TABLE_FILE)->where('id')->eq($file->id)->exec(false);
+        $this->dao->delete()->from(TABLE_FILE)->where('id')->eq($file->id)->exec();
         return !dao::isError();
     }
     
