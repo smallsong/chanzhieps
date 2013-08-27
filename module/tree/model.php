@@ -353,7 +353,7 @@ class treeModel extends model
         $this->dao->delete()->from(TABLE_CATEGORY)->where('id')->eq($categoryID)->exec();                                    // Delete my self.
         $this->fixPath($category->type);
 
-        if($category->type == 'article') $this->dao->update(TABLE_ARTICLECATEGORY)->set('category')->eq($category->parent)->where('category')->eq($categoryID)->exec();
+        if($category->type == 'article') $this->dao->update(TABLE_RELATION)->set('category')->eq($category->parent)->where('category')->eq($categoryID)->exec();
 
         return !dao::isError();
     }
