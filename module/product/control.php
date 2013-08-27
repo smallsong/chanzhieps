@@ -86,6 +86,12 @@ class product extends control
      */
     public function create()
     {
+        $categories = $this->loadModel('tree')->getOptionMenu('product', 0, $removeRoot = true);
+        if(empty($categories))
+        {
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=product')));
+        }
+
         if($_POST)
         {
             $this->product->create();       
@@ -94,8 +100,7 @@ class product extends control
         }
 
         $this->view->title      = $this->lang->product->create;
-        $this->view->categories = $this->loadModel('tree')->getOptionMenu('product', 0, $removeRoot = true);
-
+        $this->view->categories = $categories;
         $this->display();
     }
 
@@ -108,6 +113,12 @@ class product extends control
      */
     public function edit($productID)
     {
+        $categories = $this->loadModel('tree')->getOptionMenu('product', 0, $removeRoot = true);
+        if(empty($categories))
+        {
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=product')));
+        }
+
         if($_POST)
         {
             $this->product->update($productID);
@@ -119,7 +130,7 @@ class product extends control
 
         $this->view->title      = $this->lang->product->edit;
         $this->view->product    = $product;
-        $this->view->categories = $this->loadModel('tree')->getOptionMenu('product', 0, $removeRoot = true);
+        $this->view->categories = $categories;
 
         $this->display();
     }

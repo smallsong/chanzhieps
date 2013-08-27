@@ -17,6 +17,7 @@ $lang->tree->browse      = "类目维护";
 $lang->tree->manage      = "维护类目";
 $lang->tree->fix         = "修复数据";
 
+$lang->tree->noCategories  = '您还没有添加类目，请添加类目。';
 $lang->tree->confirmDelete = "您确定删除该类目吗？";
 $lang->tree->successSave   = "成功保存";
 $lang->tree->successFixed  = "成功修复";
