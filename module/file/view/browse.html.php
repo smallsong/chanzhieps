@@ -20,7 +20,7 @@
       if($file->isImage)
       {
           echo html::a(inlink('download', "id=$file->id"), html::image($file->smallURL, "class='image-small' title='{$file->title}'"), '_blank');
-          if($file->primary == 1) echo '<small class="label label-important">'. $lang->file->primary .'</small>';
+          if($file->primary == 1) echo '<small class="label label-success">'. $lang->file->primary .'</small>';
       }
       else
       {
