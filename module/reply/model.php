@@ -47,7 +47,8 @@ class replyModel extends model
 
         /* Get files for these replies. */
         $files = $this->loadModel('file')->getByObject('reply', array_keys($replies));
-        foreach($files as $file) $replies[$file->objectID]->files[$file->id] = $file;
+        
+        foreach($files as $replyID => $file) $replies[$replyID]->files = $file;
 
         return $replies;
     }
