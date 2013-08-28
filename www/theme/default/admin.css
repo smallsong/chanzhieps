@@ -41,3 +41,23 @@ body {padding-top:70px; padding-bottom:70px;}
 /* The settings for article create and edit page. */
 #summary  {background:#fff; margin-bottom:0; padding:4px 6px;}
 #keywords {margin-top:0}
+
+/* Responsive. */
+@media(max-width:998px){
+	.affix{
+		position: inherit;
+	}
+	.leftmenu.affix{
+		top: 0;
+		width: 100%;
+		margin-bottom: 20px;		
+	}
+}
+@media(max-width:768px){
+	body{
+		padding-bottom: 0;
+	}
+	.navbar-fixed-bottom{
+		display: none;
+	}
+}

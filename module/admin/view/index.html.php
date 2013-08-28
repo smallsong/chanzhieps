@@ -13,34 +13,32 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <div class='container' id='shortcutBox'>
   <div class='row'>
-    <div class='col-md-4'> 
+    <div class='col-md-4 col-sm-6'> 
       <div class="shortcut article-create">
         <?php echo html::a($this->createLink('article', 'create'), '<h3>' . $lang->admin->shortcuts->createArticle . '</h3>')?>
       </div>
     </div>
-    <div class='col-md-4'>
+    <div class='col-md-4 col-sm-6'>
       <div class="shortcut article-admin">
         <?php echo html::a($this->createLink('product', 'create'), '<h3>' . $lang->admin->shortcuts->createProduct . '</h3>')?>
       </div>
     </div>
-    <div class='col-md-4'>
+    <div class='col-md-4 col-sm-6'>
       <div class="shortcut category">
         <?php echo html::a($this->createLink('comment', 'admin'), '<h3>' . $lang->admin->shortcuts->comment . '</h3>')?>  
       </div>
     </div>
-  </div>
-  <div class='row'>
-    <div class='col-md-4'>
+    <div class='col-md-4 col-sm-6'>
       <div class="shortcut site">
         <?php echo html::a($this->createLink('site', 'setBasic'), '<h3>' . $lang->admin->shortcuts->site . '</h4>')?>
       </div>
     </div>
-    <div class='col-md-4'>
+    <div class='col-md-4 col-sm-6'>
       <div class="shortcut company">
         <?php echo html::a($this->createLink('company', 'setBasic'), '<h3>' . $lang->admin->shortcuts->company . '</h4>')?>
       </div>
     </div>
-    <div class='col-md-4'>
+    <div class='col-md-4 col-sm-6'>
       <div class="shortcut contact">
         <?php echo html::a($this->createLink('company', 'setcontact'), '<h3>' . $lang->admin->shortcuts->contact . '</h4>')?>  
       </div>
