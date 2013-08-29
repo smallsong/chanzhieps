@@ -43,7 +43,7 @@ if(isset($comments) and $comments):?>
           <th class='v-middle'><?php echo $lang->comment->content;?></th>
           <td>
             <?php 
-            echo "<div class='col-lg-11'>" . html::textarea('content', '', "class='form-control' rows='3'") . "</div>";
+            echo "<div class='col-lg-11'>" . html::textarea('content', '', "class='area-1' rows='3'") . "</div>";
             echo html::hidden('objectType', $objectType);
             echo html::hidden('objectID', $objectID);
             ?>
