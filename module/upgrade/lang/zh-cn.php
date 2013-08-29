@@ -31,7 +31,7 @@ EOT;
 $lang->upgrade->backupData = <<<EOT
 <pre>
 <strong>使用phpMyAdmin或者mysqldump命令备份数据库。</strong>
-<code class='red'>$ mysqldump -u %s</span> -p %s %s > xirang.sql</code>
+<code class='red'>$ mysqldump -u %s</span> -p%s %s > xirang.sql</code>
 </pre>
 <a href="%s" class='btn btn-primary'>下一步</a>
 EOT;
