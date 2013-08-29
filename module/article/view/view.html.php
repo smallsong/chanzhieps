@@ -11,7 +11,7 @@ js::set('articleID', $article->id);
   <div class='col-md-9'>
     <div class='box radius'>
       <div class='content'>
-        <h2 class='a-center'><?php echo $article->title;?></h2>
+        <h1 class='a-center'><?php echo $article->title;?></h1>
         <div class='f-12px mb-10px a-center'>
           <?php
           printf($lang->article->lblAuthor,    $article->author);

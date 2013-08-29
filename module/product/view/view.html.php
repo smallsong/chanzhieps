@@ -45,7 +45,7 @@ js::set('productID', $product->id);
         <?php endif;?>
 
         <div class='property'>
-          <h3><?php echo $product->name;?></h3>
+          <h1><?php echo $product->name;?></h1>
           <table class='w-p100'>
             <?php if($product->promotion != 0 && $product->price != 0):?>
             <tr><th class='w-p50'><?php echo $lang->product->price . $lang->colon;?></th> <td><del><?php echo $lang->RMB . $product->price;?></del></td></tr>
