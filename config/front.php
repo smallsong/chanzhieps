@@ -35,6 +35,10 @@ $config->rights->guest['thread']['post'] = 'post';
 $config->rights->guest['comment']['show'] = 'show';
 $config->rights->guest['comment']['post'] = 'post';
 
+$config->rights->guest['help']['index'] = 'index';
+$config->rights->guest['help']['book']  = 'book';
+$config->rights->guest['help']['read']  = 'read';
+
 $config->rights->guest['user']['login']    = 'login';
 $config->rights->guest['user']['register'] = 'register';
 
