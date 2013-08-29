@@ -23,6 +23,17 @@
 #shortcutBox h3{line-height: 170px; color: #FFFFFF; font-weight: 500;}
 #shortcutBox a:hover{text-decoration: none;}
 
+@media(max-width:992px){
+    #shortcutBox{
+        margin-top: 20px;
+    }
+}
+@media(max-width:768px){
+    #shortcutBox{
+        margin-top: -20px;
+    }
+}
+
 .article-admin {background: #2D89EF;}
 .article-create{background: #B91D47;}
 .category      {background: #00A300;}
