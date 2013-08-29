@@ -65,7 +65,7 @@ class comment extends control
     /**
      * Get the latest approvaled comments.
      * 
-     * @param int $status 
+     * @param int    $status 
      * @param int    $recTotal 
      * @param int    $recPerPage 
      * @param int    $pageID 
@@ -103,8 +103,8 @@ class comment extends control
     /**
      * Pass comments.
      * 
-     * @param int    $commentID 
-     * @param string $type 
+     * @param  int    $commentID 
+     * @param  string $type 
      * @access public
      * @return void
      */
