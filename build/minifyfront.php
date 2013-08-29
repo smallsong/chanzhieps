@@ -3,7 +3,7 @@
 * This file is used to compress css and js files.
 */
 
-$baseDir = dirname(dirname(dirname(__FILE__)));
+$baseDir = dirname(__FILE__);
 
 //--------------------------------- PROCESS JS FILES ------------------------------ //
 
@@ -34,7 +34,7 @@ $themeRoot  = $baseDir . '/www/theme/';
 
 /* Common css files. */
 $cssCode  = str_replace('../img', '../bootstrap/img', file_get_contents($themeRoot . 'bootstrap/css/core.min.css'));
-$cssCode  = str_replace('../font', '../bootstrap/font', $cssCode);
+//$cssCode  = str_replace('../font', '../bootstrap/font', $cssCode);
 $cssCode .= file_get_contents($themeRoot . 'default/style.css');
 
 /* Combine them. */
