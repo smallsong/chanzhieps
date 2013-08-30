@@ -31,3 +31,4 @@ $lang->nav->system = new stdclass();
 $lang->nav->system->home     = '首页';
 $lang->nav->system->company  = '关于我们';
 $lang->nav->system->forum    = '论坛';
+$lang->nav->system->help     = '帮助';
