@@ -1,9 +1,9 @@
-/config/my.php
-/config/sites/*
-/tmp/log/*
-/tmp/model/*
-/tmp/cache/*
-/tmp/extension/*
+/system/config/my.php
+/system/config/sites/*
+/system/tmp/log/*
+/system/tmp/model/*
+/system/tmp/cache/*
+/system/tmp/extension/*
 /www/data/upload
 /www/js/all.js
 /www/theme/default/all.css
