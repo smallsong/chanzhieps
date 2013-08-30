@@ -11,6 +11,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
+<div class="col-md-12">
 <form id='ajaxForm' method='post' enctype='multipart/form-data'>
   <table class='table table-form'>
     <caption><?php echo $lang->help->createBook;?></caption>
@@ -25,4 +26,5 @@
     <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
   </table>
 </form>
+</div>
 <?php include '../../common/view/footer.admin.html.php';?>

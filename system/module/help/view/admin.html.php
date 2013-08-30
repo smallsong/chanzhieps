@@ -11,6 +11,7 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
+<div class="col-md-12">
   <table class='table table-hover table-bordered table-striped'>
     <caption>
       <div class='f-left'><?php echo $lang->help->books;?></div>
@@ -40,4 +41,5 @@
     </tbody>
     <tfoot><tr><td colspan='6'><?php $pager->show();?></td></tr></tfoot>
   </table>
+</div>
 <?php include '../../common/view/footer.admin.html.php';?>
