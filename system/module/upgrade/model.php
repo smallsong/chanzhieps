@@ -31,7 +31,7 @@ class upgradeModel extends model
      */
     public function canUpgrade()
     {
-        $okFile = $this->app->getAppRoot() . 'www' . DS . 'ok';
+        $okFile = dirname($this->app->getDataRoot()) . DS . 'ok';
         if(!file_exists($okFile) or time() - filemtime($okFile) > 600)
         {
             return array('result' => 'fail', 'okFile' => $okFile);

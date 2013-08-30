@@ -98,12 +98,12 @@ class router
     private $moduleRoot;
 
     /**
-     * The root directory of them.
+     * The root directory of data.
      * 
      * @var string
      * @access private
      */
-    private $themeRoot;
+    private $dataRoot;
 
     /**
      * The lang of the client user.
@@ -299,7 +299,7 @@ class router
         $this->setLogRoot();
         $this->setConfigRoot();
         $this->setModuleRoot();
-        $this->setThemeRoot();
+        $this->setDataRoot();
 
         $this->setSuperVars();
 
@@ -496,9 +496,9 @@ class router
      * @access protected
      * @return void
      */
-    protected function setThemeRoot()
+    protected function setDataRoot()
     {
-        $this->themeRoot = $this->appRoot . 'www' . DS . 'theme' . DS;
+        $this->dataRoot = $_SERVER['DOCUMENT_ROOT'] . DS . 'data' . DS;
     }
 
     /**
@@ -709,14 +709,14 @@ class router
     }
 
     /**
-     * Get the $themeRoot var
+     * Get the $dataroot var
      * 
      * @access public
      * @return string
      */
-    public function getThemeRoot()
+    public function getDataRoot()
     {
-        return $this->themeRoot;
+        return $this->dataRoot;
     }
 
     //-------------------- Client environment related functions --------------------//

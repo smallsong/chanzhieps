@@ -102,7 +102,7 @@ class fileModel extends model
     public function getByID($fileID)
     {
         $file = $this->dao->findById($fileID)->from(TABLE_FILE)->fetch('', false);
-        $file->realPath = $this->app->getAppRoot() . "www/data/upload/" . $file->pathname;
+        $file->realPath = $this->app->getDataroot() . "upload/" . $file->pathname;
         $file->webPath  = $this->webPath . $file->pathname;
         return $file;
     }
@@ -231,7 +231,7 @@ class fileModel extends model
      */
     private function setSavePath()
     {
-        $savePath = $this->app->getAppRoot() . "www/data/upload/" . date('Ym/', $this->now);
+        $savePath = $this->app->getDataRoot() . "upload/" . date('Ym/', $this->now);
         if(!file_exists($savePath)) @mkdir($savePath, 0777, true);
         $this->savePath = dirname($savePath) . '/';
     }
