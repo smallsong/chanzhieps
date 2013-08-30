@@ -498,6 +498,18 @@ class commonModel extends model
     }
 
     /**
+     * Print the position bar of help module.
+     * 
+     * @param   object $book 
+     * @access  public
+     * @return  void
+     */
+    public function printHelp($book)
+    {
+        echo '<li>' . html::a(helper::createLink('help', 'index'), $this->lang->helpHome) . '</li>';
+    }
+
+    /**
      * Print the position bar of forum module.
      * 
      * @param   object $board 
@@ -506,6 +518,7 @@ class commonModel extends model
      */
     public function printForum($board = '')
     {
+    a($board);
         $divider = $this->lang->divider;
         echo '<li>' . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome) . '</li>';
         if(!$board) return false;
