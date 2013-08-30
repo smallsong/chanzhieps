@@ -18,15 +18,11 @@ ob_start();
 /* Define the run mode as admin. */
 define('RUN_MODE', 'admin');
 
-/* Load the framework. */
-$frameworkRoot = dirname(dirname(__FILE__)) . '/framework/';
-include $frameworkRoot . 'router.class.php';
-include $frameworkRoot . 'control.class.php';
-include $frameworkRoot . 'model.class.php';
-include $frameworkRoot . 'helper.class.php';
+/* Load the framework.*/
+include 'loader.php';
 
 /* Instance the app. */
-$app = router::createApp('xirang', dirname(dirname(__FILE__)));
+$app = router::createApp('xirang', $systemRoot);
 $config = $app->config;
 
 /* Check the reqeust is getconfig or not. Check installed or not. */

@@ -18,15 +18,12 @@ ob_start();
 /* Define the run mode as front. */
 define('RUN_MODE', 'front');
 
-/* Load the framework. using the absolute path, thus it can work anywhere even symlink to other directory. */
-$frameworkRoot = dirname(dirname(__FILE__)) . '/framework/';
-include $frameworkRoot . 'router.class.php';
-include $frameworkRoot . 'control.class.php';
-include $frameworkRoot . 'model.class.php';
-include $frameworkRoot . 'helper.class.php';
+/* Load the framework. */
+include 'loader.php';
 
 /* Instance the app and run it. */
-$app = router::createApp('xirang', dirname(dirname(__FILE__)));
+$app = router::createApp('xirang', $systemRoot);
+$config = $app->config;
 
 /* Check the reqeust is getconfig or not. Check installed or not. */
 if(isset($_GET['mode']) and $_GET['mode'] == 'getconfig') die($app->exportConfig());

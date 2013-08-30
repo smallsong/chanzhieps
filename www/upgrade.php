@@ -26,14 +26,11 @@ error_reporting(0);
 define('RUN_MODE', 'upgrade');
 
 /* Load the framework. */
-include '../framework/router.class.php';
-include '../framework/control.class.php';
-include '../framework/model.class.php';
-include '../framework/helper.class.php';
+include 'loader.php';
 
-/* Instance the app. */
-$app = router::createApp('pms', dirname(dirname(__FILE__)));
-$common = $app->loadCommon();
+/* Instance the app and run it. */
+$app = router::createApp('xirang', $systemRoot);
+$config = $app->config;
 
 /* Reset the config params to make sure the install program will be lauched. */
 $config->set('requestType', 'GET');

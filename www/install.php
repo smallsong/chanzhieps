@@ -19,14 +19,10 @@ session_start();
 define('RUN_MODE', 'install');
 
 /* Load the framework. */
-$frameworkRoot = dirname(dirname(__FILE__)) . '/framework/';
-include $frameworkRoot . 'router.class.php';
-include $frameworkRoot . 'control.class.php';
-include $frameworkRoot . 'model.class.php';
-include $frameworkRoot . 'helper.class.php';
+include 'loader.php';
 
 /* Instance the app and run it. */
-$app    = router::createApp('xirang', dirname(dirname(__FILE__)));
+$app = router::createApp('xirang', $systemRoot);
 $config = $app->config;
 
 /* Check installed or not. */
