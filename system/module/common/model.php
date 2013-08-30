@@ -518,7 +518,6 @@ class commonModel extends model
      */
     public function printForum($board = '')
     {
-    a($board);
         $divider = $this->lang->divider;
         echo '<li>' . html::a(helper::createLink('forum', 'index'), $this->lang->forumHome) . '</li>';
         if(!$board) return false;
