@@ -13,7 +13,9 @@ class help extends control
 {
     public function index()
     {
-        $this->locate("http://www.zentao.net/help-book-zentaopmshelp.html");
+        $book = $this->help->getFirstBook();
+        if($book) $this->locate(inlink('book', "bood=$book->name"));
+        $this->locate($this->createLink('index'));
     }
 
     /**
