@@ -1,0 +1,43 @@
+<?php
+/**
+ * The admin browse view file of help module of xirangEPS.
+ *
+ * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
+ * @author      Tingtin Dai<daitingting@xirangit.com>
+ * @package     help
+ * @version     $Id$
+ * @link        http://www.xirang.biz
+ */
+?>
+<?php include '../../common/view/header.admin.html.php';?>
+  <table class='table table-hover table-bordered table-striped'>
+    <caption>
+      <div class='f-left'><?php echo $lang->help->books;?></div>
+      <div class='f-right'><?php echo html::a($this->inlink('createBook'), $lang->book->create, '', "class='btn btn-inverse'");?></div>
+    </caption>
+    <thead>
+      <tr class='a-center'>
+        <th class='w-p20'><?php echo $lang->book->name;?></th>
+        <th><?php echo $lang->book->summary;?></th>
+        <th class='w-150px'><?php echo $lang->actions;?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach($books as $key => $book):?>
+      <tr class='a-left v-middle'>
+        <td><?php echo $book->name;?></td>
+        <td><?php echo $book->summary;?></td>
+        <td class='a-center'>
+          <?php
+          echo html::a($this->createLink('help', 'edit', "id=$book->id"), $lang->edit, '');
+          echo html::a($this->createLink('help', 'delete', "id=$book->id"), $lang->delete, '', "class='deleter'");
+          echo html::a($this->createLink('tree', 'browse', "type=$book->name"), $lang->book->directory);
+          ?>
+        </td>
+      </tr>
+      <?php endforeach;?>
+    </tbody>
+    <tfoot><tr><td colspan='6'><?php $pager->show();?></td></tr></tfoot>
+  </table>
+<?php include '../../common/view/footer.admin.html.php';?>
