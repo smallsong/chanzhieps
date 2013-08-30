@@ -108,6 +108,11 @@ $lang->product->menu->browse = array('link' => '产品列表|product|admin|', 'a
 $lang->product->menu->create = '发布产品|product|create|';
 $lang->product->menu->tree   = '类目管理|tree|browse|type=product';
 
+/* Menu of help module. */
+$lang->help = new stdclass();
+$lang->help->menu = new stdclass();
+$lang->help->menu->browse = array('link' => '教程列表|help|admin|', 'alias' => 'editbook');
+
 /* Menu of comment module. */
 $lang->comment = new stdclass();
 $lang->comment->menu = new stdclass();
