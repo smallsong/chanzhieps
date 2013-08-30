@@ -1,5 +1,5 @@
 <?php
-$webRoot   = $this->app->getWebRoot();
+$webRoot   = $config->webRoot;
 $jsRoot    = $webRoot . "js/";
 $themeRoot = $webRoot . "theme/";
 ?>

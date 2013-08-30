@@ -91,7 +91,7 @@ class installModel extends model
      */
     public function getDataRoot()
     {
-        $result['path']    = $this->app->getAppRoot() . 'www' . DS . 'data';
+        $result['path']    = $this->app->getDataRoot();
         $result['exists']  = is_dir($result['path']);
         $result['writable']= is_writable($result['path']);
         return $result;
@@ -105,7 +105,7 @@ class installModel extends model
      */
     public function checkDataRoot()
     {
-        $dataRoot = $this->app->getAppRoot() . 'www' . DS . 'data';
+        $dataRoot = $this->app->getDataRoot();
         return $result = (is_dir($dataRoot) and is_writable($dataRoot)) ? 'ok' : 'fail';
     }
 
