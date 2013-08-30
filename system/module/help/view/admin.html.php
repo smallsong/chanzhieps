@@ -30,8 +30,8 @@
         <td><?php echo $book->summary;?></td>
         <td class='a-center'>
           <?php
-          echo html::a($this->createLink('help', 'edit', "id=$book->id"), $lang->edit, '');
-          echo html::a($this->createLink('help', 'delete', "id=$book->id"), $lang->delete, '', "class='deleter'");
+          echo html::a($this->createLink('help', 'editbook', "id=$book->id"), $lang->edit, '');
+          echo html::a($this->createLink('help', 'deletebook', "id=$book->id"), $lang->delete, '', "class='deleter'");
           echo html::a($this->createLink('tree', 'browse', "type=$book->name"), $lang->book->directory);
           ?>
         </td>

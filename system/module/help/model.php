@@ -141,7 +141,7 @@ class helpModel extends model
      * @access public
      * @return array
      */
-    public function getByID($id)
+    public function getBookByID($id)
     {
         $book = $this->dao->select('*')->from(TABLE_CONFIG)->where('id')->eq($id)->fetch();
         if(!$book) return false;
@@ -182,7 +182,7 @@ class helpModel extends model
      * @access public
      * @return bool
      */
-    public function update($id)
+    public function updateBook($id)
     {
 
         $book = fixer::input('post')->get();
@@ -200,7 +200,7 @@ class helpModel extends model
      * @param int $id
      * @return bool
      */
-    public function delete($id)
+    public function deleteBook($id)
     {
         $this->dao->delete()->from(TABLE_CONFIG)
             ->where('id')->eq($id)
