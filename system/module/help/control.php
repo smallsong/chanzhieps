@@ -82,17 +82,17 @@ class help extends control
      * @access public
      * @return void
      */
-    public function edit($id)
+    public function editBook($id)
     {
         if($_POST)
         {
-            if($this->help->update($id))
+            if($this->help->updateBook($id))
             $this->send(array('result' => 'success', 'locate'=>$this->inLink('admin')) );
             $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
         }
 
         $this->view->id    = $id;
-        $this->view->book  = $this->help->getByID($id);
+        $this->view->book  = $this->help->getBookByID($id);
         $this->display();
     }
 
@@ -102,9 +102,9 @@ class help extends control
      * @param int $id
      * @retturn void
      */
-    public function delete($id)
+    public function deleteBook($id)
     {
-        if($this->help->delete($id)) $this->send(array('result' => 'success'));
+        if($this->help->deleteBook($id)) $this->send(array('result' => 'success'));
         $this->send(array('result' => 'fail', 'message' => dao::getError()));
     }
 
