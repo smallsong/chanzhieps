@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `xr_article` (
   `addedDate` datetime NOT NULL,
   `editedDate` datetime NOT NULL,
   `type` varchar(30) NOT NULL,
+  `book` varchar(30) NOT NULL,
   `views` mediumint(5) unsigned NOT NULL DEFAULT '0',
   `sticky` enum('0','1','2','3') NOT NULL DEFAULT '0',
   `order` smallint(5) unsigned NOT NULL,
@@ -72,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `xr_category` (
   `order` smallint(5) unsigned NOT NULL DEFAULT '0',
   `type` char(30) NOT NULL,
   `readonly` enum('0','1') NOT NULL DEFAULT '0',
+  `book` varchar(30) NOT NULL,
   `moderators` varchar(255) NOT NULL,
   `threads` smallint(5) NOT NULL,
   `posts` smallint(5) NOT NULL,
@@ -170,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `xr_message` (
 -- DROP TABLE IF EXISTS `xr_relation`;
 CREATE TABLE IF NOT EXISTS `xr_relation` (
   `type` char(20) NOT NULL,
+  `book` varchar(30) NOT NULL,
   `id` mediumint(9) NOT NULL,
   `category` smallint(5) NOT NULL,
   UNIQUE KEY `relation` (`type`,`id`,`category`)
