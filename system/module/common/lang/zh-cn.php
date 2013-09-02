@@ -86,6 +86,7 @@ $lang->company->wangwang  = '旺旺';
 $lang->menu = new stdclass();
 $lang->menu->admin   = '首页|admin|index|';
 $lang->menu->article = '文章|article|admin|';
+$lang->menu->blog    = '博客|article|admin|type=blog';
 $lang->menu->product = '产品|product|admin|';
 $lang->menu->help    = '帮助|help|admin|';
 $lang->menu->comment = '评论|comment|admin|';
@@ -101,6 +102,13 @@ $lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'a
 $lang->article->menu->create = '发布文章|article|create|';
 $lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
+/* Menu of article module. */
+$lang->blog = new stdclass();
+$lang->blog->menu = new stdclass();
+$lang->blog->menu->browse = array('link' => '文章列表|article|admin|type=blog', 'alias' => 'edit');
+$lang->blog->menu->create = '发布文章|article|create|type=blog';
+$lang->blog->menu->tree   = '类目管理|tree|browse|type=blog';
+
 /* Menu of product module. */
 $lang->product = new stdclass();
 $lang->product->menu = new stdclass();
@@ -113,7 +121,6 @@ $lang->comment = new stdclass();
 $lang->comment->menu = new stdclass();
 $lang->comment->menu->unchecked = '未审核|comment|admin|status=0';
 $lang->comment->menu->checked   = '已审核|comment|admin|status=1';
-
 
 /* Menu of forum module. */
 $lang->forum = new stdclass();
@@ -141,6 +148,7 @@ $lang->menuGroups = new stdclass();
 $lang->tree = new stdclass();
 $lang->tree->menu = $lang->article->menu;
 $lang->menuGroups->tree = 'article';
+
 
 /* Menu of nav module. */
 $lang->nav = new stdclass();

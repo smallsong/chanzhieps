@@ -76,8 +76,8 @@ class article extends control
      */
     public function admin($type = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
-        /* Set the session. */
-        $this->session->set('articleList', $this->app->getURI(true));
+        $this->lang->article->menu = $this->lang->$type->menu;
+        $this->lang->menuGroups->article = $type;
 
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
@@ -103,17 +103,20 @@ class article extends control
      */
     public function create($type = 'article', $categoryID = '')
     {
-        $categories = $this->loadModel('tree')->getOptionMenu('article', 0, $removeRoot = true);
+        $this->lang->article->menu = $this->lang->$type->menu;
+        $this->lang->menuGroups->article = $type;
+
+        $categories = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
         if(empty($categories))
         {
-            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=article')));
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=' . $type)));
         }
 
         if($_POST)
         {
             $this->article->create();       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
-            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin')));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin', "type={$_POST['type']}")));
         }
 
         $this->view->title           = $this->lang->article->create;
@@ -133,10 +136,13 @@ class article extends control
      */
     public function edit($articleID)
     {
+        $this->lang->article->menu = $this->lang->$type->menu;
+        $this->lang->menuGroups->article = $type;
+        $article    = $this->article->getByID($articleID);
         $categories = $this->loadModel('tree')->getOptionMenu('article', 0, $removeRoot = true);
         if(empty($categories))
         {
-            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=article')));
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=' . $article->type)));
         }
 
         if($_POST)
@@ -145,8 +151,6 @@ class article extends control
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin')));
         }
-
-        $article    = $this->article->getByID($articleID);
 
         $this->view->title      = $this->lang->article->edit;
         $this->view->article    = $article;

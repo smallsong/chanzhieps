@@ -30,6 +30,13 @@ class tree extends control
             $this->lang->menuGroups->tree = 'forum';
         }
 
+        if($type == 'blog')
+        {
+            $this->lang->tree->menu = $this->lang->blog->menu;
+            $this->lang->menuGroups->tree = 'blog';
+        }
+
+
         if($type == 'product')
         {
             $this->lang->tree->menu = $this->lang->product->menu;
