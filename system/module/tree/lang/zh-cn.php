@@ -44,3 +44,12 @@ $lang->board->moderators = '版主';
 
 $lang->board->readonlyList[0] = '开放';
 $lang->board->readonlyList[1] = '只读';
+
+/* Lang items for help. */
+$lang->directory = new stdclass();
+$lang->directory->common     = '目录';
+$lang->directory->name       = '目录';
+$lang->directory->parent     = '上级目录';
+$lang->directory->desc       = '描述';
+$lang->directory->keyword    = '关键词';
+$lang->directory->children   = "子目录";
