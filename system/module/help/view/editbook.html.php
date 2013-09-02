@@ -22,6 +22,10 @@
       <th><?php echo $lang->book->summary;?></th>
       <td><?php echo html::textarea('summary', $book->summary, 'class=area-1');?></td>
     </tr>
+    <tr>
+      <th><?php echo $lang->book->code;?></th>
+      <td><?php echo html::input('code', $book->code, 'class=text-1');?></td>
+    </tr>
       <td colspan='2' class='a-center'>
         <?php echo html::hidden('id', $id);?>
         <?php echo html::submitButton();?>

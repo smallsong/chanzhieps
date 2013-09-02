@@ -13,7 +13,7 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <form id='ajaxForm' method='post' enctype='multipart/form-data'>
   <table class='table table-form'>
-    <caption><?php echo $lang->help->createBook;?></caption>
+    <caption><?php echo $lang->book->create;?></caption>
     <tr>
       <th class="w-100px"><?php echo $lang->book->name;?></th>
       <td><?php echo html::input('name', '', 'class=text-1');?></td>
@@ -22,7 +22,11 @@
       <th><?php echo $lang->book->summary;?></th>
       <td><?php echo html::textarea('summary', '', "class='area-1' rows='6'");?></td>
     </tr>
-    <tr><td colspan='2' class='a-center'><?php echo html::submitButton();?></td></tr>
+    <tr>
+      <th><?php echo $lang->book->code;?></th>
+      <td><?php echo html::input('code', '', 'class=text-1');?></td>
+    </tr>
+    <tr><th></th><td><?php echo html::submitButton();?><span class='red f-12px' id='responser' style='display: none'></span></td></tr>
   </table>
 </form>
 <?php include '../../common/view/footer.admin.html.php';?>
