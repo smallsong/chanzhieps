@@ -7,7 +7,7 @@
       <ul class='media-list'>
         <?php foreach($books as $bookValue):?>
         <li class='media'>
-          <?php echo html::a(inlink('book', "book=$bookValue->name"), $bookValue->name);?>
+          <?php echo html::a(inlink('book', "book=$bookValue->code"), $bookValue->name);?>
         </li>
         <?php endforeach;?>
       </ul>
@@ -21,9 +21,9 @@
       <?php
       foreach($categories as $category)
       {
-          if(isset($category->id))echo "<dt class='f-16px'><strong>$category->i." . html::a(inlink('book',"book=$book->name&categoryID=$category->id"),$category->name) . "</strong></dt>";
+          if(isset($category->id))echo "<dt class='f-16px'><strong>$category->i." . html::a(inlink('book',"book=$book&categoryID=$category->id"),$category->name) . "</strong></dt>";
           else $category->id=null;
-          if(isset($articles[$category->id]) or isset($category->childs))
+          if(isset($articles[$category->id]) or isset($category->children))
           {
               $j = 1;
               echo "<dd><dl>";
@@ -36,9 +36,9 @@
                   }
               }
 
-              if(isset($category->childs))
+              if(isset($category->children))
               {
-                  foreach($category->childs as $child)
+                  foreach($category->children as $child)
                   {
                       echo "<dt class='f-14px'>$category->i.$child->j" . html::a(inlink('book', "book=$book->id&categoryID=$child->id"), $child->name) . "</dt>";
                       if(isset($articles[$child->id]))
