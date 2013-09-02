@@ -33,7 +33,9 @@
           <?php
           echo html::a($this->createLink('help', 'editbook', "id=$book->id"), $lang->edit, '');
           echo html::a($this->createLink('help', 'deletebook', "id=$book->id"), $lang->delete, '', "class='deleter'");
-          echo html::a($this->createLink('tree', 'browse', "type=$book->name"), $lang->book->directory);
+          echo html::a($this->createLink('tree', 'browse', "type=help&book=$book->code"), $lang->book->directory);
+          echo html::a($this->createLink('article', 'admin', "type=help&book=$book->code"), $lang->book->articleList);
+          echo html::a($this->createLink('article', 'create', "type=help&book=$book->code"), $lang->book->createArticle);
           ?>
         </td>
       </tr>

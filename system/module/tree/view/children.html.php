@@ -1,4 +1,4 @@
-<form method='post' id='childForm' action="<?php echo $this->inlink('children', "type=$type");?>">
+<form method='post' id='childForm' action="<?php echo $this->inlink('children', "type=$type&book=$book");?>">
   <table class='table table-form'>
     <caption><?php echo $parent ? $lang->category->children : $lang->category->common;?></caption>
     <tr>
@@ -8,7 +8,7 @@
         $chevron = '<i class="icon-chevron-right"></i>';
         foreach($origins as $origin)
         {
-            echo html::a($this->inlink('browse', "type=$type&category=$origin->id"), $origin->name . $chevron);
+            echo html::a($this->inlink('browse', "type=$type&book=$book&category=$origin->id"), $origin->name . $chevron);
         }
         ?>
         </nobr>

@@ -1,13 +1,13 @@
 <?php
 /**
- * The model file of help category of ZenTaoCMS.
+ * The model file of help category of xirangEPS.
  *
- * @copyright   Copyright 2009-2010 QingDao Nature Easy Soft Network Technology Co,LTD (www.cnezsoft.com)
- * @license     LGPL (http://www.gnu.org/licenses/lgpl.html)
- * @author      Yidong wang <wangyidong@cnezsoft.com>
+ * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
+ * @author      Tingting Dai <daitingting@xirangit.com>
  * @package     help
  * @version     $Id$
- * @link        http://www.zentao.net
+ * @link        http://www.xirang.biz
  */
 class helpModel extends model
 {
@@ -150,7 +150,28 @@ class helpModel extends model
     }
 
     /**
-     * Get books list sorted by key.
+     * Get the first book.
+     * 
+     * @access public
+     * @return object|bool
+     */
+    public function getFirstBook()
+    {
+        $book = $this->dao->select('*')->from(TABLE_CONFIG)
+            ->where('owner')->eq('system')
+            ->andWhere('module')->eq('common')
+            ->andWhere('section')->eq('book')
+            ->orderBy('id')
+            ->limit(1)
+            ->fetch();
+
+        if(!$book) return false;
+
+        return json_decode($book->value);
+    }
+
+    /**
+     * Get book list sorted by key.
      *
      * @access public
      * @return array

@@ -99,7 +99,7 @@ $lang->menu->user    = '会员|user|admin|';
 $lang->article = new stdclass();
 $lang->article->menu = new stdclass();
 $lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'alias' => 'edit');
-$lang->article->menu->create = '发布文章|article|create|';
+$lang->article->menu->create = '发布文章|article|create|type=article';
 $lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
 /* Menu of article module. */
@@ -115,6 +115,19 @@ $lang->product->menu = new stdclass();
 $lang->product->menu->browse = array('link' => '产品列表|product|admin|', 'alias' => 'edit');
 $lang->product->menu->create = '发布产品|product|create|';
 $lang->product->menu->tree   = '类目管理|tree|browse|type=product';
+
+/* Menu of help module. */
+$lang->help = new stdclass();
+$lang->help->menu = new stdclass();
+$lang->help->menu->tree       = array('link' => '手册列表|help|admin|', 'alias' => 'editbook');
+$lang->help->menu->createbook = "添加手册|help|createbook|";
+
+/* Menu of help module. */
+$lang->book = new stdclass();
+$lang->book->menu = new stdclass();
+$lang->book->menu->tree          = "目录管理|tree|browse|type=help";
+$lang->book->menu->articleBrowse = array('link' => '文章管理|article|admin|type=help', 'alias' => 'edit');
+$lang->book->menu->articleCreate = "发布文章|article|create|type=help";
 
 /* Menu of comment module. */
 $lang->comment = new stdclass();

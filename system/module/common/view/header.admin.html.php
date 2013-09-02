@@ -18,6 +18,6 @@
 
 <div id="body-content" class="row clearfix">
   <?php 
-  $moduleMenu = commonModel::createModuleMenu($this->moduleName);
+  $moduleMenu = commonModel::createModuleMenu($this->moduleName, $book);
   if($moduleMenu) echo "<div class='col-md-2'>$moduleMenu</div>\n<div class='col-md-10'>\n";
   ?>

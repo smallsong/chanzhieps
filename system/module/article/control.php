@@ -66,6 +66,7 @@ class article extends control
      * Browse article in admin.
      * 
      * @param string $type        the article type
+     * @param string $book        the article book
      * @param int    $categoryID  the category id
      * @param string $orderBy     the order by
      * @param int    $recTotal 
@@ -74,7 +75,7 @@ class article extends control
      * @access public
      * @return void
      */
-    public function admin($type = 'article', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($type = 'article', $book = '', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         $this->lang->article->menu = $this->lang->$type->menu;
         $this->lang->menuGroups->article = $type;
@@ -82,7 +83,7 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $families = $this->loadModel('tree')->getFamily($categoryID, $type);
+        $families = $this->loadModel('tree')->getFamily($categoryID, $type, $book);
         $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();
 
         $this->view->title    = $this->lang->article->admin;
@@ -90,6 +91,7 @@ class article extends control
         $this->view->pager    = $pager;
         $this->view->category = $this->tree->getById($categoryID);
         $this->view->type     = $type;
+        $this->view->book     = $book;
         $this->display();
     }   
 
@@ -97,11 +99,12 @@ class article extends control
      * Create a article.
      * 
      * @param  string $type 
+     * @param  string $book 
      * @param  int    $categoryID
      * @access public
      * @return void
      */
-    public function create($type = 'article', $categoryID = '')
+    public function create($type, $book = '', $categoryID = '')
     {
         $this->lang->article->menu = $this->lang->$type->menu;
         $this->lang->menuGroups->article = $type;
@@ -114,15 +117,16 @@ class article extends control
 
         if($_POST)
         {
-            $this->article->create();       
+            $this->article->create($type, $book);       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
-            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin', "type={$_POST['type']}")));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin', "type=$type&book=$book")));
         }
 
         $this->view->title           = $this->lang->article->create;
         $this->view->currentCategory = $categoryID;
-        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
+        $this->view->categories      = $this->loadModel('tree')->getOptionMenu($type, $book, 0, $removeRoot = true);
         $this->view->type            = $type;
+        $this->view->book            = $book;
 
         $this->display();
     }
@@ -134,27 +138,30 @@ class article extends control
      * @access public
      * @return void
      */
-    public function edit($articleID)
+    public function edit($articleID, $type, $book = '')
     {
         $this->lang->article->menu = $this->lang->$type->menu;
         $this->lang->menuGroups->article = $type;
         $article    = $this->article->getByID($articleID);
-        $categories = $this->loadModel('tree')->getOptionMenu('article', 0, $removeRoot = true);
+
+        $categories = $this->loadModel('tree')->getOptionMenu($type, $book, 0, $removeRoot = true);
         if(empty($categories))
         {
-            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=' . $article->type)));
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', "type=$type&book=$book")));
         }
 
         if($_POST)
         {
             $this->article->update($articleID);
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
-            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin')));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin', "type=$type&book=$book")));
         }
 
         $this->view->title      = $this->lang->article->edit;
         $this->view->article    = $article;
         $this->view->categories = $categories;
+        $this->view->type       = $type;
+        $this->view->book       = $book;
         $this->display();
     }
 
