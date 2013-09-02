@@ -12,16 +12,22 @@ $lang->help->field        = '字段名';
 $lang->help->explaination = '解释';
 $lang->help->comment      = "备注|可以填写你相应的备注信息。";
 $lang->help->labels       = "附件的名称|如果你上传的附件文件名没有含义，可以通过设置文件的标题来方便读取";
+$lang->help->namenotempty = '名称不能为空';
+$lang->help->codenotempty = 'code不能为空';
+
 
 $lang->help->export->title   = '导出帮助文档';
 $lang->help->export->lbl     = '选择导出文档内容：';
 $lang->help->export->account = '被授权人：';
 
 $lang->book = new stdclass();
-$lang->book->create      = '添加手册';
-$lang->book->name        = '手册名称';
-$lang->book->summary     = '手册简介';
-$lang->book->directory   = '目录管理';
+$lang->book->create        = '添加手册';
+$lang->book->name          = '手册名称';
+$lang->book->summary       = '手册简介';
+$lang->book->code          = 'code';
+$lang->book->directory     = '目录管理';
+$lang->book->articleList   = '文章管理';
+$lang->book->createArticle = '发布文章';
 
 $lang->donation->anonymityList[0] = '不匿名';
 $lang->donation->anonymityList[1] = '匿名';
