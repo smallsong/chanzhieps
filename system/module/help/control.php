@@ -66,6 +66,9 @@ class help extends control
     {
         if($_POST)
         {
+            if(empty($_POST['name']) && empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty . ' ' . $this->lang->help->codenotempty));
+            if(empty($_POST['name'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty));
+            if(empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->codenotempty));
             if($this->help->createBook())
             {
                 $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
@@ -145,7 +148,7 @@ class help extends control
             {
                 $j = $this->help->getOrderId($book, $category->id, $category->parent);
                 $category->j = $j;
-                $gradeCategories[$category->parent]->childs[] = $category;
+                $gradeCategories[$category->parent]->children[] = $category;
                 if(!isset($gradeCategories[$category->parent]->i)) $gradeCategories[$category->parent]->i = $this->help->getOrderId($book, $category->parent);
             }
         }
