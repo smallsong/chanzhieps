@@ -118,7 +118,7 @@ $lang->help->menu->createbook = "添加手册|help|createbook|";
 $lang->book = new stdclass();
 $lang->book->menu = new stdclass();
 $lang->book->menu->tree          = "目录管理|tree|browse|type=help";
-$lang->book->menu->articleBrowse = "文章管理|article|admin|type=help";
+$lang->book->menu->articleBrowse = array('link' => '文章管理|article|admin|type=help', 'alias' => 'edit');
 $lang->book->menu->articleCreate = "发布文章|article|create|type=help";
 
 /* Menu of comment module. */
