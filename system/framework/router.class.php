@@ -1019,16 +1019,18 @@ class router
      */
     public function setControlFile($exitIfNone = true)
     {
+        $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'ext' . DS . '_' . $this->siteCode . DS . 'control' . DS . $this->methodName . '.php';
+        if(is_file($this->controlFile)) return true;
+
+        $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'ext' . DS . 'control' . DS . $this->methodName . '.php';
+        if(is_file($this->controlFile)) return true;
+
         $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'control.php';
-        if(!is_file($this->controlFile))
-        {
-            $this->controlFile = $this->moduleRoot . 'ext' . DS . $this->siteCode . DS . $this->moduleName . DS . 'control.php';
-            if(!is_file($this->controlFile)) header("Location: {$this->config->webRoot}");
-            return false;
-        }
+        if(!is_file($this->controlFile)) header("Location: {$this->config->webRoot}");
+
         return true;
     }
-    
+
     /**
      * Set the name of the method calling.
      * 
@@ -1066,7 +1068,10 @@ class router
      */
     public function getModuleExtPath($moduleName, $ext)
     {
-        return $this->getModulePath($moduleName) . 'ext' . DS . $this->siteCode . DS . $ext . DS;
+        $paths = array();
+        $paths['common'] = $this->getModulePath($moduleName) . 'ext' . DS . $ext . DS;
+        $paths['site'] = $this->getModulePath($moduleName) . 'ext' . DS . '_' . $this->siteCode . DS . $ext . DS;
+        return $paths;
     }
 
     /**
@@ -1077,8 +1082,11 @@ class router
      */
     public function setActionExtFile()
     {
-        $moduleExtPath = $this->getModuleExtPath($this->moduleName, 'control');
-        $this->extActionFile = $moduleExtPath . $this->methodName . '.php';
+        $moduleExtPaths = $this->getModuleExtPath($this->moduleName, 'control');
+
+        $this->extActionFile = $moduleExtPaths['site'] . $this->methodName . '.php';
+        if(!file_exists($this->extActionFile)) $this->extActionFile = $moduleExtPaths['common'] . $this->methodName . '.php';
+
         return file_exists($this->extActionFile);
     }
 

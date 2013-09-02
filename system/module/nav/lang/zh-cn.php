@@ -32,3 +32,8 @@ $lang->nav->system->home     = '首页';
 $lang->nav->system->company  = '关于我们';
 $lang->nav->system->forum    = '论坛';
 $lang->nav->system->help     = '帮助';
+
+/* Targets setting. */
+$lang->nav->target = new stdclass();
+$lang->nav->target->_self  = '当前窗口';
+$lang->nav->target->_blank = '新窗口';

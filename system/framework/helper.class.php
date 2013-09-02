@@ -138,8 +138,12 @@ class helper
 
         /* Set the main model file and extension path and files. */
         $mainModelFile = $app->getModulePath($moduleName) . 'model.php';
-        $modelExtPath  = $app->getModuleExtPath($moduleName, 'model');
-        $extFiles      = helper::ls($modelExtPath, '.php');
+        $modelExtPaths = $app->getModuleExtPath($moduleName, 'model');
+        $extFiles = array();
+        foreach($modelExtPaths as $modelExtPath)
+        {
+            $extFiles = array_merge($extFiles, helper::ls($modelExtPath, '.php'));
+        }
 
         /* If no extension file, return the main file directly. */
         if(empty($extFiles)) return $mainModelFile;

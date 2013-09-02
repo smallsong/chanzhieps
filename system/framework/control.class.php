@@ -263,12 +263,20 @@ class control
 
         /* The main view file, extension view file and hook file. */
         $mainViewFile = $modulePath . 'view' . DS . $methodName . '.' . $this->viewType . '.php';
-        $extViewFile  = $viewExtPath . $methodName . ".{$this->viewType}.php";
-        $extHookFiles = glob($viewExtPath . $methodName . "*.{$this->viewType}.hook.php");
-
-        $viewFile = file_exists($extViewFile) ? $extViewFile : $mainViewFile;
+            
+        /* Extension view file. */
+        $commonExtViewFile  = $viewExtPath['common'] . $methodName . ".{$this->viewType}.php";
+        $siteExtViewFile  = $viewExtPath['site'] . $methodName . ".{$this->viewType}.php";
+        $viewFile = file_exists($commonExtViewFile) ? $commonExtViewFile : $mainViewFile;
+        $viewFile = file_exists($siteExtViewFile) ? $siteExtViewFile : $viewFile;
         if(!is_file($viewFile)) $this->app->triggerError("the view file $viewFile not found", __FILE__, __LINE__, $exit = true);
+
+        /* Extension hook file. */
+        $commonExtHookFiles = glob($viewExtPath['common'] . $methodName . "*.{$this->viewType}.hook.php");
+        $siteExtHookFiles = glob($viewExtPath['site'] . $methodName . "*.{$this->viewType}.hook.php");
+        $extHookFiles = array_merge($commonExtHookFiles, $siteExtHookFiles);
         if(!empty($extHookFiles)) return array('viewFile' => $viewFile, 'hookFiles' => $extHookFiles);
+
         return $viewFile;
     }
 
@@ -288,6 +296,15 @@ class control
             helper::cd($extPath);
             return $extViewFile;
         }
+        $extPath     = dirname(dirname(realpath($viewFile))) . "/ext/view/";
+        $extViewFile = $extPath . basename($viewFile);
+
+        if(file_exists($extViewFile))
+        {
+            helper::cd($extPath);
+            return $extViewFile;
+        }
+
         return false;
     }
 
@@ -304,14 +321,20 @@ class control
         $moduleName = strtolower(trim($moduleName));
         $methodName = strtolower(trim($methodName));
         $modulePath = $this->app->getModulePath($moduleName);
-        $cssExtPath = $this->app->getModuleExtPath($moduleName, 'css') . $methodName . DS;
+        $cssExtPath = $this->app->getModuleExtPath($moduleName, 'css') ;
 
         $css = '';
         $mainCssFile   = $modulePath . 'css' . DS . 'common.css';
         $methodCssFile = $modulePath . 'css' . DS . $methodName . '.css';
         if(file_exists($mainCssFile))   $css .= file_get_contents($mainCssFile);
         if(is_file($methodCssFile))     $css .= file_get_contents($methodCssFile);
-        foreach(glob($cssExtPath . '*.css') as $cssFile)
+
+        foreach(glob($cssExtPath['common'] . $methodName . DS . '*.css') as $cssFile)
+        {
+            $css .= file_get_contents($cssFile);
+        }
+
+        foreach(glob($cssExtPath['site'] . $methodName . DS . '*.css') as $cssFile)
         {
             $css .= file_get_contents($cssFile);
         }
@@ -331,14 +354,20 @@ class control
         $moduleName = strtolower(trim($moduleName));
         $methodName = strtolower(trim($methodName));
         $modulePath = $this->app->getModulePath($moduleName);
-        $jsExtPath  = $this->app->getModuleExtPath($moduleName, 'js') . $methodName . DS;
+        $jsExtPath  = $this->app->getModuleExtPath($moduleName, 'js');
 
         $js = '';
         $mainJsFile   = $modulePath . 'js' . DS . 'common.js';
         $methodJsFile = $modulePath . 'js' . DS . $methodName . '.js';
         if(file_exists($mainJsFile))   $js .= file_get_contents($mainJsFile);
         if(is_file($methodJsFile))     $js .= file_get_contents($methodJsFile);
-        foreach(glob($jsExtPath . '*.js') as $jsFile)
+        
+        foreach(glob($jsExtPath['common'] . $methodName . DS . '*.js') as $jsFile)
+        {
+            $js .= file_get_contents($jsFile);
+        }
+
+        foreach(glob($jsExtPath['site'] . $methodName . DS  . '*.js') as $jsFile)
         {
             $js .= file_get_contents($jsFile);
         }

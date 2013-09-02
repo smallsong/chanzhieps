@@ -78,6 +78,8 @@ class navModel extends model
 
         /* nav type select tag. */
         $entry .= html::select("nav[{$grade}][type][]", $this->lang->nav->types, $nav->type, "class='navType' grade='{$grade}'");
+        /* nav target select. */
+        $entry .= html::select("nav[{$grade}][target][]", $this->lang->nav->target, $nav->target);
 
         /* artcle and system select tag. */
         $entry .= html::select("nav[{$grade}][article][]", $articleTree, $nav->article, "class='navSelector {$articleHidden}'");
