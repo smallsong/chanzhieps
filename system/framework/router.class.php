@@ -1019,12 +1019,16 @@ class router
      */
     public function setControlFile($exitIfNone = true)
     {
-        $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'control.php';
+        $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'ext' . DS . $this->siteCode . DS . 'control' . DS . $this->methodName . '.php';
+        
         if(!is_file($this->controlFile))
         {
-            $this->controlFile = $this->moduleRoot . 'ext' . DS . $this->siteCode . DS . $this->moduleName . DS . 'control.php';
-            if(!is_file($this->controlFile)) header("Location: {$this->config->webRoot}");
-            return false;
+            $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'ext' . DS . 'common' . DS . 'control' . DS . $this->methodName . '.php';
+            if(!is_file($this->controlFile))
+            {
+                $this->controlFile = $this->moduleRoot . $this->moduleName . DS . 'control.php';
+                if(!is_file($this->controlFile)) header("Location: {$this->config->webRoot}");
+            }
         }
         return true;
     }
