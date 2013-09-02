@@ -32,6 +32,7 @@ class articleModel extends model
             ->from(TABLE_RELATION)->alias('t1')
             ->leftJoin(TABLE_CATEGORY)->alias('t2')->on('t1.category = t2.id')
             ->where('t1.type')->eq($article->type)
+            ->andwhere('t1.book')->eq($article->book)
             ->andWhere('t1.id')->eq($articleID)
             ->fetchAll('id');
 
@@ -120,15 +121,18 @@ class articleModel extends model
     /**
      * Create an article.
      * 
+     * @param  string $type 
+     * @param  string $book 
      * @access public
      * @return int|bool
      */
-    public function create()
+    public function create($type, $book = '')
     {
         $article = fixer::input('post')
             ->join('categories', ',')
             ->add('addedDate', helper::now())
-            ->add('type', 'article')
+            ->add('type', $type)
+            ->add('book', $book)
             ->get();
 
         $this->dao->insert(TABLE_ARTICLE)
@@ -140,7 +144,7 @@ class articleModel extends model
         if(dao::isError()) return false;
 
         $articleID = $this->dao->lastInsertID();
-        $this->processCategories($articleID, 'article', $this->post->categories);
+        $this->processCategories($articleID, $type, $book, $this->post->categories);
         return $articleID;
     }
 
@@ -165,7 +169,7 @@ class articleModel extends model
             ->batchCheck($this->config->article->edit->requiredFields, 'notempty')
             ->where('id')->eq($articleID)
             ->exec();
-        if(!dao::isError()) $this->processCategories($articleID, 'article', $this->post->categories);
+        if(!dao::isError()) $this->processCategories($articleID, $type, $book, $this->post->categories);
         return;
     }
         
@@ -196,13 +200,14 @@ class articleModel extends model
      * @access public
      * @return void
      */
-    public function processCategories($articleID, $type = 'article', $categories = array())
+    public function processCategories($articleID, $type = 'article', $book = '', $categories = array())
     {
        if(!$articleID) return false;
 
        /* First delete all the records of current article from the releation table.  */
        $this->dao->delete()->from(TABLE_RELATION)
            ->where('type')->eq($type)
+           ->andwhere('book')->eq($book)
            ->andWhere('id')->eq($articleID)
            ->autoCheck()
            ->exec();
@@ -214,6 +219,7 @@ class articleModel extends model
 
            $data = new stdclass();
            $data->type     = $type; 
+           $data->book     = $book; 
            $data->id       = $articleID;
            $data->category = $category;
 
