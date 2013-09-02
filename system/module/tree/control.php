@@ -21,7 +21,7 @@ class tree extends control
      * @access public
      * @return void
      */
-    public function browse($type = 'article', $root = 0)
+    public function browse($type = 'article', $book = '', $root = 0)
     {
         if($type == 'forum')
         {
@@ -36,11 +36,19 @@ class tree extends control
             $this->lang->menuGroups->tree = 'product';
         }
 
+        if($type == help)
+        {
+            $this->lang->category         = $this->lang->directory;
+            $this->lang->tree->menu       = $this->lang->book->menu;
+            $this->lang->menuGroups->tree = 'help';
+        }
+
         $this->view->title    = $this->lang->category->common;
         $this->view->type     = $type;
+        $this->view->book     = $book;
         $this->view->root     = $root;
-        $this->view->treeMenu = $this->tree->getTreeMenu($type, 0, array('treeModel', 'createManageLink'));
-        $this->view->children = $this->tree->getChildren($root, $type);
+        $this->view->treeMenu = $this->tree->getTreeMenu($type, $book, 0, array('treeModel', 'createManageLink'));
+        $this->view->children = $this->tree->getChildren($root, $type, $book);
 
         $this->display();
     }
@@ -59,6 +67,7 @@ class tree extends control
 
         /* If type is forum, assign board to category. */
         if($category->type == 'forum') $this->lang->category = $this->lang->board;
+        if($category->type == 'help')  $this->lang->category = $this->lang->directory;
 
         if(!empty($_POST))
         {
@@ -69,7 +78,7 @@ class tree extends control
         }
 
         /* Get option menu and remove the families of current category from it. */
-        $optionMenu = $this->tree->getOptionMenu($category->type);
+        $optionMenu = $this->tree->getOptionMenu($category->type, $category->book);
         $families   = $this->tree->getFamily($categoryID);
         foreach($families as $member) unset($optionMenu[$member]);
 
@@ -84,26 +93,29 @@ class tree extends control
      * Manage children.
      *
      * @param  string    $type 
+     * @param  string    $book 
      * @param  int       $category    the current category id.
      * @access public
      * @return void
      */
-    public function children($type, $category = 0)
+    public function children($type, $book = '', $category = 0)
     {
         /* If type is forum, assign board to category. */
         if($type == 'forum') $this->lang->category = $this->lang->board;
+        if($type == 'help')  $this->lang->category = $this->lang->directory;
 
         if(!empty($_POST))
         { 
-            $result = $this->tree->manageChildren($type, $this->post->parent, $this->post->children);
-            $locate = $this->inLink('browse', "type=$type&root={$this->post->parent}");
+            $result = $this->tree->manageChildren($type, $book, $this->post->parent, $this->post->children);
+            $locate = $this->inLink('browse', "type=$type&book=$book&root={$this->post->parent}");
             if($result) $this->send(array('result' => 'success', 'locate' => $locate));
             $this->send(array('result' => 'fail', 'message' => dao::getError()));
         }
 
         $this->view->title    = $this->lang->tree->manage;
         $this->view->type     = $type;
-        $this->view->children = $this->tree->getChildren($category, $type);
+        $this->view->book     = $book;
+        $this->view->children = $this->tree->getChildren($category, $type, $book);
         $this->view->origins  = $this->tree->getOrigin($category);
         $this->view->parent   = $category;
 
