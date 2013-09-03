@@ -51,3 +51,4 @@ $lang->article->lblEditor    = '<i>最后编辑：%s 于 %s</i>';
 $lang->article->prev = '&laquo; ';
 $lang->article->next = '&raquo; ';
 $lang->article->none = '没有了';
+$lang->article->menu = '返回目录';
