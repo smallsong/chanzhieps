@@ -35,13 +35,13 @@ class article extends control
      * @access public
      * @return void
      */
-    public function browse($categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function browse($categoryID = 0, $type = '', $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
         $category = $this->loadModel('tree')->getById($categoryID);
-        $articles = $this->article->getList($this->tree->getFamily($categoryID), $orderBy, $pager);
+        $articles = $this->article->getList($this->tree->getFamily($categoryID, $type), $orderBy, $pager);
 
         if($category)
         {
@@ -59,7 +59,14 @@ class article extends control
         $this->view->contact   = $this->loadModel('company')->getContact();
         //$this->view->layouts = $this->loadModel('block')->getLayouts('article.list');
 
-        $this->display();
+        if($category->type == 'blog' or $type == 'blog')
+        {
+            $this->display('article', 'blog.browse');
+        }
+        else
+        {
+            $this->display();
+        }
     }
 
     /**
@@ -196,7 +203,14 @@ class article extends control
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
-        $this->display();
+        if($category->type == 'blog')
+        {
+            $this->display('article', 'blog.view');
+        }
+        else
+        {
+            $this->display();
+        }
     }
 
     /**

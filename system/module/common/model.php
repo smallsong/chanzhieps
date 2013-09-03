@@ -314,10 +314,17 @@ class commonModel extends model
      * @access  public
      * @return  void
      */
-    public function printPositionBar($module = '', $object = '', $misc = '')
+    public function printPositionBar($module = '', $object = '', $misc = '', $root = '')
     {
         echo '<ul class="breadcrumb">';
-        echo '<li>' . $this->lang->currentPos . $this->lang->colon . html::a($this->config->webRoot, $this->lang->home) . '</li>';
+        if($root == '')
+        {
+            echo '<li>' . $this->lang->currentPos . $this->lang->colon . html::a($this->config->webRoot, $this->lang->home) . '</li>';
+        }
+        else
+        {
+            echo $root;
+        }
 
         $moduleName = $this->app->getModuleName();
         $moduleName = $moduleName == 'reply' ? 'thread' : $moduleName;

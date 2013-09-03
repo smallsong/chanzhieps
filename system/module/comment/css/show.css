@@ -2,3 +2,20 @@
 .comment{ border: 1px solid #DDDDDD; margin: 10px 5px 5px; padding: 5px;}
 .box-title{margin: 0; padding:0 0 0 8px; line-height: 34px; height: 34px; font-weight: bold; border: 0;}
 .page{margin-right: 10px; padding: 8px; font-size: 13px;}
+.c-right { clear: right; }
+
+/* Add table-form and width setting. */
+.text-1 {width: 90%}
+.area-1{width: 90%;}
+.w-80px  {width:80px}
+.red     {color:#B94A48;}
+
+/*-----------------------TABLE SETTING----------------------------*/
+caption {margin:0; padding-left:10px; text-align:left; background-color: #EFEFEF; border: 1px solid #D4D4D4; font-weight:bold; line-height:40px;}
+
+/* form table settings. */
+.table-form {border:1px solid #DDDDDD; border-collapse: inherit;}
+.table-form tbody tr th, .table-form tbody tr td {border:none;}
+.table-form tbody tr th {text-align:right; vertical-align:middle}
+.table-form tbody tr th.a-center, .table-form tbody tr td.a-center{text-align:center;}
+
