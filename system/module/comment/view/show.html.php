@@ -31,19 +31,19 @@ if(isset($comments) and $comments):?>
             <?php 
             $author = $this->session->user->account == 'guest' ? '' : $this->session->user->account;
             $email  = $this->session->user->account == 'guest' ? '' : $this->session->user->email;
-            echo "<div class='col-lg-7'>" . html::input('author', $author, "class='text-1'") . "</div>";
+            echo html::input('author', $author, "class='text-1'");
             ?>
           </td>
         </tr>
         <tr>
           <th class='v-middle'><?php echo $lang->comment->email;?></th>
-          <td><?php echo "<div class='col-lg-7'>" . html::input('email', $email, "class='text-1'") . "</div>";?></td>
+          <td><?php echo html::input('email', $email, "class='text-1'");?></td>
         </tr>
         <tr>
           <th class='v-middle'><?php echo $lang->comment->content;?></th>
           <td>
             <?php 
-            echo "<div class='col-lg-11'>" . html::textarea('content', '', "class='area-1' rows='3'") . "</div>";
+            echo html::textarea('content', '', "class='area-1' rows='3'");
             echo html::hidden('objectType', $objectType);
             echo html::hidden('objectID', $objectID);
             ?>

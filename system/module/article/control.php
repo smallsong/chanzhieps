@@ -59,7 +59,14 @@ class article extends control
         $this->view->contact   = $this->loadModel('company')->getContact();
         //$this->view->layouts = $this->loadModel('block')->getLayouts('article.list');
 
-        $this->display();
+        if($category->type == 'blog')
+        {
+            $this->display('article', 'blog.browse');
+        }
+        else
+        {
+            $this->display();
+        }
     }
 
     /**
@@ -194,7 +201,14 @@ class article extends control
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
-        $this->display();
+        if($category->type == 'blog')
+        {
+            $this->display('article', 'blog.view');
+        }
+        else
+        {
+            $this->display();
+        }
     }
 
     /**
