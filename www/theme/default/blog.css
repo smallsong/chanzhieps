@@ -2,11 +2,16 @@
 body{ padding-bottom: 20px; }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header { padding:100px 15px 0 15px; border-bottom: 1px solid #e5e5e5;   background:url(/theme/default/images/main/blog.banner.jpg); } 
+.header { padding:20px 15px 0 15px; border-bottom: 1px solid #e5e5e5; } 
 
 /* Make the masthead heading the same height as the navigation */
 .header h3 { margin-top: 0; margin-bottom: 0; line-height: 40px; padding-bottom: 19px; }
 
+/* Main nav settings. */
+.header .nav a {color:#333; margin-top:40px;}
+.header .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus { background:none; color:#333; font-weight:800; }
+
+#logo{max-height:80px;}
 /* Customize container */
 .container { max-width: 960px; }
 .container-narrow > hr { margin:0; }
