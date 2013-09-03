@@ -63,4 +63,3 @@ js::import($jsRoot . 'respond/min.js');
     </ul>
     <h3 class="text-muted"><?php echo $this->config->site->name?></h3>
   </div>
-  <hr/>

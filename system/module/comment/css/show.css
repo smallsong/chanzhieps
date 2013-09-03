@@ -2,6 +2,7 @@
 .comment{ border: 1px solid #DDDDDD; margin: 10px 5px 5px; padding: 5px;}
 .box-title{margin: 0; padding:0 0 0 8px; line-height: 34px; height: 34px; font-weight: bold; border: 0;}
 .page{margin-right: 10px; padding: 8px; font-size: 13px;}
+.c-right { clear: right; }
 
 /* Add table-form and width setting. */
 .text-1 {width: 90%}
