@@ -19,6 +19,7 @@
     </caption>
     <thead>
       <tr class='a-center'>
+        <th class='w-60px'><?php echo $lang->book->id;?></th>
         <th class='w-p20'><?php echo $lang->book->name;?></th>
         <th><?php echo $lang->book->summary;?></th>
         <th class='w-150px'><?php echo $lang->actions;?></th>
@@ -27,6 +28,7 @@
     <tbody>
       <?php foreach($books as $key => $book):?>
       <tr class='a-left v-middle'>
+        <td class='a-center'><?php echo $book->id;?></td>
         <td><?php echo $book->name;?></td>
         <td><?php echo $book->summary;?></td>
         <td class='a-center'>
