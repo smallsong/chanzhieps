@@ -102,7 +102,7 @@ $lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'a
 $lang->article->menu->create = '发布文章|article|create|type=article';
 $lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
-/* Menu of article module. */
+/* Menu of blog module. */
 $lang->blog = new stdclass();
 $lang->blog->menu = new stdclass();
 $lang->blog->menu->browse = array('link' => '文章列表|article|admin|type=blog', 'alias' => 'edit');
