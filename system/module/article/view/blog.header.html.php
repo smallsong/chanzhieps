@@ -53,13 +53,16 @@ js::import($jsRoot . 'respond/min.js');
 <div class='container'>
   <div class="header">
     <ul class="nav nav-pills pull-right">
-    <?php 
-    foreach($navs as $nav)
-    {
-        $class= $nav->id == $category->id ? "class='active'" : "";
-        echo "<li {$class}>" . html::a($this->createLink('article', 'browse', "id={$nav->id}"), $nav->name) . '</li>';
-    }
-    ?>
+      <li <?php if(empty($category)) echo "class='active'"?>>
+        <?php echo html::a($this->createLink('article', 'browse', "id={$nav->id}&type=blog"), $lang->home)?>
+      </li>
+      <?php 
+      foreach($navs as $nav)
+      {
+          $class= $nav->id == $category->id ? "class='active'" : "";
+          echo "<li {$class}>" . html::a($this->createLink('article', 'browse', "id={$nav->id}"), $nav->name) . '</li>';
+      }
+      ?>
     </ul>
     <h3 class="text-muted"><?php echo $this->config->site->name?></h3>
   </div>

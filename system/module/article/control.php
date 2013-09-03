@@ -35,13 +35,13 @@ class article extends control
      * @access public
      * @return void
      */
-    public function browse($categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function browse($categoryID = 0, $type = '', $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
         $category = $this->loadModel('tree')->getById($categoryID);
-        $articles = $this->article->getList($this->tree->getFamily($categoryID), $orderBy, $pager);
+        $articles = $this->article->getList($this->tree->getFamily($categoryID, $type), $orderBy, $pager);
 
         if($category)
         {
@@ -59,7 +59,7 @@ class article extends control
         $this->view->contact   = $this->loadModel('company')->getContact();
         //$this->view->layouts = $this->loadModel('block')->getLayouts('article.list');
 
-        if($category->type == 'blog')
+        if($category->type == 'blog' or $type == 'blog')
         {
             $this->display('article', 'blog.browse');
         }

@@ -4,7 +4,10 @@ $path = array_keys($category->pathNames);
 js::set('path',  json_encode($path));
 include '../../common/view/treeview.html.php';
 ?>
-<?php echo $common->printPositionBar($category);?>
+<?php
+$root = '<li>' .  html::a($this->createLink('article', 'browse', "id=0&type=blog"), $lang->home) . '</li>';
+if(!empty($category)) echo $common->printPositionBar($category, '', '', $root);
+?>
 <div class='row blogBox'>
   <div class='col-md-9'>
     <div class='box radius'>

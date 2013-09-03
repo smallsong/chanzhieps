@@ -2,7 +2,7 @@
 body{ padding-bottom: 20px; }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header { padding:100px 15px 0 15px; border-bottom: 1px solid #e5e5e5;   background:url(http://www.eps.com/data/upload/201308/d8b39164d1b04382810ba065e34458a6.jpg); } 
+.header { padding:100px 15px 0 15px; border-bottom: 1px solid #e5e5e5;   background:url(/theme/default/images/main/blog.banner.jpg); } 
 
 /* Make the masthead heading the same height as the navigation */
 .header h3 { margin-top: 0; margin-bottom: 0; line-height: 40px; padding-bottom: 19px; }
@@ -17,10 +17,11 @@ body{ padding-bottom: 20px; }
 .box .content {padding:20px;}
 .box ul {margin:10px 20px;}
 
-.breadcrumb{margin:10px 0; padding-left:0;}
+.breadcrumb{margin:10px 0 0 0; padding-left:0;}
 .media-object {max-height:200px;}
 
 /* Content settings. */
+.blogBox { margin-top:20px; }
 .blogBox h3 { margin-bottom:10px; }
 .blogBox h3 a{ color:#333333; }
 
