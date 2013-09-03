@@ -29,7 +29,16 @@ class help extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $this->view->books = $this->help->getBookList($pager);
+        $books = $this->help->getBookList($pager);
+
+        $i=1;
+        foreach($books as $book)
+        {
+            $this->lang->help->menu->$i = "$book->name|help|book|type=help&book=$book->code";
+            $i++;
+        }
+
+        $this->view->books = $books;
         $this->view->pager = $pager;
         $this->display();
     }
@@ -117,7 +126,6 @@ class help extends control
      * Read a book.
      * 
      * @param  string $book 
-     * @param  int    $categoryID 
      * @access public
      * @return void
      * @todo rewrite the logic of get order id.         
@@ -133,7 +141,7 @@ class help extends control
         $articles = $this->dao->select('t1.id, title, t2.category')->from(TABLE_ARTICLE)
             ->alias('t1')->leftJoin(TABLE_RELATION)->alias('t2')->on('t1.id = t2.id')
             ->where('category')->in(array_keys($categories))
-            ->orderBy('id_desc')
+            ->orderBy('t1.order')
             ->fetchGroup('category', 'id', false);
 
         $bookCategory    = $this->loadModel('tree')->getById($categoryID);
@@ -154,7 +162,7 @@ class help extends control
             }
         }
 
-        $this->view->header->title = $book;
+        $this->view->header->title = $book->name;
         if($bookCategory)
         {
             $this->view->header->keywords = trim($bookCategory->keyword . ' ' . $this->app->site->keywords);
@@ -165,7 +173,7 @@ class help extends control
         $this->view->categories = $gradeCategories;
         $this->view->book       = $book;
         $this->view->articles   = $articles;
-        $this->view->category   = array('book'=>$this->view->book,'category'=>$bookCategory);
+        $this->view->category   = array('book'=>$this->view->book, 'category'=>$bookCategory);
         $this->display();
     }
 
@@ -178,25 +186,30 @@ class help extends control
      */
     public function read($articleID)
     { 
-        $this->app->loadLang('tree');
+        $article  = $this->loadModel('article')->getByID($articleID);
+        
+        /* fetch first category for display. */
+        $category = array_slice($article->categories, 0, 1);
+        $category = $category[0];
+        $category = $this->loadModel('tree')->getById($category->id);
 
-        $article  = $this->loadModel('article')->getById($articleID, $this->config->help->imgMaxWidth);
-        $category = $this->loadModel('tree')->getById($article->category);
-        $book     = $this->dao->findById($article->category)->from(TABLE_CATEGORY)->fetch('type');
-        $bookName = $this->lang->tree->lists[$book];
+        $type     = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type');
+        $book     = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('book');
+
         $this->createContentNav($article->content);
 
-        $this->view->header->title    = $article->title;
-        $this->view->header->keywords = trim($article->keywords . ' ' . $category->keyword . ' ' . $this->app->site->keywords);
-        $this->view->header->desc     = trim($article->summary . ' ' . preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
+        $this->view->title    = $article->title;
+        $this->view->keywords = trim($article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords);
+        $this->view->desc     = trim($article->summary . ' ' . preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
 
-        $this->view->book->id      = $book;
-        $this->view->book->name    = $bookName;
+        $this->view->type          = $type;
+        $this->view->book          = $book;
         $this->view->article       = $article;
-        $this->view->links         = $this->article->getLatest($this->view->article->category);
+        $this->view->links         = $this->article->getPairs($category->id, 't1.order');
+
         $this->view->prevAndNext   = $this->help->getPrevAndNext($this->view->links, $article->id);
-        $this->view->layouts       = $this->loadModel('block')->getLayouts('help.read');
-        $this->view->category      = array('book' => $this->view->book, 'category' => $category);
+        //$this->view->layouts     = $this->loadModel('block')->getLayouts('help.read');
+        $this->view->category      = $category;
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
