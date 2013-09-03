@@ -119,7 +119,7 @@ $lang->product->menu->tree   = '类目管理|tree|browse|type=product';
 /* Menu of help module. */
 $lang->help = new stdclass();
 $lang->help->menu = new stdclass();
-$lang->help->menu->tree       = array('link' => '手册列表|help|admin|', 'alias' => 'editbook');
+$lang->help->menu->managebook = "维护手册|help|admin|";
 $lang->help->menu->createbook = "添加手册|help|createbook|";
 
 /* Menu of help module. */
