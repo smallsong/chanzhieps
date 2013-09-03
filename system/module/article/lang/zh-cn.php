@@ -51,3 +51,8 @@ $lang->article->lblEditor    = '<i>最后编辑：%s 于 %s</i>';
 $lang->article->prev = '&laquo; ';
 $lang->article->next = '&raquo; ';
 $lang->article->none = '没有了';
+
+$lang->blog = new stdclass();
+$lang->blog->home     = '博客首页';
+$lang->blog->siteHome = '网站首页';
+

@@ -52,24 +52,31 @@ js::import($jsRoot . 'respond/min.js');
 <body>
 <div class='container'>
   <div class="header">
-    <ul class="nav nav-pills pull-right">
-      <li <?php if(empty($category)) echo "class='active'"?>>
-        <?php echo html::a($this->createLink('article', 'browse', "id={$nav->id}&type=blog"), $lang->home)?>
-      </li>
-      <?php 
-      foreach($navs as $nav)
-      {
-          $class= $nav->id == $category->id ? "class='active'" : "";
-          echo "<li {$class}>" . html::a($this->createLink('article', 'browse', "id={$nav->id}"), $nav->name) . '</li>';
-      }
-      ?>
-    </ul>
-    <?php if(isset($config->site->logo)):?>
-    <?php $logo = json_decode($config->site->logo);?>
-    <h3>
-      <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "id='logo' title='{$this->config->company->name}'"));?>
-    </h3>
-    <?php else:?>
-    <h3 class="text-muted"><?php echo $this->config->site->name?></h3>
-    <?php endif;?>
+    <div class='row'> 
+       <div class="nav pull-right">
+       <?php echo commonModel::printTopBar();?> | <?php echo html::a($config->webRoot, $lang->blog->siteHome);?>
+       </div>
+    </div>
+    <div class='row'>
+      <ul class="nav nav-pills pull-right">
+        <li <?php if(empty($category)) echo "class='active'"?>>
+          <?php echo html::a($this->createLink('article', 'browse', "id={$nav->id}&type=blog"), $lang->blog->home)?>
+        </li>
+        <?php 
+        foreach($navs as $nav)
+        {
+            $class= $nav->id == $category->id ? "class='active'" : "";
+            echo "<li {$class}>" . html::a($this->createLink('article', 'browse', "id={$nav->id}"), $nav->name) . '</li>';
+        }
+        ?>
+      </ul>
+      <?php if(isset($config->site->logo)):?>
+      <?php $logo = json_decode($config->site->logo);?>
+      <h3>
+        <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "id='logo' title='{$this->config->company->name}'"));?>
+      </h3>
+      <?php else:?>
+      <h3 class="text-muted"><?php echo $this->config->site->name?></h3>
+      <?php endif;?>
+    </div>
   </div>
