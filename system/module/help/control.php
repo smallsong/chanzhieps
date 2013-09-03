@@ -14,7 +14,7 @@ class help extends control
     public function index()
     {
         $book = $this->help->getFirstBook();
-        if($book) $this->locate(inlink('book', "bood=$book->name"));
+        if($book) $this->locate(inlink('book', "bood=$book->code"));
         $this->locate($this->createLink('index'));
     }
 
@@ -125,7 +125,8 @@ class help extends control
     public function book($book, $categoryID = 0)
     {
         $categories = $this->dao->select('id,name,grade,parent')->from(TABLE_CATEGORY)
-            ->where('type')->eq($book)
+            ->where('type')->eq('help')
+            ->andwhere('book')->eq($book)
             ->beginIF($categoryID != 0)->andWhere('path')->like("%,$categoryID,%")->fi()
             ->orderBy('grade, `order`')->fetchAll('id');
 

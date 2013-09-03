@@ -24,7 +24,8 @@ class helpModel extends model
     public function getOrderId($book, $categoryID, $parentID = '')
     {
         $allCategories = $this->dao->select('*')->from(TABLE_CATEGORY)
-            ->where('type')->eq($book)
+            ->where('type')->eq('help')
+            ->andwhere('book')->eq($book)
             ->beginIF($parentID !='')->andWhere('parent')->eq($parentID)->fi()
             ->orderBy('grade, `order`')->fetchAll('id');
         $order = 1;
