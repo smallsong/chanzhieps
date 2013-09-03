@@ -75,13 +75,15 @@ class article extends control
      * @access public
      * @return void
      */
-    public function admin($type = 'article', $book = '', $categoryID = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin($type = 'article', $book = '', $categoryID = 0, $recTotal = 0, $recPerPage = 20, $pageID = 1)
     {   
         $this->lang->article->menu = $this->lang->$type->menu;
         $this->lang->menuGroups->article = $type;
-
+        
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
+        
+        $orderBy = $type == 'article' ? 'id_desc' : 't1.order';
 
         $families = $this->loadModel('tree')->getFamily($categoryID, $type, $book);
         $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();
@@ -104,15 +106,15 @@ class article extends control
      * @access public
      * @return void
      */
-    public function create($type, $book = '', $categoryID = '')
+    public function create($type = 'article', $book = '', $categoryID = '')
     {
         $this->lang->article->menu = $this->lang->$type->menu;
         $this->lang->menuGroups->article = $type;
 
-        $categories = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
+        $categories = $this->loadModel('tree')->getOptionMenu($type, $book, 0, $removeRoot = true);
         if(empty($categories))
         {
-            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', 'type=' . $type)));
+            die(js::alert($this->lang->tree->noCategories) . js::locate($this->createLink('tree', 'browse', "type=$type&book=$book")));
         }
 
         if($_POST)
@@ -195,6 +197,36 @@ class article extends control
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
         $this->display();
+    }
+
+    /**
+     * Update order fields.
+     * 
+     * @access public
+     * @return void
+     */
+    public function updateOrder($type = 'article', $book = '')
+    {
+        if($this->post->orders)
+        {
+            $orders = array_flip($this->post->orders);
+            ksort($orders);
+
+            $i = 0;
+            foreach($orders as $articleID)
+            {
+                $order = $i * 10;
+                $this->dao->update(TABLE_ARTICLE)
+                    ->set('`order`')->eq($order)
+                    ->where('id')->eq($articleID)
+                    ->limit(1)
+                    ->exec(false);
+                $i++;
+            }
+
+            if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin', "type=$type&book=$book")));
+        }
     }
 
     /**
