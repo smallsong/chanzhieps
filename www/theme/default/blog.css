@@ -10,6 +10,7 @@ body{ padding-bottom: 20px; }
 /* Main nav settings. */
 .header .nav a {color:#333; margin-top:40px;}
 .header .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus { background:none; color:#333; font-weight:800; }
+#top-header, #top-header .nav a{font-size:12px; color:#999; }
 
 #logo{max-height:80px;}
 /* Customize container */

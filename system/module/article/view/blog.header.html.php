@@ -52,7 +52,7 @@ js::import($jsRoot . 'respond/min.js');
 <body>
 <div class='container'>
   <div class="header">
-    <div class='row'> 
+    <div class='row' id='top-header'> 
        <div class="nav pull-right">
        <?php echo commonModel::printTopBar();?> | <?php echo html::a($config->webRoot, $lang->blog->siteHome);?>
        </div>
