@@ -81,10 +81,15 @@ class helper
                 {
                     $link .= 'index.' . $viewType;
                 }
+                elseif($viewType == $app->getViewType())
+                {
+                    $link .= $moduleName .  '/';
+                }
                 else
                 {
-                    $link .= $moduleName . '/';
+                    $link .= $moduleName .  '.' . $viewType;
                 }
+
             }
             else
             {
