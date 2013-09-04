@@ -30,17 +30,17 @@
     </div>
     <div class='col-md-4 col-sm-6'>
       <div class="shortcut site">
-        <?php echo html::a($this->createLink('site', 'setBasic'), '<h3>' . $lang->admin->shortcuts->site . '</h4>')?>
+        <?php echo html::a($this->createLink('site', 'setBasic'), '<h3>' . $lang->admin->shortcuts->site . '</h3>')?>
       </div>
     </div>
     <div class='col-md-4 col-sm-6'>
       <div class="shortcut company">
-        <?php echo html::a($this->createLink('company', 'setBasic'), '<h3>' . $lang->admin->shortcuts->company . '</h4>')?>
+        <?php echo html::a($this->createLink('company', 'setBasic'), '<h3>' . $lang->admin->shortcuts->company . '</h3>')?>
       </div>
     </div>
     <div class='col-md-4 col-sm-6'>
       <div class="shortcut contact">
-        <?php echo html::a($this->createLink('company', 'setcontact'), '<h3>' . $lang->admin->shortcuts->contact . '</h4>')?>  
+        <?php echo html::a($this->createLink('company', 'setcontact'), '<h3>' . $lang->admin->shortcuts->contact . '</h3>')?>  
       </div>
     </div>      
   </div>
