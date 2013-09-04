@@ -10,7 +10,7 @@ include '../../common/view/treeview.html.php';
 <div class='row'>
   <div class='col-md-9'>
     <div class='box radius'>
-      <h4><?php echo $category->name;?></h4>
+      <h4 class='title'><?php echo $category->name;?></h4>
       <ul class="media-list">
       <?php foreach($articles as $article):?>
         <li class="media">
