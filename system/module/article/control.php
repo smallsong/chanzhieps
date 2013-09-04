@@ -68,7 +68,7 @@ class article extends control
             $this->display();
         }
     }
-
+    
     /**
      * Browse article in admin.
      * 
