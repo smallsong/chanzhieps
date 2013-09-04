@@ -53,6 +53,5 @@ $lang->article->next      = '&raquo; ';
 $lang->article->none      = '没有了';
 $lang->article->directory = '返回目录';
 
-$lang->blog = new stdclass();
 $lang->blog->home     = '博客首页';
 $lang->blog->siteHome = '网站首页';

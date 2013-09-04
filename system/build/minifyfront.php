@@ -22,7 +22,11 @@ $jsFiles[] = $jsRoot . 'my.js';
 $allJSFile  = $jsRoot . 'all.js';
 $jsCode = '';
 foreach($jsFiles as $jsFile) $jsCode .= "\n". file_get_contents($jsFile);
-file_put_contents($allJSFile, $jsCode);
+$result = file_put_contents($allJSFile, $jsCode);
+if($result)
+{
+    echo "压缩js成功！\n";
+}
 
 /* Compress it. */
 `java -jar ~/bin/yuicompressor/build/yuicompressor.jar --type js $allJSFile -o $allJSFile`;
@@ -34,12 +38,17 @@ $themeRoot  = $baseDir . '/www/theme/';
 
 /* Common css files. */
 $cssCode  = str_replace('../img', '../bootstrap/img', file_get_contents($themeRoot . 'bootstrap/css/core.min.css'));
-//$cssCode  = str_replace('../font', '../bootstrap/font', $cssCode);
+$cssCode  = str_replace('../font', '../bootstrap/font', $cssCode);
 $cssCode .= file_get_contents($themeRoot . 'default/style.css');
 
 /* Combine them. */
 $cssFile = $themeRoot . "default/all.css";
-file_put_contents($cssFile, $cssCode);
+$result  = file_put_contents($cssFile, $cssCode);
+if($result)
+{
+    echo "压缩CSS成功！\n";
+}
+
 
 /* Compress it. */
-// `java -jar ~/bin/yuicompressor/build/yuicompressor.jar --type css $cssFile -o $cssFile`;
+`java -jar ~/bin/yuicompressor/build/yuicompressor.jar --type css $cssFile -o $cssFile`;

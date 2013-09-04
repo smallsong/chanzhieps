@@ -37,4 +37,4 @@ if(!empty($category)) echo $common->printPositionBar($category, '', '', $root);
   </div>
   <?php include './blog.side.html.php';?>
 </div>
-<?php include '../../common/view/footer.html.php';?>
+<?php include './blog.footer.html.php';?>
