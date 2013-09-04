@@ -136,7 +136,7 @@ class helpModel extends model
     }
 
     /**
-     * Get one slide by id.
+     * Get one book by id.
      *
      * @param int $id
      * @access public

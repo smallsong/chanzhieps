@@ -40,7 +40,7 @@
               {
                   foreach($category->children as $child)
                   {
-                      echo "<dt class='f-14px'>$category->i.$child->j" . html::a(inlink('book', "book=$book->id&categoryID=$child->id"), $child->name) . "</dt>";
+                      echo "<dt class='f-14px'>$category->i.$child->j" . html::a(inlink('book', "book=$book&categoryID=$child->id"), $child->name) . "</dt>";
                       if(isset($articles[$child->id]))
                       {
                           $k = 1;

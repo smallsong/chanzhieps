@@ -102,7 +102,7 @@ $lang->article->menu->browse = array('link' => '文章列表|article|admin|', 'a
 $lang->article->menu->create = '发布文章|article|create|type=article';
 $lang->article->menu->tree   = '类目管理|tree|browse|type=article';
 
-/* Menu of article module. */
+/* Menu of blog module. */
 $lang->blog = new stdclass();
 $lang->blog->menu = new stdclass();
 $lang->blog->menu->browse = array('link' => '文章列表|article|admin|type=blog', 'alias' => 'edit');
@@ -119,7 +119,7 @@ $lang->product->menu->tree   = '类目管理|tree|browse|type=product';
 /* Menu of help module. */
 $lang->help = new stdclass();
 $lang->help->menu = new stdclass();
-$lang->help->menu->tree       = array('link' => '手册列表|help|admin|', 'alias' => 'editbook');
+$lang->help->menu->managebook = "维护手册|help|admin|";
 $lang->help->menu->createbook = "添加手册|help|createbook|";
 
 /* Menu of help module. */
