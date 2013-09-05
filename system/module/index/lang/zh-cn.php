@@ -13,4 +13,5 @@ $lang->index->common  = '首页';
 $lang->index->index   = '首页';
 $lang->index->aboutus = '关于我们';
 $lang->index->news    = '新闻动态';
+$lang->index->blog    = '最近博客';
 $lang->index->contact = '联系我们';
