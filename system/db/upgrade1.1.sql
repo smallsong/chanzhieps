@@ -26,7 +26,3 @@ CREATE TABLE IF NOT EXISTS `xr_product` (
   KEY `views` (`views`),
   KEY `sticky` (`sticky`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-ALTER TABLE `xr_category` ADD `book` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `readonly`; 
-ALTER TABLE `xr_relation` ADD `book` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `type`; 
-ALTER TABLE `xr_article` ADD `book` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `type`; 
