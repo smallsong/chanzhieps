@@ -141,7 +141,7 @@ class article extends control
 
         if($_POST)
         {
-            $this->article->create();       
+            $this->article->create($type);       
             if(dao::isError())  $this->send(array('result' => 'fail', 'message' => dao::geterror()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate'=>inlink('admin', "type=$type")));
         }
