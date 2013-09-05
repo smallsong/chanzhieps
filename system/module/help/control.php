@@ -157,13 +157,15 @@ class help extends control
             $this->view->header->keywords = trim($bookCategory->keyword . ' ' . $this->config->site->keywords);
             if($bookCategory->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $bookCategory->desc));
         }
+        $bookCategory->book = $book->name;
+        $bookCategory->code = $code;
 
         $this->view->books      = $this->help->getBookList();
         $this->view->categories = $gradeCategories;
         $this->view->book       = $book;
         $this->view->code       = $code;
         $this->view->articles   = $articles;
-        $this->view->category   = array('book'=>$this->view->code, 'category'=>$bookCategory);
+        $this->view->category   = $bookCategory;
         $this->display();
     }
 
@@ -184,6 +186,11 @@ class help extends control
         $category = $this->loadModel('tree')->getById($category->id);
 
         $type     = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type');
+        $book = $this->loadModel('setting')->getItem("owner=system&module=common&section=book&key=$type");
+        $book = json_decode($book);
+        
+        $category->book = $book->name;
+        $category->code = $type;
 
         $this->createContentNav($article->content);
 
@@ -192,7 +199,6 @@ class help extends control
         $this->view->desc     = trim($article->summary . ' ' . preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
 
         $this->view->type          = $type;
-        $this->view->book          = $book;
         $this->view->article       = $article;
         $this->view->links         = $this->article->getPairs($category->id, 't1.order');
 
