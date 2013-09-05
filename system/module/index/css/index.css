@@ -12,10 +12,14 @@
 .carousel-caption .lead {padding-left:10px; font-size:14px;}
 .carousel-caption .btn {margin-top: 10px;}
 
-.row .panel{ height: 290px; padding: 20px 20px 17px; overflow: hidden; font-size: 13px; color:#5A5A5A; transition: all 0.5s ease 0s; border: 1px solid #DDDDDD;}
+.row .panel{ height: 320px; padding: 20px 20px 17px; overflow: hidden; font-size: 13px; color:#5A5A5A; transition: all 0.5s ease 0s; border: 1px solid #DDDDDD;}
 .row .panel li{list-style: none; height: 30px; line-height: 30px; overflow: hidden;}
 .row .panel li>i.icon-chevron-right{opacity: 0.5;}
 .row .panel li:hover>i.icon-chevron-right{opacity: 0.9;}
 
 a.latest-news{color: #5A5A5A; padding-left: 5px;}
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
+
+.row .product-box{height:420px;}
+a.thumbnail {border:none;}
+

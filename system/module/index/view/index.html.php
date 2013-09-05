@@ -21,6 +21,27 @@
 </div>
 <?php endif;?>
 
+<?php if(count($products) >= 3):?>
+<div class='row'>
+  <?php foreach($products as $product):?>
+  <div class="col-md-4">
+    <div class='panel product-box'>
+      <?php echo html::a(helper::createLink('product', 'view', "id={$product->id}") , html::image($product->image->primary->smallURL), '', "class='thumbnail'");?>
+      <div class="caption">
+        <h3><?php echo $product->name;?></h3>
+        <p><?php echo $product->summary;?></p>
+      </div>
+      <div class="widget-footer">
+        <p>
+          <?php echo html::a(helper::createLink('product', 'view', "id={$product->id}"), $lang->viewMore, '', "class='btn btn-primary'");?>
+        </p>
+      </div>
+    </div>
+  </div>
+  <?php endforeach;?>
+</div>
+<?php endif;?>
+<br/>
 <div class='row'>
   <div class='col-md-4'>
     <div class="panel radius">
