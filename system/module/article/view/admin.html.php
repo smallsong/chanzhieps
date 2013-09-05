@@ -51,7 +51,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <?php $colspan = strpos($type, 'book') ? 7 : 6;?>
+      <?php $colspan = strpos($type, 'book') !==false ? 7 : 6;?>
       <td colspan='<?php echo $colspan;?>'>
         <?php if(strpos($type, 'book') !== false):?><div class='f-left'><?php echo html::submitButton();?></div><?php endif;?>
         <?php $pager->show();?>
