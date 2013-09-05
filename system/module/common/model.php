@@ -514,7 +514,13 @@ class commonModel extends model
      */
     public function printBlog($module, $article)
     {
-        echo $this->printArticle($module, $article);
+        $divider = $this->lang->divider;
+
+        foreach($module->pathNames as $moduleID => $moduleName)
+        {
+            echo '<li>' . html::a(inlink('index', "moduleID=$moduleID"), $moduleName) . '</li>';
+        }
+        if($article) echo '<li>' . html::a(inlink('view', "id=$article->id"), $article->title) . '</li>';
     }
 
     /**
