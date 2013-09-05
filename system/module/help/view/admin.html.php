@@ -20,6 +20,7 @@
     <thead>
       <tr class='a-center'>
         <th class='w-60px'><?php echo $lang->book->id;?></th>
+        <th class='w-p20'><?php echo $lang->book->code;?></th>
         <th class='w-p20'><?php echo $lang->book->name;?></th>
         <th><?php echo $lang->book->summary;?></th>
         <th class='w-150px'><?php echo $lang->actions;?></th>
@@ -29,21 +30,21 @@
       <?php foreach($books as $key => $book):?>
       <tr class='a-left v-middle'>
         <td class='a-center'><?php echo $book->id;?></td>
+        <td><?php echo $book->key;?></td>
         <td><?php echo $book->name;?></td>
         <td><?php echo $book->summary;?></td>
         <td class='a-center'>
           <?php
           echo html::a($this->createLink('help', 'editbook', "id=$book->id"), $lang->edit, '');
           echo html::a($this->createLink('help', 'deletebook', "id=$book->id"), $lang->delete, '', "class='deleter'");
-          echo html::a($this->createLink('tree', 'browse', "type=help&book=$book->code"), $lang->book->directory);
-          echo html::a($this->createLink('article', 'admin', "type=help&book=$book->code"), $lang->book->articleList);
-          echo html::a($this->createLink('article', 'create', "type=help&book=$book->code"), $lang->book->createArticle);
+          echo html::a($this->createLink('tree', 'browse', "type=$book->key"), $lang->book->directory);
+          echo html::a($this->createLink('article', 'admin', "type=$book->key"), $lang->book->articleList);
+          echo html::a($this->createLink('article', 'create', "type=$book->key"), $lang->book->createArticle);
           ?>
         </td>
       </tr>
       <?php endforeach;?>
     </tbody>
-    <tfoot><tr><td colspan='6'><?php $pager->show();?></td></tr></tfoot>
   </table>
 </div>
 <?php include '../../common/view/footer.admin.html.php';?>
