@@ -24,7 +24,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->book->code;?></th>
-      <td><?php echo html::input('code', $book->code, 'class=text-1');?></td>
+      <td><?php echo html::input('code', $book->key, 'class=text-1');?></td>
     </tr>
       <td colspan='2' class='a-center'>
         <?php echo html::hidden('id', $id);?>
