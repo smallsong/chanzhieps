@@ -9,7 +9,7 @@
  * @version     $Id$
  * @link        http://www.chanzhi.org
  */
-
+?>
   <hr/>
   <footer>
     <div class='a-center mb-20px'>
