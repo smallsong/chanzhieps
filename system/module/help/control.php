@@ -43,6 +43,7 @@ class help extends control
             if(empty($_POST['name']) && empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty . ' ' . $this->lang->help->codenotempty));
             if(empty($_POST['name'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty));
             if(empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->codenotempty));
+
             if($this->help->createBook())
             {
                 $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
@@ -119,11 +120,11 @@ class help extends control
             }
         }
 
-        $this->view->header->title = $book->name;
+        $this->view->title = $book->name;
         if($bookCategory)
         {
-            $this->view->header->keywords = trim($bookCategory->keyword . ' ' . $this->config->site->keywords);
-            if($bookCategory->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $bookCategory->desc));
+            $this->view->keywords = trim($bookCategory->keyword . ' ' . $this->config->site->keywords);
+            if($bookCategory->desc) $this->view->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $bookCategory->desc));
         }
         $this->view->books      = $this->help->getBookList();
         $this->view->categories = $gradeCategories;
@@ -150,7 +151,7 @@ class help extends control
         $category = $category[0];
         $category = $this->loadModel('tree')->getById($category->id);
 
-        $type     = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type');
+        $type = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type');
         $book = $this->loadModel('setting')->getItem("owner=system&module=common&section=book&key=$type");
         $book = json_decode($book);
         
@@ -163,13 +164,13 @@ class help extends control
         $this->view->keywords = trim($article->keywords . ' ' . $category->keyword . ' ' . $this->config->site->keywords);
         $this->view->desc     = trim($article->summary . ' ' . preg_replace('/<[a-z\/]+.*>/Ui', '', $category->desc));
 
-        $this->view->type          = $type;
-        $this->view->article       = $article;
-        $this->view->links         = $this->article->getPairs($category->id, 't1.order');
+        $this->view->type        = $type;
+        $this->view->article     = $article;
+        $this->view->links       = $this->article->getPairs($category->id, 't1.order');
 
-        $this->view->prevAndNext   = $this->help->getPrevAndNext($this->view->links, $article->id);
-        //$this->view->layouts     = $this->loadModel('block')->getLayouts('help.read');
-        $this->view->category      = $category;
+        $this->view->prevAndNext = $this->help->getPrevAndNext($this->view->links, $article->id);
+        //$this->view->layouts   = $this->loadModel('block')->getLayouts('help.read');
+        $this->view->category    = $category;
 
         $this->dao->update(TABLE_ARTICLE)->set('views = views + 1')->where('id')->eq($articleID)->exec(false);
 
@@ -213,55 +214,6 @@ class help extends control
             $nav .= "</div>";
             $content = $nav . $content;
         }
-    }
-
-    public function donation()
-    {
-        if($_POST)
-        {
-            if($this->post->money <= 10)
-            {
-                echo js::alert($this->lang->donation->sorry);
-                die(js::reload('parent'));
-            }
-
-            $orderID = $this->help->saveOrder();
-            if(!$orderID) die(js::error(dao::getError()));
-            die(js::locate(inlink('payOrder', "orderID=$orderID"), 'parent'));
-        }
-        $this->view->donors = $this->help->getDonors();
-        $this->display();
-    }
-
-    public function payOrder($orderID)
-    {
-        $this->loadModel('alipay');
-        $order = $this->help->getOrderByRawID($orderID);
-        $this->view->payLink = $this->alipay->createAlipayLink($order, 'donation');
-        $this->view->order   = $order;
-        $this->display();
-    }
-
-    public function processOrder($mode = 'return')
-    {
-        /* Get the orderID from the alipay. */
-        $orderID = $this->loadModel('alipay')->getOrderFromAlipay($mode, 'donation');
-        if(!$orderID) die('STOP!');
-
-        /* Process the order. */
-        $result = $this->help->processOrder($orderID);
-
-        /* Notify mode. */
-        if($mode == 'notify')
-        {
-            $this->alipay->saveAlipayLog();
-            if($result == 'success') die('success');
-            die('fail');
-        }
-
-        $this->view->result  = $result;
-        $this->view->orderID = $orderID;
-        $this->display();
     }
 
     public function export()
