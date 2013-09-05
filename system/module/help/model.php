@@ -37,56 +37,6 @@ class helpModel extends model
     }
 
     /**
-     * Get donors 
-     * 
-     * @access public
-     * @return array
-     */
-    public function getDonors()
-    {
-        return $this->dao->select('*')->from(TABLE_DONATION)->where('status')->eq('paid')->orderBy('id desc')->fetchAll('id', false);
-    }
-
-    public function saveOrder()
-    {
-        $data = fixer::input('post')
-            ->add('createdDate', helper::now())
-            ->add('account', $this->app->user->account)
-            ->add('status', 'wait')
-            ->setDefault('name', 'guest')
-            ->get();
-        $this->dao->insert(TABLE_DONATION)->data($data, false)->check('money', 'notempty')->exec();
-        if(!dao::isError()) return $this->dao->lastInsertID();
-        return false;
-    }
-
-    public function getOrderByRawID($rawOrder)
-    {
-        $order = $this->dao->select('*')->from(TABLE_DONATION)->where('id')->eq((int)$rawOrder)->fetch('', false);
-        $order->subject = $this->lang->help->donation;
-        if(!$order) return false;
-        $this->loadModel('alipay');
-        $order->humanOrder = $this->alipay->getHumanOrder($order->id);
-        return $order;
-    }
-
-    public function processOrder($orderID)
-    {
-        /* Get order and site. */
-        $order = $this->getOrderByRawID($orderID);
-
-        $result = $this->loadModel('alipay')->processOrder($order, 'donation');
-        if($result == 'success' and $order->status == 'wait' and $order->account != 'guest')
-        {
-            return $this->dao->update(TABLE_USER)->set('love = love + ' . $order->money)->where('account')->eq($order->account)->exec();
-        }
-        else
-        {
-            return $result;
-        }
-    }
-
-    /**
      * Get the prev and next ariticle.
      * 
      * @param  array  $links    the link articles.
@@ -134,7 +84,7 @@ class helpModel extends model
     }
 
     /**
-     * Get one book by id.
+     * Get a book by id.
      *
      * @param int $id
      * @access public
@@ -184,7 +134,7 @@ class helpModel extends model
     }
 
     /**
-     * Get book list sorted by key.
+     * Get book list.
      *
      * @access public
      * @return array
@@ -221,7 +171,7 @@ class helpModel extends model
     public function updateBook($id)
     {
         $book = fixer::input('post')->get();
-        $key  = $book->code;
+        $key  = 'book_' . $book->code;
         unset($book->code);
 
         $this->dao->update(TABLE_CONFIG)
@@ -241,9 +191,12 @@ class helpModel extends model
      */
     public function deleteBook($id)
     {
-        $this->dao->delete()->from(TABLE_CONFIG)
-            ->where('id')->eq($id)
-            ->exec();
+        $book = $this->getBookByID($id);
+        if(!$book) return false;
+        
+        $this->dao->delete()->from(TABLE_CONFIG)->where('id')->eq($id)->exec();
+        $this->dao->delete()->from(TABLE_CATEGORY)->where('type')->eq($book->key)->exec();
+        $this->dao->delete()->from(TABLE_RELATION)->where('type')->eq($book->key)->exec();
 
         return !dao::isError();
     }
