@@ -16,15 +16,15 @@
     <caption><?php echo $lang->book->edit;?></caption>
     <tr>
       <th class="w-100px"><?php echo $lang->book->name;?></th>
-      <td><?php echo html::input('name', $book->name, 'class=text-1');?></td>
+      <td><?php echo html::input('name', $book->name, "class='text-1'");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->book->summary;?></th>
-      <td><?php echo html::textarea('summary', $book->summary, 'class=area-1');?></td>
+      <td><?php echo html::textarea('summary', $book->summary, "class='area-1' rows=6");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->book->code;?></th>
-      <td><?php echo html::input('code', str_replace('book_', '', $book->key), 'class=text-1');?></td>
+      <td><?php echo html::input('code', str_replace('book_', '', $book->key), "class='text-1'");?></td>
     </tr>
       <td colspan='2' class='a-center'>
         <?php echo html::hidden('id', $id);?>
