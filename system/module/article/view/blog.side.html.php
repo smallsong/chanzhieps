@@ -1,5 +1,5 @@
 <?php
-$treeMenu = $this->tree->getTreeMenu('blog', '', 0, array('treeModel', 'createBrowseLink'));
+$treeMenu = $this->tree->getTreeMenu('blog', 0, array('treeModel', 'createBrowseLink'));
 ?>
 <div class='col-md-3'>
   <div class='box widget radius'> 
