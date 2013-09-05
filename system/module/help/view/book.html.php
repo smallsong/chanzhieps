@@ -31,7 +31,7 @@
               {
                   foreach($articles[$category->id] as $article)
                   {
-                      echo "<dt class='f-14px'>$category->i.$j " . html::a(inlink('read', "article=$article->id"), $article->title) . "</dt>";
+                      echo "<dt class='article-title f-14px'>$category->i.$j " . html::a(inlink('read', "article=$article->id"), $article->title) . "</dt>";
                       $j ++;
                   }
               }

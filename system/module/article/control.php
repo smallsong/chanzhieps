@@ -103,6 +103,16 @@ class article extends control
         $families = $this->loadModel('tree')->getFamily($categoryID, $type);
         $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();
 
+        if(strpos($type, 'book') !== false)
+        {
+            $i = 1;
+            foreach($articles as $article)
+            {
+                $article->order = $this->post->maxOrder + $i * 10;
+                $i++;
+            }
+        }
+
         $this->view->title    = $this->lang->article->admin;
         $this->view->articles = $articles;
         $this->view->pager    = $pager;

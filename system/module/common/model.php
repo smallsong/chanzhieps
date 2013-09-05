@@ -511,9 +511,15 @@ class commonModel extends model
      * @access  public
      * @return  void
      */
-    public function printHelp($book)
+    public function printHelp($category = '', $article = '')
     {
         echo '<li>' . html::a(helper::createLink('help', 'index'), $this->lang->helpHome) . '</li>';
+        echo '<li>' . html::a(helper::createLink('help', 'book', "type=$category->code"), $category->book) . '</li>';
+        foreach($category->pathNames as $categoryID => $categoryName)
+        {
+            echo '<li>' . html::a(helper::createLink('help', 'book', "type=$category->code&categoryID=$categoryID"), $categoryName) . '</li>';
+        }
+        if($article) echo '<li>' . html::a(inlink('read', "id=$article->id"), $article->title) . '</li>';
     }
 
     /**

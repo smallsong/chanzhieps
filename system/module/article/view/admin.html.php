@@ -26,11 +26,13 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach($articles as $article):?>
+    <?php $maxOrder = 0; foreach($articles as $article):?>
     <tr class='a-center'>
       <?php if(strpos($type, 'book') !== false):?>
       <td>
-        <?php echo html::input("orders[$article->id]", $article->order, "class='text-1 a-center'");?>
+      <?php 
+          if($article->order > $maxOrder) $maxOrder = $article->order;
+          echo html::input("orders[$article->id]", $article->order, "class='text-1 a-center'");?>
       </td>
       <?php endif;?>
       <td><?php echo $article->id;?></td>
@@ -53,7 +55,7 @@
     <tr>
       <?php $colspan = strpos($type, 'book') !==false ? 7 : 6;?>
       <td colspan='<?php echo $colspan;?>'>
-        <?php if(strpos($type, 'book') !== false):?><div class='f-left'><?php echo html::submitButton();?></div><?php endif;?>
+        <?php if(strpos($type, 'book') !== false):?><div class='f-left'><?php echo html::submitButton() . html::hidden('maxOrder', $maxOrder);;?></div><?php endif;?>
         <?php $pager->show();?>
       </td>
     </tr>
