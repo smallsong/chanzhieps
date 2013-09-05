@@ -6,9 +6,9 @@
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     xirangEPS
+ * @package     chanzhiEPS
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 define('IN_SHELL', true);
@@ -33,19 +33,19 @@ if($config->requestType == 'PATH_INFO')
 {
     $path = pathinfo($request['path']);
 
-    /* url like http://www.xirang.biz/article-browse.html, PATH_INFO is 'article-browse.html'. */
+    /* url like http://www.chanzhi.org/article-browse.html, PATH_INFO is 'article-browse.html'. */
     if(strpos($path['basename'], $config->requestFix))
     {
         $_SERVER['PATH_INFO'] = $path['basename'];
     }
     else 
     {
-        /* url like http://www.xirang.biz/xirang/article/, PATH_INFO is 'article'. */
+        /* url like http://www.chanzhi.org/xirang/article/, PATH_INFO is 'article'. */
         if(is_dir('./module/' . $path['basename']))
         {
             $_SERVER['PATH_INFO'] = $path['basename'];
         }
-        /* url like http://www.xirang.biz/xirang/, PATH_INFO is '/'. */
+        /* url like http://www.chanzhi.org/xirang/, PATH_INFO is '/'. */
         else
         {
             $_SERVER['PATH_INFO'] = '/';

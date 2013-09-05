@@ -1,13 +1,13 @@
 <?php
 /**
- * The model file of tree category of xirangEPS.
+ * The model file of tree category of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     tree
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 ?>
 <?php
@@ -285,6 +285,19 @@ class treeModel extends model
     public static function createBrowseLink($category)
     {
         $linkHtml = html::a(helper::createLink('article', 'browse', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}'");
+        return $linkHtml;
+    }
+
+    /**
+     * Create the blog browse link.
+     * 
+     * @param  int      $category 
+     * @access public
+     * @return string
+     */
+    public static function createBlogBrowseLink($category)
+    {
+        $linkHtml = html::a(helper::createLink('blog', 'index', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}'");
         return $linkHtml;
     }
 

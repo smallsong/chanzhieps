@@ -6,15 +6,15 @@
  * @license     LGPL
  * @license     LGPL (http://www.gnu.org/licenses/lgpl.html)
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     xirangEPS
+ * @package     chanzhiEPS
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 /* Judge my.php exists or not. */
 $myConfig = dirname(dirname(__FILE__)) . '/config/my.php';
 if(!file_exists($myConfig))
 {
-    echo "文件" . $myConfig . "不存在！ 提示：不要重命名原来的息壤安装目录，下载最新的源码包，覆盖即可。" . "<br />";
+    echo "文件" . $myConfig . "不存在！ 提示：不要重命名原来的蝉知安装目录，下载最新的源码包，覆盖即可。" . "<br />";
     echo $myConfig . " doesn't exists! Please don't rename xirang directory, get source code and just override it!";
     exit;
 }

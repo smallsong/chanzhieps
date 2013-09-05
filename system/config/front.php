@@ -5,9 +5,9 @@
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     xirangEPS
+ * @package     chanzhiEPS
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 /* Init the rights. */
 $config->rights = new stdclass();
@@ -19,6 +19,9 @@ $config->rights->guest['rss']['index'] = 'index';
 $config->rights->guest['article']['index']  = 'index';
 $config->rights->guest['article']['browse'] = 'browse';
 $config->rights->guest['article']['view']   = 'view';
+
+$config->rights->guest['blog']['index']  = 'index';
+$config->rights->guest['blog']['view']   = 'view';
 
 $config->rights->guest['product']['index']  = 'index';
 $config->rights->guest['product']['browse'] = 'browse';

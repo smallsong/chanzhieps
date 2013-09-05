@@ -1672,7 +1672,7 @@ class config
 /**
  * The lang class.
  * 
- * @package xirangEPS
+ * @package chanzhiEPS
  */
 class language 
 {
@@ -1712,7 +1712,7 @@ class language
 /**
  * The super object class.
  * 
- * @package xirangEPS
+ * @package chanzhiEPS
  */
 class super
 {

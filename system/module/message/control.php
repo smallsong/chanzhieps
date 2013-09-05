@@ -1,13 +1,13 @@
 <?php
 /**
- * The control file of message of xirangEPS.
+ * The control file of message of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Yidong Wang <yidong@cnezsoft.com>
  * @package     message
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 class message extends control
 {

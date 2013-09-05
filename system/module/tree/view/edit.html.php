@@ -1,13 +1,13 @@
 <?php
 /**
- * The edit view of tree category of xirangEPS.
+ * The edit view of tree category of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     tree
  * @version     $Id: edit.html.php 824 2010-05-02 15:32:06Z wwccss $
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 ?>
 <form method='post' id='editForm' action="<?php echo inlink('edit', 'categoryID='.$category->id);?>" class='form-inline'>

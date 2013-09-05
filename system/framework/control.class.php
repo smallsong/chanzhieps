@@ -265,16 +265,16 @@ class control
         $mainViewFile = $modulePath . 'view' . DS . $methodName . '.' . $this->viewType . '.php';
             
         /* Extension view file. */
-        $commonExtViewFile  = $viewExtPath['common'] . $methodName . ".{$this->viewType}.php";
-        $siteExtViewFile  = $viewExtPath['site'] . $methodName . ".{$this->viewType}.php";
+        $commonExtViewFile = $viewExtPath['common'] . $methodName . ".{$this->viewType}.php";
+        $siteExtViewFile   = $viewExtPath['site'] . $methodName . ".{$this->viewType}.php";
         $viewFile = file_exists($commonExtViewFile) ? $commonExtViewFile : $mainViewFile;
         $viewFile = file_exists($siteExtViewFile) ? $siteExtViewFile : $viewFile;
         if(!is_file($viewFile)) $this->app->triggerError("the view file $viewFile not found", __FILE__, __LINE__, $exit = true);
 
         /* Extension hook file. */
         $commonExtHookFiles = glob($viewExtPath['common'] . $methodName . "*.{$this->viewType}.hook.php");
-        $siteExtHookFiles = glob($viewExtPath['site'] . $methodName . "*.{$this->viewType}.hook.php");
-        $extHookFiles = array_merge($commonExtHookFiles, $siteExtHookFiles);
+        $siteExtHookFiles   = glob($viewExtPath['site'] . $methodName . "*.{$this->viewType}.hook.php");
+        $extHookFiles       = array_merge($commonExtHookFiles, $siteExtHookFiles);
         if(!empty($extHookFiles)) return array('viewFile' => $viewFile, 'hookFiles' => $extHookFiles);
 
         return $viewFile;
@@ -338,6 +338,7 @@ class control
         {
             $css .= file_get_contents($cssFile);
         }
+
         return $css;
     }
 
@@ -371,6 +372,7 @@ class control
         {
             $js .= file_get_contents($jsFile);
         }
+
         return $js;
     }
 

@@ -1,4 +1,16 @@
 <?php
+/**
+ * The common header file of blog module of chanzhiEPS.
+ *
+ * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     blog
+ * @version     $Id$
+ * @link        http://www.chanzhi.org
+ */
+?>
+<?php
 if($extView = $this->getExtViewFile(__FILE__)){include $extView; return helper::cd();}
 $webRoot   = $config->webRoot;
 $jsRoot    = $webRoot . "js/";
@@ -28,7 +40,7 @@ $navs = $this->tree->getChildren(0, 'blog');
   {
       js::import($jsRoot . 'jquery/min.js');
       js::import($jsRoot . 'bootstrap/min.js');
-      js::import($jsRoot . 'xirang.js');
+      js::import($jsRoot . 'chanzhi.js');
       js::import($jsRoot . 'my.js');
   }
   else
@@ -60,13 +72,13 @@ js::import($jsRoot . 'respond/min.js');
     <div class='row'>
       <ul class="nav nav-pills pull-right">
         <li <?php if(empty($category)) echo "class='active'"?>>
-          <?php echo html::a($this->createLink('article', 'browse', "id={$nav->id}&type=blog"), $lang->blog->home)?>
+          <?php echo html::a($this->inlink('index'), $lang->blog->home)?>
         </li>
         <?php 
         foreach($navs as $nav)
         {
             $class= $nav->id == $category->id ? "class='active'" : "";
-            echo "<li {$class}>" . html::a($this->createLink('article', 'browse', "id={$nav->id}"), $nav->name) . '</li>';
+            echo "<li {$class}>" . html::a($this->inlink('index', "id={$nav->id}"), $nav->name) . '</li>';
         }
         ?>
       </ul>

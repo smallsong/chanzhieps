@@ -1,13 +1,13 @@
 <?php
 /**
- * The model file of help category of xirangEPS.
+ * The model file of help category of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Tingting Dai <daitingting@xirangit.com>
  * @package     help
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 class helpModel extends model
 {

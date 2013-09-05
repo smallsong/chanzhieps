@@ -1,13 +1,13 @@
 <?php
 /**
- * The model file of common module of xirangEPS.
+ * The model file of common module of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     common
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 class commonModel extends model
 {
@@ -500,6 +500,25 @@ class commonModel extends model
         foreach($module->pathNames as $moduleID => $moduleName)
         {
             echo '<li>' . html::a(inlink('browse', "moduleID=$moduleID"), $moduleName) . '</li>';
+        }
+        if($article) echo '<li>' . html::a(inlink('view', "id=$article->id"), $article->title) . '</li>';
+    }
+
+    /**
+     * Print the positon bar of article module.
+     * 
+     * @param  object $module 
+     * @param  object $article 
+     * @access public
+     * @return void
+     */
+    public function printBlog($module, $article)
+    {
+        $divider = $this->lang->divider;
+
+        foreach($module->pathNames as $moduleID => $moduleName)
+        {
+            echo '<li>' . html::a(inlink('index', "moduleID=$moduleID"), $moduleName) . '</li>';
         }
         if($article) echo '<li>' . html::a(inlink('view', "id=$article->id"), $article->title) . '</li>';
     }
