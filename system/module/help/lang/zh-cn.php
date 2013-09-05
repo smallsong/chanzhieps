@@ -1,7 +1,7 @@
 <?php
 $lang->rmb            = '元';
 $lang->help->common   = '在线帮助系统';
-$lang->help->books    = '教程列表';
+$lang->help->books    = '手册列表';
 $lang->help->articles = '文档导航';
 $lang->help->back     = '返回目录';
 $lang->help->donation = '捐助禅道';
