@@ -83,13 +83,12 @@ class helper
                 }
                 elseif($viewType == $app->getViewType())
                 {
-                    $link .= $moduleName .  '/';
+                    $link .= $moduleName . '/';
                 }
                 else
                 {
-                    $link .= $moduleName .  '.' . $viewType;
+                    $link .= $moduleName . '.' . $viewType;
                 }
-
             }
             else
             {
@@ -144,6 +143,7 @@ class helper
         /* Set the main model file and extension path and files. */
         $mainModelFile = $app->getModulePath($moduleName) . 'model.php';
         $modelExtPaths = $app->getModuleExtPath($moduleName, 'model');
+
         $extFiles = array();
         foreach($modelExtPaths as $modelExtPath)
         {
@@ -176,7 +176,9 @@ class helper
             $modelClass    = $moduleName . 'Model';
             $extModelClass = 'ext' . $modelClass;
             $modelLines    = trim(file_get_contents($mainModelFile));
-            $modelLines    = rtrim($modelLines, '?>');     // To make sure the last end tag is removed.
+
+            /* To make sure the last end tag is removed. */
+            $modelLines    = rtrim($modelLines, '?>');
             $modelLines   .= "class $extModelClass extends $modelClass {\n";
 
             /* Cycle all the extension files. */
