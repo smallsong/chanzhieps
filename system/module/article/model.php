@@ -173,7 +173,7 @@ class articleModel extends model
      * @access public
      * @return void
      */
-    public function update($articleID)
+    public function update($articleID, $type = 'article')
     {
         $article = fixer::input('post')
             ->join('categories', ',')
