@@ -147,7 +147,7 @@ class file extends control
             {
                 $fileName = $file->title . '.' . $file->extension;
                 $fileData = file_get_contents($file->realPath);
-                $this->sendDownHeader($fileName, $file->extension, $fileData);
+                $this->sendDownHeader($fileName, $file->extension, $fileData, filesize($file->realPath));
             }
             else
             {
@@ -243,7 +243,7 @@ class file extends control
      * @access public
      * @return void
      */
-    public function sendDownHeader($fileName, $fileType, $content)
+    public function sendDownHeader($fileName, $fileType, $content, $fileSize = 0)
     {
         /* Set the downloading cookie, thus the export form page can use it to judge whether to close the window or not. */
         setcookie('downloading', 1);
@@ -261,6 +261,7 @@ class file extends control
 
         header("Content-type: $contentType");
         header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header("Content-length: {$fileSize}");
         header("Pragma: no-cache");
         header("Expires: 0");
         die($content);
