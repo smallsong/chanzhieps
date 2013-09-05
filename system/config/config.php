@@ -1,13 +1,13 @@
 <?php
 /**
- * The config file of xirangEPS
+ * The config file of chanzhiEPS
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     xirangEPS
+ * @package     chanzhiEPS
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 /* Judge class config and function getWebRoot exists or not, make sure php shells can work. */
 if(!class_exists('config')){class config{}}

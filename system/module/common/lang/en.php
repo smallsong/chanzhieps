@@ -1,20 +1,20 @@
 <?php
 /**
- * The common simplified chinese file of xirangEPS.
+ * The common simplified chinese file of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     xirangEPS
+ * @package     chanzhiEPS
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 $lang->arrow        = ' » ';
 $lang->colon        = '::';
 $lang->at           = ' at ';
 $lang->downArrow    = '↓';
 
-$lang->xirangEPS    = 'xirangEPS';
+$lang->chanzhiEPS    = 'chanzhiEPS';
 $lang->eayssoft     = 'QingDao Nature Easy Soft Network Technology Co,LTD';
 $lang->homePage     = 'Home';
 $lang->aboutus      = 'About us';
@@ -29,7 +29,7 @@ $lang->articleComments = '<i>%s comments</i> ';
 $lang->articleAuthor   = '<i>%s posted at %s</i>';
 
 $lang->welcome        = "Welcome, <strong>%s</strong>!";
-$lang->welcomeAdmin   = "Welcome to use xirangEPS";
+$lang->welcomeAdmin   = "Welcome to use chanzhiEPS";
 $lang->todayIs        = 'Today is %s，';
 $lang->dashboard      = 'Dashboard';
 $lang->register       = 'Register';

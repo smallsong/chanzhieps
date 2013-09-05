@@ -711,7 +711,7 @@ EOT;
 /**
  * css class.
  *
- * @package xirangEPS
+ * @package chanzhiEPS
  */
 class css
 {

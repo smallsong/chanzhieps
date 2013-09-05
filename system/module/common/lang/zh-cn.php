@@ -1,11 +1,11 @@
 <?php
 /**
- * The common simplified chinese file of xirangEPS.
+ * The common simplified chinese file of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
- * @package     xirangEPS
+ * @package     chanzhiEPS
  * @version     $Id$
  * @link        http://www.zentao.net
  */
@@ -20,8 +20,8 @@ $lang->RMB     = '￥';
 $lang->divider = "<span class='divider'>{$lang->raquo}</span> ";
 
 /* Lang items for xirang. */
-$lang->xirangEPS = '息壤企业门户系统';
-$lang->poweredBy = " 由 <a href='http://www.xirang.biz/?v=%s' target='_blank'>{$lang->xirangEPS} %s</a> 强力驱动！";
+$lang->chanzhiEPS = '蝉知企业门户系统';
+$lang->poweredBy = " 由 <a href='http://www.chanzhi.org/?v=%s' target='_blank'>{$lang->chanzhiEPS} %s</a> 强力驱动！";
 
 /* Global lang items. */
 $lang->home           = '首页';

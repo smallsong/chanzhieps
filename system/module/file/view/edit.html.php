@@ -8,7 +8,7 @@
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     xxx
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>

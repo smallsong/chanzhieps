@@ -1,13 +1,13 @@
 <?php
 /**
- * The install module English file of xirangEPS.
+ * The install module English file of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     install
  * @version     $Id$
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 $lang->install->common  = 'Install';
 $lang->install->next    = 'Next';
@@ -18,14 +18,14 @@ $lang->install->error   = 'Error ';
 $lang->install->start            = 'Start install';
 $lang->install->keepInstalling   = 'Keep install this version';
 $lang->install->seeLatestRelease = 'See the latest release.';
-$lang->install->welcome          = 'Welcome to use xirangEPS.';
+$lang->install->welcome          = 'Welcome to use chanzhiEPS.';
 $lang->install->desc             = <<<EOT
-xirangEPS is an content management software.
+chanzhiEPS is an content management software.
 
-xirangEPS is developped by PHH and mysql under the xirangEPS framework developped by the same team. Through the framework, xirangEPS can be customed and extended very easily.
+chanzhiEPS is developped by PHP and mysql under the zentaoPHP framework developped by the same team. Through the framework, chanzhiEPS can be customed and extended very easily.
 
-xirangEPS is developped by <strong class='red'><a href='http://www.cnezsoft.com' target='_blank'>Nature EasySoft Network Tecnology Co.ltd, QingDao, China</a></strong>。
-The official website of xirangEPS is <a href='http://www.xirang.biz' target='_blank'>http://www.xirang.biz</a>
+chanzhiEPS is developped by <strong class='red'><a href='http://www.xirangit.com' target='_blank'>QingDao XiRang Network Infomation Co,LTD, China</a></strong>。
+The official website of chanzhiEPS is <a href='http://www.chanzhi.org' target='_blank'>http://www.chanzhi.org</a>
 
 The version of current release is <strong class='red'>%s</strong>。
 EOT;
@@ -58,7 +58,7 @@ $lang->install->mkdir        = '<p>Should creat the directory %s。<br /> Under 
 $lang->install->chmod        = 'Should change the permission of "%s".<br />Under linux, can try<br />chmod o=rwx -R %s';
 
 $lang->install->settingDB    = 'Set database';
-$lang->install->webRoot      = 'xirangEPS path';
+$lang->install->webRoot      = 'chanzhiEPS path';
 $lang->install->requestType  = 'URL type';
 $lang->install->requestTypes['GET']       = 'GET';
 $lang->install->requestTypes['PATH_INFO'] = 'PATH_INFO';

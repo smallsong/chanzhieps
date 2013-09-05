@@ -31,5 +31,5 @@ tgz:
 	chmod a+rx xirangeps/system/bin/*
 	#find xirangeps/ -name ext |xargs chmod 777 -R
 	# zip it.
-	zip -r -9 xirangEPS.$(VERSION).zip xirangeps
+	zip -r -9 chanzhiEPS.$(VERSION).zip xirangeps
 	rm -fr xirangeps

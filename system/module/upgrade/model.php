@@ -1,6 +1,6 @@
 <?php
 /**
- * The model file of upgrade module of xirangEPS.
+ * The model file of upgrade module of chanzhiEPS.
  *
  * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
  * @license     LGPL
@@ -8,7 +8,7 @@
  * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
  * @package     upgrade
  * @version     $Id: model.php 5019 2013-07-05 02:02:31Z wyd621@gmail.com $
- * @link        http://www.xirang.biz
+ * @link        http://www.chanzhi.org
  */
 ?>
 <?php
