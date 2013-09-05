@@ -14,7 +14,7 @@ class help extends control
     public function index()
     {
         $book = $this->help->getFirstBook();
-        if($book) $this->locate(inlink('book', "bood=$book->code"));
+        if($book) $this->locate(inlink('book', "type=$book->key"));
         $this->locate($this->createLink('index'));
     }
 
@@ -24,22 +24,9 @@ class help extends control
      * @access public
      * @return void
      */
-    public function admin($recTotal = 0, $recPerPage = 20, $pageID = 1)
+    public function admin()
     {
-        $this->app->loadClass('pager', $static = true);
-        $pager = new pager($recTotal, $recPerPage, $pageID);
-
-        $books = $this->help->getBookList($pager);
-
-        $i=1;
-        foreach($books as $book)
-        {
-            $this->lang->help->menu->$i = "$book->name|help|book|type=help&book=$book->code";
-            $i++;
-        }
-
-        $this->view->books = $books;
-        $this->view->pager = $pager;
+        $this->view->books = $this->help->getBookList();
         $this->display();
     }
 
@@ -125,16 +112,18 @@ class help extends control
     /**
      * Read a book.
      * 
-     * @param  string $book 
+     * @param  string $code 
      * @access public
      * @return void
      * @todo rewrite the logic of get order id.         
      */
-    public function book($book, $categoryID = 0)
+    public function book($code, $categoryID = 0)
     {
+        $book = $this->loadModel('setting')->getItem("owner=system&module=common&section=book&key=$code");
+        $book = json_decode($book);
+
         $categories = $this->dao->select('id,name,grade,parent')->from(TABLE_CATEGORY)
-            ->where('type')->eq('help')
-            ->andwhere('book')->eq($book)
+            ->where('type')->eq($code)
             ->beginIF($categoryID != 0)->andWhere('path')->like("%,$categoryID,%")->fi()
             ->orderBy('grade, `order`')->fetchAll('id');
 
@@ -151,29 +140,30 @@ class help extends control
             if($category->grade == 1)
             {
                 $gradeCategories[$category->id]    = $category;
-                $gradeCategories[$category->id]->i = $this->help->getOrderId($book, $category->id);
+                $gradeCategories[$category->id]->i = $this->help->getOrderId($code, $category->id);
             }
             else
             {
-                $j = $this->help->getOrderId($book, $category->id, $category->parent);
+                $j = $this->help->getOrderId($code, $category->id, $category->parent);
                 $category->j = $j;
                 $gradeCategories[$category->parent]->children[] = $category;
-                if(!isset($gradeCategories[$category->parent]->i)) $gradeCategories[$category->parent]->i = $this->help->getOrderId($book, $category->parent);
+                if(!isset($gradeCategories[$category->parent]->i)) $gradeCategories[$category->parent]->i = $this->help->getOrderId($code, $category->parent);
             }
         }
 
         $this->view->header->title = $book->name;
         if($bookCategory)
         {
-            $this->view->header->keywords = trim($bookCategory->keyword . ' ' . $this->app->site->keywords);
+            $this->view->header->keywords = trim($bookCategory->keyword . ' ' . $this->config->site->keywords);
             if($bookCategory->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $bookCategory->desc));
         }
 
         $this->view->books      = $this->help->getBookList();
         $this->view->categories = $gradeCategories;
         $this->view->book       = $book;
+        $this->view->code       = $code;
         $this->view->articles   = $articles;
-        $this->view->category   = array('book'=>$this->view->book, 'category'=>$bookCategory);
+        $this->view->category   = array('book'=>$this->view->code, 'category'=>$bookCategory);
         $this->display();
     }
 
@@ -194,7 +184,6 @@ class help extends control
         $category = $this->loadModel('tree')->getById($category->id);
 
         $type     = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type');
-        $book     = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('book');
 
         $this->createContentNav($article->content);
 

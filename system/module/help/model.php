@@ -21,11 +21,10 @@ class helpModel extends model
      * @return void
      * @todo rewrite the logic.
      */
-    public function getOrderId($book, $categoryID, $parentID = '')
+    public function getOrderId($code, $categoryID, $parentID = '')
     {
         $allCategories = $this->dao->select('*')->from(TABLE_CATEGORY)
-            ->where('type')->eq('help')
-            ->andwhere('book')->eq($book)
+            ->where('type')->eq($code)
             ->beginIF($parentID !='')->andWhere('parent')->eq($parentID)->fi()
             ->orderBy('grade, `order`')->fetchAll('id');
         $order = 1;
@@ -125,10 +124,9 @@ class helpModel extends model
         $setting->owner   = 'system';
         $setting->module  = 'common';
         $setting->section = 'book';
+        $setting->key     = 'book_' . $book->code;
+        unset($book->code);
         $setting->value   = helper::jsonEncode($book);
-
-        $bookKeys     = isset($this->config->book) ? array_keys((array)$this->config->book) : array(0);
-        $setting->key = max($bookKeys) + 1;
 
         $this->dao->insert(TABLE_CONFIG)->data($setting)->exec();
 
@@ -147,7 +145,14 @@ class helpModel extends model
         $book = $this->dao->select('*')->from(TABLE_CONFIG)->where('id')->eq($id)->fetch();
         if(!$book) return false;
 
-        return json_decode($book->value);
+        $id   = $book->id;
+        $key  = $book->key;    
+        $book = json_decode($book->value);
+
+        $book->id  = $id;
+        $book->key = $key;
+
+        return $book;
     }
 
     /**
@@ -162,13 +167,20 @@ class helpModel extends model
             ->where('owner')->eq('system')
             ->andWhere('module')->eq('common')
             ->andWhere('section')->eq('book')
-            ->orderBy('id')
+            ->orderBy('id_desc')
             ->limit(1)
             ->fetch();
 
         if(!$book) return false;
 
-        return json_decode($book->value);
+        $id   = $book->id;
+        $key  = $book->key;    
+        $book = json_decode($book->value);
+
+        $book->id  = $id;
+        $book->key = $key;
+
+        return $book;
     }
 
     /**
@@ -183,15 +195,17 @@ class helpModel extends model
             ->where('owner')->eq('system')
             ->andWhere('module')->eq('common')
             ->andWhere('section')->eq('book')
-            ->orderBy('`key`')
+            ->orderBy('id_desc')
             ->page($pager)
-            ->fetchAll('key');
+            ->fetchAll('id');
 
-        foreach($books as $key => $book)
+        foreach($books as $bookID => $book)
         {
-            $id = $book->id;
-            $books[$key] = json_decode($book->value);
-            $books[$key]->id = $id; 
+            $id  = $book->id;
+            $key = $book->key;
+            $books[$bookID]      = json_decode($book->value);
+            $books[$bookID]->key = $key;
+            $books[$bookID]->id  = $id; 
         }
 
         return $books;
@@ -206,13 +220,16 @@ class helpModel extends model
      */
     public function updateBook($id)
     {
-
         $book = fixer::input('post')->get();
+        $key  = $book->code;
+        unset($book->code);
 
         $this->dao->update(TABLE_CONFIG)
+            ->set('key')->eq($key)
             ->set('value')->eq(helper::jsonEncode($book))
             ->where('id')->eq($id)
             ->exec();
+
         return !dao::isError();
     }
 
@@ -227,6 +244,7 @@ class helpModel extends model
         $this->dao->delete()->from(TABLE_CONFIG)
             ->where('id')->eq($id)
             ->exec();
+
         return !dao::isError();
     }
 }
