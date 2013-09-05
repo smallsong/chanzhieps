@@ -30,7 +30,7 @@
       <?php foreach($books as $key => $book):?>
       <tr class='a-left v-middle'>
         <td class='a-center'><?php echo $book->id;?></td>
-        <td><?php echo $book->key;?></td>
+        <td><?php echo str_replace('book_', '', $book->key);?></td>
         <td><?php echo $book->name;?></td>
         <td><?php echo $book->summary;?></td>
         <td class='a-center'>
