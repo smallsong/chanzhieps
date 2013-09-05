@@ -19,7 +19,7 @@ class help extends control
     }
 
     /**
-     * Browse slides in admin.
+     * Browse books in admin.
      * 
      * @access public
      * @return void
@@ -27,28 +27,6 @@ class help extends control
     public function admin()
     {
         $this->view->books = $this->help->getBookList();
-        $this->display();
-    }
-
-    /**
-     * Get the help info of an field.
-     * 
-     * @param  string    $category 
-     * @param  string    $method 
-     * @param  string    $field 
-     * @param  string    $clientLang 
-     * @access public
-     * @return void
-     */
-    public function field($category, $method, $field, $clientLang)
-    {
-        include "lang/field_$clientLang.php";
-
-        $this->view->header->title = $this->lang->help->common;
-        $this->view->category = $category;
-        $this->view->method = $method;
-        $this->view->field  = $field;
-        $this->view->lang   = $lang;
         $this->display();
     }
 
@@ -98,24 +76,12 @@ class help extends control
     }
 
     /**
-     * Delete a book.
-     *
-     * @param int $id
-     * @retturn void
-     */
-    public function deleteBook($id)
-    {
-        if($this->help->deleteBook($id)) $this->send(array('result' => 'success'));
-        $this->send(array('result' => 'fail', 'message' => dao::getError()));
-    }
-
-    /**
      * Read a book.
      * 
      * @param  string $code 
+     * @param  int    $categoryID 
      * @access public
      * @return void
-     * @todo rewrite the logic of get order id.         
      */
     public function book($code, $categoryID = 0)
     {
@@ -133,8 +99,10 @@ class help extends control
             ->orderBy('t1.order')
             ->fetchGroup('category', 'id', false);
 
-        $bookCategory    = $this->loadModel('tree')->getById($categoryID);
-        $gradeCategories = array();
+        $bookCategory       = $this->loadModel('tree')->getById($categoryID);
+        $bookCategory->book = $book->name;
+        $bookCategory->code = $code;
+        $gradeCategories    = array();
         foreach($categories as $category)
         {
             if($category->grade == 1)
@@ -157,9 +125,6 @@ class help extends control
             $this->view->header->keywords = trim($bookCategory->keyword . ' ' . $this->config->site->keywords);
             if($bookCategory->desc) $this->view->header->desc = trim(preg_replace('/<[a-z\/]+.*>/Ui', '', $bookCategory->desc));
         }
-        $bookCategory->book = $book->name;
-        $bookCategory->code = $code;
-
         $this->view->books      = $this->help->getBookList();
         $this->view->categories = $gradeCategories;
         $this->view->book       = $book;
@@ -210,6 +175,19 @@ class help extends control
 
         $this->display();
     }
+
+    /**
+     * Delete a book.
+     *
+     * @param int $id
+     * @retturn void
+     */
+    public function deleteBook($id)
+    {
+        if($this->help->deleteBook($id)) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+
 
     /**
      * Create content navigation according the content. 
