@@ -18,9 +18,11 @@
     <caption><?php echo $lang->article->edit;?></caption>
     <tr>
       <th class='w-100px'><?php echo $lang->article->category;?></th>
-      <td>
-        <?php echo html::select('categories[]', $categories, array_keys($article->categories), "multiple='multiple' class='select-3 chosen'");?>
-      </td> 
+      <?php if(strpos($type, 'book') !== false):?>
+      <td><?php echo html::select("categories[]", $categories, $currentCategory, "class='select-3 form-control'");?></td>
+      <?php else:?>
+      <td><?php echo html::select("categories[]", $categories, $currentCategory, "multiple='multiple' class='select-3 form-control chosen'");?></td>
+      <?php endif;?>
     </tr> 
     <tr>
       <th><?php echo $lang->article->author;?></th>

@@ -11,12 +11,12 @@
  */
 ?>
 <?php include '../../common/view/header.admin.html.php';?>
-<?php if($type == 'help'):?><form id='ajaxForm' method='post' action='<?php echo inlink('updateOrder', "type=$type&book=$book");?>' target='hiddenwin'><?php endif;?>
+<?php if(strpos($type, 'book') !== false):?><form id='ajaxForm' method='post' action='<?php echo inlink('updateOrder', "type=$type");?>' target='hiddenwin'><?php endif;?>
 <table class='table table-bordered table-hover table-striped'>
   <caption><?php echo $lang->article->list;?></caption>
   <thead>
     <tr class='a-center'>
-      <?php if($type == 'help'):?><th class='w-80px'><?php echo $lang->article->order;?></th><?php endif;?>
+      <?php if(strpos($type,'book') !== false):?><th class='w-80px'><?php echo $lang->article->order;?></th><?php endif;?>
       <th class='w-60px'><?php echo $lang->article->id;?></th>
       <th><?php echo $lang->article->title;?></th>
       <th class='w-p20'><?php echo $lang->article->category;?></th>
@@ -28,7 +28,7 @@
   <tbody>
     <?php foreach($articles as $article):?>
     <tr class='a-center'>
-      <?php if($type == 'help'):?>
+      <?php if(strpos($type, 'book') !== false):?>
       <td>
         <?php echo html::input("orders[$article->id]", $article->order, "class='text-1 a-center'");?>
       </td>
@@ -40,7 +40,7 @@
       <td><?php echo $article->views;?></td>
       <td>
         <?php
-        echo html::a($this->createLink('article', 'edit', "articleID=$article->id&type=$article->type&book=$article->book"), $lang->edit);
+        echo html::a($this->createLink('article', 'edit', "articleID=$article->id&type=$article->type"), $lang->edit);
         echo html::a($this->article->createPreviewLink($article->id), $lang->preview, '_blank');
         echo html::a($this->createLink('file',    'browse', "objectType=article&objectID=$article->id"), $lang->article->files, '', "data-toggle='modal' data-width='1000'");
         echo html::a($this->createLink('article', 'delete', "articleID=$article->id"), $lang->delete, '', 'class="deleter"');
@@ -51,13 +51,13 @@
   </tbody>
   <tfoot>
     <tr>
-      <?php $colspan = $type == 'help' ? 7 : 6;?>
+      <?php $colspan = strpos($type, 'book') ? 7 : 6;?>
       <td colspan='<?php echo $colspan;?>'>
-        <?php if($type == 'help'):?><div class='f-left'><?php echo html::submitButton();?></div><?php endif;?>
+        <?php if(strpos($type, 'book') !== false):?><div class='f-left'><?php echo html::submitButton();?></div><?php endif;?>
         <?php $pager->show();?>
       </td>
     </tr>
   </tfoot>
 </table>
-<?php if($type == 'help'):?></form><?php endif;?>
+<?php if(strpos($type, 'book') !== false):?></form><?php endif;?>
 <?php include '../../common/view/footer.admin.html.php';?>

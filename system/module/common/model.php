@@ -194,12 +194,11 @@ class commonModel extends model
      * Create the module menu.
      * 
      * @param  string $currentModule 
-     * @param  string $book 
      * @static
      * @access public
      * @return void
      */
-    public static function createModuleMenu($currentModule, $book = '')
+    public static function createModuleMenu($currentModule)
     {
         global $lang, $app;
 
@@ -227,7 +226,6 @@ class commonModel extends model
 
             /* Split the methodLink to label, module, method, vars. */
             list($label, $module, $method, $vars) = explode('|', $methodLink);
-            if($vars && $book) $vars .= "&book=$book";
             $label .= '<i class="icon-chevron-right"></i>';
 
             if(commonModel::hasPriv($module, $method))

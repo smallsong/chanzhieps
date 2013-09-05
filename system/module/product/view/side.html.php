@@ -4,7 +4,7 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
 ?>
 <div class='col-md-3'>
   <div class='widget box radius'> 
-    <h4><?php echo $lang->product->hot?></h4>
+    <h4 class='title'><?php echo $lang->product->hot?></h4>
     <ul class="media-list">
       <?php foreach($hotProducts as $product):?>
       <li class='media'>
@@ -37,7 +37,7 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
     </ul>
   </div>
   <div class='widget box radius'> 
-    <h4><?php echo $lang->categoryMenu;?></h4>
+    <h4 class='title'><?php echo $lang->categoryMenu;?></h4>
     <ul class="pd-zero">
       <?php foreach($topCategories as $topCategory):?>
       <li>
@@ -52,7 +52,7 @@ $hotProducts   = $this->loadModel('product')->getHot(0, 8);
   </div>
   <div class='c-both'></div>
   <div id='contact' class='widget box radius'>  
-    <h4><?php echo $lang->company->contactUs;?></h4>
+    <h4 class='title'><?php echo $lang->company->contactUs;?></h4>
     <?php foreach($contact as $item => $value):?>
     <dl>
       <dt><?php echo $this->lang->company->$item . $lang->colon;?></dt>

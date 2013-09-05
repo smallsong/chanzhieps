@@ -22,6 +22,7 @@ $lang->help->export->account = '被授权人：';
 
 $lang->book = new stdclass();
 $lang->book->create        = '添加手册';
+$lang->book->edit          = '编辑手册';
 $lang->book->id            = '编号';
 $lang->book->name          = '手册名称';
 $lang->book->summary       = '手册简介';
