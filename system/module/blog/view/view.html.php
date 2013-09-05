@@ -1,5 +1,17 @@
+<?php
+/**
+ * The view file of blog view method of chanzhiEPS.
+ *
+ * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     blog
+ * @version     $Id$
+ * @link        http://www.chanzhi.org
+ */
+?>
 <?php 
-include './blog.header.html.php';
+include './header.html.php';
 $path = array_keys($category->pathNames);
 js::set('path',  json_encode($path));
 js::set('articleID', $article->id);
@@ -33,6 +45,6 @@ include '../../common/view/treeview.html.php';
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>
   </div>
-  <?php include './blog.side.html.php';?>
+  <?php include './side.html.php';?>
 </div>
-<?php include './blog.footer.html.php';?>
+<?php include './footer.html.php';?>

@@ -1,11 +1,23 @@
+<?php
+/**
+ * The index view file of blog module of chanzhiEPS.
+ *
+ * @copyright   Copyright 2013-2013 青岛息壤网络信息有限公司 (QingDao XiRang Network Infomation Co,LTD www.xirangit.com)
+ * @license     LGPL
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     blog
+ * @version     $Id$
+ * @link        http://www.chanzhi.org
+ */
+?>
 <?php 
-include './blog.header.html.php';
+include './header.html.php';
 $path = array_keys($category->pathNames);
 js::set('path',  json_encode($path));
 include '../../common/view/treeview.html.php';
 ?>
 <?php
-$root = '<li>' .  html::a($this->createLink('article', 'browse', "id=0&type=blog"), $lang->home) . '</li>';
+$root = '<li>' .  html::a($this->inlink('index'), $lang->home) . '</li>';
 if(!empty($category)) echo $common->printPositionBar($category, '', '', $root);
 ?>
 <div class='row blogBox'>
@@ -35,6 +47,6 @@ if(!empty($category)) echo $common->printPositionBar($category, '', '', $root);
       <div class='c-both'></div>
     </div>
   </div>
-  <?php include './blog.side.html.php';?>
+  <?php include './side.html.php';?>
 </div>
-<?php include './blog.footer.html.php';?>
+<?php include './footer.html.php';?>

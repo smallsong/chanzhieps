@@ -505,6 +505,19 @@ class commonModel extends model
     }
 
     /**
+     * Print the positon bar of article module.
+     * 
+     * @param  object $module 
+     * @param  object $article 
+     * @access public
+     * @return void
+     */
+    public function printBlog($module, $article)
+    {
+        echo $this->printArticle($module, $article);
+    }
+
+    /**
      * Print the position bar of help module.
      * 
      * @param   object $book 

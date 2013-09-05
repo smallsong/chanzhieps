@@ -289,6 +289,19 @@ class treeModel extends model
     }
 
     /**
+     * Create the blog browse link.
+     * 
+     * @param  int      $category 
+     * @access public
+     * @return string
+     */
+    public static function createBlogBrowseLink($category)
+    {
+        $linkHtml = html::a(helper::createLink('blog', 'index', "categoryID={$category->id}"), $category->name, '', "id='category{$category->id}'");
+        return $linkHtml;
+    }
+
+    /**
      * Create the manage link.
      * 
      * @param  int         $category 
