@@ -43,6 +43,7 @@ class help extends control
             if(empty($_POST['name']) && empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty . ' ' . $this->lang->help->codenotempty));
             if(empty($_POST['name'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty));
             if(empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->codenotempty));
+            if(!ctype_alnum($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->alnum));
 
             if($this->help->createBook())
             {
@@ -214,23 +215,5 @@ class help extends control
             $nav .= "</div>";
             $content = $nav . $content;
         }
-    }
-
-    public function export()
-    {
-        $this->app->loadLang('tree');
-        if($_POST)
-        {
-            $categories = $this->dao->select('id, path, name, parent, grade')->from(TABLE_CATEGORY)
-                ->where('tree')->eq($this->post->type)
-                ->orderBy('grade desc, `order`')
-                ->fetchAll('id');
-
-            $this->post->set('categories', $categories);
-            $this->post->set('kind', 'help');
-            $this->post->set('fileName', $this->lang->tree->lists[$this->post->type]);
-            $this->fetch('file', 'export2word', $_POST);
-        }
-        $this->display();
     }
 }
