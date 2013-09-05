@@ -175,6 +175,15 @@ class article extends control
     {
         $this->lang->article->menu = $this->lang->$type->menu;
         $this->lang->menuGroups->article = $type;
+
+        if(strpos($type, 'book') !== false)
+        {
+            $this->lang->help->menu->directory     = "目录管理|tree|browse|type=" . $type;
+            $this->lang->help->menu->articlemanage = array('link' => "文章管理|article|admin|type=" . $type, 'alias' => 'edit');
+            $this->lang->help->menu->articlecreate = "发布文章|article|create|type=" . $type;
+
+            $this->lang->article->menu = $this->lang->help->menu;
+        }
         $article    = $this->article->getByID($articleID);
 
         $categories = $this->loadModel('tree')->getOptionMenu($type, 0, $removeRoot = true);
@@ -185,7 +194,7 @@ class article extends control
 
         if($_POST)
         {
-            $this->article->update($articleID);
+            $this->article->update($articleID, $type);
             if(dao::isError()) $this->send(array('result' => 'fail', 'message' => dao::getError()));
             $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('admin', "type=$type")));
         }
