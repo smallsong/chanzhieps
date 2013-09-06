@@ -20,6 +20,6 @@
 a.latest-news{color: #5A5A5A; padding-left: 5px;}
 a.latest-news:active, a.latest-news:hover{text-decoration: none; color: #4691EF;}
 
-.row .product-box{height:420px;}
+.row .product-box{height:420px;padding:8px;}
 a.thumbnail {border:none;}
 
