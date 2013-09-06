@@ -276,7 +276,7 @@ class installModel extends model
      */
     public function createTable($version)
     {
-        $dbFile = $this->app->getAppRoot() . 'db' . DS . 'xirang.sql';
+        $dbFile = $this->app->getAppRoot() . 'db' . DS . 'chanzhi.sql';
         $tables = explode(';', file_get_contents($dbFile));
         foreach($tables as $table)
         {

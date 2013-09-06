@@ -261,6 +261,7 @@ table tbody tr.v-middle td, table tbody tr.v-middle th{vertical-align: middle;}
 /*---------------------- FRONT ---------------------------*/
 
 /* global settings.*/
+#header {margin-top:10px;}
 #header #slogan{margin: 30px 0 0 20px; font-size: 18px;}
 
 /* Logo setting.*/

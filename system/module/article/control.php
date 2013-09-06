@@ -67,7 +67,6 @@ class article extends control
      * 
      * @param string $type        the article type
      * @param int    $categoryID  the category id
-     * @param string $orderBy     the order by
      * @param int    $recTotal 
      * @param int    $recPerPage 
      * @param int    $pageID 
@@ -91,7 +90,7 @@ class article extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
         
-        $orderBy = $type == 'article' ? 'id_desc' : 't1.order';
+        $orderBy = strpos($type, 'book_') === false ? 'id_desc' : 't1.order';
 
         $families = $this->loadModel('tree')->getFamily($categoryID, $type);
         $articles = $families ? $this->article->getList($families, $orderBy, $pager) : array();

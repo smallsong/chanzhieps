@@ -36,12 +36,12 @@ class tree extends control
             $this->lang->menuGroups->tree = 'blog';
         }
 
-
         if($type == 'product')
         {
             $this->lang->tree->menu = $this->lang->product->menu;
             $this->lang->menuGroups->tree = 'product';
         }
+
         if(strpos($type, 'book') !== false)
         {
             $this->lang->help->menu->directory     = "目录管理|tree|browse|type=" . $type;

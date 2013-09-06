@@ -31,7 +31,7 @@ EOT;
 $lang->upgrade->backupData = <<<EOT
 <pre>
 <strong>使用phpMyAdmin或者mysqldump命令备份数据库。</strong>
-<code class='red'>$ mysqldump -u %s</span> -p%s %s > xirang.sql</code>
+<code class='red'>$ mysqldump -u %s</span> -p%s %s > chanzhi.sql</code>
 </pre>
 <a href="%s" class='btn btn-primary'>下一步</a>
 EOT;
@@ -39,3 +39,4 @@ EOT;
 $lang->upgrade->versionNote = "务必选择正确的版本，否则会造成数据丢失。";
 
 $lang->upgrade->fromVersions['1_1'] = '1.1.stable';
+$lang->upgrade->fromVersions['1_2'] = '1.2.stable';
