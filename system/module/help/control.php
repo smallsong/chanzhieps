@@ -40,17 +40,9 @@ class help extends control
     {
         if($_POST)
         {
-            if(empty($_POST['name']) && empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty . ' ' . $this->lang->help->codenotempty));
-            if(empty($_POST['name'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->namenotempty));
-            if(empty($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->codenotempty));
-            if(!ctype_alnum($_POST['code'])) $this->send(array('result' => 'fail', 'message' => $this->lang->help->alnum));
-
-            if($this->help->createBook())
-            {
-                $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
-            }
-
-            $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
+            $result = $this->help->createBook();
+            if($result === true) $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
+            $this->send(array('result' => 'fail', 'message' =>$result));
         }
 
         $this->display(); 
@@ -67,9 +59,9 @@ class help extends control
     {
         if($_POST)
         {
-            if($this->help->updateBook($id))
-            $this->send(array('result' => 'success', 'locate'=>$this->inLink('admin')) );
-            $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
+            $result = $this->help->updateBook($id);
+            if($result === true) $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
+            $this->send(array('result' => 'fail', 'message' => $result));
         }
 
         $this->view->id    = $id;
