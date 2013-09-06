@@ -68,15 +68,40 @@ class helpModel extends model
      */
     public function createBook()
     {
-        $book = fixer::input('post')->add('addedDate', helper::now())->get();
+        $book = fixer::input('post')->get();
 
         $setting = new stdclass();
         $setting->owner   = 'system';
         $setting->module  = 'common';
         $setting->section = 'book';
-        $setting->key     = 'book_' . $book->code;
+        $setting->key     = $book->code;
         unset($book->code);
         $setting->value   = helper::jsonEncode($book);
+        
+        $books = $this->dao->select('*')->from(TABLE_CONFIG)
+            ->where('owner')->eq('system')
+            ->andWhere('module')->eq('common')
+            ->andWhere('section')->eq('book')
+            ->andWhere('`key`')->eq($setting->key)
+            ->fetchAll();
+
+        $errors = array();
+
+        if(count($books) > 1)
+        {
+            $errors['code'] = $this->lang->help->codeunique;
+        }
+        elseif(count($books) == 1)
+        {
+            $errors['code'] = $this->lang->help->codeunique;
+        }
+        
+        if(!ctype_alnum($setting->key)) $errors['code'] = $this->lang->help->codealnum;
+
+        if(!$book->name) $errors['name'] = $this->lang->help->namenotempty;
+        if(!$setting->key) $errors['code'] = $this->lang->help->codenotempty;
+
+        if(!empty($errors)) return $errors;
 
         $this->dao->insert(TABLE_CONFIG)->data($setting)->exec();
 
@@ -171,14 +196,36 @@ class helpModel extends model
     public function updateBook($id)
     {
         $book = fixer::input('post')->get();
-        $key  = 'book_' . $book->code;
+        $setting->key  = $book->code;
         unset($book->code);
+        $setting->value = helper::jsonEncode($book);
+        
+        $books = $this->dao->select('*')->from(TABLE_CONFIG)
+            ->where('owner')->eq('system')
+            ->andWhere('module')->eq('common')
+            ->andWhere('section')->eq('book')
+            ->andWhere('`key`')->eq($setting->key)
+            ->fetchAll();
 
-        $this->dao->update(TABLE_CONFIG)
-            ->set('key')->eq($key)
-            ->set('value')->eq(helper::jsonEncode($book))
-            ->where('id')->eq($id)
-            ->exec();
+        $errors = array();
+
+        if(count($books) > 1)
+        {
+            $errors['code'] = $this->lang->help->codeunique;
+        }
+        elseif(count($books) == 1 && $books[0]->id != $id)
+        {
+            $errors['code'] = $this->lang->help->codeunique;
+        }
+
+        if(!ctype_alnum($setting->key)) $errors['code'] = $this->lang->help->codealnum;
+
+        if(!$book->name) $errors['name'] = $this->lang->help->namenotempty;
+        if(!$setting->key) $errors['code'] = $this->lang->help->codenotempty;
+        
+        if(!empty($errors)) return $errors;
+
+        $this->dao->update(TABLE_CONFIG)->data($setting)->where('id')->eq($id)->exec();
 
         return !dao::isError();
     }
