@@ -12,7 +12,8 @@ $lang->help->comment      = "备注|可以填写你相应的备注信息。";
 $lang->help->labels       = "附件的名称|如果你上传的附件文件名没有含义，可以通过设置文件的标题来方便读取";
 $lang->help->namenotempty = '名称不能为空';
 $lang->help->codenotempty = '编码不能为空';
-$lang->help->alnum        = '必须为英文字母或者数字';
+$lang->help->codeunique   = '此编码已经存在';
+$lang->help->codealnum  = '编码必须为英文字母或者数字';
 
 $lang->book = new stdclass();
 $lang->book->create        = '添加手册';
