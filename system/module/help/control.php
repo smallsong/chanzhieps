@@ -83,7 +83,7 @@ class help extends control
         $book = json_decode($book);
 
         $categories = $this->dao->select('id,name,grade,parent')->from(TABLE_CATEGORY)
-            ->where('type')->eq($code)
+            ->where('type')->eq('book_' . $code)
             ->beginIF($categoryID != 0)->andWhere('path')->like("%,$categoryID,%")->fi()
             ->orderBy('grade, `order`')->fetchAll('id');
 
@@ -144,7 +144,7 @@ class help extends control
         $category = $category[0];
         $category = $this->loadModel('tree')->getById($category->id);
 
-        $type = $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type');
+        $type = str_replace('book_', '', $this->dao->findById($category->id)->from(TABLE_CATEGORY)->fetch('type'));
         $book = $this->loadModel('setting')->getItem("owner=system&module=common&section=book&key=$type");
         $book = json_decode($book);
         
