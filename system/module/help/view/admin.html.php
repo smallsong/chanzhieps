@@ -30,16 +30,16 @@
       <?php foreach($books as $key => $book):?>
       <tr class='a-left v-middle'>
         <td class='a-center'><?php echo $book->id;?></td>
-        <td><?php echo str_replace('book_', '', $book->key);?></td>
+        <td><?php echo $book->key;?></td>
         <td><?php echo $book->name;?></td>
         <td><?php echo $book->summary;?></td>
         <td class='a-center'>
           <?php
           echo html::a($this->createLink('help', 'editbook', "id=$book->id"), $lang->edit, '');
           echo html::a($this->createLink('help', 'deletebook', "id=$book->id"), $lang->delete, '', "class='deleter'");
-          echo html::a($this->createLink('tree', 'browse', "type=$book->key"), $lang->book->directory);
-          echo html::a($this->createLink('article', 'admin', "type=$book->key"), $lang->book->articleList);
-          echo html::a($this->createLink('article', 'create', "type=$book->key"), $lang->book->createArticle);
+          echo html::a($this->createLink('tree', 'browse', "type=book_$book->key"), $lang->book->directory);
+          echo html::a($this->createLink('article', 'admin', "type=book_$book->key"), $lang->book->articleList);
+          echo html::a($this->createLink('article', 'create', "type=book_$book->key"), $lang->book->createArticle);
           ?>
         </td>
       </tr>
