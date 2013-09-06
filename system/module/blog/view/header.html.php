@@ -68,20 +68,6 @@ js::import($jsRoot . 'respond/min.js');
        <div class="nav pull-right">
        <?php echo commonModel::printTopBar();?> | <?php echo html::a($config->webRoot, $lang->blog->siteHome);?>
        </div>
-    </div>
-    <div class='row'>
-      <ul class="nav nav-pills pull-right">
-        <li <?php if(empty($category)) echo "class='active'"?>>
-          <?php echo html::a($this->inlink('index'), $lang->blog->home)?>
-        </li>
-        <?php 
-        foreach($navs as $nav)
-        {
-            $class= $nav->id == $category->id ? "class='active'" : "";
-            echo "<li {$class}>" . html::a($this->inlink('index', "id={$nav->id}"), $nav->name) . '</li>';
-        }
-        ?>
-      </ul>
       <?php if(isset($config->site->logo)):?>
       <?php $logo = json_decode($config->site->logo);?>
       <h3>
@@ -91,4 +77,17 @@ js::import($jsRoot . 'respond/min.js');
       <h3 class="text-muted"><?php echo $this->config->site->name?></h3>
       <?php endif;?>
     </div>
-  </div>
+    <nav id='topNav' class='navbar'>
+      <ul class='nav'>
+        <li <?php if(empty($category)) echo "class='active'"?>>
+           <?php echo html::a($this->inlink('index'), $lang->blog->home)?>
+        </li>
+        <?php 
+        foreach($navs as $nav)
+        {
+             $class= $nav->id == $category->id ? "class='active'" : "";
+             echo "<li {$class}>" . html::a($this->inlink('index', "id={$nav->id}"), $nav->name) . '</li>';
+        }
+        ?>
+      </ul>
+    </nav>
