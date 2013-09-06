@@ -24,7 +24,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->book->code;?></th>
-      <td><?php echo html::input('code', '', "class='text-1' autocomplete='off' placeholder='" . $lang->help->alnum . "'");?></td>
+      <td><?php echo html::input('code', '', "class='text-1' autocomplete='off' placeholder='" . $lang->help->codealnum . "'");?></td>
     </tr>
     <tr><th></th><td><?php echo html::submitButton();?><span class='red f-12px' id='responser' style='display: none'></span></td></tr>
   </table>
