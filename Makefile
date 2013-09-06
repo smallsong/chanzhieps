@@ -11,7 +11,7 @@ tgz:
 	mkdir chanzhieps
 	cp -frv system chanzhieps/
 	rm -fr chanzhieps/system/config/my.php
-	cp -frv www chanzhieps && rm -fr chanzhieps/www/data/* && mkdir -p chanzhieps/www/data/upload/*
+	cp -frv www chanzhieps && rm -fr chanzhieps/www/data/* && mkdir -p chanzhieps/www/data/upload/
 	rm -frv chanzhieps/system/tmp/cache/* 
 	rm -frv chanzhieps/system/tmp/extension/*
 	rm -frv chanzhieps/system/tmp/log/*
