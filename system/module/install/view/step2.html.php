@@ -36,11 +36,11 @@
     </tr>
     <tr>
       <th><?php echo $lang->install->dbName;?></th>
-      <td><?php echo html::input('dbName', 'xirang');?></td>
+      <td><?php echo html::input('dbName', 'chanzhi');?></td>
     </tr>
     <tr>
       <th><?php echo $lang->install->dbPrefix;?></th>
-      <td><?php echo html::input('dbPrefix', 'xr_') . html::checkBox('clearDB', $lang->install->clearDB);?></td>
+      <td><?php echo html::input('dbPrefix', 'eps_') . html::checkBox('clearDB', $lang->install->clearDB);?></td>
     </tr>
     <tr>
       <td colspan='2' class="a-center">
