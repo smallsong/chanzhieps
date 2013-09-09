@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <th><?php echo $lang->book->summary;?></th>
-      <td><?php echo html::textarea('summary', $book->summary, "class='area-1' rows=6");?></td>
+      <td><?php echo html::textarea('summary', $book->summary, "class='area-1' rows=4");?></td>
     </tr>
     <tr>
       <th><?php echo $lang->book->code;?></th>
