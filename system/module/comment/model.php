@@ -50,7 +50,7 @@ class commentModel extends model
             ->page($pager)
             ->fetchAll('id');
 
-        /* Get object titls and id. */
+        /* Get object titles and id. */
         $articles = array();
         $products = array();
 
@@ -67,6 +67,11 @@ class commentModel extends model
         {
             if($comment->objectType == 'article') $comment->objectTitle = isset($articleTitles[$comment->objectID]) ? $articleTitles[$comment->objectID] : '';
             if($comment->objectType == 'product') $comment->objectTitle = isset($productTitles[$comment->objectID]) ? $productTitles[$comment->objectID] : '';
+        }
+
+        foreach($comments as $comment)
+        {
+            $comment->objectViewURL = $this->getObjectLink($comment);
         }
 
         return $comments;
@@ -176,20 +181,14 @@ class commentModel extends model
      */
     public function getObjectLink($comment)
     {
-        if($comment->objectType == 'doc')
+        if($comment->objectType == 'article')
         {
-            $link = helper::createLink('help', 'read', "articleID=$comment->objectID");
-        }
-        elseif($comment->objectType == 'article')
-        {
-            $link = helper::createLink('article', 'view', "articleID=$comment->objectID");
             $link = $this->loadModel('article')->createPreviewLink($comment->objectID);
         }
         elseif($comment->objectType == 'product')
         {
-            $link = helper::createLink('product', 'view', "prodcutID=$comment->objectID");
+            $link = commonModel::createFrontLink('product', 'view', "prodcutID=$comment->objectID");
         }
-
 
         return $link;
     }

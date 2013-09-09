@@ -38,10 +38,9 @@
         <?php 
         $config->requestType = $config->frontRequestType;
 
-        $objectViewURL = $this->createLink($comment->objectType, 'view', "id=$comment->objectID");
         if($comment->objectTitle != '')
         {
-            $objectViewLink = html::a($objectViewURL, $comment->objectTitle, '_blank');
+            $objectViewLink = html::a($comment->objectViewURL, $comment->objectTitle, '_blank');
         }
         else
         {
@@ -60,7 +59,7 @@ EOT;
         <?php 
         echo html::a(inlink('delete', "commentID=$comment->id&type=single&status=$status"), $lang->comment->delete, '', "class='deleter'");
         if($status == 0) echo html::a(inlink('pass', "commentID=$comment->id&type=single"), $lang->comment->pass,   '', "class='pass'");
-        echo html::a($objectViewURL . '#comment', $lang->comment->reply, '_blank');
+        echo html::a($comment->objectViewURL . '#comment', $lang->comment->reply, '_blank');
         echo '<br />';
         if($status == 0) echo html::a(inlink('delete', "commentID=$comment->id&type=pre&status=$status"), $lang->comment->deletePre, '', "class='pre' data-confirm='{$lang->comment->confirmDeletePre}'");
         if($status == 0) echo html::a(inlink('pass',   "commentID=$comment->id&type=pre"), $lang->comment->passPre, '', "class='pre' data-confirm='{$lang->comment->confirmPassPre}'");

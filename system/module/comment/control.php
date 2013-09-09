@@ -77,10 +77,9 @@ class comment extends control
         $this->app->loadClass('pager', $static = true);
         $pager = new pager($recTotal, $recPerPage, $pageID);
 
-        $this->view->comments = $this->comment->getList($status, $pager);
-        $this->view->pager    = $pager;
-        
-        $this->view->status = $status;
+        $this->view->comments    = $this->comment->getList($status, $pager);
+        $this->view->pager       = $pager;
+        $this->view->status      = $status;
         $this->view->currentMenu = $status == 0 ? 0 : 1;
         $this->display();
     }
