@@ -8,7 +8,7 @@ body {padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url("
 .header h3 {margin-top: 0; margin-bottom: 0; line-height: 40px; padding-bottom: 19px;}
 
 /* Bordered the nav of header. */
-.header>.nav{border-bottom: 1px solid #e5e5e5;	border-top: 1px solid #e5e5e5;	padding: 10px 0;}
+.header>.nav{border-bottom: 1px solid #e5e5e5;	border-top: 1px solid #e5e5e5;	padding: 10px 0; font-weight: bold;}
 
 /* Breadcrumb style. */
 .breadcrumb{background-color: transparent; padding:0 3px;}
@@ -19,7 +19,8 @@ body {padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url("
 .media-list>.media h3{line-height: 2em;}
 .media-list>.media .dater,.content-box .dater{display: inline-block; position: relative; margin: 8px 5px 0 -15px;	padding: 5px 10px; background-color: #C5C5C5; color: #FFF;}
 .media-list>.media:hover .dater{background-color: #AAA;}
-.content-box .info{margin-bottom: 20px;}
+.content-box .info{margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;}
+.content-box .dater{margin-bottom: -15px;}
 
 /* Page style. */
 .page{padding: 10px;}
