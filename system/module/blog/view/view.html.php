@@ -22,8 +22,8 @@ include '../../common/view/treeview.html.php';
   <div class='col-md-9'>
     <div class='content-box clearfix radius'>
       <div class='dater'><?php echo date('Y/m/d', strtotime($article->addedDate));?></div>
-      <h1 class='a-center'><?php echo $article->title;?></h1>
-      <div class='f-12px mb-10px a-center'>
+      <h1 class='text-center'><?php echo $article->title;?></h1>
+      <div class='text-center info'>
         <?php
         printf($lang->article->lblAuthor,    $article->author);
         if($article->original)

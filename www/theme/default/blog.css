@@ -6,7 +6,7 @@ body { padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url(
 
 /* Customize container. */
 @media (min-width: 970px) {
-  .container {max-width: 940px;}
+  .container {max-width: 970px;}
 }
 
 /* Make the masthead heading the same height as the navigation. */
@@ -22,16 +22,7 @@ body { padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url(
 /* Breadcrumb style. */
 .breadcrumb{
 	background-color: transparent;
-	padding:0;
-}
-.breadcrumb:before{
-	display: inline-block;
-	font-size: large;
-	color: #AAA;
-	content: "\f124";
-	margin: 0 7px;
-	font-family: FontAwesome;
-	-webkit-font-smoothing: antialiased;
+	padding:0 3px;
 }
 
 /* Customize content & media list. */
@@ -39,13 +30,15 @@ body { padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url(
 	border-radius: 2px;
 	border: 1px solid #e5e5e5;
 	background-color: #FFF;
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.025);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.025);
 	padding: 15px;
 }
 .media-list>.media:hover,.content-box:hover{
 	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.125);
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.125);
 }
-.media-list>.media h3,.content-box h1{
+.media-list>.media h3{
 	line-height: 2em;
 }
 .media-list>.media .dater,.content-box .dater{
@@ -53,11 +46,14 @@ body { padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url(
 	position: relative;
 	margin: 8px 5px 0 -15px;
 	padding: 5px 10px;
-	background-color: #CCC;
+	background-color: #C5C5C5;
 	color: #FFF;
 }
 .media-list>.media:hover .dater{
-	background-color: #C1C1C1;
+	background-color: #AAA;
+}
+.content-box .info{
+	margin-bottom: 20px;
 }
 
 /* Page style. */
@@ -65,8 +61,15 @@ body { padding-bottom: 20px; padding-top: 20px; background:#F1F1F1 repeat-x url(
 	padding: 10px;
 }
 
+/* Comment box. */
 #commentBox{
 	margin-top: 20px;
+}
+#commentBox .table-form{
+	background-color: #fff;
+}
+#commentList{
+	background-color: #fff;
 }
 
 /* Custom page footer. */
