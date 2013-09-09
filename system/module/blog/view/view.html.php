@@ -18,29 +18,28 @@ js::set('articleID', $article->id);
 include '../../common/view/treeview.html.php';
 ?>
 <?php echo $common->printPositionBar($category);?>
-<div class='row blogBox'>
+<div class='row'>
   <div class='col-md-9'>
-    <div class='box radius'>
-      <div class='content'>
-        <h1 class='a-center'><?php echo $article->title;?></h1>
-        <div class='f-12px mb-10px a-center'>
-          <?php
-          printf($lang->article->lblAuthor,    $article->author);
-          if($article->original)
-          {
-              echo "<strong>{$lang->article->originalList[$article->original]}</strong>";
-          }
-          else
-          {
-              printf($lang->article->lblSource);
-              $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite); 
-          }
-          printf($lang->article->lblViews, $article->views);
-          ?>
-        </div>
-        <p><?php echo $article->content;?></p>
-        <div class='f-left'><?php $this->loadModel('file')->printFiles($article->files);?></div>
+    <div class='content-box clearfix radius'>
+      <div class='dater'><?php echo date('Y/m/d', strtotime($article->addedDate));?></div>
+      <h1 class='text-center'><?php echo $article->title;?></h1>
+      <div class='text-center info'>
+        <?php
+        printf($lang->article->lblAuthor,    $article->author);
+        if($article->original)
+        {
+            echo "<strong>{$lang->article->originalList[$article->original]}</strong>";
+        }
+        else
+        {
+            printf($lang->article->lblSource);
+            $article->copyURL ? print(html::a($article->copyURL, $article->copySite, '_blank')) : print($article->copySite); 
+        }
+        printf($lang->article->lblViews, $article->views);
+        ?>
       </div>
+      <p><?php echo $article->content;?></p>
+      <div class='f-left'><?php $this->loadModel('file')->printFiles($article->files);?></div>
     </div>
     <div id='commentBox'></div>
     <?php echo html::a('', '', '', "name='comment'");?>

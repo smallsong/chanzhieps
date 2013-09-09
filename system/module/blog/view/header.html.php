@@ -64,30 +64,32 @@ js::import($jsRoot . 'respond/min.js');
 <body>
 <div class='container'>
   <div class="header">
-    <div class='row' id='top-header'> 
-       <div class="nav pull-right">
-       <?php echo commonModel::printTopBar();?> | <?php echo html::a($config->webRoot, $lang->blog->siteHome);?>
-       </div>
+    <div class="header-top">
+      <div class="nav pull-right">
+        <?php echo commonModel::printTopBar();?> | <?php echo html::a($config->webRoot, $lang->blog->siteHome);?>
+      </div>
       <?php if(isset($config->site->logo)):?>
       <?php $logo = json_decode($config->site->logo);?>
       <h3>
         <?php echo html::a($this->config->webRoot, html::image($logo->webPath, "id='logo' title='{$this->config->company->name}'"));?>
       </h3>
       <?php else:?>
-      <h3 class="text-muted"><?php echo $this->config->site->name?></h3>
-      <?php endif;?>
+      <h3><?php echo $this->config->site->name?></h3>
+      <?php endif;?>      
     </div>
-    <nav id='topNav' class='navbar'>
-      <ul class='nav'>
-        <li <?php if(empty($category)) echo "class='active'"?>>
-           <?php echo html::a($this->inlink('index'), $lang->blog->home)?>
-        </li>
-        <?php 
-        foreach($navs as $nav)
-        {
-             $class= $nav->id == $category->id ? "class='active'" : "";
-             echo "<li {$class}>" . html::a($this->inlink('index', "id={$nav->id}"), $nav->name) . '</li>';
-        }
-        ?>
-      </ul>
-    </nav>
+    <ul class="nav nav-pills">
+      <li <?php if(empty($category)) echo "class='active'"?>>
+         <?php echo html::a($this->inlink('index'), $lang->blog->home)?>
+      </li>
+      <?php 
+      foreach($navs as $nav)
+      {
+        $class= $nav->id == $category->id ? "class='active'" : "";
+        echo "<li {$class}>" . html::a($this->inlink('index', "id={$nav->id}"), $nav->name) . '</li>';
+      }
+      ?>
+      <li>
+        <?php echo html::a(helper::createLink('rss', 'index', '', 'xml') . '?type=blog', '<i class="icon icon-rss"></i> RSS', '_blank'); ?>
+      </li>
+    </ul>
+  </div>
