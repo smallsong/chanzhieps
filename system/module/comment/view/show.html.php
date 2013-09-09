@@ -50,7 +50,7 @@ if(isset($comments) and $comments):?>
           </td>
         </tr>
         <tr id='captchaBox' style="display:none;"></tr>  
-        <tr><td></td><td><div class='col-lg-11'><?php echo html::submitButton();?></div></td></tr>
+        <tr><td></td><td><div class=''><?php echo html::submitButton();?></div></td></tr>
       </tbody>
     </table>
   </form>
