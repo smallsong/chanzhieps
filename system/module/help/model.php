@@ -30,7 +30,7 @@ class helpModel extends model
         $order = 1;
         foreach($allCategories as $thisCategory)
         {
-            if($categoryID == $thisCategory->id)break;
+            if($categoryID == $thisCategory->id) break;
             $order++;
         }
         return $order;

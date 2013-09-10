@@ -42,7 +42,7 @@ class help extends control
         {
             $result = $this->help->createBook();
             if($result === true) $this->send(array('result' => 'success', 'locate' => $this->inlink('admin')));
-            $this->send(array('result' => 'fail', 'message' =>$result));
+            $this->send(array('result' => 'fail', 'message' => $result));
         }
 
         $this->display(); 
@@ -64,8 +64,8 @@ class help extends control
             $this->send(array('result' => 'fail', 'message' => $result));
         }
 
-        $this->view->id    = $id;
-        $this->view->book  = $this->help->getBookByID($id);
+        $this->view->id   = $id;
+        $this->view->book = $this->help->getBookByID($id);
         $this->display();
     }
 
