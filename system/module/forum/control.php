@@ -103,7 +103,7 @@ class forum extends control
             $lastReply = $this->dao->select('*')->from(TABLE_REPLY)->where('thread')->eq($threadID)->orderBy('id desc')->limit(1)->fetch('', false);
             if($lastReply)
             {
-                $replies   = $this->dao->select('count(*) as count')->from(TABLE_REPLY)->where('thread')->eq($threadID)->fetch('count', false);
+                $replies = $this->dao->select('count(*) as count')->from(TABLE_REPLY)->where('thread')->eq($threadID)->fetch('count', false);
                 $data->replies     = $replies;
                 $data->repliedBy   = $lastReply->author;
                 $data->repliedDate = $lastReply->addedDate;
