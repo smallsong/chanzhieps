@@ -87,3 +87,7 @@ define('TABLE_GROUP',    $config->db->prefix . 'group');
 define('TABLE_FILE',     $config->db->prefix . 'file');
 define('TABLE_DOWN',     $config->db->prefix . 'down');
 define('TABLE_MESSAGE',  $config->db->prefix . 'message');
+
+/* Include extension config files. */
+$extConfigFiles = glob($configRoot . 'ext/*.php');
+if($extConfigFiles) foreach($extConfigFiles as $extConfigFile) include $extConfigFile;
