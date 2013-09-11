@@ -1377,8 +1377,12 @@ class router
         else
         {
             $mainConfigFile = $this->getModulePath($moduleName) . 'config.php';
-            $extConfigPath  = $this->getModuleExtPath($moduleName, 'config');
-            $extConfigFiles = helper::ls($extConfigPath, '.php');
+            
+            /* Get config extension. */
+            $extConfigPath        = $this->getModuleExtPath($moduleName, 'config');
+            $commonExtConfigFiles = helper::ls($extConfigPath['common'], '.php');
+            $siteExtConfigFiles   = helper::ls($extConfigPath['site'], '.php');
+            $extConfigFiles       = array_merge($commonExtConfigFiles, $siteExtConfigFiles);
         }
 
         /* Set the files to include. */
@@ -1465,8 +1469,12 @@ class router
     {
         $modulePath   = $this->getModulePath($moduleName);
         $mainLangFile = $modulePath . 'lang' . DS . $this->clientLang . '.php';
-        $extLangPath  = $this->getModuleExtPath($moduleName, 'lang');
-        $extLangFiles = helper::ls($extLangPath . $this->clientLang, '.php');
+
+        /* get ext lang files. */
+        $extLangPath        = $this->getModuleExtPath($moduleName, 'lang');
+        $commonExtLangFiles = helper::ls($extLangPath['common'] . $this->clientLang, '.php');
+        $siteExtLangFiles   = helper::ls($extLangPath['site'] . $this->clientLang, '.php');
+        $extLangFiles       = array_merge($commonExtLangFiles, $siteExtLangFiles);
 
         /* Set the files to includ. */
         if(!is_file($mainLangFile))

@@ -284,8 +284,8 @@ img.logo{max-height: 100px; margin-bottom: 10px;}
 #topNav a:hover, #topNav li.active a {color: #fff; background: #3280fc; transition: all .6s; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;}
 #topNav ul li:first-child a {-moz-border-radius: 3px 0 0 3px; -webkit-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px;}
 #topNav ul li:last-child  a {border-right: 0 none;}
-#topNav ul.children a {color:#333; width:138px; padding:8px 0; display:block;}
-#topNav ul.children a:hover{color: #fff;}
+#topNav ul.children a {color:#F2F2F2; background: #0358DE; width:138px; padding:8px 0; display:block;}
+#topNav ul.children a:hover{color: #fff;background: #3280fc;}
 #topNav ul.children li:first-child a {border-radius: 0;}
 
 /* nav hover position settings.*/
