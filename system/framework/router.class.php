@@ -1407,7 +1407,11 @@ class router
 
         if($moduleName == 'common')
         {
+            $this->config = $config;
+            $this->setSiteCode();
+            $commonConfigFile = $this->configRoot . "common.php";
             $siteConfigFile = $this->configRoot . "sites/{$this->siteCode}.php";
+            if(is_file($commonConfigFile)) include $commonConfigFile;
             if(is_file($siteConfigFile)) include $siteConfigFile;
         }
 
@@ -1435,7 +1439,6 @@ class router
 
         /* Assign config to router and set site code if the module is common. */
         $this->config = $config;
-        if($moduleName == 'common') $this->setSiteCode();
         return $config;
     }
 

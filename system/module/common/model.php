@@ -182,7 +182,7 @@ class commonModel extends model
             if(commonModel::hasPriv($module, $method))
             {
                 $link  = helper::createLink($module, $method, $vars);
-                $string .= "<li$class><a href='$link' id='menu$key'>$label</a></li>\n";
+                $string .= "<li$class><a href='$link'>$label</a></li>\n";
             }
         }
 
@@ -233,7 +233,7 @@ class commonModel extends model
                 $class = '';
                 if($module == $currentModule && $method == $currentMethod) $class = " class='active'";
                 if($module == $currentModule && strpos($methodAlias, $currentMethod) !== false) $class = " class='active'";
-                $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label, '', "id='submenu$key'") . "</li>\n";
+                $string .= "<li{$class}>" . html::a(helper::createLink($module, $method, $vars), $label) . "</li>\n";
             }
         }
 
